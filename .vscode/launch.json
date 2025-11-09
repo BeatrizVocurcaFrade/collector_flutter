@@ -1,37 +1,14 @@
 {
-    // Configurações de execução para o pacote collector_flutter e seu exemplo
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "collector_flutter (example - debug)",
+            "name": "collector_flutter (example - chrome)",
             "program": "example/lib/main.dart",
             "cwd": "collector_flutter",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug"
-        },
-        {
-            "name": "collector_flutter (example - profile)",
-            "program": "example/lib/main.dart",
-            "cwd": "collector_flutter",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "collector_flutter (example - release)",
-            "program": "example/lib/main.dart",
-            "cwd": "collector_flutter",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
-            "name": "collector_flutter (package only)",
-            "program": "lib/collector_flutter.dart",
-            "cwd": "collector_flutter",
-            "request": "launch",
-            "type": "dart"
+            "flutterMode": "debug",
+            "deviceId": "chrome"
         }
     ]
 }

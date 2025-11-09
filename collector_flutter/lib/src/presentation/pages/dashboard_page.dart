@@ -1,13 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui show FrameTiming;
+
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../core/recommender.dart';
 import '../cubit/cubit.dart';
 import '../resource_collector.dart';
 
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({super.key});
+  final ResourceCollector collector;
+  const DashboardPage({super.key, required this.collector});
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -19,87 +20,232 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    collector = ResourceCollector();
-    collector.start();
-    collector.bloc.dispatch(CollectorStart());
-    collector.bloc.stream.listen((_) => mounted ? setState(() {}) : null);
+    collector = widget.collector;
+    collector.bloc.stream.listen((state) {
+      if (mounted) setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final state = collector.bloc.state;
 
-    if (state is CollectorData) {
-      final fps = state.analysis.estimatedFps.toStringAsFixed(1);
-      final memoryMB = (state.analysis.memoryBytes / (1024 * 1024))
-          .toStringAsFixed(1);
-      final recs = state.recommendations;
-
-      return SingleChildScrollView(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(context, fps, memoryMB, state.analysis.longFrames),
-            const SizedBox(height: 20),
-            _buildChart(context, state.telemetry.frameTimings),
-            const SizedBox(height: 20),
-            _buildRecommendations(recs),
-          ],
-        ),
-      );
-    }
-
-    if (state is CollectorError) {
-      return Center(child: Text('Erro: ${state.message}'));
-    }
-
-    return const Center(child: CircularProgressIndicator());
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 500),
+      child: Builder(
+        builder: (_) {
+          if (state is CollectorData) {
+            return _buildDashboard(context, state);
+          } else if (state is CollectorError) {
+            return Center(
+              child: Text(
+                '⚠️ Erro: ${state.message}',
+                style: const TextStyle(color: Colors.redAccent),
+              ),
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+    );
   }
 
-  Widget _buildHeader(BuildContext context, String fps, String mem, int jank) {
+  Widget _buildDashboard(BuildContext context, CollectorData state) {
+    final fps = state.analysis.estimatedFps.toStringAsFixed(1);
+    final memoryMB = (state.analysis.memoryBytes / (1024 * 1024))
+        .toStringAsFixed(1);
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10),
+          MetricHeader(
+            fps: fps,
+            memory: memoryMB,
+            jank: state.analysis.longFrames,
+          ),
+          const SizedBox(height: 10),
+          FrameChart(frames: state.telemetry.frameTimings),
+          const SizedBox(height: 10),
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 500),
+            opacity: 1.0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.tips_and_updates_outlined),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Recomendações',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 10),
+                ...state.recommendations.map(
+                  (r) => RecommendationCardTile(r: r),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//
+// ──────────────────────────────── METRICS ────────────────────────────────
+//
+
+class MetricHeader extends StatelessWidget {
+  final String fps;
+  final String memory;
+  final int jank;
+
+  const MetricHeader({
+    super.key,
+    required this.fps,
+    required this.memory,
+    required this.jank,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _metricCard('FPS', fps, 'Frames por segundo — ideal acima de 55.'),
-        _metricCard('Memória', '$mem MB', 'Memória RSS do processo Flutter.'),
-        _metricCard(
-          'Jank',
-          '$jank frames',
-          'Frames longos acima do limite (travamentos visuais).',
+        MetricCard(
+          icon: Icons.speed,
+          title: 'FPS',
+          value: fps,
+          color: Colors.greenAccent.shade400,
+          info:
+              'Indica fluidez da interface.\nIdeal acima de 55 FPS.\n💡 Evite rebuilds desnecessários.',
+        ),
+        SizedBox(width: 10),
+        MetricCard(
+          icon: Icons.memory,
+          title: 'Memória',
+          value: '$memory MB',
+          color: Colors.blueAccent.shade400,
+          info:
+              'Mostra o uso de memória (RSS).\nAcima de 200MB pode indicar leaks.\n💡 Revise listas, streams e caches.',
+        ),
+        SizedBox(width: 10),
+        MetricCard(
+          icon: Icons.warning_amber,
+          title: 'Jank',
+          value: '$jank frames',
+          color: Colors.orange.shade400,
+          info:
+              'Frames lentos (>16ms).\n💡 Use profiling e minimize trabalho dentro de setState().',
         ),
       ],
     );
   }
+}
 
-  Widget _metricCard(String label, String value, String help) {
-    return Tooltip(
-      message: help,
-      child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: Container(
-          width: 110,
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            children: [
-              Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 6),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+class MetricCard extends StatelessWidget {
+  final String title;
+  final String value;
+  final String info;
+  final Color color;
+  final IconData icon;
+
+  const MetricCard({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.color,
+    required this.icon,
+    required this.info,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => _showInfo(context),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        width: 95,
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          color: color.withValues(alpha: 0.08),
+          boxShadow: [
+            BoxShadow(
+              color: color.withValues(alpha: 0.25),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 26, color: color.darken()),
+            const SizedBox(height: 6),
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: color.darken(),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              value,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: color.darken(),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildChart(BuildContext context, List<FrameTiming> frames) {
+  void _showInfo(BuildContext context) {
+    showDialog(
+      context: context,
+      builder:
+          (_) => AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            title: Text(title),
+            content: Text(info, style: const TextStyle(fontSize: 15)),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Entendi'),
+              ),
+            ],
+          ),
+    );
+  }
+}
+
+//
+// ──────────────────────────────── FRAME CHART ────────────────────────────────
+//
+
+class FrameChart extends StatelessWidget {
+  final List<ui.FrameTiming> frames;
+  const FrameChart({super.key, required this.frames});
+
+  @override
+  Widget build(BuildContext context) {
     final data =
         frames.takeLast(50).map((f) {
           return _FrameSample(
@@ -108,67 +254,123 @@ class _DashboardPageState extends State<DashboardPage> {
           );
         }).toList();
 
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SfCartesianChart(
-          primaryXAxis: NumericAxis(isVisible: false),
-          primaryYAxis: NumericAxis(title: AxisTitle(text: 'ms por frame')),
-          series: <CartesianSeries<_FrameSample, double>>[
-            AreaSeries<_FrameSample, double>(
-              dataSource: data,
-              xValueMapper: (d, _) => d.x,
-              yValueMapper: (d, _) => d.y,
-              gradient: LinearGradient(
-                colors: [
-                  Colors.blueAccent.withValues(alpha: 0.6),
-                  Colors.blueAccent.withValues(alpha: 0.1),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-              name: 'Frame Time',
-              animationDuration: 800,
+    return SizedBox(
+      height: 200,
+      child: Card(
+        elevation: 5,
+        shadowColor: Colors.blueAccent.withValues(alpha: 0.3),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: SfCartesianChart(
+            borderWidth: 0,
+            plotAreaBorderWidth: 0,
+            primaryXAxis: NumericAxis(isVisible: false),
+            primaryYAxis: NumericAxis(
+              title: AxisTitle(text: 'ms por frame'),
+              axisLine: const AxisLine(width: 0),
+              labelStyle: const TextStyle(color: Colors.grey),
             ),
-          ],
+            series: <CartesianSeries<_FrameSample, double>>[
+              SplineAreaSeries<_FrameSample, double>(
+                dataSource: data,
+                xValueMapper: (d, _) => d.x,
+                yValueMapper: (d, _) => d.y,
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.blueAccent.withValues(alpha: 0.6),
+                    Colors.blueAccent.withValues(alpha: 0.05),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+                splineType: SplineType.cardinal,
+                name: 'Frame Time',
+                animationDuration: 800,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//
+// ──────────────────────────────── RECOMMENDATIONS ────────────────────────────────
+//
+
+class RecommendationCardTile extends StatelessWidget {
+  final Recommendation r;
+  const RecommendationCardTile({super.key, required this.r});
+
+  @override
+  Widget build(BuildContext context) {
+    final color = _colorFor(r.severity);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        child: ListTile(
+          leading: Icon(_iconFor(r.severity), color: color, size: 30),
+          title: Text(
+            r.title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: color.darken(),
+            ),
+          ),
+          subtitle: Text(r.detail, maxLines: 2, softWrap: true),
+          onTap: () => _showSnack(context, color),
         ),
       ),
     );
   }
 
-  Widget _buildRecommendations(List<Recommendation> recs) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Recomendações', style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox(height: 10),
-        ...recs.map(
-          (r) => Card(
-            color: _colorFor(r.severity).withValues(alpha: 0.1),
-            child: ListTile(
-              leading: Icon(Icons.lightbulb, color: _colorFor(r.severity)),
-              title: Text(r.title),
-              subtitle: Text(r.detail),
-            ),
-          ),
+  void _showSnack(BuildContext context, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: color.withValues(alpha: 0.9),
+        content: Text(
+          '${r.title}\n${r.detail}',
+          style: const TextStyle(color: Colors.white),
         ),
-      ],
+        duration: const Duration(seconds: 4),
+      ),
     );
   }
 
-  Color _colorFor(Severity s) {
-    switch (s) {
-      case Severity.high:
-        return Colors.red;
-      case Severity.medium:
-        return Colors.orange;
-      case Severity.low:
-        return Colors.yellow.shade800;
-      case Severity.info:
-        return Colors.green;
-    }
+  Color _colorFor(Severity s) => switch (s) {
+    Severity.high => Colors.redAccent,
+    Severity.medium => Colors.orangeAccent,
+    Severity.low => Colors.amber.shade700,
+    Severity.info => Colors.greenAccent.shade700,
+  };
+
+  IconData _iconFor(Severity s) => switch (s) {
+    Severity.high => Icons.warning,
+    Severity.medium => Icons.report_problem,
+    Severity.low => Icons.lightbulb,
+    Severity.info => Icons.check_circle,
+  };
+}
+
+//
+// ──────────────────────────────── HELPERS ────────────────────────────────
+//
+
+extension TakeLastExtension<T> on List<T> {
+  List<T> takeLast(int n) =>
+      length <= n ? List<T>.from(this) : sublist(length - n);
+}
+
+extension ColorShade on Color {
+  Color darken([double amount = .2]) {
+    final hsl = HSLColor.fromColor(this);
+    return hsl
+        .withLightness((hsl.lightness - amount).clamp(0.0, 1.0))
+        .toColor();
   }
 }
 
@@ -176,11 +378,4 @@ class _FrameSample {
   final double x;
   final double y;
   _FrameSample(this.x, this.y);
-}
-
-extension TakeLastExtension<T> on List<T> {
-  List<T> takeLast(int n) {
-    if (length <= n) return List<T>.from(this);
-    return sublist(length - n);
-  }
 }

@@ -1,59 +1,81 @@
+import 'package:flutter/foundation.dart';
+
 import 'analyzer.dart';
 
-/// Gera recomendações textuais e prioridade com base em análisis.
+/// Gera recomendações textuais e prioridade com base em análises.
 class Recommender {
   List<Recommendation> generate(AnalysisResult res) {
     final List<Recommendation> out = [];
 
-    if (res.estimatedFps < 45) {
+    final modeLabel = kReleaseMode ? 'Release' : 'Debug/Profile';
+
+    // Ajuste de limiares conforme modo
+    final memLimit = kReleaseMode ? 300 : 600;
+    final fpsLimit = kReleaseMode ? 50 : 40;
+
+    // FPS baixo
+    if (res.estimatedFps < fpsLimit && res.estimatedFps > 0) {
       out.add(
         Recommendation(
           title: 'Melhore a performance de frames',
           detail:
-              'Média de frame ${res.avgFrameMs.toStringAsFixed(1)} ms. Verifique builds desnecessários e operações pesadas em main thread.',
+              'A média de FPS está em ${res.estimatedFps.toStringAsFixed(1)}.\n'
+              'Tempo médio de frame: ${res.avgFrameMs.toStringAsFixed(1)} ms.\n\n'
+              '💡 Dica: evite rebuilds desnecessários, mova cálculos pesados para Isolates ou use const widgets.',
           severity: Severity.high,
         ),
       );
     }
-
-    if (res.longFrames > 3) {
+    // Jank
+    if (res.longFrames > 5) {
       out.add(
         Recommendation(
-          title: 'Investigue jank',
+          title: 'Investigue jank (travamentos de frame)',
           detail:
-              'Foram detectados ${res.longFrames} frames acima de ${res.avgFrameMs.toStringAsFixed(1)} ms.',
-          severity: Severity.medium,
+              'Foram detectados ${res.longFrames} frames longos.\n\n'
+              'Modo atual: ${kReleaseMode ? "Release" : "Debug/Profile"}.\n'
+              '💡 Em Debug, alguns frames lentos são esperados devido ao overhead do Flutter DevTools e hot reload.',
+          severity: kReleaseMode ? Severity.medium : Severity.low,
         ),
       );
     }
 
-    if (res.memoryBytes > 200 * 1024 * 1024) {
+    // Memória
+    final memoryMB = res.memoryBytes / (1024 * 1024);
+    if (memoryMB > memLimit) {
       out.add(
         Recommendation(
           title: 'Uso de memória elevado',
           detail:
-              'Memória atual ${(res.memoryBytes / (1024 * 1024)).toStringAsFixed(1)} MB. Verifique leaks ou caches sem limite.',
-          severity: Severity.high,
+              'Memória atual: ${memoryMB.toStringAsFixed(1)} MB (modo $modeLabel).\n\n'
+              '💡 Dica: valores entre 300–500 MB são normais em Debug/Profile.\n'
+              'Se ultrapassar 600 MB de forma persistente, investigue listas grandes, imagens em cache ou Streams não canceladas.',
+          severity: kReleaseMode ? Severity.high : Severity.low,
         ),
       );
     }
 
+    // Rede
     if (res.networkRequests > 50) {
       out.add(
         Recommendation(
           title: 'Muitas requisições de rede',
           detail:
-              'Total de requisições: ${res.networkRequests}. Considere batch, debounce ou caching.',
+              'Foram feitas ${res.networkRequests} requisições.\n\n'
+              '💡 Dica: use cache local, debounce ou agrupe requests simultâneos.',
           severity: Severity.low,
         ),
       );
     }
 
+    // Se não houver alertas
     if (out.isEmpty) {
       out.add(
         Recommendation(
           title: 'Tudo OK',
-          detail: 'Nenhuma anomalia detectada nas métricas coletadas.',
+          detail:
+              'Nenhuma anomalia detectada.\n\n'
+              'Modo atual: $modeLabel.\nContinue monitorando para identificar variações de performance.',
           severity: Severity.info,
         ),
       );
