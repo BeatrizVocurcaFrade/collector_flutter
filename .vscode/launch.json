@@ -2,9 +2,27 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "collector_flutter (example - chrome)",
+            "name": "collector_flutter (Android - debug)",
             "program": "example/lib/main.dart",
-            "cwd": "collector_flutter",
+            "cwd": "${workspaceFolder}/collector_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "deviceId": "emulator-5554"
+        },
+        {
+            "name": "collector_flutter (Android - profile)",
+            "program": "example/lib/main.dart",
+            "cwd": "${workspaceFolder}/collector_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "deviceId": "emulator-5554"
+        },
+        {
+            "name": "collector_flutter (Chrome - web)",
+            "program": "example/lib/main.dart",
+            "cwd": "${workspaceFolder}/collector_flutter",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",

@@ -2,8 +2,11 @@ import 'dart:async';
 import 'dart:ui' as ui show FrameTiming;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../core/analyzer.dart';
+import '../../core/export_service.dart';
 import '../../core/recommender.dart';
 import '../../data/models/telemetry_model.dart';
 import '../cubit/cubit.dart';
@@ -58,103 +61,211 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildDashboard(BuildContext context, CollectorData state) {
-    final fps = state.analysis.estimatedFps.toStringAsFixed(1);
-    final memoryMB =
-        (state.analysis.memoryBytes / (1024 * 1024)).toStringAsFixed(1);
+    final t = state.telemetry;
+    final a = state.analysis;
+    final fps = a.estimatedFps.toStringAsFixed(1);
+    final memoryMB = (a.memoryBytes / (1024 * 1024)).toStringAsFixed(1);
+    final p95Ms = a.frameStats.p95Ms.toStringAsFixed(1);
+    final trendMB = a.memoryTrendMBperMin;
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _MetricHeader(
-            fps: fps,
-            memory: memoryMB,
-            jank: state.analysis.longFrames,
-            networkCount: state.telemetry.networkEvents.length,
-          ),
-          const SizedBox(height: 12),
-          _FrameChart(frames: state.telemetry.frameTimings),
-          const SizedBox(height: 12),
-          _NetworkPanel(events: state.telemetry.networkEvents),
-          const SizedBox(height: 12),
-          _RecommendationsPanel(recommendations: state.recommendations),
-        ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // ── Session row ──────────────────────────────────────────
+        _SessionInfoRow(telemetry: t, onExport: () => _exportToClipboard(context, state)),
+        const SizedBox(height: 10),
+
+        // ── Metric cards ─────────────────────────────────────────
+        _MetricGrid(
+          fps: fps,
+          memory: memoryMB,
+          jank: a.longFrames,
+          networkCount: t.networkEvents.length,
+          p95Ms: p95Ms,
+          memoryTrendMBperMin: trendMB,
+        ),
+        const SizedBox(height: 12),
+
+        // ── Frame timing chart ───────────────────────────────────
+        _FrameChart(frames: t.frameTimings, stats: a.frameStats),
+        const SizedBox(height: 12),
+
+        // ── Network panel ────────────────────────────────────────
+        _NetworkPanel(events: t.networkEvents),
+        if (t.networkEvents.isNotEmpty) const SizedBox(height: 12),
+
+        // ── Recommendations ──────────────────────────────────────
+        _RecommendationsPanel(recommendations: state.recommendations),
+      ],
+    );
+  }
+
+  Future<void> _exportToClipboard(BuildContext context, CollectorData state) async {
+    final service = ExportService();
+    final json = service.toJson(
+      model: state.telemetry,
+      analysis: state.analysis,
+      recommendations: state.recommendations,
+    );
+    await Clipboard.setData(ClipboardData(text: json));
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Telemetria copiada para a area de transferencia (JSON)'),
+        duration: Duration(seconds: 2),
       ),
     );
   }
 }
 
-// ──────────────────────────── METRIC HEADER ────────────────────────────
+// ─── SESSION INFO ROW ────────────────────────────────────────────────────────
 
-class _MetricHeader extends StatelessWidget {
+class _SessionInfoRow extends StatelessWidget {
+  final TelemetryModel telemetry;
+  final VoidCallback onExport;
+
+  const _SessionInfoRow({required this.telemetry, required this.onExport});
+
+  @override
+  Widget build(BuildContext context) {
+    final dur = telemetry.sessionDuration;
+    final durStr = dur.inMinutes > 0
+        ? '${dur.inMinutes}m ${dur.inSeconds % 60}s'
+        : '${dur.inSeconds}s';
+
+    return Row(
+      children: [
+        const Icon(Icons.access_time, size: 14, color: Colors.grey),
+        const SizedBox(width: 4),
+        Text(
+          'Sessao: $durStr',
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+        const SizedBox(width: 12),
+        const Icon(Icons.refresh, size: 14, color: Colors.grey),
+        const SizedBox(width: 4),
+        Text(
+          '${telemetry.rebuildCount} rebuilds',
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+        const Spacer(),
+        TextButton.icon(
+          onPressed: onExport,
+          icon: const Icon(Icons.file_download_outlined, size: 16),
+          label: const Text('Exportar', style: TextStyle(fontSize: 12)),
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            minimumSize: Size.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ─── METRIC GRID ─────────────────────────────────────────────────────────────
+
+class _MetricGrid extends StatelessWidget {
   final String fps;
   final String memory;
   final int jank;
   final int networkCount;
+  final String p95Ms;
+  final double memoryTrendMBperMin;
 
-  const _MetricHeader({
+  const _MetricGrid({
     required this.fps,
     required this.memory,
     required this.jank,
     required this.networkCount,
+    required this.p95Ms,
+    required this.memoryTrendMBperMin,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    final fpsVal = double.tryParse(fps) ?? 0;
+    final trendIcon = memoryTrendMBperMin > 10
+        ? Icons.trending_up
+        : memoryTrendMBperMin < -5
+            ? Icons.trending_down
+            : Icons.trending_flat;
+    final trendColor = memoryTrendMBperMin > 50
+        ? Colors.red
+        : memoryTrendMBperMin > 10
+            ? Colors.orange
+            : Colors.green;
+
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
       children: [
-        Expanded(
-          child: _MetricCard(
-            icon: Icons.speed,
-            title: 'FPS',
-            value: fps,
-            color: _fpsColor(double.tryParse(fps) ?? 0),
-            info:
-                'Quadros por segundo renderizados.\nIdeal: acima de 55 FPS.\n'
-                'Abaixo de 30 indica lentidão grave.\n\n'
-                '💡 Evite rebuilds desnecessários e use const em widgets estáticos.',
-          ),
+        _metricCard(
+          icon: Icons.speed,
+          title: 'FPS',
+          value: fps,
+          color: _fpsColor(fpsVal),
+          info: 'Quadros por segundo renderizados.\n'
+              'Ideal: acima de 55 FPS.\n'
+              'Abaixo de 30 indica lentidao grave.\n\n'
+              'Evite rebuilds desnecessarios e use const em widgets estaticos.',
         ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: _MetricCard(
-            icon: Icons.memory,
-            title: 'Memória',
-            value: '$memory MB',
-            color: Colors.blueAccent.shade400,
-            info:
-                'Uso de memória RSS do processo.\n'
-                'Acima de 200 MB pode indicar vazamentos.\n\n'
-                '💡 Revise listas, caches e streams não cancelados.',
-          ),
+        _metricCard(
+          icon: Icons.memory,
+          title: 'Memoria',
+          value: '$memory MB',
+          color: Colors.blueAccent.shade400,
+          info: 'Uso de memoria RSS do processo.\n'
+              'Acima de 200 MB pode indicar vazamentos.\n\n'
+              'Revise listas, caches e streams nao cancelados.',
+          badge: Icon(trendIcon, size: 13, color: trendColor),
         ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: _MetricCard(
-            icon: Icons.warning_amber_rounded,
-            title: 'Jank',
-            value: '$jank',
-            color: jank > 5 ? Colors.orange.shade600 : Colors.green.shade600,
-            info:
-                'Número de frames acima do limiar de tempo.\n'
-                'Em release: >16 ms. Em debug: >50 ms.\n\n'
-                '💡 Use o Flutter DevTools timeline para inspecionar.',
-          ),
+        _metricCard(
+          icon: Icons.warning_amber_rounded,
+          title: 'Jank',
+          value: '$jank',
+          color: jank > 5 ? Colors.orange.shade600 : Colors.green.shade600,
+          info: 'Frames acima do limiar de tempo.\n'
+              'Release: >16 ms. Debug: >50 ms.\n\n'
+              'Use o Flutter DevTools timeline para inspecionar.',
         ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: _MetricCard(
-            icon: Icons.wifi,
-            title: 'Rede',
-            value: '$networkCount',
-            color: Colors.purpleAccent.shade400,
-            info:
-                'Requisições HTTP interceptadas nesta sessão.\n\n'
-                '💡 Use cache, debounce e cancele requisições obsoletas.',
-          ),
+        _metricCard(
+          icon: Icons.wifi,
+          title: 'Rede',
+          value: '$networkCount req',
+          color: Colors.purpleAccent.shade400,
+          info: 'Requisicoes HTTP interceptadas nesta sessao.\n\n'
+              'Use cache, debounce e cancele requisicoes obsoletas.',
+        ),
+        _metricCard(
+          icon: Icons.bar_chart_rounded,
+          title: 'P95 Frame',
+          value: '${p95Ms}ms',
+          color: _p95Color(double.tryParse(p95Ms) ?? 0),
+          info: 'Percentil 95 do tempo de frame.\n'
+              'Reflete a experiencia dos usuarios mais lentos.\n\n'
+              'Manter abaixo de 50 ms para evitar jank perceptivel.',
         ),
       ],
+    );
+  }
+
+  Widget _metricCard({
+    required IconData icon,
+    required String title,
+    required String value,
+    required Color color,
+    required String info,
+    Widget? badge,
+  }) {
+    return _MetricCard(
+      icon: icon,
+      title: title,
+      value: value,
+      color: color,
+      info: info,
+      badge: badge,
     );
   }
 
@@ -163,7 +274,15 @@ class _MetricHeader extends StatelessWidget {
     if (fps >= 30) return Colors.orangeAccent.shade400;
     return Colors.redAccent;
   }
+
+  Color _p95Color(double p95) {
+    if (p95 < 16.6) return Colors.green.shade600;
+    if (p95 < 50) return Colors.orange.shade600;
+    return Colors.redAccent;
+  }
 }
+
+// ─── METRIC CARD ─────────────────────────────────────────────────────────────
 
 class _MetricCard extends StatelessWidget {
   final String title;
@@ -171,6 +290,7 @@ class _MetricCard extends StatelessWidget {
   final String info;
   final Color color;
   final IconData icon;
+  final Widget? badge;
 
   const _MetricCard({
     required this.title,
@@ -178,16 +298,21 @@ class _MetricCard extends StatelessWidget {
     required this.color,
     required this.icon,
     required this.info,
+    this.badge,
   });
 
   @override
   Widget build(BuildContext context) {
     final darkColor = color.darken();
+    // Each card is ~18% of screen width so 5 fit on a 360dp screen
+    final cardWidth = (MediaQuery.of(context).size.width - 32 - 8 * 4) / 5;
+
     return GestureDetector(
       onTap: () => _showInfo(context),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+        width: cardWidth.clamp(60.0, 100.0),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: color.withOpacity(0.09),
@@ -202,24 +327,32 @@ class _MetricCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 22, color: darkColor),
-            const SizedBox(height: 5),
+            Stack(
+              alignment: Alignment.topRight,
+              children: [
+                Icon(icon, size: 20, color: darkColor),
+                if (badge != null)
+                  Positioned(right: -2, top: -2, child: badge!),
+              ],
+            ),
+            const SizedBox(height: 4),
             Text(
               title,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 11,
+                fontSize: 10,
                 color: darkColor,
               ),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 3),
+            const SizedBox(height: 2),
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
                 value,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 13,
+                  fontSize: 12,
                   color: darkColor,
                 ),
               ),
@@ -233,35 +366,33 @@ class _MetricCard extends StatelessWidget {
   void _showInfo(BuildContext context) {
     showDialog(
       context: context,
-      builder:
-          (_) => AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            title: Row(
-              children: [
-                Icon(icon, color: color.darken(), size: 22),
-                const SizedBox(width: 8),
-                Text(title),
-              ],
-            ),
-            content: Text(info, style: const TextStyle(fontSize: 14)),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Entendi'),
-              ),
-            ],
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: [
+            Icon(icon, color: color.darken(), size: 22),
+            const SizedBox(width: 8),
+            Text(title),
+          ],
+        ),
+        content: Text(info, style: const TextStyle(fontSize: 14)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Entendi'),
           ),
+        ],
+      ),
     );
   }
 }
 
-// ──────────────────────────── FRAME CHART ────────────────────────────
+// ─── FRAME CHART ─────────────────────────────────────────────────────────────
 
 class _FrameChart extends StatelessWidget {
   final List<ui.FrameTiming> frames;
-  const _FrameChart({required this.frames});
+  final FrameStats stats;
+  const _FrameChart({required this.frames, required this.stats});
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +400,7 @@ class _FrameChart extends StatelessWidget {
     final data = lastFrames.asMap().entries.map((e) {
       return _FrameSample(
         e.key.toDouble(),
-        e.value.totalSpan.inMilliseconds.toDouble(),
+        e.value.totalSpan.inMicroseconds / 1000.0,
       );
     }).toList();
 
@@ -278,82 +409,103 @@ class _FrameChart extends StatelessWidget {
         : (data.map((d) => d.y).reduce((a, b) => a > b ? a : b) * 1.2)
             .clamp(17.0, 200.0);
 
-    return SizedBox(
-      height: 180,
-      child: Card(
-        elevation: 4,
-        shadowColor: Colors.blueAccent.withOpacity(0.25),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 12, 16, 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8, bottom: 4),
-                child: Text(
-                  'Tempo de Frame (ms)',
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.blueAccent,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: SfCartesianChart(
-                  margin: EdgeInsets.zero,
-                  borderWidth: 0,
-                  plotAreaBorderWidth: 0,
-                  primaryXAxis: const NumericAxis(isVisible: false),
-                  primaryYAxis: NumericAxis(
-                    maximum: maxY,
-                    minimum: 0,
-                    interval: 16,
-                    axisLine: const AxisLine(width: 0),
-                    labelStyle: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 10,
+    return Card(
+      elevation: 4,
+      shadowColor: Colors.blueAccent.withOpacity(0.25),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 12, 16, 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8, bottom: 4),
+              child: Row(
+                children: [
+                  Text(
+                    'Tempo de Frame (ms)',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.blueAccent,
                     ),
-                    plotBands: [
-                      PlotBand(
-                        start: 16.6,
-                        end: 16.6,
-                        borderColor: Colors.red.withOpacity(0.5),
-                        borderWidth: 1,
-                        dashArray: const <double>[4, 4],
-                      ),
-                    ],
                   ),
-                  series: <CartesianSeries<_FrameSample, double>>[
-                    SplineAreaSeries<_FrameSample, double>(
-                      dataSource: data,
-                      xValueMapper: (d, _) => d.x,
-                      yValueMapper: (d, _) => d.y,
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.blueAccent.withOpacity(0.55),
-                          Colors.blueAccent.withOpacity(0.04),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderColor: Colors.blueAccent,
-                      borderWidth: 1.5,
-                      splineType: SplineType.cardinal,
-                      animationDuration: 300,
+                  const Spacer(),
+                  if (stats.sampleCount > 0) ...[
+                    _statBadge('P50', stats.p50Ms, Colors.green.shade700),
+                    const SizedBox(width: 6),
+                    _statBadge('P95', stats.p95Ms, Colors.orange.shade700),
+                    const SizedBox(width: 6),
+                    _statBadge('σ', stats.stdDevMs, Colors.grey.shade600),
+                  ],
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 160,
+              child: SfCartesianChart(
+                margin: EdgeInsets.zero,
+                borderWidth: 0,
+                plotAreaBorderWidth: 0,
+                primaryXAxis: const NumericAxis(isVisible: false),
+                primaryYAxis: NumericAxis(
+                  maximum: maxY,
+                  minimum: 0,
+                  interval: 16,
+                  axisLine: const AxisLine(width: 0),
+                  labelStyle: const TextStyle(color: Colors.grey, fontSize: 10),
+                  plotBands: [
+                    PlotBand(
+                      start: 16.6,
+                      end: 16.6,
+                      borderColor: Colors.red.withOpacity(0.5),
+                      borderWidth: 1,
+                      dashArray: const <double>[4, 4],
                     ),
                   ],
                 ),
+                series: <CartesianSeries<_FrameSample, double>>[
+                  SplineAreaSeries<_FrameSample, double>(
+                    dataSource: data,
+                    xValueMapper: (d, _) => d.x,
+                    yValueMapper: (d, _) => d.y,
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.blueAccent.withOpacity(0.55),
+                        Colors.blueAccent.withOpacity(0.04),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderColor: Colors.blueAccent,
+                    borderWidth: 1.5,
+                    splineType: SplineType.cardinal,
+                    animationDuration: 300,
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget _statBadge(String label, double value, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Text(
+        '$label ${value.toStringAsFixed(1)}ms',
+        style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.w600),
       ),
     );
   }
 }
 
-// ──────────────────────────── NETWORK PANEL ────────────────────────────
+// ─── NETWORK PANEL ───────────────────────────────────────────────────────────
 
 class _NetworkPanel extends StatelessWidget {
   final List<NetworkEvent> events;
@@ -361,9 +513,7 @@ class _NetworkPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (events.isEmpty) {
-      return const SizedBox.shrink();
-    }
+    if (events.isEmpty) return const SizedBox.shrink();
 
     final recent = events.reversed.take(5).toList();
     return Card(
@@ -379,7 +529,7 @@ class _NetworkPanel extends StatelessWidget {
                 const Icon(Icons.wifi, color: Colors.purple, size: 18),
                 const SizedBox(width: 8),
                 Text(
-                  'Requisições de Rede  (${events.length} total)',
+                  'Requisicoes de Rede  (${events.length} total)',
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.purple.shade700,
@@ -406,8 +556,9 @@ class _NetworkEventTile extends StatelessWidget {
     final statusColor = isOk ? Colors.green.shade700 : Colors.red.shade700;
     final durationMs = event.duration.inMilliseconds;
     final uri = Uri.tryParse(event.url);
-    final shortUrl =
-        uri != null ? '${uri.host}${uri.path}'.truncate(40) : event.url.truncate(40);
+    final shortUrl = uri != null
+        ? '${uri.host}${uri.path}'.truncate(40)
+        : event.url.truncate(40);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
@@ -456,7 +607,7 @@ class _NetworkEventTile extends StatelessWidget {
   }
 }
 
-// ──────────────────────────── RECOMMENDATIONS ────────────────────────────
+// ─── RECOMMENDATIONS ─────────────────────────────────────────────────────────
 
 class _RecommendationsPanel extends StatelessWidget {
   final List<Recommendation> recommendations;
@@ -476,7 +627,10 @@ class _RecommendationsPanel extends StatelessWidget {
               SizedBox(width: 10),
               Text(
                 'Nenhum problema detectado.',
-                style: TextStyle(color: Colors.green, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ],
           ),
@@ -492,7 +646,7 @@ class _RecommendationsPanel extends StatelessWidget {
             const Icon(Icons.tips_and_updates_outlined, size: 20),
             const SizedBox(width: 8),
             Text(
-              'Recomendações',
+              'Recomendacoes',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -543,7 +697,10 @@ class _RecommendationTile extends StatelessWidget {
                       const SizedBox(height: 3),
                       Text(
                         r.detail,
-                        style: const TextStyle(fontSize: 12, color: Colors.black87),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.black87,
+                        ),
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -562,28 +719,25 @@ class _RecommendationTile extends StatelessWidget {
   void _showDetail(BuildContext context, Color color) {
     showDialog(
       context: context,
-      builder:
-          (_) => AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: [
+            Icon(_iconFor(r.severity), color: color, size: 22),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(r.title, style: const TextStyle(fontSize: 16)),
             ),
-            title: Row(
-              children: [
-                Icon(_iconFor(r.severity), color: color, size: 22),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(r.title, style: const TextStyle(fontSize: 16)),
-                ),
-              ],
-            ),
-            content: Text(r.detail, style: const TextStyle(fontSize: 14)),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Fechar'),
-              ),
-            ],
+          ],
+        ),
+        content: Text(r.detail, style: const TextStyle(fontSize: 14)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Fechar'),
           ),
+        ],
+      ),
     );
   }
 
@@ -602,7 +756,7 @@ class _RecommendationTile extends StatelessWidget {
   };
 }
 
-// ──────────────────────────── HELPERS ────────────────────────────
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
 
 extension _TakeLastExt<T> on List<T> {
   List<T> takeLast(int n) =>

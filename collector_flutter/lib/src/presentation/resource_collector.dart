@@ -8,6 +8,7 @@ class ResourceCollector {
   late final MemoryDataSource _memory;
   late final HttpClientWrapper _network;
   late final EventDataSource _events;
+  late final TelemetryRepositoryImpl _repo;
   late final CollectorBloc _bloc;
 
   ResourceCollector() {
@@ -16,7 +17,7 @@ class ResourceCollector {
     _network = HttpClientWrapper.instance;
     _events = EventDataSource();
 
-    final repo = TelemetryRepositoryImpl(
+    _repo = TelemetryRepositoryImpl(
       frameSource: _frame,
       memorySource: _memory,
       networkWrapper: _network,
@@ -24,7 +25,7 @@ class ResourceCollector {
     );
 
     _bloc = CollectorBloc(
-      collectUseCase: CollectMetricsUseCase(repo),
+      collectUseCase: CollectMetricsUseCase(_repo),
       analyzeUseCase: AnalyzePerformanceUseCase(Analyzer()),
       recommendUseCase: GenerateRecommendationsUseCase(Recommender()),
     );
@@ -49,6 +50,9 @@ class ResourceCollector {
 
   void recordEvent(String name, dynamic value) =>
       _events.recordEvent(name, value);
+
+  /// Registra um rebuild de widget para rastreamento de excessos.
+  void trackRebuild() => _repo.incrementRebuild();
 
   HttpClientWrapper get network => _network;
   CollectorBloc get bloc => _bloc;

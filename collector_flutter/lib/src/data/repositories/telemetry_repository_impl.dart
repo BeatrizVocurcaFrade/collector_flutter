@@ -11,12 +11,18 @@ class TelemetryRepositoryImpl implements IResourceRepository {
   final HttpClientWrapper networkWrapper;
   final EventDataSource eventSource;
 
+  final DateTime _sessionStart = DateTime.now();
+  int _rebuildCount = 0;
+
   TelemetryRepositoryImpl({
     required this.frameSource,
     required this.memorySource,
     required this.networkWrapper,
     required this.eventSource,
   });
+
+  /// Incrementa o contador de rebuilds. Chamado via [ResourceCollector.trackRebuild].
+  void incrementRebuild() => _rebuildCount++;
 
   @override
   Future<TelemetryModel> collect() async {
@@ -30,6 +36,8 @@ class TelemetryRepositoryImpl implements IResourceRepository {
       memoryInfo: mem,
       networkEvents: network,
       customEvents: events,
+      sessionStart: _sessionStart,
+      rebuildCount: _rebuildCount,
     );
   }
 }
