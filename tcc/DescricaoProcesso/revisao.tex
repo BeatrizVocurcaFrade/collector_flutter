@@ -1,0 +1,130 @@
+\section{Revisão Bibliográfica}
+
+O desenvolvimento de soluções voltadas à eficiência computacional e energética em sistemas móveis requer uma base teórica consolidada sobre três eixos interdependentes: monitoramento de recursos, ferramentas de diagnóstico e sustentabilidade digital. A seguir, apresenta-se uma revisão integrada desses temas, que fundamenta a proposta do presente trabalho.
+
+\subsection*{Monitoramento de Recursos em Aplicações Móveis}
+
+O monitoramento de recursos em sistemas móveis constitui um tema de relevância crescente na engenharia de software contemporânea. A complexidade crescente dos \textit{frameworks} híbridos e multiplataforma demanda abordagens mais eficientes para mensurar o consumo de CPU, GPU, memória, rede e energia durante a execução das aplicações \cite{cheng2020energy, he2019crossplatform}. 
+
+Diversos estudos apontam que a ausência de práticas de monitoramento contínuo pode acarretar desperdício de recursos computacionais e degradação da experiência do usuário, especialmente em dispositivos móveis com limitações de bateria e processamento \cite{kumar2019optimization}. Nesse contexto, a análise sistemática de métricas de desempenho torna-se essencial para compreender o comportamento real das aplicações durante sua execução.
+
+Pesquisas recentes indicam que ineficiências na renderização de interfaces gráficas e na gestão de estados podem impactar significativamente o consumo de recursos. Estudos experimentais demonstram que reconstruções excessivas de componentes visuais e animações mal otimizadas podem resultar em aumento substancial do uso de CPU e da latência de renderização \cite{zhang2021energy}. 
+
+De forma semelhante, técnicas de análise baseadas em rastreamento de chamadas de sistema e eventos de renderização de quadros permitem correlacionar o comportamento interno do software com padrões de consumo energético e desempenho do sistema \cite{johnson2020monitoring}. Contudo, a coleta manual dessas métricas costuma exigir ferramentas especializadas e processos de análise complexos, dificultando sua adoção no fluxo cotidiano de desenvolvimento.
+
+Nesse cenário, surge a necessidade de ferramentas capazes de automatizar o monitoramento e a interpretação de métricas de desempenho, fornecendo informações relevantes aos desenvolvedores sem introduzir impacto significativo na execução da aplicação. Relatórios recentes sobre sustentabilidade digital indicam que pequenas melhorias na eficiência de software podem gerar reduções expressivas no consumo energético quando consideradas em escala global \cite{google2024sustainability}.
+
+\subsection*{Ferramentas de Monitoramento Existentes}
+
+O ecossistema de desenvolvimento móvel dispõe de diversas ferramentas voltadas à análise de desempenho e consumo de recursos. Essas ferramentas diferem em nível de detalhamento, complexidade de uso e integração com diferentes ambientes de desenvolvimento. A Tabela~\ref{tab:ferramentas} apresenta um comparativo entre algumas das principais soluções utilizadas atualmente.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparativo de ferramentas de monitoramento e análise de desempenho.}
+\label{tab:ferramentas}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3cm}|p{5cm}|p{7cm}|}
+\hline
+\textbf{Ferramenta} & \textbf{Principais Funcionalidades} & \textbf{Limitações Relevantes} \\
+\hline
+
+\multicolumn{3}{|c|}{\textbf{Ferramentas e Soluções de Monitoramento}} \\
+\hline
+
+\textbf{Flutter DevTools} &
+Inspeção de widgets, análise de memória, \textit{timeline} de frames e perfil de CPU. &
+Alta complexidade de uso; ausência de recomendações automáticas; dependência dos modos \textit{debug/profile}. \\
+\hline
+
+\textbf{Perfetto (AOSP)} &
+Rastreamento detalhado de processos e eventos do sistema Android com suporte a múltiplas camadas. &
+Interface técnica complexa; necessidade de scripts manuais; alto custo cognitivo na interpretação dos dados. \\
+\hline
+
+\textbf{Android Profiler} &
+Monitoramento em tempo real de CPU, memória, rede e energia diretamente no Android Studio. &
+Restrito a aplicativos Android; integração limitada com frameworks multiplataforma. \\
+\hline
+
+\textbf{Xcode Instruments} &
+Coleta avançada de métricas de energia, CPU e renderização para dispositivos iOS. &
+Execução restrita ao ecossistema Apple; coleta manual de dados; elevado \textit{overhead}. \\
+\hline
+
+\textbf{Firebase Performance} &
+Monitoramento automático de tempos de carregamento e chamadas de rede em ambiente de produção. &
+Granularidade limitada; ausência de métricas detalhadas de CPU e consumo energético. \\
+\hline
+
+\textbf{Flipper (Meta)} &
+Ferramenta de depuração para aplicações \textit{React Native} com análise de rede e layout. &
+Compatibilidade limitada com Flutter; necessidade de integrações adicionais. \\
+\hline
+
+\textbf{LeakCanary} &
+Detecção automatizada de vazamentos de memória em aplicações Android nativas. &
+Foco exclusivo em memória; ausência de métricas de CPU, GPU ou energia. \\
+\hline
+
+\end{tabular}
+\vspace{-0.4cm}
+\end{table}
+
+Apesar da ampla disponibilidade dessas ferramentas, muitas delas foram projetadas para diagnósticos pontuais e exigem conhecimento técnico avançado para interpretação dos dados coletados. Estudos indicam que grande parte dessas soluções não oferece recomendações automáticas de otimização, exigindo que o desenvolvedor analise manualmente os resultados obtidos \cite{kumar2019optimization}. 
+
+Ferramentas como o Flutter DevTools fornecem informações detalhadas sobre a execução da aplicação, porém sua utilização exige familiaridade com o funcionamento interno do Flutter Engine e dos modos de execução da plataforma \cite{google2024devtools}. 
+
+De forma semelhante, soluções de rastreamento em nível de sistema, como o Perfetto, oferecem medições altamente precisas, porém demandam configuração manual e análise posterior dos dados coletados \cite{aosp2024}. Já ferramentas voltadas ao monitoramento em produção, como o Firebase Performance Monitoring, simplificam o processo de coleta de métricas, mas não fornecem granularidade suficiente para diagnósticos detalhados de desempenho.
+
+Além disso, a ausência de padronização entre diferentes ferramentas de monitoramento dificulta a comparação de resultados entre plataformas e ambientes de execução, constituindo um desafio adicional para pesquisadores e desenvolvedores interessados em avaliar a eficiência de aplicações móveis \cite{kumar2019optimization}.
+
+\subsection*{Estudos Acadêmicos Relacionados}
+
+Diversos trabalhos acadêmicos investigam técnicas de monitoramento de desempenho e consumo energético em aplicações móveis, reforçando a importância de ferramentas capazes de auxiliar desenvolvedores na identificação de gargalos de execução.
+
+Pesquisas sobre \textit{profiling} de aplicações móveis demonstram que a correlação entre métricas como uso de CPU, consumo energético e tempo de renderização permite identificar padrões de degradação de desempenho que não são facilmente percebidos durante o desenvolvimento convencional \cite{liu2019profiling}. 
+
+Estudos clássicos sobre eficiência energética em sistemas móveis indicam que componentes de interface gráfica e operações de rede são responsáveis por parcela significativa do consumo energético em dispositivos móveis \cite{pathak2012energy}. Esses resultados contribuíram para consolidar a área de pesquisa conhecida como \textit{energy-aware software engineering}, que busca desenvolver técnicas e ferramentas para reduzir o impacto energético de sistemas computacionais.
+
+No contexto de frameworks multiplataforma, pesquisas comparativas analisam o desempenho de tecnologias como Flutter, React Native e aplicações nativas. Esses estudos apontam diferenças relevantes no gerenciamento de renderização e na utilização de recursos do sistema operacional \cite{he2019crossplatform}. Tais resultados indicam que ferramentas específicas para cada ecossistema podem ser necessárias para capturar métricas de desempenho com maior precisão.
+
+Outras abordagens investigam sistemas de monitoramento automatizado capazes de registrar eventos de execução e detectar gargalos de desempenho em tempo real. Entretanto, muitas dessas soluções dependem de modificações profundas no código da aplicação ou de integrações complexas com componentes nativos do sistema operacional \cite{banerjee2020automated}.
+
+No âmbito de trabalhos acadêmicos nacionais, observa-se crescente interesse na análise de eficiência energética em aplicações móveis. Estudos experimentais demonstram que práticas relativamente simples de otimização podem reduzir significativamente o consumo de CPU e memória em aplicações Android \cite{silva2022mobile}. De maneira semelhante, pesquisas voltadas ao ecossistema Flutter destacam que a estruturação adequada da árvore de widgets e a redução de reconstruções desnecessárias podem melhorar significativamente o desempenho das interfaces \cite{santos2023flutter}.
+
+Esses estudos evidenciam a relevância do monitoramento sistemático de métricas de desempenho para compreender o comportamento real das aplicações móveis. No entanto, grande parte das abordagens existentes depende de ferramentas externas ou de processos complexos de instrumentação, o que limita sua adoção no cotidiano do desenvolvimento de software.
+
+\subsection*{Síntese da Revisão e Lacuna de Pesquisa}
+
+A análise da literatura demonstra que existem diversas ferramentas e técnicas para monitoramento de desempenho em aplicações móveis. Entretanto, observa-se uma lacuna significativa no desenvolvimento de soluções integradas que permitam:
+
+\begin{itemize}
+
+\item coletar métricas de desempenho diretamente no ambiente de execução da aplicação, sem dependência de ferramentas externas;
+
+\item correlacionar automaticamente diferentes indicadores de desempenho, como tempo de renderização, reconstruções de widgets e uso de memória;
+
+\item gerar recomendações práticas de otimização com base nas métricas observadas;
+
+\item oferecer suporte específico para frameworks multiplataforma modernos, como o Flutter.
+
+\end{itemize}
+
+Grande parte das ferramentas disponíveis atualmente atua apenas como instrumentos de diagnóstico, exigindo que o desenvolvedor interprete manualmente os dados coletados. Além disso, muitas dessas soluções apresentam limitações de integração com frameworks multiplataforma ou dependem de ambientes específicos de execução.
+
+Nesse contexto, o presente trabalho propõe o desenvolvimento do \texttt{collector\_flutter}, um protótipo capaz de coletar, analisar e interpretar métricas de desempenho diretamente em aplicações Flutter. A ferramenta busca reduzir a complexidade do processo de diagnóstico e fornecer \textit{feedback} automatizado ao desenvolvedor, contribuindo para a melhoria da eficiência computacional e energética de aplicativos móveis.
+
+Assim, ao integrar coleta de métricas, análise heurística e visualização em tempo real, a solução proposta busca preencher parte da lacuna identificada na literatura, aproximando práticas de monitoramento de desempenho do fluxo cotidiano de desenvolvimento em aplicações Flutter.
+
+Além disso, observa-se que grande parte dos estudos existentes concentra-se
+na análise de desempenho por meio de ferramentas externas ao ambiente de
+execução da aplicação. Embora essas abordagens ofereçam medições detalhadas,
+elas frequentemente exigem configuração manual, interpretação especializada
+dos resultados e integração limitada ao fluxo cotidiano de desenvolvimento.
+
+Diferentemente dessas abordagens, o protótipo proposto neste trabalho busca
+incorporar o monitoramento diretamente no ciclo de execução da aplicação,
+permitindo coleta automática de métricas e geração de recomendações em
+tempo real. Essa integração reduz a complexidade de uso das ferramentas
+tradicionais e aproxima práticas de análise de desempenho do cotidiano de
+desenvolvedores Flutter.

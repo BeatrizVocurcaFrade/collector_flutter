@@ -1,0 +1,69 @@
+% Monografia para Projeto de Fim de Curso - Exemplo no LaTeX
+%-----------------------------------------------------------
+
+\documentclass[12pt,a4paper,notitlepage,twoside,openany]{book}
+
+%----------------- PACOTES BÁSICOS -----------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{times}
+\usepackage{amsmath, amsfonts, amsthm}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{abntex2abrev}
+
+% Caminho padrão das imagens (procura dentro da pasta Metodologia/)
+\graphicspath{{./Metodologia/}{./images/}{../images/}}
+
+%----------------- FORMATAÇÃO DE PÁGINA -----------------
+\usepackage[a4paper,
+  top=30mm,
+  bottom=30mm,
+  inner=30mm,
+  outer=25mm,
+  headheight=7mm,
+  headsep=6mm,
+  footskip=7mm
+]{geometry}
+
+\def\baselinestretch{1.0}
+
+%----------------- HYPERLINKS (PACOTE CRÍTICO) -----------------
+% ⚠️ Deve ser carregado por último para não causar conflito com abntex2
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=blue,
+  pdfauthor={Beatriz Vocurca Frade},
+  pdftitle={Monitoramento e Otimização de Recursos em Aplicativos Flutter},
+  pdfsubject={Projeto de Fim de Curso - Engenharia de Sistemas, UFMG}
+}
+
+%----------------- INÍCIO DO DOCUMENTO -----------------
+\begin{document}
+
+\include{Capa/capa}
+
+\pagenumbering{roman}
+\include{Resumo/Resumo}
+\include{TabelaConteudo/TabelaConteudo}
+\include{ListaFiguras/ListaFiguras}
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\include{Introducao/Introducao}
+\include{DescricaoProcesso/DescricaoProcesso}
+\include{DescricaoProcesso/revisao}
+\include{DescricaoProcesso/Humanidades}
+\include{Metodologia/inicio}
+\include{Metodologia/cronograma}
+\include{Metodologia/desenvolvimento}
+\include{Metodologia/teste}
+\include{Bibliografia/Bibliografia}
+
+\end{document}

@@ -1,0 +1,95 @@
+\chapter{Introdução}
+%\markboth{\thechapter ~~~ Introdução}{}
+%\label{intro}
+
+O desenvolvimento de aplicações móveis constitui um dos eixos centrais da engenharia de software contemporânea, impulsionado pela crescente demanda por soluções multiplataforma e experiências digitais consistentes. Entre os \textit{frameworks} de desenvolvimento \textit{cross-platform}, o \textit{Flutter} tem se destacado por oferecer um ambiente unificado capaz de gerar aplicações nativas para \textit{Android}, \textit{iOS}, \textit{Web} e \textit{Desktop}, conciliando alta produtividade, expressividade visual e desempenho próximo ao nativo.
+
+Entretanto, a execução de aplicações móveis envolve um conjunto complexo de operações que demandam recursos computacionais como CPU, GPU, memória, rede e bateria os quais influenciam diretamente tanto a experiência do usuário quanto a eficiência energética do sistema. O gerenciamento inadequado desses recursos pode resultar em lentidão, travamentos, consumo excessivo de energia e degradação da usabilidade, comprometendo a sustentabilidade do ecossistema digital \cite{cheng2020energy, zhang2021energy}.
+
+Nesse contexto, a análise e otimização de desempenho tornam-se etapas essenciais do ciclo de desenvolvimento móvel, especialmente em plataformas como o \textit{Flutter}, cuja camada de abstração sobre o código nativo pode introduzir desafios adicionais de observabilidade e instrumentação. Assim, compreender e monitorar o uso de recursos em tempo real, de forma eficiente e com baixo impacto, é um fator determinante para a qualidade e competitividade das aplicações modernas.
+
+
+\section{Propósito}
+
+O propósito deste trabalho é apresentar o desenvolvimento e a avaliação de um protótipo de coleta e análise de métricas de desempenho para aplicações desenvolvidas em \textit{Flutter}, denominado \texttt{collector\_flutter}.  
+O projeto busca propor uma solução integrada, de fácil utilização e com impacto mínimo sobre o desempenho do aplicativo monitorado, capaz de auxiliar desenvolvedores a compreenderem o comportamento de suas aplicações quanto ao uso de recursos computacionais, como CPU, memória, rede e energia.
+
+A proposta parte do reconhecimento de que a eficiência de software é um fator determinante não apenas para o desempenho técnico das aplicações, mas também para a sustentabilidade do ecossistema digital. Aplicações móveis com alto consumo de recursos degradam a experiência do usuário e contribuem para maior gasto energético e descarte prematuro de dispositivos. Assim, este trabalho visa aproximar a engenharia de software da perspectiva da sustentabilidade, por meio de ferramentas práticas que favoreçam o desenvolvimento responsável e otimizado.
+
+O protótipo \texttt{collector\_flutter} foi concebido para ser uma ferramenta de apoio ao processo de desenvolvimento, atuando de forma embarcada dentro do próprio código da aplicação. Dessa maneira, ele permite coletar métricas em tempo real, sem necessidade de instrumentações externas complexas, fornecendo relatórios e visualizações que apoiam a análise contínua de desempenho durante todo o ciclo de vida do software.
+
+\section{Público Alvo}
+
+O público-alvo deste trabalho compreende desenvolvedores, pesquisadores e estudantes da área de Engenharia de Software e Computação que utilizam ou estudam o \textit{framework Flutter} como plataforma de desenvolvimento de aplicações móveis e multiplataforma.
+
+O projeto também se destina a profissionais que buscam compreender e otimizar o consumo de recursos de software sob uma ótica de sustentabilidade digital. Ao disponibilizar uma solução de instrumentação embutida e acessível, este trabalho visa reduzir a barreira de entrada na análise de desempenho, tornando esse processo mais prático e integrado ao cotidiano de desenvolvimento.
+
+Além disso, o estudo pode beneficiar grupos de pesquisa e instituições acadêmicas interessadas na mensuração de eficiência energética e desempenho de sistemas, oferecendo um exemplo funcional de como integrar métricas de baixo nível a ambientes de desenvolvimento multiplataforma.  
+No contexto educacional, o protótipo pode ser utilizado como ferramenta de apoio didático para disciplinas de Engenharia de Software, Sistemas Embarcados e Computação Móvel.
+
+\section{Motivação e Justificativa}
+
+A escolha do tema desta monografia decorre da convergência entre três eixos de relevância contemporânea: (i) o crescimento exponencial do ecossistema de aplicações móveis e da adoção do \textit{Flutter} como \textit{framework} multiplataforma; (ii) a necessidade crescente de monitoramento e otimização do consumo de recursos para garantir desempenho e longevidade de dispositivos; e (iii) a incorporação da sustentabilidade digital como princípio orientador na engenharia de software moderna.
+
+O \textit{Flutter}, mantido pelo Google desde 2017, consolidou-se como uma das principais plataformas de desenvolvimento \textit{cross-platform} do mercado, superando alternativas como React Native em número de projetos ativos e downloads em repositórios públicos \cite{google2023flutter, meyer2022performance}. Sua arquitetura baseada em widgets reativos e na engine de renderização Skia proporciona grande expressividade visual e alto desempenho. Contudo, essa mesma estrutura introduz desafios complexos no gerenciamento de CPU, GPU e memória, uma vez que cada atualização de interface pode desencadear múltiplos ciclos de renderização.  
+
+Estudos recentes, como os de \textcite{Zhang} \cite{zhang2021energy} e \textcite{Cheng} \cite{cheng2020energy}, demonstram que aplicações Flutter, quando mal otimizadas, podem apresentar picos de consumo energético superiores aos de aplicações nativas, devido à sobrecarga de reconstruções de interface (\textit{rebuilds}), ao uso excessivo de animações e à falta de controle sobre o ciclo de vida de widgets. Esses fatores impactam diretamente a experiência do usuário e contribuem para o desgaste prematuro da bateria e dos componentes de hardware, reforçando a necessidade de ferramentas que auxiliem na observação e no controle eficiente desses recursos.
+
+Sob o ponto de vista técnico, as ferramentas existentes para diagnóstico de desempenho como o \textit{Flutter DevTools}, o \textit{Perfetto} e o \textit{Android Profiler} oferecem um conjunto robusto de funcionalidades, mas carecem de integração prática ao ciclo de desenvolvimento. Na maioria dos casos, elas operam de forma externa à aplicação, exigindo configurações avançadas e interpretação manual dos resultados. Isso cria uma barreira para desenvolvedores iniciantes, pequenos times e projetos independentes, que frequentemente carecem de infraestrutura ou de tempo para realizar medições complexas \cite{johnson2020monitoring}.  
+
+Além disso, o processo de interpretação das métricas geradas por essas ferramentas demanda conhecimento aprofundado em engenharia de desempenho, o que restringe sua utilização a especialistas. Em ambientes de desenvolvimento ágil, nos quais as entregas são rápidas e iterativas, a ausência de feedback automatizado e contextualizado dificulta a identificação precoce de gargalos e a aplicação de estratégias eficazes de otimização.
+
+Do ponto de vista social e ambiental, o tema insere-se no campo emergente da \textit{Engenharia de Software Sustentável} (\textit{Sustainable Software Engineering}), que busca reduzir o impacto ambiental associado à operação e manutenção de sistemas digitais. De acordo com o IEEE (2023), cerca de 1,8\% das emissões globais de carbono são provenientes do uso de tecnologias da informação, incluindo data centers, redes e dispositivos móveis \cite{ieee2023sustainability}. Nesse contexto, a eficiência energética de aplicações móveis deixa de ser apenas um requisito técnico e passa a representar também um indicador de responsabilidade ambiental e social.  
+
+A sustentabilidade digital, portanto, não se limita à redução de consumo energético, mas envolve repensar práticas de desenvolvimento, incentivando o uso racional de recursos computacionais e promovendo a longevidade de dispositivos. Aplicativos mais leves e eficientes reduzem o consumo de bateria, prolongam o tempo de uso do hardware e diminuem o descarte precoce de equipamentos, contribuindo para a mitigação dos resíduos eletrônicos e dos custos energéticos globais.
+
+Assim, a criação de uma ferramenta integrada, acessível e de baixo impacto para análise de desempenho em \textit{Flutter} se justifica tanto pela relevância técnica quanto pela responsabilidade ambiental. Ao oferecer um sistema capaz de coletar métricas em tempo real e gerar recomendações automáticas de otimização, esta pesquisa busca preencher uma lacuna prática no ecossistema Flutter, democratizando o acesso a diagnósticos de performance e promovendo a conscientização sobre o uso eficiente de recursos computacionais.  
+
+Dessa forma, o trabalho apresenta um duplo impacto: \textbf{acadêmico}, ao contribuir para o avanço do conhecimento na área de engenharia de software eficiente e no desenvolvimento de ferramentas de diagnóstico automatizado; e \textbf{prático}, ao propor uma solução de código aberto que apoia a comunidade Flutter na redução do consumo de CPU, memória e energia, fortalecendo a adoção de práticas sustentáveis de desenvolvimento digital.
+
+
+\subsection{Impactos Socioeconômicos}
+
+Os impactos socioeconômicos relacionados à eficiência de software e sustentabilidade digital são múltiplos.  
+Do ponto de vista econômico, aplicações otimizadas reduzem custos de operação, consumo de energia e tempo de processamento em servidores e dispositivos. No contexto corporativo, essas melhorias impactam diretamente a produtividade e a competitividade, uma vez que o desempenho e a eficiência energética são fatores críticos para retenção de usuários e para o ciclo de vida dos produtos digitais.
+
+Sob a ótica social e ambiental, a eficiência energética de software está associada à redução do consumo de eletricidade e à mitigação dos efeitos do descarte eletrônico precoce. Aplicativos mais leves e eficientes prolongam a vida útil de dispositivos, o que contribui para a diminuição da geração de resíduos eletrônicos uma preocupação crescente no cenário global.
+
+Por fim, em termos educacionais e científicos, este trabalho contribui para a disseminação de práticas sustentáveis no desenvolvimento de software. A introdução de métricas e ferramentas que quantificam o impacto computacional das aplicações pode estimular uma nova geração de desenvolvedores conscientes da relação entre tecnologia, desempenho e meio ambiente.
+
+\section{Objetivos}
+
+A presente pesquisa tem como propósito geral o desenvolvimento de um protótipo de ferramenta voltada ao monitoramento e à otimização do consumo de recursos em aplicações desenvolvidas com o \textit{framework} \textit{Flutter}. O intuito central é apoiar o desenvolvedor na detecção de gargalos de desempenho e na adoção de boas práticas de eficiência computacional e energética, contribuindo para o avanço das metodologias de engenharia de software sustentável.  
+
+O trabalho propõe o projeto e a implementação de uma ferramenta experimental integrada ao ambiente Flutter, capaz de coletar, analisar e interpretar métricas de desempenho em tempo real, produzindo relatórios e recomendações automatizadas de otimização. O diferencial da proposta reside na capacidade de realizar esse monitoramento com impacto mínimo sobre o comportamento natural da aplicação, evitando o problema recorrente de interferência das próprias ferramentas de análise conhecido como \textit{overhead}.  
+
+Para atingir esse objetivo, o estudo se fundamenta em um conjunto de metas específicas que se articulam de forma progressiva. Inicialmente, realiza-se uma revisão bibliográfica sistemática a respeito de monitoramento de recursos computacionais, eficiência energética e sustentabilidade digital em aplicativos móveis, com foco no ecossistema Flutter. Essa etapa visa estabelecer uma base conceitual sólida para a compreensão das limitações e oportunidades existentes nas ferramentas atuais de análise de desempenho.  
+
+Na sequência, são investigadas e comparadas as principais soluções disponíveis no mercado, como o \textit{Flutter DevTools}, o \textit{Perfetto}, o \textit{Android Profiler} e o \textit{Xcode Instruments}, de modo a identificar lacunas quanto à integração, acessibilidade e precisão na coleta de métricas. A partir dessas observações, são definidos os requisitos funcionais e não funcionais do protótipo proposto, incluindo aspectos como modularidade, confiabilidade, escalabilidade e facilidade de uso.  
+
+Com base nesses requisitos, o projeto define uma arquitetura modular composta por três camadas principais \textit{Data}, \textit{Domain} e \textit{Presentation} que separam claramente as responsabilidades de coleta, análise e visualização dos dados. O protótipo resultante, denominado \texttt{collector\_flutter}, é então implementado com componentes especializados para registrar o uso de CPU, memória, rede e energia, processar esses dados de maneira heurística e gerar visualizações interpretáveis acompanhadas de recomendações práticas de otimização.  
+
+Uma etapa fundamental da pesquisa consiste na validação experimental do protótipo, realizada em cenários reais de execução e em dispositivos físicos. Essa avaliação busca verificar tanto a precisão dos dados coletados quanto o impacto do sistema sobre o desempenho da aplicação monitorada. Para tal, são efetuadas comparações com medições obtidas por ferramentas nativas de diagnóstico, permitindo uma análise quantitativa do grau de confiabilidade e eficiência do \texttt{collector\_flutter}.  
+
+Além do aspecto técnico, a pesquisa também considera a experiência de uso da ferramenta, avaliando sua usabilidade, clareza na apresentação das métricas e facilidade de integração ao fluxo cotidiano de desenvolvimento. Essa dimensão prática é essencial para garantir que a solução proposta seja de fato aplicável e útil ao público-alvo, composto por desenvolvedores e pesquisadores interessados em otimização e sustentabilidade digital.  
+
+Por fim, o estudo examina as implicações do monitoramento de desempenho sob a ótica ambiental e socioeconômica, investigando como práticas de otimização podem contribuir para a redução do consumo energético e para a ampliação da vida útil dos dispositivos. A ferramenta proposta, ao promover o uso mais consciente dos recursos computacionais, insere-se em um movimento mais amplo de engenharia verde, no qual o desempenho técnico está associado à responsabilidade ambiental.  
+
+Como resultado esperado, busca-se não apenas disponibilizar um protótipo funcional e documentado em formato de código aberto, mas também oferecer um modelo conceitual e metodológico que possa ser replicado e aprimorado pela comunidade de desenvolvedores Flutter. Assim, o \texttt{collector\_flutter} representa um passo em direção à consolidação de práticas de desenvolvimento mais eficientes, transparentes e sustentáveis, alinhando desempenho, inovação tecnológica e responsabilidade ambiental em um mesmo eixo de pesquisa.
+
+\section{Visão Geral do Documento}
+
+Este documento está organizado em quatro capítulos, além desta introdução, de forma a conduzir o leitor pelos fundamentos, escolhas metodológicas e diretrizes que orientaram o desenvolvimento do protótipo.
+
+No \textbf{Capítulo 1}, apresenta-se o propósito do trabalho, o público-alvo, a motivação e os objetivos que nortearam a construção do protótipo. Também são discutidos os problemas identificados no contexto do desempenho de aplicações móveis e a relevância da investigação proposta.
+
+O \textbf{Capítulo 2} reúne a fundamentação teórica necessária para sustentar a pesquisa, abordando conceitos de desempenho, eficiência energética e sustentabilidade digital, bem como princípios internos do \textit{framework Flutter} e uma revisão das principais ferramentas existentes para monitoramento e análise de aplicações.
+
+O \textbf{Capítulo 3} descreve a metodologia adotada e apresenta a arquitetura do protótipo \texttt{collector\_flutter}, detalhando o processo de implementação, as tecnologias utilizadas, o modelo de funcionamento interno e os testes preliminares realizados. Este capítulo estabelece a ponte entre a teoria discutida anteriormente e a materialização da solução proposta.
+
+Por fim, o \textbf{Capítulo 4}, que integra a continuidade do trabalho no TCC~2, será responsável por apresentar e discutir os resultados obtidos, realizar uma análise crítica do protótipo, identificar limitações e propor direções para aprimoramento e pesquisas futuras.
+
+Com essa organização, busca-se fornecer uma narrativa clara, progressiva e fundamentada, permitindo que o leitor compreenda a relevância da proposta e o modo como o protótipo contribui para o avanço de práticas de desenvolvimento mais eficientes e sustentáveis em aplicações móveis.
+
+
+\clearpage

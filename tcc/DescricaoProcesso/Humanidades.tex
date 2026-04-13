@@ -1,0 +1,64 @@
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+% CAPÍTULO - CONTEXTUALIZAÇÃO EM HUMANIDADES
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\chapter{Contextualização em Humanidades}
+
+O desenvolvimento de tecnologias digitais, especialmente no contexto de aplicações móveis e plataformas multiplataforma, envolve não apenas desafios técnicos, mas também implicações sociais, ambientais e éticas. Dessa forma, a engenharia de software contemporânea vem incorporando cada vez mais reflexões provenientes das áreas de humanidades e sustentabilidade digital, reconhecendo que decisões de projeto e desempenho podem gerar impactos significativos na sociedade e no meio ambiente.
+
+No caso específico deste trabalho, que propõe o desenvolvimento de uma ferramenta para monitoramento e otimização do consumo de recursos em aplicações Flutter, torna-se relevante discutir como práticas de eficiência computacional se relacionam com questões mais amplas, como inclusão digital, sustentabilidade ambiental e responsabilidade ética no desenvolvimento de software.
+\subsection*{Sustentabilidade Digital e Eficiência Computacional}
+
+A sustentabilidade digital consolidou-se como um dos pilares da engenharia de software moderna, integrando práticas que visam reduzir o consumo energético e as emissões associadas à operação de sistemas computacionais \cite{ieee2023sustainability, unep2023}. O \textit{Google Sustainability Report} \cite{google2024sustainability} destaca que melhorias em renderização, gerenciamento de cache e políticas de rede podem reduzir em até 40\% o consumo energético de um aplicativo móvel, sem prejuízo perceptível à experiência do usuário.
+
+Estudos como os de \textcite{Cheng} \cite{cheng2020energy} demonstram que a redução de chamadas de rede redundantes e a otimização de operações gráficas resultam em economias energéticas significativas. Assim, a integração entre diagnóstico técnico e análise de impacto ambiental revela-se fundamental: enquanto o diagnóstico técnico identifica gargalos e padrões de consumo, o diagnóstico sustentável traduz esses dados em ações que reduzem o custo energético e ampliam a vida útil dos dispositivos.
+
+O presente trabalho apoia-se, portanto, em duas dimensões complementares o diagnóstico técnico e o diagnóstico sustentável cuja convergência constitui o diferencial científico da pesquisa. A proposta do \texttt{collector\_flutter} busca preencher a lacuna entre instrumentação e otimização prática, oferecendo uma solução que integra observabilidade técnica e responsabilidade ambiental, promovendo práticas de desenvolvimento mais eficientes e conscientes.
+
+\section{Impactos Sociais e Inclusão Digital}
+
+O desempenho de aplicações móveis exerce influência direta na experiência do usuário e na acessibilidade de serviços digitais. Aplicativos que demandam alto consumo de CPU, memória ou processamento gráfico podem apresentar degradação significativa de desempenho em dispositivos de menor capacidade computacional, os quais ainda representam uma parcela expressiva dos aparelhos em uso em diversos contextos socioeconômicos.
+
+Essa situação pode gerar barreiras de acesso a serviços digitais, especialmente quando aplicações móveis são utilizadas para finalidades essenciais, como comunicação, educação, serviços públicos ou acesso a informações. Quando um aplicativo exige recursos computacionais elevados para funcionar adequadamente, usuários com dispositivos mais antigos ou de baixo custo podem enfrentar lentidão, travamentos ou até impossibilidade de utilização do sistema.
+
+Nesse sentido, a otimização do consumo de recursos não se limita a uma melhoria técnica de desempenho, mas também pode contribuir para ampliar a inclusão digital. Aplicações mais eficientes tendem a funcionar adequadamente em uma gama maior de dispositivos, reduzindo desigualdades de acesso e tornando serviços digitais mais acessíveis para diferentes públicos.
+
+Assim, ferramentas que auxiliam desenvolvedores a identificar gargalos de desempenho e a otimizar o uso de recursos computacionais podem contribuir indiretamente para a democratização do acesso a aplicações móveis.
+
+\section{Impactos Ambientais e Sustentabilidade Digital}
+
+Além dos impactos sociais, o consumo de recursos computacionais em aplicações móveis também apresenta relação direta com questões ambientais. O funcionamento de aplicativos envolve processamento contínuo, uso de memória, acesso à rede e renderização gráfica, todos fatores que influenciam o consumo energético dos dispositivos.
+
+Quando aplicações são desenvolvidas sem atenção à eficiência computacional, podem provocar maior consumo de bateria, aumento da demanda energética e maior desgaste dos componentes de hardware. Em escala global, considerando bilhões de dispositivos móveis em operação, pequenas ineficiências replicadas em larga escala podem resultar em impactos energéticos significativos.
+
+Outro aspecto importante refere-se ao ciclo de vida dos dispositivos eletrônicos. Aplicações que exigem alto desempenho podem contribuir para que usuários substituam seus aparelhos com maior frequência, uma vez que dispositivos mais antigos passam a apresentar dificuldades para executar aplicações modernas. Esse processo pode acelerar o descarte de equipamentos eletrônicos, contribuindo para o aumento de resíduos tecnológicos.
+
+A literatura recente sobre \textit{sustainable software engineering} aponta que práticas de desenvolvimento voltadas à eficiência computacional podem contribuir para reduzir consumo energético, prolongar a vida útil dos dispositivos e diminuir impactos ambientais associados ao uso de tecnologia. Nesse contexto, ferramentas que auxiliam na identificação e correção de ineficiências no software tornam-se aliadas importantes na construção de um ecossistema digital mais sustentável.
+
+O protótipo proposto neste trabalho insere-se nessa perspectiva ao fornecer métricas e recomendações que incentivam práticas de desenvolvimento mais eficientes, contribuindo para a redução do consumo de recursos computacionais e, consequentemente, para a promoção da sustentabilidade digital.
+
+\section{Aspectos Éticos no Monitoramento de Aplicações}
+
+O monitoramento de desempenho em aplicações também levanta questões éticas relacionadas à coleta e ao uso de dados. Embora o objetivo principal de ferramentas de análise de desempenho seja coletar métricas técnicas, como uso de CPU, memória, tempo de renderização e eventos de rede, é importante garantir que tais mecanismos não sejam utilizados de forma inadequada para coletar informações sensíveis dos usuários.
+
+A coleta excessiva ou desnecessária de dados pode representar riscos à privacidade e à segurança, especialmente quando sistemas de monitoramento são utilizados em ambientes de produção ou em aplicações distribuídas para usuários finais. Dessa forma, práticas éticas de engenharia de software recomendam que ferramentas de monitoramento adotem princípios de minimização de dados, coletando apenas as informações estritamente necessárias para a finalidade técnica proposta.
+
+No contexto deste trabalho, o protótipo \texttt{collector\_flutter} foi projetado para coletar exclusivamente métricas relacionadas ao desempenho do sistema, sem registrar dados pessoais, conteúdos de comunicação ou informações identificáveis de usuários. As métricas coletadas referem-se apenas a eventos internos da aplicação, como tempo de renderização de quadros, reconstruções de widgets e consumo de memória.
+
+Além disso, a disponibilização pública do código-fonte do protótipo contribui para transparência e reprodutibilidade científica, permitindo que outros pesquisadores e desenvolvedores analisem o funcionamento do sistema, verifiquem suas práticas de coleta de dados e proponham melhorias.
+
+\section{Relação entre Engenharia de Software e Responsabilidade Tecnológica}
+
+A incorporação de perspectivas sociais, ambientais e éticas no desenvolvimento de software reflete uma tendência crescente na engenharia de software contemporânea. O conceito de responsabilidade tecnológica reconhece que sistemas digitais não são neutros: suas características de desempenho, eficiência e acessibilidade podem influenciar diretamente a forma como indivíduos e organizações interagem com a tecnologia.
+
+Nesse contexto, o papel do desenvolvedor não se limita à implementação de funcionalidades, mas também envolve considerar impactos mais amplos das soluções tecnológicas produzidas. Práticas como otimização de desempenho, redução de consumo de recursos e transparência no monitoramento de sistemas passam a integrar um conjunto mais amplo de responsabilidades profissionais.
+
+Assim, ao propor uma ferramenta que facilita a análise de desempenho e incentiva boas práticas de otimização em aplicações Flutter, este trabalho contribui não apenas para avanços técnicos na área de engenharia de software, mas também para uma abordagem mais consciente e responsável do desenvolvimento tecnológico.
+
+\section{Síntese}
+
+A discussão apresentada neste capítulo evidencia que o tema do monitoramento e da otimização de recursos em aplicações móveis está inserido em um contexto mais amplo que envolve dimensões sociais, ambientais e éticas.
+
+Do ponto de vista social, aplicações mais eficientes podem favorecer a inclusão digital ao ampliar a compatibilidade com dispositivos de diferentes capacidades. No aspecto ambiental, a eficiência computacional pode contribuir para redução do consumo energético e para maior longevidade de dispositivos eletrônicos. Já sob a perspectiva ética, práticas responsáveis de monitoramento devem garantir transparência, minimização de coleta de dados e respeito à privacidade dos usuários.
+
+Dessa forma, a proposta do \texttt{collector\_flutter} dialoga com princípios contemporâneos de engenharia de software sustentável e responsável, reforçando a importância de considerar não apenas o desempenho técnico dos sistemas, mas também seus impactos mais amplos na sociedade e no meio ambiente.

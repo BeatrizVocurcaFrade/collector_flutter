@@ -1,0 +1,150 @@
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+\section{Procedimentos de Teste e Coleta de Dados}
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Esta seção descreve os procedimentos experimentais utilizados para avaliar o desempenho e a precisão do protótipo \texttt{collector\_flutter}. O objetivo principal dos experimentos foi validar empiricamente três aspectos fundamentais do sistema: (i) a precisão das métricas coletadas, (ii) o impacto de execução introduzido pelo processo de monitoramento e (iii) a utilidade das recomendações heurísticas geradas pelo sistema.
+
+Para garantir validade científica e reprodutibilidade, os testes foram conduzidos em ambiente controlado, seguindo protocolos experimentais inspirados nas diretrizes de experimentação em engenharia de software propostas por \textcite{wohlin2012}.
+
+\subsection{Protocolo de Execução dos Testes}
+
+Os experimentos foram executados em modo \textit{profile} do Flutter, pois esse modo permite medições mais próximas do comportamento real da aplicação, eliminando interferências associadas ao modo \textit{debug}. Antes de cada execução experimental, o dispositivo foi reiniciado e o aplicativo executado em estado limpo, garantindo consistência entre as medições.
+
+O protocolo de execução foi composto pelas seguintes etapas:
+
+\begin{enumerate}
+
+\item \textbf{Preparação do ambiente}: reinicialização do dispositivo e encerramento de processos em segundo plano, assegurando estabilidade do ambiente de execução.
+
+\item \textbf{Inicialização do coletor}: ativação do módulo \texttt{ResourceCollector} por meio do método \texttt{start()}, responsável por iniciar a captura das métricas de desempenho.
+
+\item \textbf{Execução do cenário experimental}: cada cenário foi executado por um período fixo de 60 segundos, garantindo quantidade suficiente de amostras para análise estatística.
+
+\item \textbf{Registro das métricas}: durante a execução do cenário, o coletor registrou continuamente métricas de desempenho relacionadas à renderização, uso de memória, chamadas de rede e reconstruções de widgets.
+
+\item \textbf{Encerramento da coleta}: ao término do experimento, o método \texttt{stop()} foi acionado e os dados coletados foram exportados para arquivos estruturados no formato JSON.
+
+\end{enumerate}
+
+Cada cenário experimental foi executado \textbf{dez vezes} em condições idênticas, permitindo reduzir efeitos de variabilidade do sistema operacional e do hardware. Os resultados apresentados neste trabalho correspondem às médias aritméticas das execuções, acompanhadas de análise de dispersão.
+
+\subsection{Definição dos Cenários Experimentais}
+
+Quatro cenários experimentais foram definidos com o objetivo de simular diferentes tipos de carga comuns em aplicações móveis. Cada cenário foi projetado para provocar um tipo específico de comportamento de desempenho.
+
+\begin{itemize}
+
+\item \textbf{Cenário 1 – Reconstruções intensivas de interface}
+
+Neste cenário, um conjunto de widgets foi reconstruído repetidamente em alta frequência, simulando aplicações com atualização constante de interface. Esse cenário foi utilizado para avaliar o impacto das reconstruções de widgets sobre o tempo de renderização e o FPS.
+
+\item \textbf{Cenário 2 – Chamadas de rede simultâneas}
+
+Foram disparadas múltiplas requisições HTTP paralelas, utilizando o método \texttt{recordNetwork()}, com o objetivo de observar o comportamento do sistema sob carga de rede e verificar a capacidade do coletor de registrar eventos relacionados a comunicação externa.
+
+\item \textbf{Cenário 3 – Alocação intensiva de memória}
+
+Objetos de grande volume foram criados e descartados continuamente durante a execução do teste. Esse cenário permitiu analisar padrões de uso de memória e observar eventos de coleta de lixo (\textit{garbage collection}).
+
+\item \textbf{Cenário 4 – Carga combinada}
+
+Neste cenário, os três tipos de carga anteriores foram executados simultaneamente, simulando um comportamento mais próximo de aplicações reais, nas quais operações de interface, rede e memória ocorrem de forma concorrente.
+
+\end{itemize}
+
+Esses cenários permitiram avaliar o comportamento do sistema em diferentes condições de uso, identificando possíveis limitações e avaliando a robustez da ferramenta.
+
+\subsection{Coleta de Métricas}
+
+As métricas foram coletadas automaticamente pelo módulo \texttt{Collector}, implementado inteiramente em Dart. A captura dos dados foi realizada em tempo real utilizando \texttt{Streams} internas do Flutter.
+
+As métricas analisadas foram:
+
+\begin{itemize}
+
+\item \textbf{FPS (Frames por Segundo)} — indicador da fluidez da renderização da interface;
+
+\item \textbf{Tempo médio de renderização de quadro} — calculado a partir dos eventos de \texttt{FrameTiming};
+
+\item \textbf{Número de reconstruções de widgets} — contabilizado por meio do componente \texttt{RebuildObserver};
+
+\item \textbf{Uso de memória} — obtido via API \texttt{vmService.getAllocationProfile()};
+
+\item \textbf{Número de chamadas de rede} — monitorado por meio da instrumentação do método \texttt{recordNetwork()}.
+
+\end{itemize}
+
+Os dados coletados foram serializados em formato JSON estruturado, permitindo posterior análise estatística e comparação entre execuções experimentais.
+
+\subsection{Métodos de Comparação}
+
+Para validar a precisão das medições obtidas pelo protótipo, os resultados foram comparados com ferramentas oficiais de análise de desempenho do ecossistema Android.
+
+As ferramentas utilizadas como referência foram:
+
+\begin{itemize}
+
+\item \textbf{Android Profiler}, utilizado para medir consumo de CPU, memória e FPS;
+
+\item \textbf{ADB (\texttt{adb shell dumpsys gfxinfo})}, utilizado para obter métricas detalhadas de renderização de quadros.
+
+\end{itemize}
+
+A comparação foi realizada utilizando o cálculo de erro percentual entre os valores obtidos pelo protótipo e pelas ferramentas de referência:
+
+\[
+Erro (\%) = \frac{|M_{ref} - M_{proto}|}{M_{ref}} \times 100
+\]
+
+onde \(M_{ref}\) representa o valor obtido pela ferramenta de referência e \(M_{proto}\) representa o valor registrado pelo protótipo.
+
+\subsection{Análise Estatística dos Resultados}
+
+Os dados coletados foram analisados utilizando medidas estatísticas descritivas, incluindo média, desvio padrão e variação percentual entre execuções. Essa análise permitiu avaliar a estabilidade das medições e identificar possíveis variações decorrentes de fatores externos.
+
+Além disso, foi calculado o \textit{overhead} introduzido pelo coletor, comparando o tempo médio de renderização de quadros com o sistema ativado e desativado.
+
+O cálculo foi realizado utilizando a seguinte expressão:
+
+\[
+Overhead (\%) = \frac{T_{com} - T_{sem}}{T_{sem}} \times 100
+\]
+
+onde \(T_{com}\) representa o tempo médio de execução com o coletor ativado e \(T_{sem}\) corresponde ao tempo de execução sem monitoramento.
+
+\subsection{Controle Experimental e Reprodutibilidade}
+
+Para garantir a validade experimental dos resultados, foram adotadas medidas de controle que minimizam interferências externas durante os testes:
+
+\begin{itemize}
+
+\item execução em modo \textit{profile};
+
+\item utilização das mesmas versões do Flutter SDK e dependências em todas as execuções;
+
+\item execução dos testes em ambiente com temperatura e carga de bateria estáveis;
+
+\item repetição dos experimentos múltiplas vezes para reduzir variações estatísticas;
+
+\item padronização do formato de saída das métricas em arquivos JSON.
+
+\end{itemize}
+
+Essas práticas asseguram que os experimentos possam ser reproduzidos por outros pesquisadores, contribuindo para a confiabilidade científica da avaliação do protótipo \texttt{collector\_flutter}.
+\begin{table}[H]
+\centering
+\caption{Resumo dos cenários experimentais utilizados nos testes.}
+\begin{tabular}{|c|p{4cm}|p{6cm}|}
+\hline
+\textbf{Cenário} & \textbf{Tipo de Carga} & \textbf{Objetivo} \\
+\hline
+1 & Reconstruções de interface & Avaliar impacto de rebuilds frequentes na renderização \\
+\hline
+2 & Chamadas de rede simultâneas & Observar comportamento sob múltiplas requisições HTTP \\
+\hline
+3 & Alocação intensiva de memória & Identificar padrões de consumo e eventos de garbage collection \\
+\hline
+4 & Carga combinada & Simular comportamento próximo de aplicações reais \\
+\hline
+\end{tabular}
+\end{table}

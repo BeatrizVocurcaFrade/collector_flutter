@@ -1,0 +1,113 @@
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+% CAPÍTULO X - METODOLOGIA E DESENVOLVIMENTO
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\chapter{Metodologia e Desenvolvimento}
+
+
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+\section{Abordagem Metodológica}
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\subsection{Natureza da Pesquisa}
+
+A presente pesquisa caracteriza-se como um estudo de natureza \textbf{aplicada}, pois visa desenvolver e validar um \textit{protótipo funcional} de monitoramento de desempenho para aplicações Flutter.  
+Segundo \textcite{Gil} \cite{gil2017}, pesquisas aplicadas têm como propósito “gerar conhecimentos voltados à aplicação prática, dirigidos à solução de problemas específicos”.  
+
+Nesse contexto, o protótipo \texttt{collector\_flutter} busca oferecer uma solução técnica que permita a coleta, análise e interpretação de métricas de execução em tempo real, contribuindo para o aprimoramento da eficiência e da sustentabilidade digital de aplicativos móveis.  
+
+A pesquisa também apresenta abordagem \textbf{experimental}, uma vez que envolve a manipulação controlada de variáveis e a observação empírica dos resultados em ambientes reais. Conforme \textcite{Lakatos} \cite{lakatos2021}, o método experimental é adequado quando se pretende “testar hipóteses mediante o controle e a observação dos efeitos provocados por determinadas condições”.
+
+\subsection{Objetivos da Abordagem}
+
+A adoção de uma abordagem aplicada e experimental permite atender a objetivos técnicos e científicos específicos, entre os quais se destacam:
+
+\begin{itemize}
+  \item \textbf{Demonstrar a viabilidade técnica} de um sistema de monitoramento autônomo e totalmente embutido no ecossistema Flutter, sem dependência de ferramentas nativas externas (\textcite{AndroidDevelopers} \cite{android2024});
+  \item \textbf{Avaliar o impacto da coleta de métricas} sobre o desempenho da aplicação, mensurando o \textit{overhead} introduzido pelo processo de monitoramento;
+  \item \textbf{Mensurar a precisão dos dados coletados}, comparando-os às medições obtidas por ferramentas oficiais como Android Profiler e Xcode Instruments (\textcite{AOSP} \cite{aosp2024});
+  \item \textbf{Validar a eficácia das recomendações heurísticas}, verificando se sua aplicação gera melhorias tangíveis no desempenho e no consumo de recursos;
+  \item \textbf{Promover a reprodutibilidade científica}, disponibilizando publicamente o código-fonte e a documentação técnica do protótipo, conforme recomenda \textcite{Wohlin} \cite{wohlin2012}.
+\end{itemize}
+
+Esses objetivos orientam tanto o delineamento experimental quanto as etapas de desenvolvimento do sistema, assegurando coerência entre a fundamentação teórica, o projeto técnico e a avaliação empírica dos resultados.
+
+\subsection{Justificativa da Escolha Metodológica}
+
+A escolha de uma metodologia de natureza aplicada e abordagem experimental fundamenta-se na necessidade de validar empiricamente o comportamento de sistemas de monitoramento em contextos reais de execução.  
+Conforme destaca \textcite{Yin} \cite{yin2015}, abordagens experimentais e estudos de caso são apropriados quando o pesquisador busca compreender relações de causa e efeito entre variáveis observáveis em ambientes complexos como é o caso de aplicações móveis em execução sobre diferentes plataformas e dispositivos.
+
+No caso do \texttt{collector\_flutter}, a observação direta de variáveis como \textit{frame time}, reconstruções de widgets e uso de memória é indispensável para a avaliação de sua precisão e impacto.  
+Seguindo a orientação de \textcite{Meyer} \cite{meyer2022performance}, a análise experimental é essencial para estudos de engenharia de software focados em desempenho, pois permite associar métricas quantitativas a efeitos percebidos pelo usuário final.
+
+Assim, a abordagem metodológica proposta combina:
+\begin{itemize}
+  \item fundamentos teóricos sobre desempenho, eficiência e sustentabilidade digital;
+  \item experimentação controlada em dispositivos Android e iOS;
+  \item análise comparativa dos resultados obtidos com ferramentas nativas de referência.
+\end{itemize}
+
+Essa integração entre teoria e prática garante a robustez científica do estudo e o caráter inovador do sistema proposto, permitindo que ele seja avaliado, reproduzido e aprimorado em diferentes contextos de desenvolvimento.
+
+
+
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsection{Ciclo de Vida da Pesquisa e do Desenvolvimento}
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+O processo adotado neste trabalho segue um \textbf{ciclo de vida iterativo e incremental}, característico de projetos de engenharia de software com validação empírica, combinando desenvolvimento de protótipo e experimentação controlada.  
+Esse ciclo foi estruturado com base em princípios de engenharia de software (\textcite{Pressman} \cite{pressman2020engenharia}; \textcite{Sommerville} \cite{sommerville2019software}) e em diretrizes de experimentação em engenharia de software (\textcite{Wohlin} \cite{wohlin2012}), garantindo rastreabilidade entre objetivos, decisões de projeto e resultados.
+
+A Figura~\ref{fig:ciclo-vida} representa o ciclo metodológico adotado, organizado em fases com \textbf{entradas}, \textbf{atividades}, \textbf{artefatos gerados} e \textbf{critérios de término}.  
+O ciclo contempla dois momentos do trabalho: (i) \textbf{TCC 1}, voltado à fundamentação e ao protótipo inicial; e (ii) \textbf{TCC 2}, voltado à consolidação, testes experimentais e análise estatística.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{Metodologia/cicloDeVida.png}
+  \caption{Ciclo de vida metodológico adotado (iterativo e incremental).}
+  \label{fig:ciclo-vida}
+\end{figure}
+
+\subsubsection{Visão Geral das Fases e Entregáveis}
+
+O ciclo de vida foi operacionalizado em quatro fases principais, descritas a seguir. Para cada fase, definem-se claramente: (i) o objetivo, (ii) as atividades, (iii) os artefatos produzidos e (iv) o critério de conclusão.
+
+\paragraph{Fase 1 — Fundamentação e Revisão Bibliográfica}
+\textbf{Objetivo:} construir o embasamento teórico sobre desempenho, profiling, métricas e eficiência energética em aplicações móveis, delimitando o problema e justificando a solução proposta.  
+\textbf{Atividades:} busca sistemática por palavras-chave, leitura e seleção de estudos, organização temática e consolidação de lacunas na literatura.  
+\textbf{Artefatos/saídas:} (i) revisão bibliográfica estruturada, (ii) definição do problema, (iii) objetivos e hipóteses preliminares.  
+\textbf{Critério de conclusão:} existência de um referencial teórico suficiente para sustentar as métricas monitoradas e as escolhas de projeto do protótipo.
+
+\paragraph{Fase 2 — Requisitos, Escopo e Especificação}
+\textbf{Objetivo:} transformar o problema de pesquisa em requisitos verificáveis e critérios de sucesso, descrevendo claramente o que o protótipo deve fazer e quais limites deve respeitar.  
+\textbf{Atividades:} elicitação e análise de requisitos, definição de critérios de qualidade e operacionalização das métricas (o que medir e como medir).  
+\textbf{Artefatos/saídas:} (i) requisitos funcionais e não funcionais, (ii) critérios de avaliação, (iii) definição de metas (ex.: limite de \textit{overhead}).  
+\textbf{Critério de conclusão:} requisitos claros e mensuráveis, capazes de orientar implementação e avaliação experimental.
+
+\paragraph{Fase 3 — Projeto, Implementação e Integração do Protótipo}
+\textbf{Objetivo:} projetar e implementar o \texttt{collector\_flutter} de forma modular e testável, garantindo integração com aplicações Flutter e capacidade de coleta/visualização local.  
+\textbf{Atividades:} definição da arquitetura (camadas e módulos), implementação incremental das funcionalidades, integração entre módulos e testes iniciais.  
+\textbf{Artefatos/saídas:} (i) protótipo funcional, (ii) arquitetura documentada (diagramas e componentes), (iii) painel (\textit{dashboard}) integrado, (iv) registro e exportação de métricas.  
+\textbf{Critério de conclusão:} protótipo executável, capaz de coletar e exibir métricas em tempo real em ambiente controlado.
+
+\paragraph{Fase 4 — Avaliação Experimental, Análise e Validação}
+\textbf{Objetivo:} validar empiricamente precisão, impacto e utilidade do protótipo, comparando resultados com ferramentas de referência e aplicando análise estatística.  
+\textbf{Atividades:} definição dos cenários experimentais, execução repetida dos testes, coleta automatizada, análise descritiva e inferencial (quando aplicável), comparação com ferramentas oficiais.  
+\textbf{Artefatos/saídas:} (i) base de dados experimental (JSON), (ii) tabelas e gráficos, (iii) métricas de erro/precisão e \textit{overhead}, (iv) discussão de resultados e limitações.  
+\textbf{Critério de conclusão:} evidências empíricas suficientes para aceitar/refutar hipóteses e responder aos objetivos do trabalho.
+
+\subsubsection{Iterações e Rastreabilidade}
+
+Embora as fases sejam apresentadas de forma sequencial, o ciclo adotado é \textbf{iterativo}: resultados parciais de testes e integração podem motivar ajustes em requisitos, arquitetura ou heurísticas, desde que tais mudanças sejam registradas e justificadas.  
+Para garantir rastreabilidade, cada funcionalidade do protótipo foi associada a: (i) um requisito (RF/RNF), (ii) um módulo da arquitetura e (iii) um critério de avaliação experimental, permitindo ligação direta entre o que foi proposto, implementado e validado.
+
+\subsubsection{Relação com o Cronograma do TCC 1 e TCC 2}
+
+O ciclo metodológico foi distribuído ao longo do cronograma em dois macroperíodos:
+\begin{itemize}
+  \item \textbf{TCC 1:} foco nas Fases 1, 2 e início da Fase 3, resultando em fundamentação teórica consolidada e protótipo inicial funcional.
+  \item \textbf{TCC 2:} foco na conclusão da Fase 3 e execução completa da Fase 4, resultando em experimentação, análise estatística e redação final da monografia.
+\end{itemize}
+
+Essa estrutura torna explícito o ciclo de vida adotado e define o que se espera em cada etapa do processo, atendendo ao requisito de maior rigor e sistematização metodológica.
+
