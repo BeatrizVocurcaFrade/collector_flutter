@@ -34,13 +34,17 @@ class ResourceCollector {
     _frame.start();
     _memory.start();
     _bloc.dispatch(CollectorStart());
-    Future.delayed(const Duration(seconds: 3), () => _frame.drain());
   }
 
   void stop() {
     _bloc.dispatch(CollectorStop());
     _frame.stop();
     _memory.stop();
+  }
+
+  void dispose() {
+    stop();
+    _bloc.dispose();
   }
 
   void recordEvent(String name, dynamic value) =>

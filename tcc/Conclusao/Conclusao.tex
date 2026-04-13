@@ -1,10 +1,60 @@
+% !TEX root = ../Monografia.tex
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+% CAPÍTULO - CONCLUSÕES
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 \chapter{Conclusões}
 
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Considerações Finais}
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Aqui vai o texto da conclusão.
+Este trabalho apresentou o desenvolvimento do \texttt{collector\_flutter}, um protótipo de ferramenta integrada para monitoramento e análise de desempenho em aplicações Flutter. A proposta partiu da identificação de uma lacuna relevante no ecossistema de desenvolvimento Flutter: a ausência de soluções que combinem, em um único componente, a coleta automática de métricas, a análise heurística e a geração de recomendações práticas de otimização, sem exigir configuração externa ou interrupção do fluxo de desenvolvimento.
 
+Ao longo do TCC~1, foram concretizadas as etapas fundamentais do ciclo de vida do projeto: a revisão bibliográfica sistemática, a definição de requisitos funcionais e não funcionais, o projeto arquitetural da solução e a implementação dos módulos principais. O resultado é um protótipo funcional capaz de coletar métricas de FPS, \textit{jank}, uso de memória e eventos de rede em tempo real, analisá-las de forma automática e apresentar recomendações contextualizadas com diferentes níveis de severidade por meio de um painel visual integrado.
+
+A arquitetura de três camadas (\textit{Data}, \textit{Domain} e \textit{Presentation}), inspirada nos princípios da \textit{Clean Architecture}~\cite{martin2018clean}, demonstrou-se adequada para os objetivos do projeto, garantindo baixo acoplamento, extensibilidade e separação clara de responsabilidades. A validação qualitativa realizada por meio dos quatro cenários experimentais confirmou a operacionalidade do sistema e evidenciou a pertinência das heurísticas de recomendação implementadas.
+
+Do ponto de vista da sustentabilidade digital, o trabalho reforça a ideia de que ferramentas acessíveis de diagnóstico de desempenho podem contribuir para práticas de desenvolvimento mais eficientes e responsáveis. Ao facilitar a identificação de gargalos computacionais, o protótipo apoia desenvolvedores na produção de aplicações mais leves, com menor consumo energético e maior compatibilidade com dispositivos de diferentes capacidades \cite{cheng2020energy, ieee2023sustainability}.
+
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+\section{Contribuições do TCC~1}
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+As principais contribuições alcançadas na primeira fase deste trabalho são:
+
+\begin{enumerate}
+  \item \textbf{Revisão bibliográfica integrada:} síntese crítica da literatura sobre monitoramento de recursos, ferramentas de diagnóstico e sustentabilidade digital em aplicações móveis, identificando lacunas e oportunidades de contribuição;
+
+  \item \textbf{Arquitetura modular documentada:} definição e documentação de uma arquitetura de três camadas para sistemas de monitoramento embutido em Flutter, com separação clara entre coleta, análise e visualização;
+
+  \item \textbf{Protótipo funcional:} implementação dos módulos de coleta (FPS, memória, rede, eventos), análise heurística e painel visual, disponibilizados como código aberto no repositório \texttt{BeatrizVocurcaFrade/collector\_flutter};
+
+  \item \textbf{Validação qualitativa preliminar:} execução dos quatro cenários experimentais planejados, confirmando a operacionalidade do sistema e identificando limitações a serem tratadas no TCC~2;
+
+  \item \textbf{Reflexão sobre sustentabilidade e ética:} discussão das implicações sociais, ambientais e éticas associadas ao monitoramento de desempenho em aplicações móveis, inserindo o trabalho no contexto da engenharia de software sustentável.
+\end{enumerate}
+
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Propostas de Continuidade}
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
+O TCC~2 dará continuidade ao trabalho nas seguintes frentes:
+
+\begin{itemize}
+  \item \textbf{Implementação das métricas ausentes:} adição de coleta de uso de CPU por processo e estimativa de consumo energético, por meio de canais nativos (\textit{platform channels}) específicos para Android e iOS;
+
+  \item \textbf{Execução formal dos experimentos:} realização dos quatro cenários experimentais em condições controladas, com 30 repetições por cenário, em dispositivos físicos (Samsung Galaxy A52, Motorola G73) e emulador (Pixel 6). Os resultados serão analisados estatisticamente por meio de testes t pareados com intervalo de confiança de 95\%;
+
+  \item \textbf{Comparação com ferramentas de referência:} validação da precisão das métricas coletadas pelo protótipo em comparação com o Android Profiler, \texttt{adb shell dumpsys gfxinfo} e Flutter DevTools, calculando o erro percentual entre as medições;
+
+  \item \textbf{Exportação de dados:} implementação da funcionalidade de exportação de métricas em formato JSON estruturado, permitindo análise externa e reprodutibilidade científica;
+
+  \item \textbf{Testes automatizados:} implementação de testes unitários para os módulos \texttt{Analyzer} e \texttt{Recommender}, garantindo cobertura das regras heurísticas e prevenção de regressões;
+
+  \item \textbf{Avaliação de usabilidade:} coleta de \textit{feedback} de desenvolvedores Flutter sobre a clareza das recomendações e facilidade de integração da ferramenta;
+
+  \item \textbf{Redação final:} revisão e complementação de todos os capítulos da monografia com base nos resultados experimentais obtidos, consolidando as contribuições do trabalho.
+\end{itemize}
 
 \clearpage

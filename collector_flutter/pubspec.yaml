@@ -4,14 +4,14 @@ version: 0.1.0
 publish_to: none
 
 environment:
-  sdk: ^3.7.2
-  flutter: ">=1.17.0"
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
 
 dependencies:
   flutter:
     sdk: flutter
   http: ^1.5.0
-  vm_service: ^14.3.1
+  vm_service: ^14.2.5
   google_fonts: ^6.2.0
   syncfusion_flutter_charts: ^27.1.43
   

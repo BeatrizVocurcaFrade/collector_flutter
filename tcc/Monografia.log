@@ -1,0 +1,848 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  12 APR 2026 23:01
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/home/usuario/projects/pessoal/collector_flutter/tcc/Monografia
+(/home/usuario/projects/pessoal/collector_flutter/tcc/Monografia.tex
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-01-16> (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk12.clo
+File: bk12.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@chapter=\count186
+\c@section=\count187
+\c@subsection=\count188
+\c@subsubsection=\count189
+\c@paragraph=\count190
+\c@subparagraph=\count191
+\c@figure=\count192
+\c@table=\count193
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+) (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+) (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2022/12/26 3.84 The Babel package
+\babel@savecnt=\count194
+\U@D=\dimen141
+\l@unhyphenated=\language8
+ (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count195
+ (/usr/share/texlive/texmf-dist/tex/generic/babel-portuges/brazil.ldf
+Language: portuges 2021/07/09 v1.2t Portuguese support from the babel system
+Package babel Info: Hyphen rules for 'brazil' set to \l@portuguese
+(babel)             (\language5). Reported on input line 111.
+Package babel Info: Making " an active character on input line 143.
+)) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2022/04/08 v2.17n AMS math features
+\@mathmargin=\skip50
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+ (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks18
+\ex@=\dimen142
+)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen143
+) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count196
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count197
+\leftroot@=\count198
+LaTeX Info: Redefining \overline on input line 399.
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count199
+\DOTSCASE@=\count266
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box51
+\strutbox@=\box52
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
+\big@size=\dimen144
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count267
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count268
+\dotsspace@=\muskip16
+\c@parentequation=\count269
+\dspbrk@lvl=\count270
+\tag@help=\toks19
+\row@=\count271
+\column@=\count272
+\maxfields@=\count273
+\andhelp@=\toks20
+\eqnshift@=\dimen145
+\alignsep@=\dimen146
+\tagshift@=\dimen147
+\tagwidth@=\dimen148
+\totwidth@=\dimen149
+\lineht@=\dimen150
+\@envbody=\toks21
+\multlinegap=\skip51
+\multlinetaggap=\skip52
+\mathdisplay@stack=\toks22
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+) (/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks23
+\thm@bodyfont=\toks24
+\thm@headfont=\toks25
+\thm@notefont=\toks26
+\thm@headpunct=\toks27
+\thm@preskip=\skip53
+\thm@postskip=\skip54
+\thm@headsep=\skip55
+\dth@everypar=\toks28
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks29
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+)
+\Gin@req@height=\dimen151
+\Gin@req@width=\dimen152
+) (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count274
+\float@exts=\toks30
+\float@box=\box53
+\@float@everytoks=\toks31
+\@floatcapt=\box54
+) (./abntex2abrev.sty (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)) (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+ (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+ (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count275
+\Gm@cntv=\count276
+\c@Gm@tempcnt=\count277
+\Gm@bindingoffset=\dimen153
+\Gm@wd@mp=\dimen154
+\Gm@odd@mp=\dimen155
+\Gm@even@mp=\dimen156
+\Gm@layoutwidth=\dimen157
+\Gm@layoutheight=\dimen158
+\Gm@layouthoffset=\dimen159
+\Gm@layoutvoffset=\dimen160
+\Gm@dimlist=\toks32
+) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2022-11-13 v7.00u Hypertext links for LaTeX
+ (/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+) (/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ (/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) (/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+) (/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+) (/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) (/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+) (/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2022-05-17 v2.50 Cross-referencing by name of section
+ (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+ (/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count278
+)
+\@linkdim=\dimen161
+\Hy@linkcounter=\count279
+\Hy@pagecounter=\count280
+ (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2022-11-13 v7.00u Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+) (/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count281
+ (/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2022-11-13 v7.00u Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Hyper figures OFF on input line 4162.
+Package hyperref Info: Link nesting OFF on input line 4167.
+Package hyperref Info: Hyper index ON on input line 4170.
+Package hyperref Info: Plain pages OFF on input line 4177.
+Package hyperref Info: Backreferencing OFF on input line 4182.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4410.
+\c@Hy@tempcnt=\count282
+ (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4748.
+\XeTeXLinkMargin=\dimen162
+ (/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+ (/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+))
+\Fld@menulength=\count283
+\Field@Width=\dimen163
+\Fld@charsize=\dimen164
+Package hyperref Info: Hyper figures OFF on input line 6027.
+Package hyperref Info: Link nesting OFF on input line 6032.
+Package hyperref Info: Hyper index ON on input line 6035.
+Package hyperref Info: backreferencing OFF on input line 6042.
+Package hyperref Info: Link coloring OFF on input line 6047.
+Package hyperref Info: Link coloring with OCG OFF on input line 6052.
+Package hyperref Info: PDF/A mode OFF on input line 6057.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count284
+\c@Item=\count285
+\c@Hfootnote=\count286
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+ (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2022-11-13 v7.00u Hyperref driver for pdfTeX
+ (/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
+with kernel methods
+)
+\Fld@listcount=\count287
+\c@bookmark@seq@number=\count288
+ (/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+ (/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
+)
+\Hy@SectionHShift=\skip56
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 50.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 53.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
+File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
+) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count289
+\l__pdf_internal_box=\box55
+) (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./DescricaoProcesso/revisao.aux) (./DescricaoProcesso/Humanidades.aux) (./Metodologia/inicio.aux) (./Metodologia/cronograma.aux) (./Metodologia/desenvolvimento.aux) (./Metodologia/teste.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Bibliografia/Bibliografia.aux))
+\openout1 = `Monografia.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count290
+\scratchdimen=\dimen165
+\scratchbox=\box56
+\nofMPsegments=\count291
+\nofMParguments=\count292
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count293
+\MPscratchDim=\dimen166
+\MPnumerator=\count294
+\makeMPintoPDFobject=\count295
+\everyMPtoPDFconversion=\toks34
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(85.35826pt, 441.01773pt, 71.13188pt)
+* v-part:(T,H,B)=(85.35826pt, 674.33032pt, 85.35826pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=441.01773pt
+* \textheight=674.33032pt
+* \oddsidemargin=13.08827pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-23.90028pt
+* \headheight=19.91692pt
+* \headsep=17.07164pt
+* \topskip=12.0pt
+* \footskip=19.91692pt
+* \marginparwidth=88.0pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package hyperref Info: Link coloring ON on input line 53.
+(./Monografia.out) (./Monografia.out)
+\@outlinefile=\write3
+\openout3 = `Monografia.out'.
+
+\openout2 = `Capa/capa.aux'.
+
+ (./Capa/capa.tex [1
+
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+\openout2 = `Resumo/Resumo.aux'.
+
+ (./Resumo/Resumo.tex [1
+
+
+
+
+] [2
+
+
+])
+\openout2 = `TabelaConteudo/TabelaConteudo.aux'.
+
+ (./TabelaConteudo/TabelaConteudo.tex (./Monografia.toc
+LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [3
+
+
+
+
+])
+\tf@toc=\write4
+\openout4 = `Monografia.toc'.
+
+ [4])
+\openout2 = `ListaFiguras/ListaFiguras.aux'.
+
+ (./ListaFiguras/ListaFiguras.tex (./Monografia.lof
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 7.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+))
+\tf@lof=\write5
+\openout5 = `Monografia.lof'.
+
+ [5
+
+
+
+
+
+])
+\openout2 = `Introducao/Introducao.aux'.
+
+ (./Introducao/Introducao.tex
+Cap\'{\i }tulo 1.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.20 O
+       protÃ³tipo \texttt{collector\_flutter} foi concebido para ser uma fer... [1
+
+
+
+
+
+] [2] [3] [4] [5] [6])
+\openout2 = `DescricaoProcesso/DescricaoProcesso.aux'.
+
+ (./DescricaoProcesso/DescricaoProcesso.tex
+Cap\'{\i }tulo 2.
+[7
+
+
+
+
+
+])
+\openout2 = `DescricaoProcesso/revisao.aux'.
+
+ (./DescricaoProcesso/revisao.tex
+Underfull \hbox (badness 3977) in paragraph at lines 41--41
+[]\T1/ptm/m/n/12 Rastreamento de-ta-lhado de
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--46
+[]\T1/ptm/m/n/12 Monitoramento em tempo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--46
+\T1/ptm/m/n/12 e ener-gia di-re-ta-mente no
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--50
+[]\T1/ptm/b/n/12 Xcode Ins-tru-
+ []
+
+
+Underfull \hbox (badness 2158) in paragraph at lines 52--53
+[]\T1/ptm/m/n/12 Execução res-trita ao ecos-sis-tema Ap-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 56--56
+[]\T1/ptm/m/n/12 Monitoramento au-to-má-tico
+ []
+
+
+Underfull \hbox (badness 7944) in paragraph at lines 56--56
+\T1/ptm/m/n/12 e cha-ma-das de rede em
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 61--61
+[]\T1/ptm/m/n/12 Ferramenta de de-pu-ra-ção
+ []
+
+
+Underfull \hbox (badness 2065) in paragraph at lines 62--63
+[]\T1/ptm/m/n/12 Compatibilidade li-mi-tada com Flut-ter;
+ []
+
+
+Underfull \hbox (badness 4543) in paragraph at lines 66--66
+\T1/ptm/m/n/12 za-men-tos de me-mó-ria em
+ []
+
+
+Overfull \hbox (21.77359pt too wide) in paragraph at lines 27--72
+ [][] 
+ []
+
+[8
+
+
+
+
+] [9] [10]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 104.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+Overfull \hbox (13.38084pt too wide) in paragraph at lines 116--117
+[]\T1/ptm/m/n/12 Nesse con-texto, o pre-sente tra-ba-lho pro-põe o de-sen-vol-vi-mento do \T1/pcr/m/n/12 collector_flutter\T1/ptm/m/n/12 ,
+ []
+
+) [11]
+\openout2 = `DescricaoProcesso/Humanidades.aux'.
+
+ (./DescricaoProcesso/Humanidades.tex
+Cap\'{\i }tulo 3.
+[12
+
+
+
+
+] [13] [14]) [15]
+\openout2 = `Metodologia/inicio.aux'.
+
+ (./Metodologia/inicio.tex
+Cap\'{\i }tulo 4.
+
+Overfull \hbox (0.46976pt too wide) in paragraph at lines 31--32
+\T1/ptm/m/n/12 fonte e a do-cu-men-ta-ção téc-nica do pro-tó-tipo, con-forme re-co-men-dam Woh-lin \T1/ptm/m/it/12 et al. \T1/ptm/m/n/12 [[]]. 
+ []
+
+[16
+
+
+
+
+]
+<Metodologia/cicloDeVida.png, id=561, 4209.7275pt x 1980.39874pt>
+File: Metodologia/cicloDeVida.png Graphic file (type png)
+<use Metodologia/cicloDeVida.png>
+Package pdftex.def Info: Metodologia/cicloDeVida.png  used on input line 67.
+(pdftex.def)             Requested size: 418.96548pt x 197.08449pt.
+ [17] [18 <./Metodologia/cicloDeVida.png>]) [19]
+\openout2 = `Metodologia/cronograma.aux'.
+
+ (./Metodologia/cronograma.tex
+Underfull \hbox (badness 10000) in paragraph at lines 35--35
+[]\T1/ptm/m/n/12 Semanas 1^^U3
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--41
+[]\T1/ptm/m/n/12 Semanas 5^^U6
+ []
+
+
+Underfull \hbox (badness 5119) in paragraph at lines 47--47
+[]\T1/ptm/m/n/12 Semana 10 (06
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--50
+[]\T1/ptm/m/n/12 Semanas 11^^U13
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 53--53
+[]\T1/ptm/m/n/12 Semanas 14^^U16
+ []
+
+
+Underfull \hbox (badness 4556) in paragraph at lines 53--53
+[]\T1/ptm/m/n/12 Redação da Mo-no-gra-fia e
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 56--56
+[]\T1/ptm/m/n/12 Semana 17
+ []
+
+
+Overfull \hbox (21.77359pt too wide) in paragraph at lines 27--61
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--81
+[]\T1/ptm/m/n/12 Semanas 1^^U3
+ []
+
+
+Underfull \hbox (badness 2818) in paragraph at lines 84--84
+[]\T1/ptm/m/n/12 Aperfeiçoamento do Pro-tó-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
+[]\T1/ptm/m/n/12 Semanas 10^^U12
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+[]\T1/ptm/m/n/12 Semanas 13^^U15
+ []
+
+
+Underfull \hbox (badness 1902) in paragraph at lines 93--94
+[]\T1/ptm/m/n/12 Elaboração dos grá-fi-cos com-pa-ra-ti-vos,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--96
+[]\T1/ptm/m/n/12 Semanas 16^^U18
+ []
+
+
+Overfull \hbox (21.77359pt too wide) in paragraph at lines 73--101
+ [][] 
+ []
+
+) [20
+
+
+
+] [21] [22] [23]
+\openout2 = `Metodologia/desenvolvimento.aux'.
+
+ (./Metodologia/desenvolvimento.tex [24
+
+
+
+]
+
+LaTeX Warning: Reference `fig:metodologia' on page 25 undefined on input line 61.
+
+
+Overfull \hbox (15.03679pt too wide) in paragraph at lines 77--78
+[]\T1/ptm/m/n/12 Comparação pre-li-mi-nar com mé-tri-cas ob-ti-das via An-droid Pro-fi-ler e Per-fetto (AOSP [[]]). 
+ []
+
+[25] [26] [27] [28]
+<Metodologia/sequenceDiagram.png, id=669, 4421.51875pt x 2076.75874pt>
+File: Metodologia/sequenceDiagram.png Graphic file (type png)
+<use Metodologia/sequenceDiagram.png>
+Package pdftex.def Info: Metodologia/sequenceDiagram.png  used on input line 238.
+(pdftex.def)             Requested size: 396.91325pt x 186.4249pt.
+ [29 <./Metodologia/sequenceDiagram.png>]
+Overfull \hbox (12.69865pt too wide) in paragraph at lines 265--267
+\T1/ptm/m/n/12 mó-ria. Ele ofe-rece uma API aces-sí-vel ao de-sen-vol-ve-dor com mé-to-dos como \T1/pcr/m/n/12 recordWidget-
+ []
+
+[30]
+<Metodologia/prototipoquandoestaok.jpeg, id=688, 740.7675pt x 1606.0pt>
+File: Metodologia/prototipoquandoestaok.jpeg Graphic file (type jpg)
+<use Metodologia/prototipoquandoestaok.jpeg>
+Package pdftex.def Info: Metodologia/prototipoquandoestaok.jpeg  used on input line 323.
+(pdftex.def)             Requested size: 162.73198pt x 352.81552pt.
+
+Underfull \vbox (badness 3954) has occurred while \output is active []
+
+ [31]
+<Metodologia/prototipoquandonaoestaok.jpeg, id=698, 740.7675pt x 1606.0pt>
+File: Metodologia/prototipoquandonaoestaok.jpeg Graphic file (type jpg)
+<use Metodologia/prototipoquandonaoestaok.jpeg>
+Package pdftex.def Info: Metodologia/prototipoquandonaoestaok.jpeg  used on input line 333.
+(pdftex.def)             Requested size: 162.73198pt x 352.81552pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [32 <./Metodologia/prototipoquandoestaok.jpeg>]
+<./Metodologia//iconedoappexamplo.jpeg, id=703, 318.18875pt x 338.26375pt>
+File: ./Metodologia//iconedoappexamplo.jpeg Graphic file (type jpg)
+<use ./Metodologia//iconedoappexamplo.jpeg>
+Package pdftex.def Info: ./Metodologia//iconedoappexamplo.jpeg  used on input line 343.
+(pdftex.def)             Requested size: 124.45724pt x 132.30666pt.
+ [33 <./Metodologia/prototipoquandonaoestaok.jpeg> <./Metodologia//iconedoappexamplo.jpeg>]
+Overfull \hbox (41.43752pt too wide) in paragraph at lines 359--360
+[]\T1/ptm/b/n/12 Layout so-bre-car-re-gado: \T1/ptm/m/n/12 ^^PSim-pli-fi-que hi-e-rar-quias de wid-gets e uti-lize \T1/pcr/m/n/12 ListView.builder
+ []
+
+
+Overfull \hbox (6.26825pt too wide) in paragraph at lines 403--405
+\T1/pcr/m/n/12 dumpsys gfxinfo\T1/ptm/m/n/12 , e o \T1/pcr/m/n/12 Xcode Instruments\T1/ptm/m/n/12 . Fo-ram ana-li-sa-das va-riá-veis como tempo
+ []
+
+[34] [35] [36] [37]) [38]
+\openout2 = `Metodologia/teste.aux'.
+
+ (./Metodologia/teste.tex [39
+
+
+
+]
+Overfull \hbox (66.13223pt too wide) in paragraph at lines 44--45
+[]\T1/ptm/m/n/12 Foram dis-pa-ra-das múl-ti-plas re-qui-si-ções HTTP pa-ra-le-las, uti-li-zando o mé-todo \T1/pcr/m/n/12 recordNetwork()\T1/ptm/m/n/12 ,
+ []
+
+
+Overfull \hbox (47.79797pt too wide) in paragraph at lines 68--69
+[]\T1/ptm/b/n/12 Tempo mé-dio de ren-de-ri-za-ção de qua-dro \T1/ptm/m/n/12 ^^V cal-cu-lado a par-tir dos even-tos de \T1/pcr/m/n/12 FrameTiming\T1/ptm/m/n/12 ; 
+ []
+
+[40]
+Underfull \hbox (badness 1609) in paragraph at lines 142--143
+[]\T1/ptm/m/n/12 Avaliar im-pacto de re-builds fre-
+ []
+
+
+Underfull \hbox (badness 1286) in paragraph at lines 146--146
+[]\T1/ptm/m/n/12 Alocação in-ten-siva de
+ []
+
+
+Underfull \hbox (badness 2635) in paragraph at lines 148--149
+[]\T1/ptm/m/n/12 Simular com-por-ta-mento pró-ximo
+ []
+
+
+Overfull \hbox (72.80672pt too wide) in paragraph at lines 134--151
+\T1/ptm/m/n/12 qui-sa-do-res, con-tri-buindo para a con-fi-a-bi-li-dade ci-en-tí-fica da ava-li-a-ção do pro-tó-tipo \T1/pcr/m/n/12 collector_flutter\T1/ptm/m/n/12 . 
+ []
+
+) [41] [42]
+\openout2 = `Resultados/Resultados.aux'.
+
+ (./Resultados/Resultados.tex
+Cap\'{\i }tulo 5.
+
+Overfull \hbox (1.38893pt too wide) in paragraph at lines 31--31
+[]\T1/pcr/m/n/12 MemoryDataSource| 
+ []
+
+
+Overfull \hbox (8.58893pt too wide) in paragraph at lines 33--33
+[]\T1/pcr/m/n/12 HttpClientWrapper| 
+ []
+
+
+Underfull \hbox (badness 5217) in paragraph at lines 43--43
+[]\T1/ptm/m/n/12 Painel vi-sual com grá-fi-cos em
+ []
+
+
+Overfull \hbox (8.58893pt too wide) in paragraph at lines 45--45
+[]\T1/pcr/m/n/12 ResourceCollector| 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [43
+
+
+
+
+]
+Overfull \hbox (23.91907pt too wide) in paragraph at lines 65--66
+\T1/ptm/m/n/12 en-ti-da-des de ne-gó-cio (\T1/pcr/m/n/12 Telemetry\T1/ptm/m/n/12 ) e os três ca-sos de uso (\T1/pcr/m/n/12 CollectMetricsUseCase\T1/ptm/m/n/12 ,
+ []
+
+
+Overfull \hbox (1.24074pt too wide) in paragraph at lines 65--66
+\T1/pcr/m/n/12 AnalyzePerformanceUseCase \T1/ptm/m/n/12 e \T1/pcr/m/n/12 GenerateRecommendationsUseCase\T1/ptm/m/n/12 ),
+ []
+
+[44] [45]
+LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <12> not available
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 106.
+
+Overfull \hbox (20.01865pt too wide) in paragraph at lines 110--111
+\T1/ptm/m/n/12 de res-posta e có-digo de sta-tus. Em con-di-ções de alta frequên-cia de re-qui-si-ções, o \T1/pcr/m/n/12 Recommender
+ []
+
+[46] [47])
+\openout2 = `Conclusao/Conclusao.aux'.
+
+ (./Conclusao/Conclusao.tex
+Cap\'{\i }tulo 6.
+[48
+
+
+
+
+
+]
+Overfull \hbox (7.2265pt too wide) in paragraph at lines 49--50
+\T1/ptm/m/n/12 le-ta-das pelo pro-tó-tipo em com-pa-ra-ção com o An-droid Pro-fi-ler, \T1/pcr/m/n/12 adb shell dumpsys
+ []
+
+
+Overfull \hbox (3.07307pt too wide) in paragraph at lines 53--54
+[]\T1/ptm/b/n/12 Testes au-to-ma-ti-za-dos: \T1/ptm/m/n/12 im-ple-men-ta-ção de tes-tes uni-tá-rios para os mó-du-los \T1/pcr/m/n/12 Analyzer
+ []
+
+[49])
+\openout2 = `Bibliografia/Bibliografia.aux'.
+
+ (./Bibliografia/Bibliografia.tex
+Underfull \hbox (badness 1122) in paragraph at lines 68--72
+[]\T1/ptm/m/n/12 ANDROID DE-VE-LO-PERS.  \T1/ptm/b/n/12 An-droid Pro-fi-ler\T1/ptm/m/n/12 .  Dis-po-ní-vel em: [][]$\T1/pcr/m/n/12 https : / /
+ []
+
+[50
+
+
+
+
+
+] [51]) [52] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/DescricaoProcesso.aux) (./DescricaoProcesso/revisao.aux) (./DescricaoProcesso/Humanidades.aux) (./Metodologia/inicio.aux) (./Metodologia/cronograma.aux) (./Metodologia/desenvolvimento.aux) (./Metodologia/teste.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Bibliografia/Bibliografia.aux))
+
+LaTeX Warning: There were undefined references.
+
+Package rerunfilecheck Info: File `Monografia.out' has not changed.
+(rerunfilecheck)             Checksum: 51A48839F5F96C8157BE6AE6B29C965A;16610.
+ ) 
+Here is how much of TeX's memory you used:
+ 11992 strings out of 477958
+ 199104 string characters out of 5838580
+ 1869330 words of memory out of 5000000
+ 31587 multiletter control sequences out of 15000+600000
+ 551624 words of font info for 80 fonts, out of 8000000 for 9000
+ 61 hyphenation exceptions out of 8191
+ 75i,11n,76p,797b,592s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Monografia.pdf (58 pages, 1267396 bytes).
+PDF statistics:
+ 954 PDF objects out of 1000 (max. 8388607)
+ 854 compressed objects within 9 object streams
+ 232 named destinations out of 1000 (max. 500000)
+ 634 words of extra memory for PDF output out of 10000 (max. 10000000)
+

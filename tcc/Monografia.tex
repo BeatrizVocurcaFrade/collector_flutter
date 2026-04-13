@@ -1,3 +1,4 @@
+% !TEX root = Monografia.tex
 % Monografia para Projeto de Fim de Curso - Exemplo no LaTeX
 %-----------------------------------------------------------
 
@@ -29,6 +30,10 @@
 ]{geometry}
 
 \def\baselinestretch{1.0}
+
+%----------------- COMPATIBILIDADE biblatex/natbib -----------------
+% Permite uso de \textcite{} sem carregar biblatex (thebibliography manual)
+\providecommand{\textcite}[1]{\cite{#1}}
 
 %----------------- HYPERLINKS (PACOTE CRÍTICO) -----------------
 % ⚠️ Deve ser carregado por último para não causar conflito com abntex2
@@ -64,6 +69,8 @@
 \include{Metodologia/cronograma}
 \include{Metodologia/desenvolvimento}
 \include{Metodologia/teste}
+\include{Resultados/Resultados}
+\include{Conclusao/Conclusao}
 \include{Bibliografia/Bibliografia}
 
 \end{document}

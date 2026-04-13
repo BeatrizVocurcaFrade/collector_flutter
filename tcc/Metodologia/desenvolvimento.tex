@@ -1,8 +1,9 @@
+% !TEX root = ../Monografia.tex
 
 \subsection{Fase 2 – Levantamento de Requisitos e Especificação}
 
 A segunda fase envolveu o levantamento e a análise dos requisitos funcionais e não funcionais do sistema, de forma a alinhar a proposta às necessidades práticas de desenvolvedores Flutter.  
-Seguindo o modelo sugerido por \textcite{Sommerville} \cite{sommerville2019software}, o processo de elicitação de requisitos considerou aspectos de usabilidade, integração, portabilidade e impacto sobre o desempenho.
+Seguindo o modelo sugerido por Sommerville~\cite{sommerville2019software}, o processo de elicitação de requisitos considerou aspectos de usabilidade, integração, portabilidade e impacto sobre o desempenho.
 
 \subsubsection{Requisitos Funcionais}
 
@@ -18,13 +19,13 @@ Os requisitos funcionais definem as operações que o sistema deve realizar. Ent
 
 \subsubsection{Requisitos Não Funcionais}
 
-Os requisitos não funcionais descrevem as propriedades de qualidade esperadas do sistema, como desempenho, compatibilidade e manutenibilidade (\textcite{Pressman} \cite{pressman2020engenharia}):
+Os requisitos não funcionais descrevem as propriedades de qualidade esperadas do sistema, como desempenho, compatibilidade e manutenibilidade (Pressman e Maxim~\cite{pressman2020engenharia}):
 
 \begin{itemize}
   \item RNF1 – O sistema deve operar integralmente em Dart, sem dependência de código nativo;
   \item RNF2 – O coletor deve introduzir um \textit{overhead} máximo de 5\% sobre o tempo médio de renderização da aplicação monitorada;
   \item RNF3 – A interface do painel deve manter atualização fluida e responsiva, com taxa mínima de 50 FPS em dispositivos de médio desempenho;
-  \item RNF4 – A arquitetura deve seguir princípios de modularidade e separação de responsabilidades (\textcite{Martin} \cite{martin2018clean});
+  \item RNF4 – A arquitetura deve seguir princípios de modularidade e separação de responsabilidades (Martin~\cite{martin2018clean});
   \item RNF5 – O sistema deve permitir reuso e extensão, facilitando a integração de novos tipos de métricas ou heurísticas futuras.
 \end{itemize}
 
@@ -38,7 +39,7 @@ permitido pelos requisitos não funcionais.
 
 \subsection{Fase 3 – Projeto e Implementação do Protótipo}
 
-Nesta etapa, foram definidas as estruturas de software, as tecnologias empregadas e o fluxo de integração entre módulos. O projeto adotou a \textbf{Clean Architecture} proposta por \textcite{Martin} \cite{martin2018clean}, visando garantir independência entre camadas e testabilidade.
+Nesta etapa, foram definidas as estruturas de software, as tecnologias empregadas e o fluxo de integração entre módulos. O projeto adotou a \textbf{Clean Architecture} proposta por Martin~\cite{martin2018clean}, visando garantir independência entre camadas e testabilidade.
 
 
 
@@ -53,7 +54,7 @@ A modelagem do sistema foi conduzida de forma modular, com base em três camadas
 \end{enumerate}
 
 Esse modelo arquitetural facilita o isolamento das dependências e a manutenção evolutiva do código.  
-A modelagem de entidades e casos de uso seguiu práticas de design orientado a domínio (\textit{Domain-Driven Design}) conforme \textcite{Evans} \cite{evans2004domain}.
+A modelagem de entidades e casos de uso seguiu práticas de design orientado a domínio (\textit{Domain-Driven Design}) conforme Evans~\cite{evans2004domain}.
 
 \subsubsection{Tecnologias e Ferramentas Utilizadas}
 
@@ -62,18 +63,18 @@ O ambiente de desenvolvimento foi configurado conforme descrito na Seção~\ref{
   \item \textbf{Flutter SDK} (versão 3.22 ou superior) e \textbf{Dart SDK};
   \item \textbf{Android Studio} e \textbf{Visual Studio Code} como IDEs principais;
   \item \textbf{Bibliotecas:} \texttt{flutter\_bloc} para controle de estado, \texttt{fl\_chart} para geração de gráficos e \texttt{vm\_service} para instrumentação de métricas internas;
-  \item \textbf{Controle de versão:} GitHub para versionamento e reprodutibilidade científica (\textcite{Wohlin} \cite{wohlin2012}).
+  \item \textbf{Controle de versão:} GitHub para versionamento e reprodutibilidade científica (Wohlin \textit{et al.}~\cite{wohlin2012}).
 \end{itemize}
 
 \subsubsection{Integração dos Módulos e Testes Iniciais}
 
-Após a implementação individual dos módulos, foi conduzida uma fase de integração incremental, conforme orientam \textcite{Sommerville} \cite{sommerville2019software}.  
+Após a implementação individual dos módulos, foi conduzida uma fase de integração incremental, conforme orientam Sommerville~\cite{sommerville2019software}.  
 O processo envolveu:
 \begin{itemize}
   \item Testes unitários em cada componente da camada \textbf{Data} e \textbf{Domain};
   \item Integração dos módulos via \texttt{StreamController} e \texttt{Bloc};
   \item Validação visual do painel (\textbf{Dashboard}) com dados simulados;
-  \item Comparação preliminar com métricas obtidas via Android Profiler e Perfetto (\textcite{AOSP} \cite{aosp2024}).
+  \item Comparação preliminar com métricas obtidas via Android Profiler e Perfetto (AOSP~\cite{aosp2024}).
 \end{itemize}
 
 \subsection{Fase 4 – Avaliação Experimental e Validação}
@@ -88,7 +89,7 @@ Serão adotados os seguintes procedimentos:
 \begin{itemize}
     \item \textbf{Tamanho mínimo de amostra}: será estimado por meio de
     \textit{power analysis} considerando nível de confiança de 95\% e 
-    poder estatístico mínimo de 80\%, conforme recomendações de \textcite{wohlin2012};
+    poder estatístico mínimo de 80\%, conforme recomendações de \cite{wohlin2012};
     
     \item \textbf{Número de execuções}: cada cenário será repetido pelo 
     menos 30 vezes, permitindo a aplicação de testes estatísticos paramétricos
@@ -114,7 +115,7 @@ em observações individuais.
 Para estruturar o experimento de forma sistemática, foram definidas
 variáveis independentes, dependentes e de controle, conforme
 recomendado em experimentação em engenharia de software
-(\textcite{wohlin2012}).
+(\cite{wohlin2012}).
 
 \begin{itemize}
 
@@ -141,7 +142,7 @@ recomendado em experimentação em engenharia de software
 \end{itemize}
 
 \end{itemize}
-O planejamento experimental foi orientado pelas diretrizes de \textcite{Wohlin} \cite{wohlin2012}, contemplando definição de hipóteses, variáveis e procedimentos de coleta.  
+O planejamento experimental foi orientado pelas diretrizes de Wohlin \textit{et al.}~\cite{wohlin2012}, contemplando definição de hipóteses, variáveis e procedimentos de coleta.  
 As hipóteses principais foram:
 
 \begin{itemize}
@@ -154,20 +155,20 @@ As hipóteses principais foram:
 
 Os testes foram conduzidos em dispositivos físicos Android (versões 12 e 13) e iOS (versão 16), sob diferentes níveis de carga.  
 Foram utilizadas aplicações simuladas com variações intencionais de complexidade gráfica e número de reconstruções de widgets, a fim de provocar gargalos mensuráveis.  
-Durante os experimentos, foram comparados os valores de FPS, latência média e uso de CPU obtidos pelo protótipo e pelas ferramentas oficiais (\textcite{AndroidDevelopers} \cite{android2024}).
+Durante os experimentos, foram comparados os valores de FPS, latência média e uso de CPU obtidos pelo protótipo e pelas ferramentas oficiais (Android Developers~\cite{android2024}).
 
 \subsubsection{Coleta e Análise de Dados}
 
 A coleta de dados foi realizada de forma automatizada, com as métricas sendo armazenadas em formato JSON e processadas pelo módulo \texttt{Analyzer}.  
 A análise comparativa baseou-se em indicadores estatísticos de correlação e desvio médio absoluto, buscando quantificar a precisão das medições e o impacto do monitoramento no desempenho.  
 
-Os resultados foram então avaliados segundo os critérios definidos na Seção de \textbf{Critérios de Avaliação}, considerando precisão, \textit{overhead} e eficácia das recomendações, conforme metodologia de experimentação em engenharia de software proposta por \textcite{Wohlin} \cite{wohlin2012}.
+Os resultados foram então avaliados segundo os critérios definidos na Seção de \textbf{Critérios de Avaliação}, considerando precisão, \textit{overhead} e eficácia das recomendações, conforme metodologia de experimentação em engenharia de software proposta por Wohlin \textit{et al.}~\cite{wohlin2012}.
 
 \subsubsection{Métrica de Eficiência Energética}
 
 A eficiência energética será medida por meio de \textbf{métricas indiretas}
 (\textit{energy proxies}), conforme utilizado em trabalhos como
-\textcite{cheng2020energy} e \textcite{zhang2021energy}.
+\cite{cheng2020energy} e \cite{zhang2021energy}.
 Devido à indisponibilidade de instrumentação física dedicada para medir
 corrente elétrica, serão adotados os seguintes proxies:
 
@@ -212,7 +213,7 @@ descritos no Plano Estatístico dos Experimentos.
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 O protótipo desenvolvido, denominado \texttt{collector\_flutter}, foi projetado para funcionar de forma totalmente embutida no aplicativo Flutter, realizando a coleta, análise e visualização de métricas de desempenho sem recorrer a servidores externos.  
-A proposta fundamenta-se na construção de um sistema modular, multiplataforma e de baixo \textit{overhead}, conforme boas práticas de engenharia de software experimental (\textcite{Wohlin} \cite{wohlin2012}; \textcite{Pressman} \cite{pressman2020engenharia}).
+A proposta fundamenta-se na construção de um sistema modular, multiplataforma e de baixo \textit{overhead}, conforme boas práticas de engenharia de software experimental (Wohlin \textit{et al.}~\cite{wohlin2012}; Pressman e Maxim~\cite{pressman2020engenharia}).
 
 \subsection{Concepção e Premissas de Projeto}
 
@@ -223,7 +224,7 @@ A concepção do sistema teve como premissas fundamentais:
   \item Fornecer medições precisas em tempo real, com impacto mínimo sobre a performance do aplicativo monitorado;
   \item Manter arquitetura modular, permitindo substituição ou expansão de componentes;
   \item Adotar interface integrada ao próprio aplicativo, sem uso de ferramentas externas;
-  \item Seguir princípios da \textbf{Clean Architecture} (\textcite{Martin} \cite{martin2018clean}), assegurando separação de responsabilidades e testabilidade.
+  \item Seguir princípios da \textbf{Clean Architecture} (Martin~\cite{martin2018clean}), assegurando separação de responsabilidades e testabilidade.
 \end{itemize}
 
 Essas premissas visam garantir a reprodutibilidade científica e a aplicabilidade prática do protótipo tanto em ambientes de desenvolvimento quanto em contextos de ensino e pesquisa.
@@ -248,7 +249,7 @@ Os dados são transmitidos por \texttt{Streams} para as camadas superiores, gara
 \subsubsection{Camada Domain}
 
 A camada \textbf{Domain} implementa os casos de uso e a lógica central do sistema, incluindo os módulos de análise (\texttt{Analyzer}) e recomendação (\texttt{Recommender}).  
-Ela é responsável por correlacionar as métricas coletadas, identificar gargalos e aplicar heurísticas de otimização baseadas em boas práticas do ecossistema Flutter (\textcite{Meyer} \cite{meyer2022performance}).
+Ela é responsável por correlacionar as métricas coletadas, identificar gargalos e aplicar heurísticas de otimização baseadas em boas práticas do ecossistema Flutter (Meyer e Krause~\cite{meyer2022performance}).
 
 \subsubsection{Camada Presentation}
 
@@ -347,7 +348,7 @@ Esses testes auxiliam na validação experimental do sistema sob diferentes cond
 
 \subsection{Regras de Recomendação}
 
-As recomendações fornecidas pelo módulo \texttt{Recommender} seguem padrões de otimização reconhecidos no ecossistema Flutter (\textcite{Meyer} \cite{meyer2022performance}; \textcite{AndroidDevelopers} \cite{android2024}).  
+As recomendações fornecidas pelo módulo \texttt{Recommender} seguem padrões de otimização reconhecidos no ecossistema Flutter (Meyer e Krause~\cite{meyer2022performance}; Android Developers~\cite{android2024}).  
 Alguns exemplos incluem:
 
 \begin{itemize}
@@ -362,7 +363,7 @@ Essas recomendações são exibidas dinamicamente conforme as métricas coletada
 
 \subsection{Demonstração Prática e Disponibilização do Código-Fonte}
 
-O protótipo foi disponibilizado publicamente para garantir transparência e reprodutibilidade dos resultados, conforme recomenda \textcite{Wohlin} \cite{wohlin2012}.  
+O protótipo foi disponibilizado publicamente para garantir transparência e reprodutibilidade dos resultados, conforme recomenda Wohlin \textit{et al.}~\cite{wohlin2012}.  
 
 O vídeo de demonstração mostra a execução em tempo real do sistema, com coleta, análise e recomendações heurísticas:
 

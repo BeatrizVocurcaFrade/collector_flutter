@@ -33,7 +33,7 @@ class CollectorBloc {
   void _start() {
     _setState(CollectorRunning());
     _periodic?.cancel();
-    _periodic = Timer.periodic(Duration(seconds: 5), (_) => _collectNow());
+    _periodic = Timer.periodic(const Duration(seconds: 2), (_) => _collectNow());
     _collectNow();
   }
 
