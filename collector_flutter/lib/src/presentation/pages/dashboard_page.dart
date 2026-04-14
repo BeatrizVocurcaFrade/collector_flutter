@@ -64,15 +64,18 @@ class _DashboardPageState extends State<DashboardPage> {
     final t = state.telemetry;
     final a = state.analysis;
     final fps = a.estimatedFps.toStringAsFixed(1);
-    final memoryMB = (a.memoryBytes / (1024 * 1024)).toStringAsFixed(1);
+    final memoryMB = a.memoryStats.currentRssMB.toStringAsFixed(1);
     final p95Ms = a.frameStats.p95Ms.toStringAsFixed(1);
-    final trendMB = a.memoryTrendMBperMin;
+    final trendMB = a.memoryStats.trendMBperMin;
+    final chartFrames =
+        t.recentFrameTimings.isNotEmpty ? t.recentFrameTimings : t.frameTimings;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // ── Session row ──────────────────────────────────────────
-        _SessionInfoRow(telemetry: t, onExport: () => _exportToClipboard(context, state)),
+        _SessionInfoRow(
+            telemetry: t, onExport: () => _exportToClipboard(context, state)),
         const SizedBox(height: 10),
 
         // ── Metric cards ─────────────────────────────────────────
@@ -80,14 +83,21 @@ class _DashboardPageState extends State<DashboardPage> {
           fps: fps,
           memory: memoryMB,
           jank: a.longFrames,
-          networkCount: t.networkEvents.length,
+          networkCount: a.networkStats.requestCount,
           p95Ms: p95Ms,
           memoryTrendMBperMin: trendMB,
+          targetFps: a.targetFps,
+          frameBudgetMs: a.frameBudgetMs,
+          confidence: a.confidence,
         ),
         const SizedBox(height: 12),
 
         // ── Frame timing chart ───────────────────────────────────
-        _FrameChart(frames: t.frameTimings, stats: a.frameStats),
+        _FrameChart(
+          frames: chartFrames,
+          stats: a.frameStats,
+          frameBudgetMs: a.frameBudgetMs,
+        ),
         const SizedBox(height: 12),
 
         // ── Network panel ────────────────────────────────────────
@@ -100,7 +110,8 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Future<void> _exportToClipboard(BuildContext context, CollectorData state) async {
+  Future<void> _exportToClipboard(
+      BuildContext context, CollectorData state) async {
     final service = ExportService();
     final json = service.toJson(
       model: state.telemetry,
@@ -173,6 +184,9 @@ class _MetricGrid extends StatelessWidget {
   final int networkCount;
   final String p95Ms;
   final double memoryTrendMBperMin;
+  final double targetFps;
+  final double frameBudgetMs;
+  final MetricConfidence confidence;
 
   const _MetricGrid({
     required this.fps,
@@ -181,6 +195,9 @@ class _MetricGrid extends StatelessWidget {
     required this.networkCount,
     required this.p95Ms,
     required this.memoryTrendMBperMin,
+    required this.targetFps,
+    required this.frameBudgetMs,
+    required this.confidence,
   });
 
   @override
@@ -204,10 +221,10 @@ class _MetricGrid extends StatelessWidget {
         _metricCard(
           icon: Icons.speed,
           title: 'FPS',
-          value: fps,
+          value: confidence == MetricConfidence.none ? '--' : fps,
           color: _fpsColor(fpsVal),
           info: 'Quadros por segundo renderizados.\n'
-              'Ideal: acima de 55 FPS.\n'
+              'Alvo atual: ${targetFps.toStringAsFixed(0)} FPS.\n'
               'Abaixo de 30 indica lentidao grave.\n\n'
               'Evite rebuilds desnecessarios e use const em widgets estaticos.',
         ),
@@ -227,7 +244,7 @@ class _MetricGrid extends StatelessWidget {
           value: '$jank',
           color: jank > 5 ? Colors.orange.shade600 : Colors.green.shade600,
           info: 'Frames acima do limiar de tempo.\n'
-              'Release: >16 ms. Debug: >50 ms.\n\n'
+              'Orcamento atual: ${frameBudgetMs.toStringAsFixed(1)} ms.\n\n'
               'Use o Flutter DevTools timeline para inspecionar.',
         ),
         _metricCard(
@@ -245,7 +262,7 @@ class _MetricGrid extends StatelessWidget {
           color: _p95Color(double.tryParse(p95Ms) ?? 0),
           info: 'Percentil 95 do tempo de frame.\n'
               'Reflete a experiencia dos usuarios mais lentos.\n\n'
-              'Manter abaixo de 50 ms para evitar jank perceptivel.',
+              'Manter perto de ${frameBudgetMs.toStringAsFixed(1)} ms evita jank perceptivel.',
         ),
       ],
     );
@@ -270,14 +287,16 @@ class _MetricGrid extends StatelessWidget {
   }
 
   Color _fpsColor(double fps) {
-    if (fps >= 55) return Colors.greenAccent.shade400;
-    if (fps >= 30) return Colors.orangeAccent.shade400;
+    if (fps <= 0) return Colors.grey.shade500;
+    if (fps >= targetFps * 0.9) return Colors.greenAccent.shade400;
+    if (fps >= targetFps * 0.6) return Colors.orangeAccent.shade400;
     return Colors.redAccent;
   }
 
   Color _p95Color(double p95) {
-    if (p95 < 16.6) return Colors.green.shade600;
-    if (p95 < 50) return Colors.orange.shade600;
+    if (p95 <= 0) return Colors.grey.shade500;
+    if (p95 <= frameBudgetMs * 1.2) return Colors.green.shade600;
+    if (p95 <= frameBudgetMs * 2) return Colors.orange.shade600;
     return Colors.redAccent;
   }
 }
@@ -392,7 +411,13 @@ class _MetricCard extends StatelessWidget {
 class _FrameChart extends StatelessWidget {
   final List<ui.FrameTiming> frames;
   final FrameStats stats;
-  const _FrameChart({required this.frames, required this.stats});
+  final double frameBudgetMs;
+
+  const _FrameChart({
+    required this.frames,
+    required this.stats,
+    required this.frameBudgetMs,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -425,9 +450,9 @@ class _FrameChart extends StatelessWidget {
                   Text(
                     'Tempo de Frame (ms)',
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.blueAccent,
-                    ),
+                          fontWeight: FontWeight.w600,
+                          color: Colors.blueAccent,
+                        ),
                   ),
                   const Spacer(),
                   if (stats.sampleCount > 0) ...[
@@ -455,8 +480,8 @@ class _FrameChart extends StatelessWidget {
                   labelStyle: const TextStyle(color: Colors.grey, fontSize: 10),
                   plotBands: [
                     PlotBand(
-                      start: 16.6,
-                      end: 16.6,
+                      start: frameBudgetMs,
+                      end: frameBudgetMs,
                       borderColor: Colors.red.withOpacity(0.5),
                       borderWidth: 1,
                       dashArray: const <double>[4, 4],
@@ -499,7 +524,8 @@ class _FrameChart extends StatelessWidget {
       ),
       child: Text(
         '$label ${value.toStringAsFixed(1)}ms',
-        style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.w600),
+        style:
+            TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -531,9 +557,9 @@ class _NetworkPanel extends StatelessWidget {
                 Text(
                   'Requisicoes de Rede  (${events.length} total)',
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.purple.shade700,
-                  ),
+                        fontWeight: FontWeight.bold,
+                        color: Colors.purple.shade700,
+                      ),
                 ),
               ],
             ),
@@ -552,7 +578,7 @@ class _NetworkEventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isOk = event.statusCode < 400;
+    final isOk = !event.failed;
     final statusColor = isOk ? Colors.green.shade700 : Colors.red.shade700;
     final durationMs = event.duration.inMilliseconds;
     final uri = Uri.tryParse(event.url);
@@ -648,8 +674,8 @@ class _RecommendationsPanel extends StatelessWidget {
             Text(
               'Recomendacoes',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
           ],
         ),
@@ -707,7 +733,8 @@ class _RecommendationTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(Icons.chevron_right, color: Colors.grey.shade400, size: 18),
+                Icon(Icons.chevron_right,
+                    color: Colors.grey.shade400, size: 18),
               ],
             ),
           ),
@@ -742,18 +769,18 @@ class _RecommendationTile extends StatelessWidget {
   }
 
   Color _colorFor(Severity s) => switch (s) {
-    Severity.high => Colors.redAccent,
-    Severity.medium => Colors.orange.shade700,
-    Severity.low => Colors.amber.shade700,
-    Severity.info => Colors.green.shade600,
-  };
+        Severity.high => Colors.redAccent,
+        Severity.medium => Colors.orange.shade700,
+        Severity.low => Colors.amber.shade700,
+        Severity.info => Colors.green.shade600,
+      };
 
   IconData _iconFor(Severity s) => switch (s) {
-    Severity.high => Icons.warning_rounded,
-    Severity.medium => Icons.report_problem_outlined,
-    Severity.low => Icons.lightbulb_outline,
-    Severity.info => Icons.check_circle_outline,
-  };
+        Severity.high => Icons.warning_rounded,
+        Severity.medium => Icons.report_problem_outlined,
+        Severity.low => Icons.lightbulb_outline,
+        Severity.info => Icons.check_circle_outline,
+      };
 }
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────

@@ -120,8 +120,65 @@ void main() {
       // Ambas devem retornar AnalysisResult.empty para TelemetryModel vazio
       final r1 = a1.analyzeTelemetry(TelemetryModel());
       final r2 = a2.analyzeTelemetry(TelemetryModel());
-      expect(r1.note, isNull); // sem frames → empty()
-      expect(r2.note, isNull);
+      expect(r1.note, 'Aguardando frames renderizados');
+      expect(r2.note, 'Aguardando frames renderizados');
+    });
+  });
+
+  group('MemoryStats.compute', () {
+    test('calcula pico e tendência usando timestamps reais', () {
+      final start = DateTime(2024, 1, 1, 12, 0);
+      final stats = MemoryStats.compute([
+        MemoryInfo(
+          currentRssInBytes: 100 * 1024 * 1024,
+          heapUsageInBytes: 40 * 1024 * 1024,
+          timestamp: start,
+        ),
+        MemoryInfo(
+          currentRssInBytes: 130 * 1024 * 1024,
+          heapUsageInBytes: 50 * 1024 * 1024,
+          timestamp: start.add(const Duration(minutes: 1)),
+        ),
+      ]);
+
+      expect(stats.currentRssMB, closeTo(130, 0.01));
+      expect(stats.peakRssMB, closeTo(130, 0.01));
+      expect(stats.trendMBperMin, closeTo(30, 0.01));
+      expect(stats.sampleCount, 2);
+    });
+  });
+
+  group('NetworkStats.compute', () {
+    test('calcula falhas, bytes e latência', () {
+      final events = [
+        NetworkEvent(
+          url: 'https://example.com/a',
+          method: 'GET',
+          statusCode: 200,
+          requestBytes: 10,
+          responseBytes: 100,
+          timestamp: DateTime(2024),
+          duration: const Duration(milliseconds: 100),
+        ),
+        NetworkEvent(
+          url: 'https://example.com/b',
+          method: 'GET',
+          statusCode: 500,
+          requestBytes: 20,
+          responseBytes: 50,
+          timestamp: DateTime(2024),
+          duration: const Duration(milliseconds: 300),
+        ),
+      ];
+
+      final stats = NetworkStats.compute(events);
+
+      expect(stats.requestCount, 2);
+      expect(stats.failedRequests, 1);
+      expect(stats.totalRequestBytes, 30);
+      expect(stats.totalResponseBytes, 150);
+      expect(stats.avgDurationMs, closeTo(200, 0.01));
+      expect(stats.failureRate, closeTo(0.5, 0.01));
     });
   });
 }

@@ -9,11 +9,13 @@ class RebuildObserver extends StatefulWidget {
   final Widget child;
   final String widgetName;
   final RebuildCallback? onRebuild;
+  final bool logRebuilds;
 
   const RebuildObserver({
     required this.child,
     required this.widgetName,
     this.onRebuild,
+    this.logRebuilds = false,
     super.key,
   });
 
@@ -28,10 +30,12 @@ class _RebuildObserverState extends State<RebuildObserver> {
   Widget build(BuildContext context) {
     _count++;
     widget.onRebuild?.call(widget.widgetName);
-    CollectorUtils.safeLog(
-      'RebuildObserver',
-      '${widget.widgetName} rebuilt ($_count)',
-    );
+    if (widget.logRebuilds) {
+      CollectorUtils.safeLog(
+        'RebuildObserver',
+        '${widget.widgetName} rebuilt ($_count)',
+      );
+    }
     return widget.child;
   }
 }

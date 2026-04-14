@@ -4,6 +4,9 @@ import '../domain/domain.dart';
 import 'cubit/cubit.dart';
 
 class ResourceCollector {
+  final Duration collectionInterval;
+  final PerformanceBudget? budget;
+
   late final FrameDataSource _frame;
   late final MemoryDataSource _memory;
   late final HttpClientWrapper _network;
@@ -11,10 +14,13 @@ class ResourceCollector {
   late final TelemetryRepositoryImpl _repo;
   late final CollectorBloc _bloc;
 
-  ResourceCollector() {
+  ResourceCollector({
+    this.collectionInterval = const Duration(seconds: 2),
+    this.budget,
+  }) {
     _frame = FrameDataSource();
     _memory = MemoryDataSource();
-    _network = HttpClientWrapper.instance;
+    _network = HttpClientWrapper();
     _events = EventDataSource();
 
     _repo = TelemetryRepositoryImpl(
@@ -26,14 +32,15 @@ class ResourceCollector {
 
     _bloc = CollectorBloc(
       collectUseCase: CollectMetricsUseCase(_repo),
-      analyzeUseCase: AnalyzePerformanceUseCase(Analyzer()),
+      analyzeUseCase: AnalyzePerformanceUseCase(Analyzer(budget: budget)),
       recommendUseCase: GenerateRecommendationsUseCase(Recommender()),
+      collectInterval: collectionInterval,
     );
   }
 
-  void start() {
+  Future<void> start() async {
     _frame.start();
-    _memory.start();
+    await _memory.start();
     _bloc.dispatch(CollectorStart());
   }
 
@@ -46,6 +53,7 @@ class ResourceCollector {
   void dispose() {
     stop();
     _bloc.dispose();
+    _network.dispose();
   }
 
   void recordEvent(String name, dynamic value) =>

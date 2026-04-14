@@ -1,90 +1,176 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
-import '../../data/models/telemetry_model.dart';
+
 import '../../core/utils.dart';
+import '../models/telemetry_model.dart';
 
 typedef NetworkEventCallback = void Function(NetworkEvent event);
 
-/// Wrapper simples para interceptar requisições http.
-/// Use HttpClientWrapper.instance.client to fazer requests.
+/// HTTP client that records every request made through it.
+class TelemetryHttpClient extends http.BaseClient {
+  final http.Client _inner;
+  final void Function(NetworkEvent event) _onEvent;
+
+  TelemetryHttpClient(this._onEvent, {http.Client? inner})
+      : _inner = inner ?? http.Client();
+
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) async {
+    final startedAt = DateTime.now();
+    final stopwatch = Stopwatch()..start();
+    final requestBytes = request.contentLength ?? 0;
+    var responseBytes = 0;
+    var recorded = false;
+
+    void record({
+      required int statusCode,
+      String? error,
+    }) {
+      if (recorded) return;
+      recorded = true;
+      stopwatch.stop();
+      _onEvent(
+        NetworkEvent(
+          url: request.url.toString(),
+          method: request.method,
+          statusCode: statusCode,
+          requestBytes: requestBytes,
+          responseBytes: responseBytes,
+          timestamp: startedAt,
+          duration: stopwatch.elapsed,
+          error: error,
+        ),
+      );
+    }
+
+    try {
+      final response = await _inner.send(request);
+      final countingStream = response.stream.transform<List<int>>(
+        StreamTransformer.fromHandlers(
+          handleData: (chunk, sink) {
+            responseBytes += chunk.length;
+            sink.add(chunk);
+          },
+          handleError: (error, stackTrace, sink) {
+            record(
+              statusCode: response.statusCode,
+              error: error.toString(),
+            );
+            sink.addError(error, stackTrace);
+          },
+          handleDone: (sink) {
+            record(statusCode: response.statusCode);
+            sink.close();
+          },
+        ),
+      );
+
+      return http.StreamedResponse(
+        http.ByteStream(countingStream),
+        response.statusCode,
+        contentLength: response.contentLength,
+        request: response.request,
+        headers: response.headers,
+        isRedirect: response.isRedirect,
+        persistentConnection: response.persistentConnection,
+        reasonPhrase: response.reasonPhrase,
+      );
+    } catch (e) {
+      record(statusCode: 0, error: e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  void close() => _inner.close();
+}
+
+/// Wrapper para interceptar requests feitos pelo [client] ou pelos atalhos
+/// [get], [post], [put], [patch], [delete] e [head].
 class HttpClientWrapper {
-  HttpClientWrapper._internal();
+  HttpClientWrapper({http.Client? inner}) {
+    client = TelemetryHttpClient(_record, inner: inner);
+  }
+
+  HttpClientWrapper._internal() : this();
 
   static final HttpClientWrapper instance = HttpClientWrapper._internal();
 
-  final http.Client client = http.Client();
+  late final http.Client client;
 
   final List<NetworkEvent> _events = [];
   final List<NetworkEventCallback> _listeners = [];
+  final int maxEvents = 1000;
 
-  void addListener(NetworkEventCallback cb) => _listeners.add(cb);
+  void addListener(NetworkEventCallback cb) {
+    if (!_listeners.contains(cb)) _listeners.add(cb);
+  }
+
   void removeListener(NetworkEventCallback cb) => _listeners.remove(cb);
 
   Future<http.Response> get(Uri uri, {Map<String, String>? headers}) =>
-      _intercept(
-        () => client.get(uri, headers: headers),
-        'GET',
-        uri.toString(),
-      );
+      client.get(uri, headers: headers);
+
+  Future<http.Response> head(Uri uri, {Map<String, String>? headers}) =>
+      client.head(uri, headers: headers);
+
+  Future<http.Response> delete(
+    Uri uri, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  }) =>
+      client.delete(uri, headers: headers, body: body, encoding: encoding);
+
+  Future<http.Response> patch(
+    Uri uri, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  }) =>
+      client.patch(uri, headers: headers, body: body, encoding: encoding);
 
   Future<http.Response> post(
     Uri uri, {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) => _intercept(
-    () => client.post(uri, headers: headers, body: body, encoding: encoding),
-    'POST',
-    uri.toString(),
-  );
+  }) =>
+      client.post(uri, headers: headers, body: body, encoding: encoding);
 
-  Future<T> _intercept<T extends http.Response>(
-    Future<T> Function() fn,
-    String method,
-    String url,
-  ) async {
-    final start = DateTime.now();
-    try {
-      final resp = await fn();
-      final duration = DateTime.now().difference(start);
-      final ev = NetworkEvent(
-        url: url,
-        method: method,
-        statusCode: resp.statusCode,
-        bytes: resp.contentLength ?? resp.bodyBytes.length,
-        timestamp: start,
-        duration: duration,
-      );
-      _events.add(ev);
-      _notify(ev);
-      if (_events.length > 1000) _events.removeRange(0, _events.length - 1000);
-      return resp;
-    } catch (e) {
-      final duration = DateTime.now().difference(start);
-      final ev = NetworkEvent(
-        url: url,
-        method: method,
-        statusCode: 0,
-        bytes: 0,
-        timestamp: start,
-        duration: duration,
-      );
-      _events.add(ev);
-      _notify(ev);
-      rethrow;
+  Future<http.Response> put(
+    Uri uri, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  }) =>
+      client.put(uri, headers: headers, body: body, encoding: encoding);
+
+  void _record(NetworkEvent event) {
+    _events.add(event);
+    if (_events.length > maxEvents) {
+      _events.removeRange(0, _events.length - maxEvents);
     }
+    _notify(event);
   }
 
   void _notify(NetworkEvent ev) {
-    for (final cb in _listeners) {
+    for (final cb in List<NetworkEventCallback>.from(_listeners)) {
       try {
         cb(ev);
-      } catch (_) {}
+      } catch (e) {
+        CollectorUtils.safeLog(
+          'NetworkDataSource',
+          'listener error: $e',
+        );
+      }
     }
     CollectorUtils.safeLog(
       'NetworkDataSource',
-      'event ${ev.method} ${ev.url} ${ev.statusCode} ${ev.duration.inMilliseconds}ms',
+      'event ${ev.method} ${ev.url} ${ev.statusCode} '
+          '${ev.responseBytes}B ${ev.duration.inMilliseconds}ms',
     );
   }
 
@@ -93,4 +179,6 @@ class HttpClientWrapper {
     _events.clear();
     return copy;
   }
+
+  void dispose() => client.close();
 }

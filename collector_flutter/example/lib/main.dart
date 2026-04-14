@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:collector_flutter/collector_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 
 void main() => runApp(const CollectorApp());
@@ -24,8 +24,8 @@ class _CollectorAppState extends State<CollectorApp>
   @override
   void initState() {
     super.initState();
-    collector.start();
-    _simulateNetwork();
+    unawaited(collector.start());
+    unawaited(_simulateNetwork());
 
     _controller = AnimationController(
       vsync: this,
@@ -56,10 +56,15 @@ class _CollectorAppState extends State<CollectorApp>
 
   Future<void> _simulateHighMemory() async {
     debugPrint('Simulando uso intenso de memoria...');
-    final buffers = List.generate(3, (_) => Uint8List(150 * 1024 * 1024));
+    const chunkMB = 64;
+    const chunks = 4;
+    final buffers = List.generate(
+      chunks,
+      (_) => Uint8List(chunkMB * 1024 * 1024),
+    );
     await Future.delayed(const Duration(seconds: 2));
     buffers.clear();
-    collector.recordEvent('simulate_memory', {'size_mb': 150});
+    collector.recordEvent('simulate_memory', {'size_mb': chunkMB * chunks});
   }
 
   Future<void> _simulateNetworkSpam() async {
@@ -67,16 +72,20 @@ class _CollectorAppState extends State<CollectorApp>
     final uri = Uri.parse(
       'https://jsonplaceholder.typicode.com/todos/${_rand.nextInt(10) + 1}',
     );
-    await Future.wait(List.generate(20, (_) => http.get(uri)));
+    await Future.wait(List.generate(20, (_) => collector.network.get(uri)));
     collector.recordEvent('simulate_network', {'count': 20});
   }
 
   void _simulateRebuilds() {
     debugPrint('Gerando rebuilds excessivos...');
-    for (int i = 0; i < 50; i++) {
-      setState(() {});
+    for (var i = 0; i < 30; i++) {
+      Future.delayed(Duration(milliseconds: i * 16), () {
+        if (!mounted) return;
+        collector.trackRebuild();
+        setState(() {});
+      });
     }
-    collector.recordEvent('simulate_rebuilds', {'count': 50});
+    collector.recordEvent('simulate_rebuilds', {'count': 30});
   }
 
   @override
@@ -206,10 +215,26 @@ class _BottomActionBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final buttons = [
-      _ActionItem(icon: Icons.speed, label: 'Jank', color: Colors.redAccent, onTap: onJank),
-      _ActionItem(icon: Icons.memory, label: 'Memoria', color: Colors.blueAccent, onTap: onMemory),
-      _ActionItem(icon: Icons.cloud_upload, label: 'Rede', color: Colors.orangeAccent, onTap: onNetwork),
-      _ActionItem(icon: Icons.replay_circle_filled, label: 'Rebuilds', color: Colors.purpleAccent, onTap: onRebuilds),
+      _ActionItem(
+          icon: Icons.speed,
+          label: 'Jank',
+          color: Colors.redAccent,
+          onTap: onJank),
+      _ActionItem(
+          icon: Icons.memory,
+          label: 'Memoria',
+          color: Colors.blueAccent,
+          onTap: onMemory),
+      _ActionItem(
+          icon: Icons.cloud_upload,
+          label: 'Rede',
+          color: Colors.orangeAccent,
+          onTap: onNetwork),
+      _ActionItem(
+          icon: Icons.replay_circle_filled,
+          label: 'Rebuilds',
+          color: Colors.purpleAccent,
+          onTap: onRebuilds),
     ];
 
     return BottomAppBar(

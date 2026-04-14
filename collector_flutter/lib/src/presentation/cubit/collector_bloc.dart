@@ -9,6 +9,7 @@ class CollectorBloc {
   final CollectMetricsUseCase collectUseCase;
   final AnalyzePerformanceUseCase analyzeUseCase;
   final GenerateRecommendationsUseCase recommendUseCase;
+  final Duration collectInterval;
 
   CollectorState _state = CollectorIdle();
   final _controller = StreamController<CollectorState>.broadcast();
@@ -17,24 +18,34 @@ class CollectorBloc {
     required this.collectUseCase,
     required this.analyzeUseCase,
     required this.recommendUseCase,
+    this.collectInterval = const Duration(seconds: 2),
   });
 
   Stream<CollectorState> get stream => _controller.stream;
   CollectorState get state => _state;
 
-  void dispatch(CollectorEvent event) async {
-    if (event is CollectorStart) return _start();
-    if (event is CollectorStop) return _stop();
-    if (event is CollectorCollectNow) return await _collectNow();
+  void dispatch(CollectorEvent event) {
+    if (event is CollectorStart) {
+      _start();
+      return;
+    }
+    if (event is CollectorStop) {
+      _stop();
+      return;
+    }
+    if (event is CollectorCollectNow) {
+      unawaited(_collectNow());
+    }
   }
 
   Timer? _periodic;
+  bool _collecting = false;
 
   void _start() {
     _setState(CollectorRunning());
     _periodic?.cancel();
-    _periodic = Timer.periodic(const Duration(seconds: 2), (_) => _collectNow());
-    _collectNow();
+    _periodic = Timer.periodic(collectInterval, (_) => unawaited(_collectNow()));
+    unawaited(_collectNow());
   }
 
   void _stop() {
@@ -44,6 +55,8 @@ class CollectorBloc {
   }
 
   Future<void> _collectNow() async {
+    if (_collecting) return;
+    _collecting = true;
     try {
       final telemetry = await collectUseCase();
       final analysis = analyzeUseCase(telemetry);
@@ -57,6 +70,8 @@ class CollectorBloc {
       );
     } catch (e) {
       _setState(CollectorError(e.toString()));
+    } finally {
+      _collecting = false;
     }
   }
 

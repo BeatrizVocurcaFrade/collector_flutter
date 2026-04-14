@@ -4,84 +4,117 @@ import 'analyzer.dart';
 
 /// Gera recomendações textuais e prioridade com base em análises.
 class Recommender {
-  List<Recommendation> generate(AnalysisResult res) {
-    final List<Recommendation> out = [];
-
+  List<Recommendation> generate(AnalysisResult result) {
+    final recommendations = <Recommendation>[];
     final modeLabel = kReleaseMode ? 'Release' : 'Debug/Profile';
+    final lowFps = result.estimatedFps > 0 &&
+        result.estimatedFps < result.targetFps * 0.85;
+    final hasJank = result.longFrames > 5 ||
+        result.frameStats.p95Ms > result.frameBudgetMs * 1.2;
+    final currentMemoryMB = result.memoryStats.currentRssMB > 0
+        ? result.memoryStats.currentRssMB
+        : result.memoryMB;
+    final hasMemoryPressure =
+        currentMemoryMB > 0 && currentMemoryMB > (kReleaseMode ? 300 : 600);
+    final hasNetworkPressure =
+        result.networkStats.requestCount > 50 || result.networkRequests > 50;
+    final hasNetworkFailure = result.networkStats.failedRequests > 0;
+    final hasNetworkLatency = result.networkStats.p95DurationMs > 1500;
 
-    // Ajuste de limiares conforme modo
-    final memLimit = kReleaseMode ? 300 : 600;
-    final fpsLimit = kReleaseMode ? 50 : 40;
-
-    // FPS baixo
-    if (res.estimatedFps < fpsLimit && res.estimatedFps > 0) {
-      out.add(
+    if (result.confidence == MetricConfidence.warmingUp) {
+      recommendations.add(
         Recommendation(
-          title: 'Melhore a performance de frames',
+          title: 'Amostra de frames ainda pequena',
           detail:
-              'A média de FPS está em ${res.estimatedFps.toStringAsFixed(1)}.\n'
-              'Tempo médio de frame: ${res.avgFrameMs.toStringAsFixed(1)} ms.\n\n'
-              '💡 Dica: evite rebuilds desnecessários, mova cálculos pesados para Isolates ou use const widgets.',
-          severity: Severity.high,
-        ),
-      );
-    }
-    // Jank
-    if (res.longFrames > 5) {
-      out.add(
-        Recommendation(
-          title: 'Investigue jank (travamentos de frame)',
-          detail:
-              'Foram detectados ${res.longFrames} frames longos.\n\n'
-              'Modo atual: ${kReleaseMode ? "Release" : "Debug/Profile"}.\n'
-              '💡 Em Debug, alguns frames lentos são esperados devido ao overhead do Flutter DevTools e hot reload.',
-          severity: kReleaseMode ? Severity.medium : Severity.low,
-        ),
-      );
-    }
-
-    // Memória
-    final memoryMB = res.memoryBytes / (1024 * 1024);
-    if (memoryMB > memLimit) {
-      out.add(
-        Recommendation(
-          title: 'Uso de memória elevado',
-          detail:
-              'Memória atual: ${memoryMB.toStringAsFixed(1)} MB (modo $modeLabel).\n\n'
-              '💡 Dica: valores entre 300–500 MB são normais em Debug/Profile.\n'
-              'Se ultrapassar 600 MB de forma persistente, investigue listas grandes, imagens em cache ou Streams não canceladas.',
-          severity: kReleaseMode ? Severity.high : Severity.low,
-        ),
-      );
-    }
-
-    // Rede
-    if (res.networkRequests > 50) {
-      out.add(
-        Recommendation(
-          title: 'Muitas requisições de rede',
-          detail:
-              'Foram feitas ${res.networkRequests} requisições.\n\n'
-              '💡 Dica: use cache local, debounce ou agrupe requests simultâneos.',
-          severity: Severity.low,
-        ),
-      );
-    }
-
-    // Se não houver alertas
-    if (out.isEmpty) {
-      out.add(
-        Recommendation(
-          title: 'Tudo OK',
-          detail:
-              'Nenhuma anomalia detectada.\n\n'
-              'Modo atual: $modeLabel.\nContinue monitorando para identificar variações de performance.',
+              '${result.note}.\nAguarde mais alguns segundos para estabilizar FPS, P95 e jank.',
           severity: Severity.info,
         ),
       );
     }
 
-    return out;
+    if (_hasIssue(result, 'FPS abaixo') || lowFps) {
+      recommendations.add(
+        Recommendation(
+          title: 'Melhore a performance de frames',
+          detail: 'FPS observado: ${result.estimatedFps.toStringAsFixed(1)} de '
+              '${result.targetFps.toStringAsFixed(0)} FPS.\n'
+              'Frame médio: ${result.avgFrameMs.toStringAsFixed(1)} ms; '
+              'P95: ${result.frameStats.p95Ms.toStringAsFixed(1)} ms.\n\n'
+              'Priorize remover rebuilds amplos, dividir listas grandes, '
+              'cachear cálculos e mover trabalho pesado para isolate.',
+          severity: Severity.high,
+        ),
+      );
+    }
+
+    if (_hasIssue(result, 'P95 de frame') ||
+        _hasIssue(result, 'Jank') ||
+        hasJank) {
+      recommendations.add(
+        Recommendation(
+          title: 'Investigue jank na timeline',
+          detail:
+              'Orçamento por frame: ${result.frameBudgetMs.toStringAsFixed(1)} ms.\n'
+              'Frames longos: ${result.longFrames} '
+              '(${(result.jankRate * 100).toStringAsFixed(1)}%).\n\n'
+              'No modo $modeLabel existe overhead de ferramenta, mas picos '
+              'repetidos ainda apontam para build, layout, rasterização ou IO '
+              'sincrono no caminho critico.',
+          severity: kReleaseMode ? Severity.high : Severity.medium,
+        ),
+      );
+    }
+
+    if (_hasIssue(result, 'memória') || hasMemoryPressure) {
+      recommendations.add(
+        Recommendation(
+          title: 'Revise pressão de memória',
+          detail: 'RSS atual: ${currentMemoryMB.toStringAsFixed(1)} MB.\n'
+              'Pico observado: ${result.memoryStats.peakRssMB.toStringAsFixed(1)} MB.\n'
+              'Tendência: ${result.memoryStats.trendMBperMin.toStringAsFixed(1)} MB/min.\n\n'
+              'Procure imagens grandes sem resize, caches sem limite, listas '
+              'retidas e subscriptions/streams não cancelados.',
+          severity: kReleaseMode ? Severity.high : Severity.medium,
+        ),
+      );
+    }
+
+    if (_hasIssue(result, 'rede') ||
+        _hasIssue(result, 'Latência') ||
+        _hasIssue(result, 'Falhas') ||
+        hasNetworkPressure ||
+        hasNetworkFailure ||
+        hasNetworkLatency) {
+      recommendations.add(
+        Recommendation(
+          title: 'Ajuste o fluxo de rede',
+          detail: 'Requests: ${result.networkStats.requestCount}; '
+              'falhas: ${result.networkStats.failedRequests}; '
+              'P95: ${result.networkStats.p95DurationMs.toStringAsFixed(0)} ms.\n\n'
+              'Use cache, debounce, cancelamento de requests obsoletos e '
+              'agrupe chamadas que disparam juntas.',
+          severity: hasNetworkFailure ? Severity.medium : Severity.low,
+        ),
+      );
+    }
+
+    if (recommendations.isEmpty) {
+      recommendations.add(
+        Recommendation(
+          title: 'Tudo OK',
+          detail: 'Nenhuma anomalia detectada no snapshot atual.\n\n'
+              'Modo atual: $modeLabel. Continue monitorando durante fluxos '
+              'reais de navegação, carregamento e interação.',
+          severity: Severity.info,
+        ),
+      );
+    }
+
+    return recommendations;
+  }
+
+  bool _hasIssue(AnalysisResult result, String token) {
+    return result.issues.any((issue) => issue.contains(token));
   }
 }
 
@@ -91,6 +124,7 @@ class Recommendation {
   final String title;
   final String detail;
   final Severity severity;
+
   Recommendation({
     required this.title,
     required this.detail,

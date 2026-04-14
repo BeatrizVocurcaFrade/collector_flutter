@@ -3,19 +3,23 @@ import 'package:flutter/scheduler.dart';
 
 class MetricChartWidget extends StatelessWidget {
   final List<FrameTiming> frameTimings;
+  final double frameBudgetMs;
 
-  const MetricChartWidget({required this.frameTimings, super.key});
+  const MetricChartWidget({
+    required this.frameTimings,
+    this.frameBudgetMs = 16.6,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     // Simple compact visualization: show average frame time and sparkline-like bar row
-    final avgMs =
-        frameTimings.isEmpty
-            ? 0.0
-            : frameTimings
-                    .map((f) => f.totalSpan.inMilliseconds)
-                    .reduce((a, b) => a + b) /
-                frameTimings.length;
+    final avgMs = frameTimings.isEmpty
+        ? 0.0
+        : frameTimings
+                .map((f) => f.totalSpan.inMilliseconds)
+                .reduce((a, b) => a + b) /
+            frameTimings.length;
     final last = frameTimings.reversed.take(30).toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,19 +30,19 @@ class MetricChartWidget extends StatelessWidget {
           height: 60,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
-            children:
-                last.map((f) {
-                  final val = f.totalSpan.inMilliseconds.toDouble();
-                  final height = (val / 50.0).clamp(2.0, 60.0);
-                  final color = val > 16.6 ? Colors.redAccent : Colors.green;
-                  return Expanded(
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 1),
-                      height: height,
-                      color: color,
-                    ),
-                  );
-                }).toList(),
+            children: last.map((f) {
+              final val = f.totalSpan.inMilliseconds.toDouble();
+              final height = (val / 50.0).clamp(2.0, 60.0);
+              final color =
+                  val > frameBudgetMs ? Colors.redAccent : Colors.green;
+              return Expanded(
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 1),
+                  height: height,
+                  color: color,
+                ),
+              );
+            }).toList(),
           ),
         ),
       ],
