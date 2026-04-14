@@ -27,6 +27,7 @@ class TelemetryRepositoryImpl implements IResourceRepository {
   final List<NetworkEvent> _networkHistory = [];
   final Map<String, dynamic> _customEventLatest = {};
   final List<CustomEventRecord> _customEventLog = [];
+  MemoryInfo? _lastMemorySnapshot;
 
   TelemetryRepositoryImpl({
     required this.frameSource,
@@ -49,27 +50,48 @@ class TelemetryRepositoryImpl implements IResourceRepository {
     final sampleDuration = capturedAt.difference(sampleStart);
     _lastCollectAt = capturedAt;
 
+    // Coleta frames
     final frames = frameSource.drain();
     _totalFrameCount += frames.length;
     _recentFrames.addAll(frames);
     _trim(_recentFrames, maxRecentFrames);
 
+    // Coleta memória: sempre tenta trazer amostra mais recente
     final memorySamples = memorySource.drainSamples();
-    if (memorySamples.isEmpty) {
-      final last = memorySource.last;
-      if (last != null && _memoryHistory.isEmpty) {
-        _memoryHistory.add(last);
-      }
-    } else {
+    MemoryInfo? currentMemory;
+
+    if (memorySamples.isNotEmpty) {
       _memoryHistory.addAll(memorySamples);
       _trim(_memoryHistory, maxMemorySamples);
+      currentMemory = memorySamples.last;
+      _lastMemorySnapshot = currentMemory;
+    } else {
+      // Se não há amostras drenadas, tenta take a última captura do memorySource
+      final lastMemory = memorySource.last;
+      if (lastMemory != null) {
+        // Só adiciona se é diferente da anterior (evita duplicatas)
+        if (_lastMemorySnapshot == null ||
+            lastMemory.timestamp
+                    .difference(_lastMemorySnapshot!.timestamp)
+                    .inMilliseconds >
+                100) {
+          _memoryHistory.add(lastMemory);
+          _trim(_memoryHistory, maxMemorySamples);
+          _lastMemorySnapshot = lastMemory;
+          currentMemory = lastMemory;
+        } else {
+          currentMemory = _lastMemorySnapshot;
+        }
+      }
     }
 
+    // Coleta rede
     final networkInWindow = networkWrapper.drainEvents();
     _totalNetworkRequests += networkInWindow.length;
     _networkHistory.addAll(networkInWindow);
     _trim(_networkHistory, maxNetworkEvents);
 
+    // Coleta eventos customizados
     final events = eventSource.drainEvents();
     final eventRecords = eventSource.drainRecords();
     _customEventLatest.addAll(events);
@@ -79,8 +101,7 @@ class TelemetryRepositoryImpl implements IResourceRepository {
     return TelemetryModel(
       frameTimings: frames,
       recentFrameTimings: List<FrameTiming>.unmodifiable(_recentFrames),
-      memoryInfo:
-          _memoryHistory.isEmpty ? memorySource.last : _memoryHistory.last,
+      memoryInfo: currentMemory ?? _lastMemorySnapshot,
       memoryHistory: List<MemoryInfo>.unmodifiable(_memoryHistory),
       networkEvents: List<NetworkEvent>.unmodifiable(_networkHistory),
       networkEventsInWindow: List<NetworkEvent>.unmodifiable(networkInWindow),

@@ -334,10 +334,10 @@ class _MetricCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: color.withOpacity(0.09),
+          color: color.withValues(alpha: 0.09),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.22),
+              color: color.withValues(alpha: 0.22),
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
@@ -422,6 +422,11 @@ class _FrameChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lastFrames = frames.takeLast(60);
+    // Garante que temos pelo menos 2 pontos para desenhar
+    if (lastFrames.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     final data = lastFrames.asMap().entries.map((e) {
       return _FrameSample(
         e.key.toDouble(),
@@ -429,14 +434,17 @@ class _FrameChart extends StatelessWidget {
       );
     }).toList();
 
-    final maxY = data.isEmpty
-        ? 32.0
-        : (data.map((d) => d.y).reduce((a, b) => a > b ? a : b) * 1.2)
-            .clamp(17.0, 200.0);
+    // Calcula dynamicamente o máximo para escala realista
+    final frameMs = data.map((d) => d.y).toList();
+    final maxFrameMs =
+        frameMs.isEmpty ? 32.0 : frameMs.reduce((a, b) => a > b ? a : b);
+
+    // Padding para visualização: adiciona 20% acima do pico
+    final maxY = (maxFrameMs * 1.2).clamp(17.0, 200.0);
 
     return Card(
       elevation: 4,
-      shadowColor: Colors.blueAccent.withOpacity(0.25),
+      shadowColor: Colors.blueAccent.withValues(alpha: 0.25),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 12, 16, 8),
@@ -465,48 +473,58 @@ class _FrameChart extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: 160,
-              child: SfCartesianChart(
-                margin: EdgeInsets.zero,
-                borderWidth: 0,
-                plotAreaBorderWidth: 0,
-                primaryXAxis: const NumericAxis(isVisible: false),
-                primaryYAxis: NumericAxis(
-                  maximum: maxY,
-                  minimum: 0,
-                  interval: 16,
-                  axisLine: const AxisLine(width: 0),
-                  labelStyle: const TextStyle(color: Colors.grey, fontSize: 10),
-                  plotBands: [
-                    PlotBand(
-                      start: frameBudgetMs,
-                      end: frameBudgetMs,
-                      borderColor: Colors.red.withOpacity(0.5),
-                      borderWidth: 1,
-                      dashArray: const <double>[4, 4],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width - 48,
+                height: 160,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: SfCartesianChart(
+                    margin: EdgeInsets.zero,
+                    borderWidth: 0,
+                    plotAreaBorderWidth: 0,
+                    primaryXAxis: const NumericAxis(
+                      isVisible: false,
                     ),
-                  ],
-                ),
-                series: <CartesianSeries<_FrameSample, double>>[
-                  SplineAreaSeries<_FrameSample, double>(
-                    dataSource: data,
-                    xValueMapper: (d, _) => d.x,
-                    yValueMapper: (d, _) => d.y,
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.blueAccent.withOpacity(0.55),
-                        Colors.blueAccent.withOpacity(0.04),
+                    primaryYAxis: NumericAxis(
+                      maximum: maxY,
+                      minimum: 0,
+                      interval: (maxY / 4).roundToDouble(),
+                      axisLine: const AxisLine(width: 0),
+                      labelStyle:
+                          const TextStyle(color: Colors.grey, fontSize: 9),
+                      plotBands: [
+                        PlotBand(
+                          start: frameBudgetMs,
+                          end: frameBudgetMs,
+                          borderColor: Colors.red.withValues(alpha: 0.6),
+                          borderWidth: 2,
+                          dashArray: const <double>[5, 5],
+                        ),
                       ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
                     ),
-                    borderColor: Colors.blueAccent,
-                    borderWidth: 1.5,
-                    splineType: SplineType.cardinal,
-                    animationDuration: 300,
+                    series: <CartesianSeries<_FrameSample, double>>[
+                      SplineAreaSeries<_FrameSample, double>(
+                        dataSource: data,
+                        xValueMapper: (d, _) => d.x,
+                        yValueMapper: (d, _) => d.y,
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.blueAccent.withValues(alpha: 0.55),
+                            Colors.blueAccent.withValues(alpha: 0.04),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderColor: Colors.blueAccent,
+                        borderWidth: 2,
+                        splineType: SplineType.cardinal,
+                        animationDuration: 300,
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ],
@@ -519,7 +537,7 @@ class _FrameChart extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
@@ -576,15 +594,33 @@ class _NetworkEventTile extends StatelessWidget {
   final NetworkEvent event;
   const _NetworkEventTile({required this.event});
 
+  /// Extrai hostname ou começo do caminho de forma informativa
+  String _extractShortHost(String url) {
+    try {
+      final uri = Uri.tryParse(url);
+      if (uri == null) return url.truncate(35);
+
+      // Extrai apenas o hostname + primeira parte do path
+      String host = uri.host.replaceFirst('www.', '');
+      if (uri.path.isNotEmpty && uri.path != '/') {
+        final pathParts =
+            uri.path.split('/').where((p) => p.isNotEmpty).toList();
+        if (pathParts.isNotEmpty) {
+          host += '/${pathParts.first}';
+        }
+      }
+      return host.length > 30 ? '${host.substring(0, 27)}...' : host;
+    } catch (_) {
+      return url.truncate(35);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isOk = !event.failed;
     final statusColor = isOk ? Colors.green.shade700 : Colors.red.shade700;
     final durationMs = event.duration.inMilliseconds;
-    final uri = Uri.tryParse(event.url);
-    final shortUrl = uri != null
-        ? '${uri.host}${uri.path}'.truncate(40)
-        : event.url.truncate(40);
+    final shortUrl = _extractShortHost(event.url);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
@@ -593,7 +629,7 @@ class _NetworkEventTile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.purple.withOpacity(0.12),
+              color: Colors.purple.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(

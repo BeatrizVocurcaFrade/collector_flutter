@@ -40,7 +40,9 @@ class ResourceCollector {
 
   Future<void> start() async {
     _frame.start();
-    await _memory.start();
+    // Sincroniza coleta de memória com coleta de métricas
+    // Usa intervalo ligeiramente menor para garantir que há sempre dados frescos
+    await _memory.start(interval: collectionInterval * 0.9);
     _bloc.dispatch(CollectorStart());
   }
 
