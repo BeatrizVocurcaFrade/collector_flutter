@@ -64,6 +64,17 @@ class ResourceCollector {
   /// Registra um rebuild de widget para rastreamento de excessos.
   void trackRebuild() => _repo.incrementRebuild();
 
+  /// Coleta imediatamente e emite um novo snapshot no dashboard.
+  ///
+  /// Use [forceMemory] quando uma ação acabou de alterar uso de memória e não
+  /// deve esperar o próximo tick do coletor periódico.
+  Future<void> collectNow({bool forceMemory = false}) async {
+    if (forceMemory) {
+      await _memory.collectNow();
+    }
+    await _bloc.collectNow();
+  }
+
   HttpClientWrapper get network => _network;
   CollectorBloc get bloc => _bloc;
 }

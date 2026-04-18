@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'dart:ui' as ui show FrameTiming;
 
 import 'package:flutter/material.dart';
@@ -144,22 +145,19 @@ class _SessionInfoRow extends StatelessWidget {
         ? '${dur.inMinutes}m ${dur.inSeconds % 60}s'
         : '${dur.inSeconds}s';
 
-    return Row(
+    return Wrap(
+      spacing: 12,
+      runSpacing: 6,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        const Icon(Icons.access_time, size: 14, color: Colors.grey),
-        const SizedBox(width: 4),
-        Text(
-          'Sessao: $durStr',
-          style: const TextStyle(fontSize: 12, color: Colors.grey),
+        _SessionInfoChip(
+          icon: Icons.access_time,
+          label: 'Sessao: $durStr',
         ),
-        const SizedBox(width: 12),
-        const Icon(Icons.refresh, size: 14, color: Colors.grey),
-        const SizedBox(width: 4),
-        Text(
-          '${telemetry.rebuildCount} rebuilds',
-          style: const TextStyle(fontSize: 12, color: Colors.grey),
+        _SessionInfoChip(
+          icon: Icons.refresh,
+          label: '${telemetry.rebuildCount} rebuilds',
         ),
-        const Spacer(),
         TextButton.icon(
           onPressed: onExport,
           icon: const Icon(Icons.file_download_outlined, size: 16),
@@ -169,6 +167,28 @@ class _SessionInfoRow extends StatelessWidget {
             minimumSize: Size.zero,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class _SessionInfoChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _SessionInfoChip({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 14, color: Colors.grey),
+        const SizedBox(width: 4),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
         ),
       ],
     );
@@ -452,84 +472,106 @@ class _FrameChart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 8, bottom: 4),
-              child: Row(
-                children: [
-                  Text(
-                    'Tempo de Frame (ms)',
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.blueAccent,
-                        ),
-                  ),
-                  const Spacer(),
-                  if (stats.sampleCount > 0) ...[
-                    _statBadge('P50', stats.p50Ms, Colors.green.shade700),
-                    const SizedBox(width: 6),
-                    _statBadge('P95', stats.p95Ms, Colors.orange.shade700),
-                    const SizedBox(width: 6),
-                    _statBadge('σ', stats.stdDevMs, Colors.grey.shade600),
-                  ],
-                ],
-              ),
+              padding: const EdgeInsets.only(left: 8, right: 2, bottom: 8),
+              child: _FrameChartHeader(stats: stats),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width - 48,
-                height: 160,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: SfCartesianChart(
-                    margin: EdgeInsets.zero,
-                    borderWidth: 0,
-                    plotAreaBorderWidth: 0,
-                    primaryXAxis: const NumericAxis(
-                      isVisible: false,
-                    ),
-                    primaryYAxis: NumericAxis(
-                      maximum: maxY,
-                      minimum: 0,
-                      interval: (maxY / 4).roundToDouble(),
-                      axisLine: const AxisLine(width: 0),
-                      labelStyle:
-                          const TextStyle(color: Colors.grey, fontSize: 9),
-                      plotBands: [
-                        PlotBand(
-                          start: frameBudgetMs,
-                          end: frameBudgetMs,
-                          borderColor: Colors.red.withValues(alpha: 0.6),
-                          borderWidth: 2,
-                          dashArray: const <double>[5, 5],
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final chartWidth =
+                    math.max(constraints.maxWidth, data.length * 7.0);
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SizedBox(
+                    width: chartWidth,
+                    height: 160,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: SfCartesianChart(
+                        margin: EdgeInsets.zero,
+                        borderWidth: 0,
+                        plotAreaBorderWidth: 0,
+                        primaryXAxis: const NumericAxis(
+                          isVisible: false,
                         ),
-                      ],
-                    ),
-                    series: <CartesianSeries<_FrameSample, double>>[
-                      SplineAreaSeries<_FrameSample, double>(
-                        dataSource: data,
-                        xValueMapper: (d, _) => d.x,
-                        yValueMapper: (d, _) => d.y,
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.blueAccent.withValues(alpha: 0.55),
-                            Colors.blueAccent.withValues(alpha: 0.04),
+                        primaryYAxis: NumericAxis(
+                          maximum: maxY,
+                          minimum: 0,
+                          interval: (maxY / 4).roundToDouble(),
+                          axisLine: const AxisLine(width: 0),
+                          labelStyle:
+                              const TextStyle(color: Colors.grey, fontSize: 9),
+                          plotBands: [
+                            PlotBand(
+                              start: frameBudgetMs,
+                              end: frameBudgetMs,
+                              borderColor: Colors.red.withValues(alpha: 0.6),
+                              borderWidth: 2,
+                              dashArray: const <double>[5, 5],
+                            ),
                           ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
                         ),
-                        borderColor: Colors.blueAccent,
-                        borderWidth: 2,
-                        splineType: SplineType.cardinal,
-                        animationDuration: 300,
+                        series: <CartesianSeries<_FrameSample, double>>[
+                          SplineAreaSeries<_FrameSample, double>(
+                            dataSource: data,
+                            xValueMapper: (d, _) => d.x,
+                            yValueMapper: (d, _) => d.y,
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.blueAccent.withValues(alpha: 0.55),
+                                Colors.blueAccent.withValues(alpha: 0.04),
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                            borderColor: Colors.blueAccent,
+                            borderWidth: 2,
+                            splineType: SplineType.cardinal,
+                            animationDuration: 300,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _FrameChartHeader extends StatelessWidget {
+  final FrameStats stats;
+
+  const _FrameChartHeader({required this.stats});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Tempo de Frame (ms)',
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: Colors.blueAccent,
+              ),
+        ),
+        if (stats.sampleCount > 0) ...[
+          const SizedBox(height: 6),
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: [
+              _statBadge('P50', stats.p50Ms, Colors.green.shade700),
+              _statBadge('P95', stats.p95Ms, Colors.orange.shade700),
+              _statBadge('σ', stats.stdDevMs, Colors.grey.shade600),
+            ],
+          ),
+        ],
+      ],
     );
   }
 
@@ -572,12 +614,15 @@ class _NetworkPanel extends StatelessWidget {
               children: [
                 const Icon(Icons.wifi, color: Colors.purple, size: 18),
                 const SizedBox(width: 8),
-                Text(
-                  'Requisicoes de Rede  (${events.length} total)',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.purple.shade700,
-                      ),
+                Expanded(
+                  child: Text(
+                    'Requisicoes de Rede  (${events.length} total)',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.purple.shade700,
+                        ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
@@ -600,8 +645,16 @@ class _NetworkEventTile extends StatelessWidget {
       final uri = Uri.tryParse(url);
       if (uri == null) return url.truncate(35);
 
-      // Extrai apenas o hostname + primeira parte do path
+      // Extrai apenas o hostname e já remove o 'www.'
       String host = uri.host.replaceFirst('www.', '');
+
+      // Pega tudo DEPOIS do primeiro '.' (se houver algum ponto)
+      final firstDotIndex = host.indexOf('.');
+      if (firstDotIndex != -1) {
+        host = host.substring(firstDotIndex + 1);
+      }
+
+      // Adiciona a primeira parte do path (se houver)
       if (uri.path.isNotEmpty && uri.path != '/') {
         final pathParts =
             uri.path.split('/').where((p) => p.isNotEmpty).toList();
@@ -609,7 +662,8 @@ class _NetworkEventTile extends StatelessWidget {
           host += '/${pathParts.first}';
         }
       }
-      return host.length > 30 ? '${host.substring(0, 27)}...' : host;
+
+      return host;
     } catch (_) {
       return url.truncate(35);
     }
@@ -644,7 +698,7 @@ class _NetworkEventTile extends StatelessWidget {
           const SizedBox(width: 6),
           Expanded(
             child: Text(
-              shortUrl,
+              'https://$shortUrl',
               style: const TextStyle(fontSize: 12),
               overflow: TextOverflow.ellipsis,
             ),

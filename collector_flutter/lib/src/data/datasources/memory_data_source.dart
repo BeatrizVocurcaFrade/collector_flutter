@@ -17,6 +17,7 @@ class MemoryDataSource {
   MemoryInfo? _last;
   final List<MemoryInfo> _samples = [];
   bool _starting = false;
+  Future<void>? _activeCollect;
 
   MemoryDataSource({this.maxSamples = 120});
 
@@ -25,8 +26,8 @@ class MemoryDataSource {
     _starting = true;
     try {
       await _connectVmService();
-      await _collect();
-      _timer = Timer.periodic(interval, (_) => _collect());
+      await collectNow();
+      _timer = Timer.periodic(interval, (_) => unawaited(collectNow()));
     } finally {
       _starting = false;
     }
@@ -40,6 +41,29 @@ class MemoryDataSource {
     if (service != null) {
       unawaited(service.dispose());
     }
+  }
+
+  /// Forces a memory sample immediately.
+  ///
+  /// This is useful for demos and user-triggered diagnostics, where waiting for
+  /// the periodic timer makes the UI feel out of sync with the action.
+  Future<MemoryInfo?> collectNow() async {
+    final activeCollect = _activeCollect;
+    if (activeCollect != null) {
+      await activeCollect;
+      return _last;
+    }
+
+    final collect = _collect();
+    _activeCollect = collect;
+    try {
+      await collect;
+    } finally {
+      if (identical(_activeCollect, collect)) {
+        _activeCollect = null;
+      }
+    }
+    return _last;
   }
 
   Future<void> _connectVmService() async {

@@ -24,6 +24,8 @@ class CollectorBloc {
   Stream<CollectorState> get stream => _controller.stream;
   CollectorState get state => _state;
 
+  Future<void> collectNow() => _collectNow();
+
   void dispatch(CollectorEvent event) {
     if (event is CollectorStart) {
       _start();
@@ -40,12 +42,17 @@ class CollectorBloc {
 
   Timer? _periodic;
   bool _collecting = false;
+  bool _collectAgain = false;
+  Completer<void>? _activeCollection;
 
   void _start() {
     _setState(CollectorRunning());
     _periodic?.cancel();
-    _periodic = Timer.periodic(collectInterval, (_) => unawaited(_collectNow()));
-    unawaited(_collectNow());
+    _periodic = Timer.periodic(
+      collectInterval,
+      (_) => unawaited(collectNow()),
+    );
+    unawaited(collectNow());
   }
 
   void _stop() {
@@ -55,8 +62,29 @@ class CollectorBloc {
   }
 
   Future<void> _collectNow() async {
-    if (_collecting) return;
+    if (_collecting) {
+      _collectAgain = true;
+      return _activeCollection?.future ?? Future<void>.value();
+    }
+
     _collecting = true;
+    final completer = Completer<void>();
+    _activeCollection = completer;
+    try {
+      do {
+        _collectAgain = false;
+        await _collectOnce();
+      } while (_collectAgain);
+    } finally {
+      _collecting = false;
+      _activeCollection = null;
+      if (!completer.isCompleted) {
+        completer.complete();
+      }
+    }
+  }
+
+  Future<void> _collectOnce() async {
     try {
       final telemetry = await collectUseCase();
       final analysis = analyzeUseCase(telemetry);
@@ -70,8 +98,6 @@ class CollectorBloc {
       );
     } catch (e) {
       _setState(CollectorError(e.toString()));
-    } finally {
-      _collecting = false;
     }
   }
 
