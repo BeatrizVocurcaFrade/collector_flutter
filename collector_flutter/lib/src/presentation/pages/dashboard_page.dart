@@ -4,7 +4,7 @@ import 'dart:ui' as ui show FrameTiming;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 import '../../core/analyzer.dart';
 import '../../core/export_service.dart';
@@ -354,10 +354,10 @@ class _MetricCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: color.withValues(alpha: 0.09),
+          color: color.withOpacity(0.09),
           boxShadow: [
             BoxShadow(
-              color: color.withValues(alpha: 0.22),
+              color: color.withOpacity(0.22),
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
@@ -442,29 +442,25 @@ class _FrameChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lastFrames = frames.takeLast(60);
-    // Garante que temos pelo menos 2 pontos para desenhar
     if (lastFrames.isEmpty) {
       return const SizedBox.shrink();
     }
 
-    final data = lastFrames.asMap().entries.map((e) {
-      return _FrameSample(
+    final spots = lastFrames.asMap().entries.map((e) {
+      return FlSpot(
         e.key.toDouble(),
         e.value.totalSpan.inMicroseconds / 1000.0,
       );
     }).toList();
 
-    // Calcula dynamicamente o máximo para escala realista
-    final frameMs = data.map((d) => d.y).toList();
     final maxFrameMs =
-        frameMs.isEmpty ? 32.0 : frameMs.reduce((a, b) => a > b ? a : b);
-
-    // Padding para visualização: adiciona 20% acima do pico
+        spots.isEmpty ? 32.0 : spots.map((s) => s.y).reduce((a, b) => a > b ? a : b);
     final maxY = (maxFrameMs * 1.2).clamp(17.0, 200.0);
+    final yInterval = (maxY / 4).roundToDouble();
 
     return Card(
       elevation: 4,
-      shadowColor: Colors.blueAccent.withValues(alpha: 0.25),
+      shadowColor: Colors.blueAccent.withOpacity(0.25),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 12, 16, 8),
@@ -478,7 +474,7 @@ class _FrameChart extends StatelessWidget {
             LayoutBuilder(
               builder: (context, constraints) {
                 final chartWidth =
-                    math.max(constraints.maxWidth, data.length * 7.0);
+                    math.max(constraints.maxWidth, spots.length * 7.0);
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
@@ -486,49 +482,71 @@ class _FrameChart extends StatelessWidget {
                     height: 160,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: SfCartesianChart(
-                        margin: EdgeInsets.zero,
-                        borderWidth: 0,
-                        plotAreaBorderWidth: 0,
-                        primaryXAxis: const NumericAxis(
-                          isVisible: false,
-                        ),
-                        primaryYAxis: NumericAxis(
-                          maximum: maxY,
-                          minimum: 0,
-                          interval: (maxY / 4).roundToDouble(),
-                          axisLine: const AxisLine(width: 0),
-                          labelStyle:
-                              const TextStyle(color: Colors.grey, fontSize: 9),
-                          plotBands: [
-                            PlotBand(
-                              start: frameBudgetMs,
-                              end: frameBudgetMs,
-                              borderColor: Colors.red.withValues(alpha: 0.6),
-                              borderWidth: 2,
-                              dashArray: const <double>[5, 5],
+                      child: LineChart(
+                        LineChartData(
+                          minX: 0,
+                          maxX: (spots.length - 1).toDouble().clamp(1, double.infinity),
+                          minY: 0,
+                          maxY: maxY,
+                          lineTouchData: const LineTouchData(enabled: false),
+                          gridData: const FlGridData(show: false),
+                          borderData: FlBorderData(show: false),
+                          extraLinesData: ExtraLinesData(
+                            horizontalLines: [
+                              HorizontalLine(
+                                y: frameBudgetMs,
+                                color: Colors.red.withOpacity(0.6),
+                                strokeWidth: 2,
+                                dashArray: [5, 5],
+                              ),
+                            ],
+                          ),
+                          titlesData: FlTitlesData(
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 36,
+                                interval: yInterval,
+                                getTitlesWidget: (value, meta) =>
+                                    SideTitleWidget(
+                                  axisSide: meta.axisSide,
+                                  child: Text(
+                                    value.toStringAsFixed(0),
+                                    style: const TextStyle(
+                                        color: Colors.grey, fontSize: 9),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            rightTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false)),
+                            topTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false)),
+                            bottomTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false)),
+                          ),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: spots,
+                              isCurved: true,
+                              curveSmoothness: 0.3,
+                              color: Colors.blueAccent,
+                              barWidth: 2,
+                              dotData: const FlDotData(show: false),
+                              belowBarData: BarAreaData(
+                                show: true,
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.blueAccent.withOpacity(0.55),
+                                    Colors.blueAccent.withOpacity(0.04),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                        series: <CartesianSeries<_FrameSample, double>>[
-                          SplineAreaSeries<_FrameSample, double>(
-                            dataSource: data,
-                            xValueMapper: (d, _) => d.x,
-                            yValueMapper: (d, _) => d.y,
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.blueAccent.withValues(alpha: 0.55),
-                                Colors.blueAccent.withValues(alpha: 0.04),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                            borderColor: Colors.blueAccent,
-                            borderWidth: 2,
-                            splineType: SplineType.cardinal,
-                            animationDuration: 300,
-                          ),
-                        ],
                       ),
                     ),
                   ),
@@ -579,7 +597,7 @@ class _FrameChartHeader extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
@@ -683,7 +701,7 @@ class _NetworkEventTile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.purple.withValues(alpha: 0.12),
+              color: Colors.purple.withOpacity(0.12),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
@@ -894,8 +912,3 @@ extension _StringTruncate on String {
       length <= maxLen ? this : '${substring(0, maxLen - 1)}…';
 }
 
-class _FrameSample {
-  final double x;
-  final double y;
-  const _FrameSample(this.x, this.y);
-}

@@ -1,7 +1,19 @@
 name: collector_flutter
-description: A lightweight resource/telemetry collector for Flutter apps (FPS, jank, memory, network, events).
+description: >-
+  Real-time resource monitoring for Flutter apps — FPS, jank, memory, HTTP
+  traffic, and custom events with an embedded dashboard and actionable
+  recommendations.
 version: 0.1.0
-publish_to: none
+repository: https://github.com/BeatrizVocurcaFrade/collector_flutter
+homepage: https://github.com/BeatrizVocurcaFrade/collector_flutter
+issue_tracker: https://github.com/BeatrizVocurcaFrade/collector_flutter/issues
+
+topics:
+  - flutter
+  - performance
+  - monitoring
+  - profiling
+  - telemetry
 
 environment:
   sdk: ">=3.5.0 <4.0.0"
@@ -13,13 +25,12 @@ dependencies:
   http: ^1.5.0
   vm_service: ^14.2.5
   google_fonts: ^6.2.0
-  syncfusion_flutter_charts: ^27.1.43
-  
+  fl_chart: ^0.69.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  pedantic: ^1.11.0
 
 flutter:
   uses-material-design: true

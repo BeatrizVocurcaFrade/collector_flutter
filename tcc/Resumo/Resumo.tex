@@ -6,11 +6,13 @@
 \vspace{2cm}
 \end{center}
 
-Este trabalho propõe o desenvolvimento de uma ferramenta destinada ao \textbf{monitoramento e à otimização do consumo de recursos} em aplicações desenvolvidas com o \textit{framework} Flutter. A proposta contempla um estudo bibliográfico sobre técnicas de medição de uso de CPU, GPU, memória, rede e bateria; uma análise crítica das ferramentas já existentes no ecossistema; a definição de requisitos funcionais e não funcionais; e a especificação de um protótipo inicial capaz de integrar coleta de métricas, visualização interativa e recomendações automatizadas de otimização.
-\begin{sloppypar}
-O objetivo principal é oferecer aos desenvolvedores uma solução acessível e integrada que facilite a identificação de gargalos de desempenho e sugira ações práticas para a redução do consumo de recursos computacionais. Com isso, busca-se contribuir para a melhoria da qualidade da experiência do usuário e para a adoção de práticas de \textbf{sustentabilidade digital} e \textbf{eficiência energética} no desenvolvimento de aplicações móveis.
-\end{sloppypar}
-\textbf{Palavras-chave}: Flutter. Monitoramento. Otimização. Consumo de recursos. Eficiência energética. Sustentabilidade digital.
+O monitoramento de desempenho em aplicações móveis depende, na prática, de ferramentas externas que exigem configuração especializada e interpretação manual de dados — uma barreira que restringe sua adoção ao longo do desenvolvimento cotidiano. Este trabalho apresenta o \texttt{collector\_flutter}, um pacote Dart/Flutter de código aberto que incorpora coleta de métricas, análise heurística e visualização em tempo real diretamente na aplicação monitorada, sem dependências nativas ou ferramentas externas.
+
+O protótipo adota arquitetura de três camadas (\textit{Data}, \textit{Domain} e \textit{Presentation}) baseada nos princípios da \textit{Clean Architecture}, coletando métricas de renderização (FPS, \textit{jank}, percentis P50/P95/P99), uso de memória RSS e \textit{heap}, tráfego HTTP e eventos customizados do desenvolvedor. Um motor heurístico analisa essas métricas a cada ciclo de coleta e gera recomendações de otimização classificadas por severidade, exibidas em um painel visual integrado.
+
+O desenvolvimento seguiu um ciclo de vida iterativo estruturado em quatro fases: revisão bibliográfica, especificação de requisitos, implementação do protótipo e avaliação experimental — as três primeiras concluídas no TCC~1. A validação qualitativa em quatro cenários controlados (\textit{rebuilds} intensivos, carga de rede, alocação de memória e carga combinada) confirmou a operacionalidade do sistema e a pertinência das heurísticas implementadas. A avaliação quantitativa, com análise estatística e comparação com o Android Profiler e o \texttt{adb shell dumpsys gfxinfo}, constitui o escopo do TCC~2.
+
+\textbf{Palavras-chave}: Flutter. Monitoramento de desempenho. Profiling. Coleta de métricas em tempo real. Eficiência energética. Sustentabilidade digital. Clean Architecture.
  
  
 \clearpage

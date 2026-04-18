@@ -283,7 +283,7 @@ class _IntroCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      shadowColor: Colors.blueAccent.withValues(alpha: 0.2),
+      shadowColor: Colors.blueAccent.withOpacity(0.2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         padding: const EdgeInsets.all(18),
@@ -291,8 +291,8 @@ class _IntroCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           gradient: LinearGradient(
             colors: [
-              Colors.blueAccent.withValues(alpha: 0.15),
-              Colors.blue.shade100.withValues(alpha: 0.1),
+              Colors.blueAccent.withOpacity(0.15),
+              Colors.blue.shade100.withOpacity(0.1),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -350,7 +350,7 @@ class _BottomActionBar extends StatelessWidget {
 
     return BottomAppBar(
       elevation: 8,
-      color: Colors.white.withValues(alpha: 0.95),
+      color: Colors.white.withOpacity(0.95),
       shape: const CircularNotchedRectangle(),
       child: SizedBox(
         height: 72,
@@ -439,7 +439,7 @@ class _ActionItemState extends State<_ActionItem> {
           padding: const EdgeInsets.symmetric(vertical: 6),
           decoration: BoxDecoration(
             color: _pressed
-                ? widget.color.withValues(alpha: 0.12)
+                ? widget.color.withOpacity(0.12)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(10),
           ),

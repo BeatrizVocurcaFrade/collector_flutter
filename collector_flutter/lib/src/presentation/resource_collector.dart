@@ -3,8 +3,24 @@ import '../data/data.dart';
 import '../domain/domain.dart';
 import 'cubit/cubit.dart';
 
+/// Main entry point for the collector_flutter package.
+///
+/// Coordinates all data sources (frame, memory, network, events) and
+/// exposes the collection lifecycle ([start], [stop], [dispose]) and
+/// the reactive state stream via [bloc].
+///
+/// ```dart
+/// final collector = ResourceCollector();
+/// await collector.start();
+/// // ...
+/// collector.dispose();
+/// ```
 class ResourceCollector {
+  /// How often metrics are aggregated and emitted to listeners.
   final Duration collectionInterval;
+
+  /// Performance thresholds used by the heuristic [Analyzer].
+  /// Defaults to 60 FPS / 300 MB memory / 50 HTTP requests if `null`.
   final PerformanceBudget? budget;
 
   late final FrameDataSource _frame;
@@ -38,6 +54,10 @@ class ResourceCollector {
     );
   }
 
+  /// Starts all data sources and the periodic collection cycle.
+  ///
+  /// Call this once, typically in `initState` or before pushing [DashboardPage].
+  /// Safe to await — resolves after the VM Service connection is established.
   Future<void> start() async {
     _frame.start();
     // Sincroniza coleta de memória com coleta de métricas
@@ -46,18 +66,28 @@ class ResourceCollector {
     _bloc.dispatch(CollectorStart());
   }
 
+  /// Stops all data sources and the collection cycle without releasing resources.
+  ///
+  /// Call [dispose] instead when the collector will no longer be used.
   void stop() {
     _bloc.dispatch(CollectorStop());
     _frame.stop();
     _memory.stop();
   }
 
+  /// Stops collection and releases all resources (streams, VM Service, HTTP client).
+  ///
+  /// Call this in the `dispose` method of the widget that owns the collector.
   void dispose() {
     stop();
     _bloc.dispose();
     _network.dispose();
   }
 
+  /// Records a named application event with an associated value.
+  ///
+  /// Events appear in the dashboard network panel and are included in JSON
+  /// exports. [value] can be any JSON-serialisable object.
   void recordEvent(String name, dynamic value) =>
       _events.recordEvent(name, value);
 

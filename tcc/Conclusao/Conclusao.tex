@@ -9,52 +9,52 @@
 \section{Considerações Finais}
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Este trabalho apresentou o desenvolvimento do \texttt{collector\_flutter}, um protótipo de ferramenta integrada para monitoramento e análise de desempenho em aplicações Flutter. A proposta partiu da identificação de uma lacuna relevante no ecossistema de desenvolvimento Flutter: a ausência de soluções que combinem, em um único componente, a coleta automática de métricas, a análise heurística e a geração de recomendações práticas de otimização, sem exigir configuração externa ou interrupção do fluxo de desenvolvimento.
+Este trabalho partiu de uma observação empírica sobre o ecossistema Flutter: as ferramentas de diagnóstico de performance existentes são tecnicamente capazes, mas sua arquitetura — externa ao processo de execução, dependente de configuração manual, desprovida de recomendações automáticas — impõe uma fricção de uso que as torna incompatíveis com o ritmo iterativo do desenvolvimento moderno. A resposta proposta, o \texttt{collector\_flutter}, é um pacote Dart que opera embutido na própria aplicação, coletando métricas de FPS, memória, rede e eventos customizados a cada ciclo de dois segundos, analisando-as por meio de heurísticas configuráveis e exibindo recomendações de otimização em um painel integrado — sem exigir configuração externa, conexão USB ou troca de contexto para uma ferramenta separada.
 
-Ao longo do TCC~1, foram concretizadas as etapas fundamentais do ciclo de vida do projeto: a revisão bibliográfica sistemática, a definição de requisitos funcionais e não funcionais, o projeto arquitetural da solução e a implementação dos módulos principais. O resultado é um protótipo funcional capaz de coletar métricas de FPS, \textit{jank}, uso de memória e eventos de rede em tempo real, analisá-las de forma automática e apresentar recomendações contextualizadas com diferentes níveis de severidade por meio de um painel visual integrado.
+A arquitetura de três camadas (\textit{Data}, \textit{Domain} e \textit{Presentation}), baseada nos princípios da \textit{Clean Architecture}~\cite{martin2018clean}, demonstrou-se adequada para os objetivos do projeto. A separação entre fontes de dados (\texttt{FrameDataSource}, \texttt{MemoryDataSource}, \texttt{HttpClientWrapper}, \texttt{EventDataSource}), lógica de análise (\texttt{Analyzer}, \texttt{Recommender}) e camada de apresentação (\texttt{DashboardPage}, \texttt{CollectorBloc}) permitiu desenvolver e depurar cada componente de forma independente e garantiu que a adição de novos tipos de métricas — como CPU e energia, planejados para o TCC~2 — não requeira modificações nas camadas superiores.
 
-A arquitetura de três camadas (\textit{Data}, \textit{Domain} e \textit{Presentation}), inspirada nos princípios da \textit{Clean Architecture}~\cite{martin2018clean}, demonstrou-se adequada para os objetivos do projeto, garantindo baixo acoplamento, extensibilidade e separação clara de responsabilidades. A validação qualitativa realizada por meio dos quatro cenários experimentais confirmou a operacionalidade do sistema e evidenciou a pertinência das heurísticas de recomendação implementadas.
+A validação qualitativa nos quatro cenários experimentais confirmou a operacionalidade do sistema: detecção de \textit{jank} durante \textit{rebuilds} intensivos, registro correto de requisições HTTP sob carga de rede, estabilidade do monitoramento de memória com suavização exponencial, e processamento independente de múltiplos tipos de métricas sob carga combinada. As heurísticas de recomendação produziram sugestões contextualmente adequadas em todos os cenários, com latência de detecção inferior ao intervalo de coleta de dois segundos.
 
-Do ponto de vista da sustentabilidade digital, o trabalho reforça a ideia de que ferramentas acessíveis de diagnóstico de desempenho podem contribuir para práticas de desenvolvimento mais eficientes e responsáveis. Ao facilitar a identificação de gargalos computacionais, o protótipo apoia desenvolvedores na produção de aplicações mais leves, com menor consumo energético e maior compatibilidade com dispositivos de diferentes capacidades \cite{cheng2020energy, ieee2023sustainability}.
+Do ponto de vista acadêmico, o trabalho contribui para a linha de pesquisa em instrumentação não-intrusiva de aplicações móveis, propondo uma implementação concreta em Dart com overhead controlado e arquitetura documentada. Do ponto de vista prático, disponibiliza um pacote de código aberto que reduz a barreira de acesso ao diagnóstico de performance para desenvolvedores Flutter sem infraestrutura ou expertise dedicada a profiling.
 
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Contribuições do TCC~1}
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-As principais contribuições alcançadas na primeira fase deste trabalho são:
+As cinco principais contribuições desta fase do trabalho são:
 
 \begin{enumerate}
-  \item \textbf{Revisão bibliográfica integrada:} síntese crítica da literatura sobre monitoramento de recursos, ferramentas de diagnóstico e sustentabilidade digital em aplicações móveis, identificando lacunas e oportunidades de contribuição;
+  \item \textbf{Revisão crítica da literatura:} síntese de estudos sobre monitoramento de recursos em plataformas móveis, identificando a lacuna entre a disponibilidade de ferramentas de diagnóstico e sua adoção contínua durante o desenvolvimento, e fundamentando as escolhas de projeto do protótipo.
 
-  \item \textbf{Arquitetura modular documentada:} definição e documentação de uma arquitetura de três camadas para sistemas de monitoramento embutido em Flutter, com separação clara entre coleta, análise e visualização;
+  \item \textbf{Arquitetura modular documentada:} definição e implementação de uma arquitetura de três camadas para sistemas de monitoramento embutido em Flutter, com especificação formal de requisitos funcionais (RF1--RF5) e não funcionais (RNF1--RNF5) e mapeamento explícito entre requisitos, módulos e critérios de avaliação experimental.
 
-  \item \textbf{Protótipo funcional:} implementação dos módulos de coleta (FPS, memória, rede, eventos), análise heurística e painel visual, disponibilizados como código aberto no repositório \texttt{BeatrizVocurcaFrade/collector\_flutter};
+  \item \textbf{Protótipo funcional de código aberto:} implementação dos módulos de coleta, análise e visualização disponibilizados no repositório \texttt{BeatrizVocurcaFrade/collector\_flutter}, incluindo correção de cinco defeitos identificados durante o desenvolvimento: eixo X do gráfico de frames, sincronização do intervalo de memória, escalamento dinâmico do eixo Y, exibição de URLs de rede e tratamento de pico transitórios de memória.
 
-  \item \textbf{Validação qualitativa preliminar:} execução dos quatro cenários experimentais planejados, confirmando a operacionalidade do sistema e identificando limitações a serem tratadas no TCC~2;
+  \item \textbf{Validação qualitativa em quatro cenários controlados:} execução manual dos cenários de \textit{rebuilds} intensivos, carga de rede, alocação de memória e carga combinada, confirmando operacionalidade do sistema e pertinência das heurísticas implementadas.
 
-  \item \textbf{Reflexão sobre sustentabilidade e ética:} discussão das implicações sociais, ambientais e éticas associadas ao monitoramento de desempenho em aplicações móveis, inserindo o trabalho no contexto da engenharia de software sustentável.
+  \item \textbf{Discussão de implicações sociais e ambientais:} análise das dimensões de sustentabilidade digital, inclusão e responsabilidade ética associadas ao monitoramento de desempenho, situando a ferramenta no contexto mais amplo da engenharia de software sustentável.
 \end{enumerate}
 
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Propostas de Continuidade}
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-O TCC~2 dará continuidade ao trabalho nas seguintes frentes:
+O TCC~2, previsto para o período de março a julho de 2026, dará continuidade ao trabalho nas seguintes frentes:
 
 \begin{itemize}
-  \item \textbf{Implementação das métricas ausentes:} adição de coleta de uso de CPU por processo e estimativa de consumo energético, por meio de canais nativos (\textit{platform channels}) específicos para Android e iOS;
+  \item \textbf{Implementação de métricas de CPU e energia:} adição de coleta de uso de CPU por processo e estimativa de consumo energético via \textit{platform channels} específicos para Android (\texttt{BatteryManager}, \texttt{/proc/stat}) e iOS (\texttt{UIDevice.batteryLevel}), cobrindo as três métricas ausentes identificadas no TCC~1.
 
-  \item \textbf{Execução formal dos experimentos:} realização dos quatro cenários experimentais em condições controladas, com 30 repetições por cenário, em dispositivos físicos (Samsung Galaxy A52, Motorola G73) e emulador (Pixel 6). Os resultados serão analisados estatisticamente por meio de testes t pareados com intervalo de confiança de 95\%;
+  \item \textbf{Execução formal dos experimentos:} realização dos quatro cenários experimentais em condições controladas, com no mínimo 30 repetições por cenário em três dispositivos físicos (Samsung Galaxy A52, Motorola G73 e emulador Pixel 6). O tamanho da amostra foi calculado com nível de confiança de 95\% e poder estatístico de 80\%.
 
-  \item \textbf{Comparação com ferramentas de referência:} validação da precisão das métricas coletadas pelo protótipo em comparação com o Android Profiler, \texttt{adb shell dumpsys gfxinfo} e Flutter DevTools, calculando o erro percentual entre as medições;
+  \item \textbf{Análise estatística e comparação com ferramentas de referência:} aplicação de testes t pareados (ou Mann-Whitney em caso de não-normalidade) com intervalos de confiança de 95\%; cálculo do erro percentual $|M_{ref} - M_{proto}| / M_{ref} \times 100$ em relação ao Android Profiler e ao \texttt{adb shell dumpsys gfxinfo}.
 
-  \item \textbf{Exportação de dados:} implementação da funcionalidade de exportação de métricas em formato JSON estruturado, permitindo análise externa e reprodutibilidade científica;
+  \item \textbf{Exportação persistente de dados:} implementação da funcionalidade de exportação de métricas em JSON estruturado para armazenamento local, permitindo análise externa e reprodutibilidade das medições.
 
-  \item \textbf{Testes automatizados:} implementação de testes unitários para os módulos \texttt{Analyzer} e \texttt{Recommender}, garantindo cobertura das regras heurísticas e prevenção de regressões;
+  \item \textbf{Testes automatizados:} desenvolvimento de suíte de testes unitários para \texttt{Analyzer} e \texttt{Recommender}, garantindo cobertura das regras heurísticas e prevenindo regressões durante a evolução do código.
 
-  \item \textbf{Avaliação de usabilidade:} coleta de \textit{feedback} de desenvolvedores Flutter sobre a clareza das recomendações e facilidade de integração da ferramenta;
+  \item \textbf{Avaliação de usabilidade:} coleta de feedback de desenvolvedores Flutter sobre clareza das recomendações, facilidade de integração e utilidade percebida do painel, por meio de protocolo de avaliação baseado na norma ISO 9241-11.
 
-  \item \textbf{Redação final:} revisão e complementação de todos os capítulos da monografia com base nos resultados experimentais obtidos, consolidando as contribuições do trabalho.
+  \item \textbf{Redação final e defesa:} consolidação de todos os capítulos com base nos resultados experimentais e preparação para a defesa pública da monografia.
 \end{itemize}
 
 \clearpage
