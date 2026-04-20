@@ -13,11 +13,22 @@
 
 \mode<presentation>
 
-\RequirePackage{fontspec}
-\setsansfont[
-    Ligatures=TeX,
-    BoldFont={* Medium},
-]{Fira Sans}
+\RequirePackage{iftex}
+\ifPDFTeX
+    \RequirePackage[T1]{fontenc}
+    \RequirePackage[utf8]{inputenc}
+    \RequirePackage[sfdefault,medium]{FiraSans}
+\else
+    \RequirePackage{fontspec}
+    \IfFontExistsTF{Fira Sans}{%
+        \setsansfont[
+            Ligatures=TeX,
+            BoldFont={* Medium},
+        ]{Fira Sans}
+    }{%
+        \setsansfont{Latin Modern Sans}
+    }
+\fi
 
 % Title page
 \setbeamerfont{title}{

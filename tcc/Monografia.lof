@@ -2,11 +2,11 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Ciclo de vida metodológico adotado (iterativo e incremental).}}{14}{figure.4.1}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Mapa conceitual da arquitetura geral do protótipo \texttt {collector\_flutter}.}}{25}{figure.4.2}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Painel do aplicativo em condição de desempenho estável, com indicadores verdes e recomendações informativas.}}{28}{figure.4.3}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Painel do aplicativo com anomalias detectadas, como FPS baixo e uso de memória elevado.}}{29}{figure.4.4}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Ícone do aplicativo de demonstração \texttt {Collector Flutter}.}}{29}{figure.4.5}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Ciclo de vida metodológico adotado (iterativo e incremental).}}{13}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Arquitetura de três camadas do protótipo \texttt {collector\_flutter}{}: Data (coleta), Domain (análise) e Presentation (visualização).}}{20}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Mapa conceitual da arquitetura geral do protótipo \texttt {collector\_flutter}.}}{24}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Painel do aplicativo em condição de desempenho estável, com indicadores verdes e recomendações informativas.}}{27}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Painel do aplicativo com anomalias detectadas, como FPS baixo e uso de memória elevado.}}{28}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Ícone do aplicativo de demonstração \texttt {Collector Flutter}.}}{28}{figure.3.6}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

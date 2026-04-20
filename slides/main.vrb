@@ -1,0 +1,22 @@
+\frametitle{Integração no app}
+\chaptertag{Capítulo 4 -- Uso prático}
+\begin{lstlisting}[style=dart]
+final collector = ResourceCollector(
+  collectionInterval: const Duration(seconds: 2),
+  budget: const PerformanceBudget(targetFrameRate: 60),
+);
+
+await collector.start();
+
+Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (_) => DashboardPage(collector: collector),
+  ),
+);
+
+await collector.network.get(Uri.parse('https://api.exemplo.com/dados'));
+collector.recordEvent('checkout_started', {'items': 3});
+\end{lstlisting}
+\vspace{1mm}
+\smallref{A proposta é reduzir fricção: poucas chamadas ativam coleta, painel e instrumentação de rede.}
