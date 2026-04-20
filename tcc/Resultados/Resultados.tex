@@ -101,19 +101,19 @@ Durante as execuções manuais do aplicativo de exemplo em dispositivo Android (
 
 Os quatro cenários experimentais definidos na metodologia foram executados manualmente durante o TCC~1 com o objetivo de verificar a operacionalidade do sistema e identificar inconsistências antes da execução formal dos experimentos. Os resultados apresentados a seguir são de natureza qualitativa, servindo como base para o refinamento do protocolo experimental do TCC~2.
 
-\subsection{Cenário 1 — Reconstruções Intensivas de Interface}
+\subsection{Cenário 1: Reconstruções Intensivas de Interface}
 
 A simulação de \textit{rebuilds} frequentes produziu reduções perceptíveis no FPS estimado e aumento no contador de frames longos. O módulo \texttt{Analyzer} identificou corretamente a condição e o \texttt{Recommender} gerou a recomendação de severidade \textit{medium}: \textit{"Muitos frames longos detectados. Considere usar \texttt{const} em widgets estáticos e isolar reconstruções com \texttt{ValueNotifier} ou \texttt{Selector}."} A latência de detecção, contada a partir do início da carga, foi inferior ao intervalo de coleta de 2 segundos.
 
-\subsection{Cenário 2 — Chamadas de Rede Simultâneas}
+\subsection{Cenário 2: Chamadas de Rede Simultâneas}
 
 O interceptador de rede registrou corretamente todas as requisições geradas, incluindo tempo de resposta e código de status. Em condições de alta frequência de requisições, o \texttt{Recommender} ativou a recomendação de severidade \textit{medium}: \textit{"Alto volume de requisições de rede detectado. Considere implementar \textit{cache} e debounce."} Observou-se que o buffer de eventos de rede, limitado a 1.000 entradas, é suficiente para os cenários de teste planejados.
 
-\subsection{Cenário 3 — Alocação Intensiva de Memória}
+\subsection{Cenário 3: Alocação Intensiva de Memória}
 
 O consumo de memória RSS aumentou gradualmente durante a injeção de carga. O sistema de suavização exponencial (\(0{,}7 \times \text{ant.} + 0{,}3 \times \text{novo}\)) evitou falsos positivos durante picos transitórios, enquanto manteve sensibilidade a tendências de crescimento sustentado. Em modo \textit{debug}, os limiares ajustados para 600 MB preveniram alertas desnecessários causados pelo \textit{overhead} inerente do modo de desenvolvimento.
 
-\subsection{Cenário 4 — Carga Combinada}
+\subsection{Cenário 4: Carga Combinada}
 
 A execução simultânea dos três tipos de carga permitiu verificar que o sistema processa múltiplos tipos de métricas de forma independente e sem interferência entre módulos. O \texttt{Analyzer} priorizou corretamente as recomendações por severidade, apresentando os alertas mais críticos no topo do painel.
 
@@ -141,7 +141,7 @@ As execuções preliminares evidenciaram um conjunto de limitações técnicas a
 
 Este capítulo apresentou os resultados do TCC~1, focados no desenvolvimento e na validação preliminar do protótipo \texttt{collector\_flutter}. Os módulos de coleta de FPS, memória e rede, juntamente com os mecanismos de análise heurística e visualização em tempo real, foram implementados com sucesso e validados qualitativamente por meio de execuções manuais com os quatro cenários experimentais definidos.
 
-A arquitetura de três camadas demonstrou-se adequada para os objetivos propostos, garantindo extensibilidade e baixo acoplamento. As principais limitações identificadas — ausência de métricas de CPU e energia, falta de persistência e cobertura de testes — serão endereçadas na segunda fase do trabalho.
+A arquitetura de três camadas demonstrou-se adequada para os objetivos propostos, garantindo extensibilidade e baixo acoplamento. As principais limitações identificadas, como ausência de métricas de CPU e energia, falta de persistência e cobertura de testes, serão endereçadas na segunda fase do trabalho.
 
 O TCC~2 concentrará esforços na validação experimental quantitativa do protótipo, por meio da execução controlada dos cenários com múltiplas repetições, análise estatística dos resultados e comparação com ferramentas oficiais de referência, conforme o protocolo definido na Seção de Procedimentos de Teste.
 

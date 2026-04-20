@@ -22,10 +22,10 @@
 \contentsline {subsection}{\numberline {3.1.3}Justificativa da Escolha Metodológica}{12}{subsection.3.1.3}%
 \contentsline {subsection}{\numberline {3.1.4}Ciclo de Vida da Pesquisa e do Desenvolvimento}{12}{subsection.3.1.4}%
 \contentsline {subsubsection}{Visão Geral das Fases e Entregáveis}{13}{section*.8}%
-\contentsline {paragraph}{Fase 1 — Fundamentação e Revisão Bibliográfica}{13}{section*.9}%
-\contentsline {paragraph}{Fase 2 — Requisitos, Escopo e Especificação}{13}{section*.10}%
-\contentsline {paragraph}{Fase 3 — Projeto, Implementação e Integração do Protótipo}{13}{section*.11}%
-\contentsline {paragraph}{Fase 4 — Avaliação Experimental, Análise e Validação}{14}{section*.12}%
+\contentsline {paragraph}{Fase 1: Fundamentação e Revisão Bibliográfica}{13}{section*.9}%
+\contentsline {paragraph}{Fase 2: Requisitos, Escopo e Especificação}{13}{section*.10}%
+\contentsline {paragraph}{Fase 3: Projeto, Implementação e Integração do Protótipo}{13}{section*.11}%
+\contentsline {paragraph}{Fase 4: Avaliação Experimental, Análise e Validação}{14}{section*.12}%
 \contentsline {subsubsection}{Iterações e Rastreabilidade}{14}{section*.13}%
 \contentsline {subsubsection}{Relação com o Cronograma do TCC 1 e TCC 2}{14}{section*.14}%
 \contentsline {section}{\numberline {3.2}Cronograma de Execução}{15}{section.3.2}%
@@ -39,27 +39,27 @@
 \contentsline {subsection}{\numberline {3.5.3}Fase 3 – Projeto e Implementação do Protótipo}{20}{subsection.3.5.3}%
 \contentsline {subsubsection}{Modelagem e Arquitetura de Software}{20}{section*.17}%
 \contentsline {subsubsection}{Tecnologias e Ferramentas Utilizadas}{20}{section*.18}%
-\contentsline {subsubsection}{Integração dos Módulos e Testes Iniciais}{20}{section*.19}%
+\contentsline {subsubsection}{Integração dos Módulos e Testes Iniciais}{21}{section*.19}%
 \contentsline {subsection}{\numberline {3.5.4}Fase 4 – Avaliação Experimental e Validação}{21}{subsection.3.5.4}%
 \contentsline {subsubsection}{Plano Estatístico dos Experimentos}{21}{section*.20}%
-\contentsline {subsubsection}{Planejamento dos Experimentos}{21}{section*.21}%
-\contentsline {subsubsection}{Variáveis do Experimento}{21}{section*.22}%
+\contentsline {subsubsection}{Planejamento dos Experimentos}{22}{section*.21}%
+\contentsline {subsubsection}{Variáveis do Experimento}{22}{section*.22}%
 \contentsline {subsubsection}{Execução dos Testes}{22}{section*.23}%
-\contentsline {subsubsection}{Coleta e Análise de Dados}{22}{section*.24}%
+\contentsline {subsubsection}{Coleta e Análise de Dados}{23}{section*.24}%
 \contentsline {subsubsection}{Métrica de Eficiência Energética}{23}{section*.25}%
 \contentsline {subsubsection}{Validação das Recomendações Heurísticas}{23}{section*.26}%
 \contentsline {section}{\numberline {3.6}Descrição do Protótipo e Arquitetura da Solução}{23}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Concepção e Premissas de Projeto}{23}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.1}Concepção e Premissas de Projeto}{24}{subsection.3.6.1}%
 \contentsline {subsection}{\numberline {3.6.2}Arquitetura Geral do Sistema}{24}{subsection.3.6.2}%
 \contentsline {subsubsection}{Camada Data}{24}{section*.27}%
-\contentsline {subsubsection}{Camada Domain}{24}{section*.28}%
+\contentsline {subsubsection}{Camada Domain}{25}{section*.28}%
 \contentsline {subsubsection}{Camada Presentation}{25}{section*.29}%
 \contentsline {subsection}{\numberline {3.6.3}Componentes Principais}{25}{subsection.3.6.3}%
 \contentsline {subsubsection}{Collector}{25}{section*.30}%
 \contentsline {subsubsection}{Analyzer}{25}{section*.31}%
 \contentsline {subsubsection}{Recommender}{25}{section*.32}%
-\contentsline {subsubsection}{Dashboard}{25}{section*.33}%
-\contentsline {subsubsection}{Exporter (Opcional)}{25}{section*.34}%
+\contentsline {subsubsection}{Dashboard}{26}{section*.33}%
+\contentsline {subsubsection}{Exporter (Opcional)}{26}{section*.34}%
 \contentsline {subsection}{\numberline {3.6.4}Interface e Painel de Visualização}{26}{subsection.3.6.4}%
 \contentsline {subsubsection}{Área de Métricas}{26}{section*.35}%
 \contentsline {subsubsection}{Área de Recomendações}{26}{section*.36}%
@@ -94,10 +94,10 @@
 \contentsline {subsection}{\numberline {4.2.1}Conformidade Arquitetural}{41}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Comportamento Observado em Execução}{41}{subsection.4.2.2}%
 \contentsline {section}{\numberline {4.3}Análise dos Cenários Experimentais Iniciais}{42}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Cenário 1 — Reconstruções Intensivas de Interface}{42}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Cenário 2 — Chamadas de Rede Simultâneas}{42}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Cenário 3 — Alocação Intensiva de Memória}{42}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Cenário 4 — Carga Combinada}{42}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.1}Cenário 1: Reconstruções Intensivas de Interface}{42}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Cenário 2: Chamadas de Rede Simultâneas}{42}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Cenário 3: Alocação Intensiva de Memória}{42}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Cenário 4: Carga Combinada}{42}{subsection.4.3.4}%
 \contentsline {section}{\numberline {4.4}Limitações Identificadas no TCC~1}{42}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Resumo do Capítulo}{43}{section.4.5}%
 \contentsline {chapter}{\numberline {5}Conclusões}{44}{chapter.5}%

@@ -60,8 +60,7 @@ A Figura~\ref{fig:architecture} ilustra a arquitetura de três camadas adotada n
 
 \begin{figure}[H]
   \centering
-  % Substitua 'architecture_diagram' pelo nome do arquivo da figura
-  \includegraphics[width=0.7\textwidth]{architecture_diagram}
+  \includegraphics[width=0.9\textwidth]{sequenceDiagram.png}
   \caption{Arquitetura de três camadas do protótipo \collectorFlutter{}: Data (coleta), Domain (análise) e Presentation (visualização).}
   \label{fig:architecture}
 \end{figure}
@@ -233,7 +232,7 @@ A concepção do sistema teve como premissas fundamentais:
 
 \begin{itemize}
   \item Executar integralmente em Dart, sem dependência de código nativo;
-  \item Fornecer medições precisas em tempo real, com impacto mínimo sobre a performance do aplicativo monitorado;
+  \item Fornecer medições precisas em tempo real, com impacto mínimo sobre o desempenho do aplicativo monitorado;
   \item Manter arquitetura modular, permitindo substituição ou expansão de componentes;
   \item Adotar interface integrada ao próprio aplicativo, sem uso de ferramentas externas;
   \item Seguir princípios da \textbf{Clean Architecture} (Martin~\cite{martin2018clean}), assegurando separação de responsabilidades e testabilidade.
@@ -447,9 +446,9 @@ Foram analisados indicadores de melhoria percentual nas seguintes métricas:
 
 As recomendações foram classificadas em três níveis de impacto:
 \begin{itemize}
-  \item \textbf{Alta eficácia} – melhoria superior a 10\% em qualquer métrica crítica;
-  \item \textbf{Média eficácia} – melhoria entre 5\% e 10\%;
-  \item \textbf{Baixa eficácia} – melhoria inferior a 5\% ou estatisticamente irrelevante.
+  \item \textbf{Alta eficácia}: melhoria superior a 10\% em qualquer métrica crítica;
+  \item \textbf{Média eficácia}: melhoria entre 5\% e 10\%;
+  \item \textbf{Baixa eficácia}: melhoria inferior a 5\% ou estatisticamente irrelevante.
 \end{itemize}
 
 Esse processo permitiu validar a aplicabilidade prática das heurísticas implementadas e verificar se as recomendações realmente resultam em otimizações perceptíveis no desempenho do aplicativo.
@@ -511,12 +510,12 @@ Os testes experimentais foram realizados exclusivamente em ambiente Android, com
 \begin{itemize}
   \item \textbf{Dispositivos físicos:}
     \begin{itemize}
-      \item Samsung Galaxy A52 — Android 13;
-      \item Motorola G73 — Android 12.
+      \item Samsung Galaxy A52, Android 13;
+      \item Motorola G73, Android 12.
     \end{itemize}
   \item \textbf{Emuladores Android:}
     \begin{itemize}
-      \item Pixel 6 (x86\_64) — Android 14, configurado via Android Studio.
+      \item Pixel 6 (x86\_64), Android 14, configurado via Android Studio.
     \end{itemize}
 \end{itemize}
 
@@ -529,7 +528,7 @@ A validação dos resultados obtidos pelo protótipo foi realizada com base em f
 \begin{itemize}
   \item \textbf{Android Profiler:} ferramenta principal de aferição de uso de CPU, memória e taxa de quadros (FPS), utilizada para comparação direta com os dados capturados pelo \texttt{collector\_flutter}.
   \item \textbf{ADB (\textit{Android Debug Bridge}):} empregado para a coleta de informações complementares sobre processos, GPU e desempenho em tempo real.
-  \item \textbf{Power Monitor:} utilizado para medição indireta de consumo energético durante testes prolongados, contribuindo para a análise de eficiência do protótipo.
+  \item \textbf{Power Monitor:} utilizado para medição indireta de consumo energético durante testes prolongados, apoiando a análise de eficiência do protótipo.
 \end{itemize}
 
 Essas ferramentas garantiram a validação cruzada dos resultados, assegurando a precisão e o baixo impacto do sistema de monitoramento sobre o desempenho do aplicativo.
@@ -564,8 +563,6 @@ Essa combinação de testes unitários e manuais possibilitou uma avaliação co
 \vspace{0.5em}
 
 A infraestrutura descrita nesta seção assegura que o protótipo \texttt{collector\_flutter} seja executado de forma estável e reproduzível, permitindo uma análise detalhada do desempenho e da eficiência de aplicações Flutter em ambiente Android.
-
-
 
 
 
