@@ -230,19 +230,19 @@ Fala sugerida:
 
 Fala sugerida:
 
-> Como resultado de implementação, o pacote já reúne coleta de frames, memória, rede, eventos e reconstruções. O dashboard está funcional e há exportação em JSON e CSV. Também existem testes automatizados para o analisador, o recomendador e o serviço de exportação. Além disso, durante o desenvolvimento foram corrigidos problemas de gráfico, sincronização de memória, exibição de URLs e histórico de métricas.
+> Como resultado de implementação, o pacote reúne coleta de frames, memória, rede, eventos, reconstruções, CPU e bateria. A coleta de CPU usa um platform channel Android que lê o arquivo /proc/stat em duas amostras e calcula o percentual de uso. A bateria vem do BatteryManager no Android e do UIDevice no iOS. O dashboard exibe cartões para todas as métricas, há exportação em JSON e CSV, e 48 testes automatizados cobrem os módulos de análise, recomendação, exportação e os novos data sources.
 
 ### Slide 25 - Resultados qualitativos - 1min
 
 Fala sugerida:
 
-> Nos cenários qualitativos, o sistema detectou queda de FPS e frames longos durante rebuilds, registrou requisições de rede com dados úteis, acompanhou tendências de memória e priorizou recomendações quando havia carga combinada. Esses resultados mostram que o protótipo é operacional, embora a validação quantitativa ampla ainda dependa de mais execuções e dispositivos.
+> Nos cenários qualitativos, o sistema detectou queda de FPS e frames longos durante rebuilds, registrou requisições de rede com dados úteis, acompanhou tendências de memória e priorizou recomendações quando havia carga combinada. Esses resultados confirmam a operacionalidade do protótipo. Uma validação quantitativa formal com análise estatística em múltiplos dispositivos permanece como trabalho futuro natural.
 
-### Slide 26 - Limitações e evolução - 45s
+### Slide 26 - Evolução do protótipo - 45s
 
 Fala sugerida:
 
-> As limitações principais são métricas de CPU e energia direta. Para isso, seria necessário usar integrações nativas por plataforma. Também há espaço para ampliar testes, comparar estatisticamente com ferramentas oficiais e avaliar usabilidade com desenvolvedores Flutter.
+> As quatro limitações identificadas na fase inicial foram todas superadas: CPU via platform channel Android, bateria via BatteryManager e UIDevice, exportação JSON e CSV e 48 testes automatizados. O que resta como trabalho futuro são experimentos quantitativos formais com análise estatística, suporte completo a CPU no iOS, avaliação de usabilidade com desenvolvedores Flutter e publicação no pub.dev.
 
 ### Slide 27 - Contribuições - 45s
 
@@ -254,7 +254,7 @@ Fala sugerida:
 
 Fala sugerida:
 
-> A conclusão principal é que o diagnóstico de desempenho pode ficar mais próximo do fluxo real de desenvolvimento. O `collector_flutter` não tenta substituir ferramentas profundas, mas reduz o atrito para perceber problemas cedo e agir sobre eles. Em outras palavras, desempenho não é só fazer o app correr mais rápido. É fazer o app respeitar melhor o dispositivo, a bateria e a pessoa que usa.
+> A conclusão principal é que o diagnóstico de desempenho pode ficar mais próximo do fluxo real de desenvolvimento. O `collector_flutter` evoluiu de 4 para 6 métricas, com testes automatizados e exportação integrada. A arquitetura em camadas confirmou na prática sua extensibilidade: os módulos de CPU e bateria foram adicionados sem alterar as camadas de domínio e apresentação. Desempenho não é só fazer o app correr mais rápido. É fazer o app respeitar melhor o dispositivo, a bateria e a pessoa que usa.
 
 ### Slide 29 - Perguntas - 15s
 

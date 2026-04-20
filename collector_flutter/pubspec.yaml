@@ -1,8 +1,8 @@
 name: collector_flutter
 description: >-
-  Real-time resource monitoring for Flutter apps — FPS, jank, memory, HTTP
-  traffic, and custom events with an embedded dashboard and actionable
-  recommendations.
+  Real-time resource monitoring for Flutter apps — FPS, jank, memory, CPU,
+  battery, HTTP traffic, and custom events with an embedded dashboard and
+  actionable recommendations.
 version: 0.1.0
 repository: https://github.com/BeatrizVocurcaFrade/collector_flutter
 homepage: https://github.com/BeatrizVocurcaFrade/collector_flutter
@@ -34,3 +34,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  plugin:
+    platforms:
+      android:
+        package: br.ufmg.collector_flutter
+        pluginClass: CollectorFlutterPlugin
+      ios:
+        pluginClass: CollectorFlutterPlugin

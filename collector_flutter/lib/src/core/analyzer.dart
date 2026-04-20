@@ -260,6 +260,9 @@ class Analyzer {
       jankRate: jankRate,
       memoryStats: memoryStats,
       networkStats: networkStats,
+      cpuUsagePercent: telemetry.cpuUsagePercent,
+      batteryLevel: telemetry.batteryLevel,
+      isCharging: telemetry.isCharging,
     );
 
     return AnalysisResult(
@@ -280,6 +283,9 @@ class Analyzer {
       frameBudgetMs: budget.frameBudgetMs,
       jankRate: jankRate,
       totalFrameCount: telemetry.totalFrameCount,
+      cpuUsagePercent: telemetry.cpuUsagePercent,
+      batteryLevel: telemetry.batteryLevel,
+      isCharging: telemetry.isCharging,
     );
   }
 
@@ -314,6 +320,9 @@ class Analyzer {
     required double jankRate,
     required MemoryStats memoryStats,
     required NetworkStats networkStats,
+    double cpuUsagePercent = -1.0,
+    int batteryLevel = -1,
+    bool isCharging = false,
   }) {
     final issues = <String>[];
     final hasStableFrames = confidence == MetricConfidence.stable;
@@ -365,6 +374,18 @@ class Analyzer {
       );
     }
 
+    if (cpuUsagePercent >= 0) {
+      if (cpuUsagePercent > 80) {
+        issues.add('CPU elevada (${cpuUsagePercent.toStringAsFixed(1)}%)');
+      } else if (cpuUsagePercent > 60) {
+        issues.add('CPU moderada (${cpuUsagePercent.toStringAsFixed(1)}%)');
+      }
+    }
+
+    if (batteryLevel >= 0 && !isCharging && batteryLevel < 20) {
+      issues.add('Bateria baixa ($batteryLevel%)');
+    }
+
     return issues;
   }
 
@@ -397,6 +418,15 @@ class AnalysisResult {
   final double jankRate;
   final int totalFrameCount;
 
+  /// Uso de CPU em % (0.0–100.0). -1.0 = indisponível.
+  final double cpuUsagePercent;
+
+  /// Nível de bateria em % (0–100). -1 = indisponível.
+  final int batteryLevel;
+
+  /// Indica se o dispositivo está carregando.
+  final bool isCharging;
+
   AnalysisResult({
     required this.estimatedFps,
     required this.avgFrameMs,
@@ -415,6 +445,9 @@ class AnalysisResult {
     double? frameBudgetMs,
     this.jankRate = 0,
     this.totalFrameCount = 0,
+    this.cpuUsagePercent = -1.0,
+    this.batteryLevel = -1,
+    this.isCharging = false,
   })  : frameStats = frameStats ?? FrameStats.empty(),
         memoryStats = memoryStats ?? MemoryStats.empty(),
         networkStats = networkStats ?? NetworkStats.empty(),
@@ -433,4 +466,6 @@ class AnalysisResult {
   bool get hasIssues => issues.isNotEmpty;
   bool get hasStableFrameData => confidence == MetricConfidence.stable;
   double get memoryMB => memoryBytes / (1024 * 1024);
+  bool get hasCpuData => cpuUsagePercent >= 0;
+  bool get hasBatteryData => batteryLevel >= 0;
 }

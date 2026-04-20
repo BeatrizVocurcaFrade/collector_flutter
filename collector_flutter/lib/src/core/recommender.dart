@@ -98,6 +98,40 @@ class Recommender {
       );
     }
 
+    if (_hasIssue(result, 'CPU elevada')) {
+      recommendations.add(
+        Recommendation(
+          title: 'Alto uso de CPU detectado',
+          detail: 'CPU atual: ${result.cpuUsagePercent.toStringAsFixed(1)}%.\n\n'
+              'Mova computações pesadas para Isolates, reduza timers frequentes '
+              'e evite rebuilds desnecessários no caminho crítico.',
+          severity: Severity.high,
+        ),
+      );
+    } else if (_hasIssue(result, 'CPU moderada')) {
+      recommendations.add(
+        Recommendation(
+          title: 'Uso moderado de CPU',
+          detail: 'CPU atual: ${result.cpuUsagePercent.toStringAsFixed(1)}%.\n\n'
+              'Monitore tendências; considere otimizar loops e reduzir '
+              'frequência de coleta se não necessário.',
+          severity: Severity.low,
+        ),
+      );
+    }
+
+    if (_hasIssue(result, 'Bateria baixa')) {
+      recommendations.add(
+        Recommendation(
+          title: 'Bateria baixa',
+          detail: 'Nível de bateria: ${result.batteryLevel}%.\n\n'
+              'Considere reduzir o intervalo de coleta ou desativar o '
+              'monitoramento para preservar energia.',
+          severity: Severity.medium,
+        ),
+      );
+    }
+
     if (recommendations.isEmpty) {
       recommendations.add(
         Recommendation(

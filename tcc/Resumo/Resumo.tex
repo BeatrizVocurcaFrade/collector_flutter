@@ -6,16 +6,15 @@
 \vspace{2cm}
 \end{center}
 
-O monitoramento de desempenho em aplicações móveis depende, na prática, de ferramentas externas que exigem configuração especializada e interpretação manual de dados, uma barreira que restringe sua adoção ao longo do desenvolvimento cotidiano. Este trabalho apresenta o \texttt{collector\_flutter}, um pacote Dart/Flutter de código aberto que incorpora coleta de métricas, análise heurística e visualização em tempo real diretamente na aplicação monitorada, sem dependências nativas ou ferramentas externas.
+O monitoramento de desempenho em aplicações móveis depende, na prática, de ferramentas externas que exigem configuração especializada e interpretação manual de dados, uma barreira que restringe sua adoção ao longo do desenvolvimento cotidiano. Este trabalho apresenta o \texttt{collector\_flutter}, um pacote Dart/Flutter de código aberto que incorpora coleta de métricas, análise heurística e visualização em tempo real diretamente na aplicação monitorada, sem dependências nativas adicionais para as métricas Dart e com \textit{platform channels} para CPU e bateria em Android.
 
-O protótipo adota arquitetura de três camadas (\textit{Data}, \textit{Domain} e \textit{Presentation}) baseada nos princípios da \textit{Clean Architecture}, coletando métricas de renderização (FPS, \textit{jank}, percentis P50/P95/P99), uso de memória RSS e \textit{heap}, tráfego HTTP e eventos customizados do desenvolvedor. Um motor heurístico analisa essas métricas a cada ciclo de coleta e gera recomendações de otimização classificadas por severidade, exibidas em um painel visual integrado.
+O protótipo adota arquitetura de três camadas (\textit{Data}, \textit{Domain} e \textit{Presentation}) baseada nos princípios da \textit{Clean Architecture}, coletando métricas de renderização (FPS, \textit{jank}, percentis P50/P95/P99), uso de memória RSS e \textit{heap}, tráfego HTTP, uso de CPU por processo, nível de bateria e eventos customizados do desenvolvedor. Um motor heurístico analisa essas métricas a cada ciclo de coleta e gera recomendações de otimização classificadas por severidade, exibidas em um painel visual integrado. A exportação da sessão em JSON e CSV é disponibilizada via \texttt{ExportService}.
 
-O desenvolvimento seguiu um ciclo de vida iterativo estruturado em quatro fases: revisão bibliográfica, especificação de requisitos, implementação do protótipo e avaliação experimental, as três primeiras concluídas no TCC~1. A validação qualitativa em quatro cenários controlados (\textit{rebuilds} intensivos, carga de rede, alocação de memória e carga combinada) confirmou a operacionalidade do sistema e a pertinência das heurísticas implementadas. A avaliação quantitativa, com análise estatística e comparação com o Android Profiler e o \texttt{adb shell dumpsys gfxinfo}, constitui o escopo do TCC~2.
+O desenvolvimento seguiu um ciclo de vida iterativo estruturado em quatro fases: revisão bibliográfica, especificação de requisitos, implementação do protótipo e avaliação experimental. A validação qualitativa em quatro cenários controlados (\textit{rebuilds} intensivos, carga de rede, alocação de memória e carga combinada) confirmou a operacionalidade do sistema e a pertinência das heurísticas implementadas. A suíte de 48 testes automatizados cobre os módulos de análise, recomendação, exportação e os \textit{data sources} de CPU e bateria.
 
 \textbf{Palavras-chave}: Flutter. Monitoramento de desempenho. Profiling. Coleta de métricas em tempo real. Eficiência energética. Sustentabilidade digital. Clean Architecture.
- 
- 
+
+
 \clearpage
 \thispagestyle{empty}
 \cleardoublepage
-

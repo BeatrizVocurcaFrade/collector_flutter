@@ -601,16 +601,18 @@ Cada cenário provoca um sintoma; o dashboard precisa perceber e explicar.
 \begin{columns}[T,onlytextwidth]
   \column{0.5\textwidth}
   \begin{itemize}
-    \item Pacote \collectorFlutter{} versão 0.1.0 estruturado como biblioteca Flutter.
+    \item Pacote \collectorFlutter{} estruturado como biblioteca Flutter plugin.
     \item Coleta de frames, memória, rede, eventos customizados e \rebuilds{}.
-    \item Dashboard com cartões, gráfico temporal, painel de rede e recomendações.
+    \item Coleta de CPU via \textit{platform channel} Android (\texttt{/proc/stat}).
+    \item Monitoramento de bateria via \texttt{BatteryManager} (Android) e \texttt{UIDevice} (iOS).
+    \item Dashboard com cartões de CPU, bateria e demais métricas.
     \item Exportação JSON e CSV via \texttt{ExportService}.
   \end{itemize}
   \column{0.5\textwidth}
   \begin{itemize}
-    \item Testes automatizados para \texttt{Analyzer}.
-    \item Testes automatizados para \texttt{Recommender}.
-    \item Testes automatizados para \texttt{ExportService}.
+    \item 48 testes automatizados cobrindo \texttt{Analyzer}, \texttt{Recommender}, \texttt{ExportService}, \texttt{CpuDataSource} e \texttt{BatteryDataSource}.
+    \item Heurísticas de CPU (alerta acima de 60\% e 80\%) e bateria (alerta abaixo de 20\%).
+    \item Recomendações de Isolate para CPU alta e redução de coleta para bateria baixa.
     \item Correções de sincronização, gráfico, URL e histórico de memória.
   \end{itemize}
 \end{columns}
@@ -633,26 +635,27 @@ Carga combinada & Múltiplas métricas foram processadas sem interferência entr
 \smallref{Esses resultados sustentam a operacionalidade do protótipo; a validação quantitativa ampla é uma evolução natural.}
 \end{frame}
 
-\begin{frame}{Limitações e evolução}
-\chaptertag{Capítulo 5 -- Limitações identificadas}
+\begin{frame}{Evolução do protótipo}
+\chaptertag{Capítulo 5 -- Limitações superadas}
 \begin{columns}[T,onlytextwidth]
   \column{0.5\textwidth}
-  \begin{infobox}{Limitações atuais}
+  \begin{accentbox}{Limitações superadas}
     \begin{itemize}
-      \item CPU por processo exige integração nativa.
-      \item Energia direta depende de APIs de bateria e/ou hardware.
-      \item Medições quantitativas precisam de mais repetições e dispositivos.
-    \end{itemize}
-  \end{infobox}
-  \column{0.5\textwidth}
-  \begin{accentbox}{Evolução proposta}
-    \begin{itemize}
-      \item Platform channels Android/iOS.
-      \item Ampliar suíte de testes e cenários.
-      \item Comparação estatística com ferramentas de referência.
-      \item Avaliação de usabilidade com desenvolvedores Flutter.
+      \item \textbf{CPU:} \textit{platform channel} Android (\texttt{/proc/stat}).
+      \item \textbf{Bateria:} \texttt{BatteryManager} (Android) e \texttt{UIDevice} (iOS).
+      \item \textbf{Exportação:} JSON e CSV via \texttt{ExportService}.
+      \item \textbf{Testes:} 48 testes unitários automatizados.
     \end{itemize}
   \end{accentbox}
+  \column{0.5\textwidth}
+  \begin{infobox}{Trabalhos futuros}
+    \begin{itemize}
+      \item CPU completo no iOS (Mach APIs).
+      \item Experimentos quantitativos formais ($\geq$30 repetições, 3 dispositivos).
+      \item Comparação estatística com ferramentas de referência.
+      \item Avaliação de usabilidade (ISO 9241-11) e publicação no pub.dev.
+    \end{itemize}
+  \end{infobox}
 \end{columns}
 \end{frame}
 
@@ -683,8 +686,8 @@ Monitorar melhor é uma forma de projetar melhor.
 \chaptertag{Capítulo 6 -- Considerações finais}
 \begin{itemize}
   \item O trabalho mostrou que é viável aproximar o diagnóstico de performance do fluxo cotidiano de desenvolvimento Flutter.
-  \item O \collectorFlutter{} transforma métricas técnicas em uma experiência visual e acionável dentro do próprio app.
-  \item A arquitetura em camadas favorece extensão, testes e evolução para métricas mais profundas.
+  \item O \collectorFlutter{} evoluiu de 4 para 6 métricas (CPU e bateria), com 48 testes e exportação integrada.
+  \item A arquitetura em camadas favoreceu extensão e testabilidade: os novos módulos foram adicionados sem alterações nas camadas superiores.
   \item A contribuição extrapola desempenho: eficiência também dialoga com sustentabilidade, inclusão digital e responsabilidade tecnológica.
 \end{itemize}
 \vspace{3mm}

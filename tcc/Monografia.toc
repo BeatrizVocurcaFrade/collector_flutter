@@ -93,14 +93,14 @@
 \contentsline {section}{\numberline {4.2}Validação Preliminar da Arquitetura}{41}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Conformidade Arquitetural}{41}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Comportamento Observado em Execução}{41}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Análise dos Cenários Experimentais Iniciais}{42}{section.4.3}%
+\contentsline {section}{\numberline {4.3}Análise dos Cenários Experimentais}{42}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Cenário 1: Reconstruções Intensivas de Interface}{42}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}Cenário 2: Chamadas de Rede Simultâneas}{42}{subsection.4.3.2}%
 \contentsline {subsection}{\numberline {4.3.3}Cenário 3: Alocação Intensiva de Memória}{42}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Cenário 4: Carga Combinada}{42}{subsection.4.3.4}%
-\contentsline {section}{\numberline {4.4}Limitações Identificadas no TCC~1}{42}{section.4.4}%
+\contentsline {subsection}{\numberline {4.3.4}Cenário 4: Carga Combinada}{43}{subsection.4.3.4}%
+\contentsline {section}{\numberline {4.4}Evolução do Protótipo: Limitações Superadas}{43}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Resumo do Capítulo}{43}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Conclusões}{44}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Considerações Finais}{44}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Contribuições do TCC~1}{45}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Propostas de Continuidade}{45}{section.5.3}%
+\contentsline {chapter}{\numberline {5}Conclusões}{45}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Considerações Finais}{45}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Contribuições do Trabalho}{46}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Trabalhos Futuros}{46}{section.5.3}%

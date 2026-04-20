@@ -1,6 +1,8 @@
 import 'package:flutter/scheduler.dart';
 
 import '../../domain/repositories/i_resource_repository.dart';
+import '../datasources/battery_data_source.dart';
+import '../datasources/cpu_data_source.dart';
 import '../datasources/frame_data_source.dart';
 import '../datasources/memory_data_source.dart';
 import '../datasources/network_data_source.dart';
@@ -12,6 +14,8 @@ class TelemetryRepositoryImpl implements IResourceRepository {
   final MemoryDataSource memorySource;
   final HttpClientWrapper networkWrapper;
   final EventDataSource eventSource;
+  final CpuDataSource cpuSource;
+  final BatteryDataSource batterySource;
   final int maxRecentFrames;
   final int maxNetworkEvents;
   final int maxMemorySamples;
@@ -34,11 +38,14 @@ class TelemetryRepositoryImpl implements IResourceRepository {
     required this.memorySource,
     required this.networkWrapper,
     required this.eventSource,
+    CpuDataSource? cpuSource,
+    BatteryDataSource? batterySource,
     this.maxRecentFrames = 300,
     this.maxNetworkEvents = 1000,
     this.maxMemorySamples = 120,
     this.maxCustomEvents = 1000,
-  });
+  })  : cpuSource = cpuSource ?? CpuDataSource(),
+        batterySource = batterySource ?? BatteryDataSource();
 
   /// Incrementa o contador de rebuilds. Chamado via [ResourceCollector.trackRebuild].
   void incrementRebuild() => _rebuildCount++;
@@ -98,6 +105,14 @@ class TelemetryRepositoryImpl implements IResourceRepository {
     _customEventLog.addAll(eventRecords);
     _trim(_customEventLog, maxCustomEvents);
 
+    // Coleta CPU e bateria via platform channel (assíncrono, fallback -1 em caso de erro)
+    final cpuFuture = cpuSource.getCpuUsage();
+    final batteryFuture = batterySource.getBatteryLevel();
+    final chargingFuture = batterySource.isCharging();
+    final cpuPercent = await cpuFuture;
+    final battery = await batteryFuture;
+    final charging = await chargingFuture;
+
     return TelemetryModel(
       frameTimings: frames,
       recentFrameTimings: List<FrameTiming>.unmodifiable(_recentFrames),
@@ -114,6 +129,9 @@ class TelemetryRepositoryImpl implements IResourceRepository {
       totalFrameCount: _totalFrameCount,
       totalNetworkRequests: _totalNetworkRequests,
       rebuildCount: _rebuildCount,
+      cpuUsagePercent: cpuPercent,
+      batteryLevel: battery,
+      isCharging: charging,
     );
   }
 

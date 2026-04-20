@@ -90,6 +90,9 @@ class _DashboardPageState extends State<DashboardPage> {
           targetFps: a.targetFps,
           frameBudgetMs: a.frameBudgetMs,
           confidence: a.confidence,
+          cpuPercent: a.cpuUsagePercent,
+          batteryLevel: a.batteryLevel,
+          isCharging: a.isCharging,
         ),
         const SizedBox(height: 12),
 
@@ -207,6 +210,9 @@ class _MetricGrid extends StatelessWidget {
   final double targetFps;
   final double frameBudgetMs;
   final MetricConfidence confidence;
+  final double cpuPercent;
+  final int batteryLevel;
+  final bool isCharging;
 
   const _MetricGrid({
     required this.fps,
@@ -218,6 +224,9 @@ class _MetricGrid extends StatelessWidget {
     required this.targetFps,
     required this.frameBudgetMs,
     required this.confidence,
+    required this.cpuPercent,
+    required this.batteryLevel,
+    required this.isCharging,
   });
 
   @override
@@ -284,6 +293,24 @@ class _MetricGrid extends StatelessWidget {
               'Reflete a experiencia dos usuarios mais lentos.\n\n'
               'Manter perto de ${frameBudgetMs.toStringAsFixed(1)} ms evita jank perceptivel.',
         ),
+        _metricCard(
+          icon: Icons.developer_board,
+          title: 'CPU',
+          value: cpuPercent < 0 ? 'N/D' : '${cpuPercent.toStringAsFixed(1)}%',
+          color: _cpuColor(cpuPercent),
+          info: 'Uso de CPU do processo (Android).\n'
+              'Acima de 80% indica sobrecarga.\n\n'
+              'Mova trabalho pesado para Isolates e reduza timers frequentes.',
+        ),
+        _metricCard(
+          icon: isCharging ? Icons.battery_charging_full : Icons.battery_std,
+          title: 'Bateria',
+          value: batteryLevel < 0 ? 'N/D' : '$batteryLevel%',
+          color: _batteryColor(batteryLevel, isCharging),
+          info: 'Nivel de bateria do dispositivo.\n'
+              'Abaixo de 20% sem carregamento pode indicar alto consumo.\n\n'
+              'Reduza o intervalo de coleta em producao.',
+        ),
       ],
     );
   }
@@ -318,6 +345,20 @@ class _MetricGrid extends StatelessWidget {
     if (p95 <= frameBudgetMs * 1.2) return Colors.green.shade600;
     if (p95 <= frameBudgetMs * 2) return Colors.orange.shade600;
     return Colors.redAccent;
+  }
+
+  Color _cpuColor(double cpu) {
+    if (cpu < 0) return Colors.grey.shade500;
+    if (cpu <= 60) return Colors.green.shade600;
+    if (cpu <= 80) return Colors.orange.shade600;
+    return Colors.redAccent;
+  }
+
+  Color _batteryColor(int level, bool charging) {
+    if (level < 0) return Colors.grey.shade500;
+    if (charging) return Colors.green.shade600;
+    if (level >= 20) return Colors.blueAccent.shade400;
+    return Colors.orange.shade600;
   }
 }
 

@@ -91,6 +91,15 @@ class TelemetryModel {
   /// Número acumulado de rebuilds rastreados manualmente via [ResourceCollector.trackRebuild].
   final int rebuildCount;
 
+  /// Uso de CPU do processo em % (0.0–100.0). -1.0 indica indisponível (iOS, web).
+  final double cpuUsagePercent;
+
+  /// Nível de bateria em % (0–100). -1 indica indisponível.
+  final int batteryLevel;
+
+  /// Indica se o dispositivo está carregando.
+  final bool isCharging;
+
   TelemetryModel({
     this.frameTimings = const [],
     this.recentFrameTimings = const [],
@@ -107,6 +116,9 @@ class TelemetryModel {
     this.totalFrameCount = 0,
     this.totalNetworkRequests = 0,
     this.rebuildCount = 0,
+    this.cpuUsagePercent = -1.0,
+    this.batteryLevel = -1,
+    this.isCharging = false,
   })  : sessionStart = sessionStart ?? DateTime.now(),
         capturedAt = capturedAt ?? DateTime.now(),
         sampleStart = sampleStart ?? sessionStart ?? DateTime.now(),
@@ -134,6 +146,9 @@ class TelemetryModel {
     int? totalFrameCount,
     int? totalNetworkRequests,
     int? rebuildCount,
+    double? cpuUsagePercent,
+    int? batteryLevel,
+    bool? isCharging,
   }) {
     return TelemetryModel(
       frameTimings: frameTimings ?? this.frameTimings,
@@ -152,6 +167,9 @@ class TelemetryModel {
       totalFrameCount: totalFrameCount ?? this.totalFrameCount,
       totalNetworkRequests: totalNetworkRequests ?? this.totalNetworkRequests,
       rebuildCount: rebuildCount ?? this.rebuildCount,
+      cpuUsagePercent: cpuUsagePercent ?? this.cpuUsagePercent,
+      batteryLevel: batteryLevel ?? this.batteryLevel,
+      isCharging: isCharging ?? this.isCharging,
     );
   }
 }
