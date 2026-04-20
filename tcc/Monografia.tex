@@ -35,6 +35,7 @@
 % Permite uso de \textcite{} sem carregar biblatex (thebibliography manual)
 \providecommand{\textcite}[1]{\cite{#1}}
 
+
 %----------------- HYPERLINKS (PACOTE CRÍTICO) -----------------
 % ⚠️ Deve ser carregado por último para não causar conflito com abntex2
 \usepackage[hidelinks]{hyperref}
@@ -49,6 +50,17 @@
   pdfsubject={Projeto de Fim de Curso - Engenharia de Sistemas, UFMG}
 }
 
+%----------------- MACROS PARA TERMOS TÉCNICOS -----------------
+\newcommand{\jank}{\textit{jank}}
+\newcommand{\rebuild}{\textit{rebuild}}
+\newcommand{\overhead}{\textit{overhead}}
+\newcommand{\collectorFlutter}{\texttt{collector\_flutter}}
+\newcommand{\devtools}{\textit{Flutter DevTools}}
+
+%----------------- PADRONIZAÇÃO DE LISTAS -----------------
+\usepackage{enumitem}
+\setlist{itemsep=0.3cm, parsep=0cm, topsep=0.3cm}
+
 %----------------- INÍCIO DO DOCUMENTO -----------------
 \begin{document}
 
@@ -61,16 +73,29 @@
 
 \pagenumbering{arabic}
 \setcounter{page}{1}
+
+% 1. Introdução
 \include{Introducao/Introducao}
-\include{DescricaoProcesso/DescricaoProcesso}
+
+% 2. Revisão de Literatura e Fundamentação Teórica
 \include{DescricaoProcesso/revisao}
+
+% 3. Contexto Social, Ambiental e Ético
 \include{DescricaoProcesso/Humanidades}
+
+% 4. Metodologia
 \include{Metodologia/inicio}
 \include{Metodologia/cronograma}
 \include{Metodologia/desenvolvimento}
 \include{Metodologia/teste}
+
+% 5. Resultados
 \include{Resultados/Resultados}
+
+% 6. Conclusão
 \include{Conclusao/Conclusao}
+
+% Referências
 \include{Bibliografia/Bibliografia}
 
 \end{document}

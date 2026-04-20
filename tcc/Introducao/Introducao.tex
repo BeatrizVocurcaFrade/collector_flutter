@@ -1,41 +1,51 @@
 % !TEX root = ../Monografia.tex
 \chapter{Introdução}
 
-Em fevereiro de 2024, o Flutter ultrapassou a marca de 170 mil repositórios públicos no GitHub — mais do que qualquer outro \textit{framework} de desenvolvimento móvel multiplataforma~\cite{google2023flutter}. Esse crescimento acelerado cria uma pressão particular sobre a cadeia de desenvolvimento: times que migram para Flutter trazem experiências de diagnóstico formadas em React Native, Android Studio ou Xcode, e frequentemente descobrem que as ferramentas de \textit{profiling} do ecossistema — embora tecnicamente capazes — exigem um contexto de uso que não se encaixa no ritmo iterativo moderno.
 
-O diagnóstico de desempenho em Flutter hoje funciona fora do fluxo de desenvolvimento. O Flutter DevTools opera como aplicação separada vinculada ao processo via WebSocket; o Android Profiler requer conexão USB em modo \textit{profile}; o Perfetto demanda configuração de sessões de rastreamento e interpretação de traços binários~\cite{aosp2024, google2024devtools}. Para um time que itera em sprints semanais, o custo de configurar e interpretar essas ferramentas a cada ciclo é proibitivo — e, na prática, o diagnóstico de performance tende a ocorrer apenas em fases tardias do projeto, quando regressões já chegaram à produção.
 
-Este trabalho parte dessa observação para propor o \texttt{collector\_flutter}: um pacote Dart de código aberto que incorpora coleta de métricas, análise heurística e visualização diretamente dentro da aplicação monitorada. O diferencial não é a riqueza dos dados coletados — ferramentas nativas já os oferecem com maior granularidade — mas a \textbf{acessibilidade}: a ferramenta exige apenas a adição de um pacote e três chamadas de código para estar operacional, e o painel de diagnóstico abre como uma tela comum da aplicação, sem configurações externas.
+Em fevereiro de 2024, o Flutter ultrapassou a marca de 170 mil repositórios públicos no GitHub~\cite{google2023flutter}, consolidando-se como o principal \textit{framework} de desenvolvimento móvel multiplataforma. Esse crescimento acelerado impõe desafios específicos à cadeia de desenvolvimento: equipes migrantes de outros ecossistemas frequentemente se deparam com barreiras técnicas para diagnóstico de desempenho.
+
+
+Embora ferramentas como \devtools, Android Profiler e Perfetto sejam tecnicamente maduras, sua arquitetura externa ao fluxo de desenvolvimento cria fricções que dificultam a adoção contínua. As principais barreiras identificadas são:
+\begin{itemize}
+  \item Requerem saída do ambiente de desenvolvimento (aplicações separadas, WebSocket, conexão USB);
+  \item Demandam configuração manual e interpretação de dados complexos;
+  \item Não fornecem recomendações automáticas de otimização;
+  \item Impõem custo cognitivo elevado em ciclos iterativos rápidos.
+\end{itemize}
+Na prática, essas fricções levam equipes a postergar o diagnóstico de performance para fases tardias do projeto, quando regressões já podem ter impactado o usuário final.
+
+Este trabalho propõe o \collectorFlutter: um pacote Dart de código aberto que integra coleta de métricas, análise heurística e visualização diretamente na aplicação monitorada. O diferencial reside na \textbf{acessibilidade}: basta adicionar o pacote e realizar três chamadas de código para ativar o painel de diagnóstico, que opera como uma tela comum do aplicativo, sem configurações externas.
 
 \section{Propósito}
 
-O propósito deste trabalho é projetar, implementar e avaliar preliminarmente o \texttt{collector\_flutter}, uma biblioteca Dart para monitoramento de desempenho em tempo real em aplicações Flutter. O pacote coleta métricas de renderização (FPS, \textit{jank}, percentis de tempo de quadro), uso de memória RSS e \textit{heap}, tráfego HTTP e eventos customizados definidos pelo desenvolvedor. Um motor heurístico analisa essas métricas a cada ciclo de coleta e exibe recomendações de otimização classificadas por severidade em um painel visual integrado.
 
-A proposta não substitui ferramentas de diagnóstico especializadas como o DevTools ou o Android Profiler. Seu papel é diferente: funcionar como um termômetro contínuo durante o desenvolvimento, capaz de sinalizar regressões de performance no mesmo momento em que o código é exercitado — sem exigir que o desenvolvedor alterne de contexto para uma ferramenta externa.
+O propósito deste trabalho é projetar, implementar e avaliar preliminarmente o \collectorFlutter, uma biblioteca Dart para monitoramento de desempenho em tempo real em aplicações Flutter. O pacote coleta métricas de renderização (FPS, \jank, percentis de tempo de quadro), uso de memória RSS e \textit{heap}, tráfego HTTP e eventos customizados definidos pelo desenvolvedor. Um motor heurístico analisa essas métricas a cada ciclo de coleta e exibe recomendações de otimização classificadas por severidade em um painel visual integrado.
+
+
+A proposta não substitui ferramentas de diagnóstico especializadas como o \devtools{} ou o Android Profiler. Seu papel é diferente: funcionar como um termômetro contínuo durante o desenvolvimento, capaz de sinalizar regressões de performance no mesmo momento em que o código é exercitado — sem exigir que o desenvolvedor alterne de contexto para uma ferramenta externa.
 
 \section{Público-Alvo}
 
-O trabalho se destina a três grupos principais.
 
-Desenvolvedores Flutter que precisam de \textit{feedback} de performance integrado ao fluxo de desenvolvimento, especialmente em equipes pequenas sem recursos para ciclos de \textit{profiling} dedicados.
-
-Pesquisadores de engenharia de software interessados no problema de instrumentação não-intrusiva em frameworks reativos — em particular na relação entre frequência de coleta, precisão das métricas e \textit{overhead} introduzido.
-
-Estudantes de computação e sistemas que buscam um exemplo concreto de como aplicar princípios de \textit{Clean Architecture} e programação reativa em Dart para construir uma biblioteca com separação clara entre coleta, análise e apresentação de dados.
+O trabalho se destina a três grupos principais:
+\begin{itemize}
+  \item Desenvolvedores Flutter que precisam de feedback de performance integrado ao fluxo de desenvolvimento, especialmente em equipes pequenas sem recursos para ciclos de \textit{profiling} dedicados;
+  \item Pesquisadores de engenharia de software interessados no problema de instrumentação não-intrusiva em frameworks reativos — em particular na relação entre frequência de coleta, precisão das métricas e \overhead{} introduzido;
+  \item Estudantes de computação e sistemas que buscam um exemplo concreto de como aplicar princípios de \textit{Clean Architecture} e programação reativa em Dart para construir uma biblioteca com separação clara entre coleta, análise e apresentação de dados.
+\end{itemize}
 
 \section{Motivação e Justificativa}
 
-A relação entre desempenho e consumo energético em aplicações móveis é documentada pela literatura desde o trabalho seminal de Pathak \textit{et al.}~\cite{pathak2012energy}, que demonstrou que componentes de interface e operações de rede respondem pela maior parte do consumo energético em dispositivos Android. Zhang \textit{et al.}~\cite{zhang2021energy} aplicaram metodologia semelhante ao ecossistema Flutter e identificaram que \textit{rebuilds} excessivos de widgets — uma característica inerente ao modelo reativo do framework — podem elevar o consumo de CPU em até 35\% em relação a implementações equivalentes com React Native otimizado.
+
+A relação entre desempenho e consumo energético em aplicações móveis é documentada pela literatura desde o trabalho seminal de Pathak \textit{et al.}~\cite{pathak2012energy}, que demonstrou que componentes de interface e operações de rede respondem pela maior parte do consumo energético em dispositivos Android. Zhang \textit{et al.}~\cite{zhang2021energy} aplicaram metodologia semelhante ao ecossistema Flutter e identificaram que \rebuilds{} excessivos de widgets — uma característica inerente ao modelo reativo do framework — podem elevar o consumo de CPU em até 35\% em relação a implementações equivalentes com React Native otimizado.
 
 Esses dados têm implicações práticas diretas: um aplicativo com renderização ineficiente drena a bateria mais rápido, eleva a temperatura do dispositivo e, em aparelhos de entrada — que ainda representam a maioria do mercado em economias emergentes~\cite{google2024sustainability} — pode tornar o serviço inutilizável. A sustentabilidade de um ecossistema digital passa, portanto, pela capacidade dos desenvolvedores de identificar e corrigir ineficiências antes que estas cheguem ao usuário final.
 
-O problema é que a detecção precoce de regressões de performance requer instrumentação contínua, e as ferramentas disponíveis impõem uma barreira de configuração que raramente é atravessada durante o desenvolvimento rotineiro~\cite{johnson2020monitoring}. O Flutter DevTools fornece os dados necessários, mas exige que o desenvolvedor abra uma aplicação separada, conecte ao processo em execução e interprete gráficos sem qualquer indicação automática do que representa um comportamento anômalo. Essa lacuna — entre a disponibilidade dos dados e a capacidade de agir sobre eles no momento certo — é o problema central que este trabalho endereça.
 
-\subsection{Impactos Socioeconômicos}
+O problema é que a detecção precoce de regressões de performance requer instrumentação contínua, e as ferramentas disponíveis impõem uma barreira de configuração que raramente é atravessada durante o desenvolvimento rotineiro~\cite{johnson2020monitoring}. O \devtools{} fornece os dados necessários, mas exige que o desenvolvedor abra uma aplicação separada, conecte ao processo em execução e interprete gráficos sem qualquer indicação automática do que representa um comportamento anômalo. Essa lacuna — entre a disponibilidade dos dados e a capacidade de agir sobre eles no momento certo — é o problema central que este trabalho endereça.
 
-Eficiência computacional tem valor econômico mensurável. Em infraestrutura de servidores, a relação é direta: ciclos de CPU poupados são custos de nuvem reduzidos. Em dispositivos móveis, o mecanismo é diferente mas igualmente concreto: aplicações mais leves consomem menos bateria, reduzem a frequência de carregamentos e prolongam a vida útil dos dispositivos~\cite{cheng2020energy}. Em mercados onde o custo de um aparelho equivale a dois a três meses de salário mínimo, a longevidade do hardware é economicamente relevante para o usuário final.
 
-Do ponto de vista social, aplicações mal otimizadas reforçam desigualdades de acesso. Um serviço de saúde ou de educação que funciona bem em um Pixel 8 mas gera \textit{jank} constante em um dispositivo de entrada cria uma experiência de segunda classe para usuários que já possuem menor capacidade de escolha. Otimização de performance, nesse contexto, é também uma questão de equidade no acesso a serviços digitais.
 
 \section{Objetivos}
 

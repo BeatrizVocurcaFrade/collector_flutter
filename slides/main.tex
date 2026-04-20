@@ -1,0 +1,247 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Tema Bruno (assumindo que os arquivos do tema estão no projeto)
+\usetheme{Bruno}
+
+% Pacotes essenciais
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+% --- facilitar busca de imagens dentro da pasta fig/ ---
+\graphicspath{{fig/}}
+
+% --- LOGO NO TOPO DE TODOS OS SLIDES (verifica fig/logo1.png) ---
+% --- LOGO NO CANTO SUPERIOR DIREITO ---
+% Facilitar busca dentro de fig/
+\graphicspath{{fig/}}
+
+% --- DUAS LOGOS: ESQUERDA + DIREITA ---
+\IfFileExists{fig/logo2.png}{%
+  \setbeamertemplate{headline}{%
+    \vspace{2mm}
+    \begin{beamercolorbox}[wd=\paperwidth, ht=1cm, dp=0.2cm]{}
+      \hspace{3mm}
+      \raisebox{4mm}{\includegraphics[height=0.4cm]{logo2.png}} % ESQUERDA MAIS ALTA
+      \hfill
+      \includegraphics[height=0.8cm]{logo1.jpeg} % DIREITA
+      \hspace{3mm}
+    \end{beamercolorbox}
+  }
+}{%
+  \setbeamertemplate{headline}{}%
+}
+
+
+
+% --- FUNDO DA CAPA (só aplica se fig/background.jpg existir) ---
+\IfFileExists{fig/background.jpg}{%
+  \background{fig/background.jpg}%
+}{%
+  % nada, sem background
+}
+
+% METADADOS
+\title{Uma ferramenta embarcada para monitoramento e otimização de desempenho em Flutter\\ collector\_flutter}
+\author{Beatriz Vocurca Frade}
+\institute{Universidade Federal de Minas Gerais \\ Engenharia de Sistemas \\ Orientador: Prof. Ramon Lacerda Marques}
+\date{2025}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{frame}{Contexto Geral}
+\begin{itemize}
+  \item Crescimento das aplicações móveis e aumento da complexidade das interfaces.
+  \item Flutter consolidado como framework multiplataforma amplamente adotado.
+  \item Aplicações ricas exigem mais CPU, GPU e memória; dispositivos móveis têm recursos limitados.
+  \item Resultado: desempenho tornou-se um requisito central no desenvolvimento moderno.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Problema Real}
+\begin{itemize}
+  \item Sintomas observados: travamentos, janks, quedas de FPS e uso excessivo de memória.
+  \item Reconstruções desnecessárias de widgets e operações pesadas no \texttt{main thread}.
+  \item O Flutter oferece abstração e produtividade, porém reduz a visibilidade sobre recursos subjacentes.
+  \item Consequência: dificuldade para localizar e corrigir gargalos de desempenho.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Sustentabilidade Digital}
+\begin{itemize}
+  \item Softwares ineficientes consomem mais energia e aceleram desgaste de dispositivos.
+  \item Estimativas apontam contribuição significativa de TI nas emissões globais.
+  \item Otimização de apps ajuda a reduzir consumo energético e prolongar vida útil do hardware.
+  \item Assim, performance e sustentabilidade são preocupações complementares.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Limitações das Ferramentas Atuais}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Ferramenta & Limitações relevantes \\
+\midrule
+Flutter DevTools   & Complexidade; depende de modos específicos (debug/profile).\\
+Perfetto           & Dados em baixo nível; análise técnica e manual.\\
+Android Profiler   & Focado em Android; não integrado ao app em execução normal.\\
+Xcode Instruments  & Restrito a macOS/iOS; coleta manual e custo de uso.\\
+\bottomrule
+\end{tabular}
+
+\vspace{4mm}
+Principais problemas: ferramentas externas, alto custo cognitivo e ausência de recomendações automáticas.
+\end{frame}
+
+\begin{frame}{Proposta do Trabalho}
+\begin{itemize}
+  \item \textbf{collector\_flutter}: ferramenta embarcada que roda dentro do próprio app.
+  \item Coleta métricas em tempo real (FPS, frame timing, memória, rebuilds, rede).
+  \item Analisa padrões e gera recomendações automáticas.
+  \item Projetada para overhead mínimo e fácil integração.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Protótipo — Ícone do Aplicativo}
+
+\centering
+\includegraphics[height=0.2\textwidth]{iconedoappexamplo.jpeg}
+
+\vspace{4mm}
+
+O protótipo foi construído como um módulo embarcado, integrado ao ciclo normal de execução do app.
+\end{frame}
+
+\begin{frame}{Protótipo — Dashboard Integrado}
+
+\begin{columns}[T,onlytextwidth]
+
+  % --- COLUNA DO TEXTO ---
+  \column{0.55\textwidth}
+  \textbf{Dashboard leve e responsivo} \\
+  \vspace{2mm}
+  O protótipo incorpora um painel integrado diretamente no aplicativo,
+  permitindo visualizar em tempo real:
+  \begin{itemize}
+    \item FPS e tempo de frame;
+    \item Uso de memória;
+    \item Rebuilds e eventos críticos;
+    \item Recomendações automáticas.
+  \end{itemize}
+
+  % --- COLUNA DA IMAGEM ---
+  \column{0.45\textwidth}
+  \centering
+  \includegraphics[height=0.8\textheight]{prototipoquandoestaok.jpeg}
+
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}{Objetivos do Projeto}
+\textbf{Objetivo geral:} Desenvolver um protótipo que monitore, analise e recomende otimizações para apps Flutter.
+
+\bigskip
+\textbf{Objetivos específicos:}
+\begin{itemize}
+  \item Coletar métricas com precisão comparável às ferramentas oficiais.
+  \item Overhead < 5\%.
+  \item Dashboard claro e direto.
+  \item Heurísticas úteis para otimização.
+  \item Recurso didático para ensino e pesquisa.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Metodologia}
+\begin{itemize}
+  \item Revisão sobre monitoramento e eficiência energética.
+  \item Análise de ferramentas atuais.
+  \item Desenvolvimento incremental com testes.
+  \item Experimentos controlados em dispositivos reais.
+  \item Comparação com Android Profiler e ADB.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Arquitetura da Solução}
+\begin{itemize}
+  \item \textbf{Data:} captura via SchedulerBinding, FrameTiming e vm\_service.
+  \item \textbf{Domain:} Analyzer + Recommender.
+  \item \textbf{Presentation:} Dashboard embutido.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Módulos Principais}
+\begin{itemize}
+  \item \textbf{Collector}
+  \item \textbf{Analyzer}
+  \item \textbf{Recommender}
+  \item \textbf{Dashboard}
+  \item \textbf{Exporter}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Procedimentos de Teste}
+\begin{itemize}
+  \item Cenários de carga: rebuilds, memória, rede.
+  \item Dispositivos reais.
+  \item Repetição de cenários e exportação em JSON.
+  \item Comparação com ferramentas externas.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Resultados Obtidos}
+\begin{itemize}
+  \item Precisão: erro médio < 5\%.
+  \item Overhead máximo: 2.7\%.
+  \item Redução de janks e aumento de FPS.
+  \item Dashboard fluido.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Contribuições}
+\begin{itemize}
+  \item Protótipo funcional.
+  \item Heurísticas de recomendação.
+  \item Monitoramento embarcado validado.
+  \item Relação entre desempenho e sustentabilidade.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusão e Trabalhos Futuros}
+\textbf{Conclusões:}
+\begin{itemize}
+  \item Monitoramento embarcado é viável e leve.
+  \item Recomendações auxiliam otimizações reais.
+\end{itemize}
+
+\bigskip
+\textbf{Futuro:}
+\begin{itemize}
+  \item Medição energética.
+  \item Publicar no pub.dev
+  \item Dashboard funcional
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Agradecimentos}
+\begin{itemize}
+  \item Orientadora e equipe.
+  \item Testadores.
+  \item Público presente.
+\end{itemize}
+
+\bigskip
+\centering
+\textit{Perguntas?}
+\end{center}
+\end{frame}
+
+\end{document}
