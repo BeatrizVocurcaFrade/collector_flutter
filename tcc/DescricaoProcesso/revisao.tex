@@ -5,15 +5,15 @@ A construção de uma ferramenta de monitoramento de desempenho para Flutter req
 
 \subsection*{Métricas de Desempenho e Técnicas de Coleta em Aplicações Móveis}
 
-O estudo de métricas de desempenho em dispositivos móveis consolidou-se com o trabalho de Pathak \textit{et al.}~\cite{pathak2012energy}, que demonstrou, por meio de modelagem energética em nível de componente, que chamadas de rede e operações de renderização de interface respondem pela maior parcela do consumo energético em smartphones Android. Esse resultado direcionou uma geração de pesquisas sobre instrumentação eficiente de aplicações móveis.
+O estudo de métricas de desempenho em dispositivos móveis consolidou-se com o trabalho de Pathak \textit{et al.}~\cite{pathak2012energy}, que demonstrou a importância de modelos finos de energia para compreender como chamadas de sistema e uso de componentes afetam o consumo em smartphones. Revisões posteriores, como a de Hoque \textit{et al.}~\cite{hoque2015energy}, organizam esse campo ao comparar técnicas de modelagem, \textit{profiling} e depuração energética em dispositivos móveis.
 
-No contexto de \textit{profiling} de desempenho, Liu \textit{et al.}~\cite{liu2019profiling} investigaram técnicas de rastreamento de chamadas de sistema e eventos de renderização de quadros, mostrando que a correlação entre métricas de baixo nível (latência de sistema, tempo de GPU) e métricas perceptíveis ao usuário (FPS, responsividade) é viável e relevante para diagnóstico automatizado. Essa correlação é a base do motor heurístico proposto no presente trabalho.
+No contexto de estimativa de energia, Hao \textit{et al.}~\cite{hao2013estimating} propuseram uma abordagem baseada em análise de programa para estimar consumo em nível de código, enquanto Li \textit{et al.}~\cite{li2014empirical} analisaram aplicações Android reais e apontaram a relevância de chamadas de rede, APIs do sistema e estruturas repetitivas no consumo observado. Esses trabalhos sustentam a escolha de métricas observáveis, como tempo de quadro, memória e rede, para inferir gargalos de execução.
 
-Pesquisas mais recentes confirmam que ineficiências de renderização têm impacto energético mensurável. Zhang \textit{et al.}~\cite{zhang2021energy} quantificaram que aplicações Flutter com \textit{rebuilds} frequentes consomem até 35\% mais CPU do que implementações equivalentes com React Native otimizado, atribuindo a diferença ao custo de reconciliação da árvore de widgets. He \textit{et al.}~\cite{he2019crossplatform} ampliaram essa análise comparativa para incluir tempo de renderização, uso de memória e \textit{overhead} de ponte nativa, documentando diferenças estatisticamente significativas entre os frameworks.
+Pesquisas recentes reforçam que desempenho móvel deve ser analisado de forma multidimensional. Rua e Saraiva~\cite{rua2024largescale} investigaram energia, tempo de execução e memória em larga escala, mostrando que práticas de código e mudanças funcionais podem afetar indicadores de desempenho de formas distintas. Em paralelo, Nawrocki \textit{et al.}~\cite{nawrocki2021crossplatform} compararam abordagens nativas e multiplataforma, evidenciando que a escolha do \textit{framework} influencia métricas como responsividade, memória e custo de execução.
 
-Estudos com foco em automação da detecção de anomalias seguem uma linha complementar. Banerjee \textit{et al.}~\cite{banerjee2020automated} propuseram um sistema de monitoramento em tempo de execução capaz de identificar padrões de comportamento anômalo sem modificações no código da aplicação. Essa propriedade é preservada no \texttt{collector\_flutter} por meio da coleta via \texttt{SchedulerBinding} e VM Service, sem necessidade de anotações explícitas nos widgets monitorados.
+Estudos com foco em monitoramento automatizado seguem uma linha complementar. Ravindranath \textit{et al.}~\cite{ravindranath2012appinsight} propuseram o AppInsight, um sistema para monitoramento de desempenho de aplicações móveis em campo, com identificação de caminhos críticos em transações assíncronas. O trabalho mostra a relevância de coletar dados próximos ao uso real da aplicação e de apresentar informações que ajudem desenvolvedores a localizar gargalos.
 
-Do ponto de vista energético, os trabalhos de Hao \textit{et al.}~\cite{hao2013estimating} e Li e Halfond~\cite{li2014empirical} estabeleceram que o consumo de energia em aplicações Android pode ser estimado a partir de métricas de execução observáveis, sem instrumentação de hardware dedicada. Essa abordagem é relevante para os planos de implementação de métricas de energia no TCC~2.
+Do ponto de vista de análise estática e uso de APIs, Bangash \textit{et al.}~\cite{bangash2023apienergy} demonstram que é possível estimar consumo energético associado ao uso de APIs em aplicativos móveis sem depender exclusivamente de medições físicas repetidas. Essa direção é relevante para a evolução futura do \texttt{collector\_flutter}, especialmente na combinação entre métricas dinâmicas e recomendações baseadas em padrões de implementação.
 
 \subsection*{Ferramentas de Monitoramento Existentes}
 
@@ -32,56 +32,46 @@ O ecossistema de desenvolvimento móvel dispõe de ferramentas maduras de \texti
 \multicolumn{3}{|c|}{\textbf{Ferramentas e Soluções de Monitoramento}} \\
 \hline
 
-\textbf{Flutter DevTools} &
+\textbf{Flutter DevTools}~\cite{flutterDevTools2026} &
 Inspeção de widgets, análise de memória, \textit{timeline} de frames e perfil de CPU. &
 Opera como aplicação separada; requer conexão via WebSocket ao processo; ausência de recomendações automáticas; dependência do modo \textit{debug/profile}. \\
 \hline
 
-\textbf{Perfetto (AOSP)} &
+\textbf{Perfetto (AOSP)}~\cite{aosp2024} &
 Rastreamento detalhado de processos e eventos do sistema Android com suporte a múltiplas camadas. &
 Configuração manual de sessões de rastreamento; interpretação de traços binários; alto custo cognitivo; não integrado ao fluxo de desenvolvimento. \\
 \hline
 
-\textbf{Android Profiler} &
+\textbf{Android Profiler}~\cite{android2024} &
 Monitoramento em tempo real de CPU, memória, rede e energia diretamente no Android Studio. &
 Restrito a Android; requer conexão USB em modo \textit{profile}; integração limitada com frameworks multiplataforma. \\
 \hline
 
-\textbf{Xcode Instruments} &
+\textbf{Xcode Instruments}~\cite{apple2024} &
 Coleta avançada de métricas de energia, CPU e renderização para dispositivos iOS. &
 Exclusivo ao ecossistema Apple; coleta manual de dados; elevado \textit{overhead} em algumas configurações. \\
 \hline
 
-\textbf{Firebase Performance} &
+\textbf{Firebase Performance}~\cite{firebase2026} &
 Monitoramento automático de tempos de carregamento e chamadas de rede em produção. &
 Granularidade limitada; sem métricas de renderização ou CPU; voltado a produção, não ao desenvolvimento. \\
-\hline
-
-\textbf{Flipper (Meta)} &
-Ferramenta de depuração para React Native com análise de rede e layout. &
-Compatibilidade limitada com Flutter; requer integrações adicionais não mantidas pela comunidade. \\
-\hline
-
-\textbf{LeakCanary} &
-Detecção automatizada de vazamentos de memória em Android nativo. &
-Foco exclusivo em memória; sem métricas de renderização, CPU ou rede. \\
 \hline
 
 \end{tabular}
 \vspace{-0.4cm}
 \end{table}
 
-A análise da tabela revela um padrão consistente: ferramentas externas como o DevTools e o Android Profiler fornecem dados de alta qualidade, mas exigem saída do ambiente de desenvolvimento, configuração explícita e interpretação manual dos resultados. Cheng e Wang~\cite{cheng2020energy} documentaram que esse custo de configuração é um dos principais fatores que levam desenvolvedores a realizar diagnósticos de desempenho apenas em fases tardias do projeto, quando regressões já chegaram à produção.
+A análise da tabela revela um padrão consistente: ferramentas externas como o DevTools e o Android Profiler fornecem dados de alta qualidade, mas exigem saída do ambiente de desenvolvimento, configuração explícita e interpretação manual dos resultados. A literatura sobre \textit{profiling} móvel também aponta que a coleta de dados de desempenho é dificultada por execução assíncrona, múltiplas camadas de sistema e limitações próprias dos dispositivos móveis~\cite{ravindranath2012appinsight,hoque2015energy}.
 
-Johnson~\cite{johnson2020monitoring} identificou que a ausência de recomendações automáticas é a limitação mais citada pelos desenvolvedores ao descrever sua experiência com ferramentas de \textit{profiling}. Esse resultado aponta para uma oportunidade de contribuição: sistemas que coletem dados, interpretem esses sinais e comuniquem ações possíveis.
+Esse cenário aponta para uma oportunidade de contribuição: sistemas que não apenas coletem dados, mas também interpretem sinais recorrentes e comuniquem ações possíveis. Para o caso de aplicações Flutter, essa interpretação pode ser feita a partir de sintomas observáveis como aumento de tempo de quadro, \textit{jank}, crescimento de memória e frequência de reconstruções.
 
 \subsection*{Estudos Acadêmicos Relacionados}
 
-A pesquisa em monitoramento de desempenho para aplicações Flutter é recente. Santos~\cite{santos2023flutter} realizou avaliação comparativa de três abordagens de estruturação da árvore de widgets e documentou reduções de até 20\% no número de \textit{rebuilds} ao adotar \texttt{const} construtores e \texttt{ValueNotifier} em substituição a \texttt{setState} global. Silva~\cite{silva2022mobile} conduziu experimento semelhante em aplicações Android nativas e encontrou correlação estatisticamente significativa entre frequência de \textit{rebuilds} e consumo de CPU.
+A pesquisa em monitoramento de desempenho para aplicações móveis indica que não basta observar uma única métrica isolada. Estudos empíricos recentes combinam tempo de execução, energia, memória e características do código para compreender o comportamento de aplicações em diferentes cenários~\cite{rua2024largescale,sun2023energyinefficiency}. Essa visão orienta o \texttt{collector\_flutter} a combinar métricas de renderização, memória, rede e eventos customizados.
 
-Rodrigues~\cite{rodrigues2021mobile} investigou frameworks de monitoramento para aplicações móveis e identificou que soluções embutidas, capazes de coletar métricas sem interromper o processo de desenvolvimento, apresentam maior taxa de adoção do que ferramentas externas, independentemente da riqueza dos dados fornecidos. Esse resultado orienta diretamente a decisão de projeto do \texttt{collector\_flutter}: o valor da acessibilidade supera o valor da granularidade para o caso de uso de diagnóstico contínuo durante o desenvolvimento.
+O AppInsight~\cite{ravindranath2012appinsight} demonstra a relevância de monitorar aplicações em execução e aproximar a análise de desempenho do comportamento real observado. Já os estudos de energia baseados em análise de programa e uso de APIs~\cite{hao2013estimating,bangash2023apienergy} indicam que recomendações automatizadas podem se apoiar em sinais estruturais do código e em métricas de execução.
 
-Em perspectiva mais ampla, o levantamento sistemático de Kumar e Gupta~\cite{kumar2019optimization} sobre técnicas de otimização de recursos em aplicações móveis categorizou estratégias em quatro dimensões: renderização, memória, rede e energia. Os autores concluem que sistemas de recomendação automatizada representam o elo mais fraco da cadeia, pois a maioria das ferramentas existentes diagnostica, mas não prescreve. O motor heurístico do \texttt{collector\_flutter} é uma resposta direta a essa lacuna.
+Em perspectiva mais ampla, revisões sobre energia em aplicações Android mostram que diagnóstico energético envolve métodos de estimativa, componentes de hardware, tipos de defeitos e abordagens de análise de programa~\cite{sun2023energyinefficiency}. O motor heurístico do \texttt{collector\_flutter} responde a essa lacuna de forma pragmática: em vez de tentar substituir ferramentas profundas, ele traduz sintomas frequentes em recomendações acionáveis durante o desenvolvimento.
 
 \subsection*{Lacuna de Pesquisa}
 

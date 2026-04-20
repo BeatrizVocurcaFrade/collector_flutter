@@ -53,8 +53,7 @@ A modelagem do sistema foi conduzida de forma modular, com base em três camadas
   \item \textbf{Presentation:} interface de usuário e controle de estado.
 \end{enumerate}
 
-Esse modelo arquitetural facilita o isolamento das dependências e a manutenção evolutiva do código.  
-A modelagem de entidades e casos de uso seguiu práticas de design orientado a domínio (\textit{Domain-Driven Design}) conforme Evans~\cite{evans2004domain}.
+Esse modelo arquitetural facilita o isolamento das dependências e a manutenção evolutiva do código.
 
 A Figura~\ref{fig:architecture} ilustra a arquitetura de três camadas adotada no protótipo \collectorFlutter{}.
 
@@ -65,7 +64,7 @@ A Figura~\ref{fig:architecture} ilustra a arquitetura de três camadas adotada n
   \label{fig:architecture}
 \end{figure}
 
-A modelagem de entidades e casos de uso seguiu práticas de design orientado a domínio (\textit{Domain-Driven Design}) conforme Evans~\cite{evans2004domain}.
+A modelagem de entidades e casos de uso foi organizada de forma a manter as regras de análise separadas dos detalhes de coleta e apresentação.
 
 \subsubsection{Tecnologias e Ferramentas Utilizadas}
 
@@ -178,8 +177,8 @@ Os resultados foram então avaliados segundo os critérios definidos na Seção 
 \subsubsection{Métrica de Eficiência Energética}
 
 A eficiência energética será medida por meio de \textbf{métricas indiretas}
-(\textit{energy proxies}), conforme utilizado em trabalhos como
-\cite{cheng2020energy} e \cite{zhang2021energy}.
+(\textit{energy proxies}), conforme utilizado em trabalhos sobre estimativa,
+perfilamento e diagnóstico energético em aplicações móveis~\cite{hao2013estimating,li2014empirical,hoque2015energy,sun2023energyinefficiency}.
 Devido à indisponibilidade de instrumentação física dedicada para medir
 corrente elétrica, serão adotados os seguintes proxies:
 
@@ -260,7 +259,7 @@ Os dados são transmitidos por \texttt{Streams} para as camadas superiores, gara
 \subsubsection{Camada Domain}
 
 A camada \textbf{Domain} implementa os casos de uso e a lógica central do sistema, incluindo os módulos de análise (\texttt{Analyzer}) e recomendação (\texttt{Recommender}).  
-Ela é responsável por correlacionar as métricas coletadas, identificar gargalos e aplicar heurísticas de otimização baseadas em boas práticas do ecossistema Flutter (Meyer e Krause~\cite{meyer2022performance}).
+Ela é responsável por correlacionar as métricas coletadas, identificar gargalos e aplicar heurísticas de otimização baseadas em sintomas recorrentes de degradação, como queda de FPS, aumento de tempo de quadro, crescimento de memória e excesso de chamadas de rede.
 
 \subsubsection{Camada Presentation}
 
@@ -359,7 +358,7 @@ Esses testes auxiliam na validação experimental do sistema sob diferentes cond
 
 \subsection{Regras de Recomendação}
 
-As recomendações fornecidas pelo módulo \texttt{Recommender} seguem padrões de otimização reconhecidos no ecossistema Flutter (Meyer e Krause~\cite{meyer2022performance}; Android Developers~\cite{android2024}).  
+As recomendações fornecidas pelo módulo \texttt{Recommender} seguem padrões de otimização reconhecidos no ecossistema Flutter e em ferramentas oficiais de diagnóstico~\cite{flutterDevTools2026,android2024}.
 Alguns exemplos incluem:
 
 \begin{itemize}
@@ -563,7 +562,5 @@ Essa combinação de testes unitários e manuais possibilitou uma avaliação co
 \vspace{0.5em}
 
 A infraestrutura descrita nesta seção assegura que o protótipo \texttt{collector\_flutter} seja executado de forma estável e reproduzível, permitindo uma análise detalhada do desempenho e da eficiência de aplicações Flutter em ambiente Android.
-
-
 
 

@@ -26,7 +26,7 @@ A adoção de uma abordagem aplicada e experimental permite atender a objetivos 
 \begin{itemize}
   \item \textbf{Demonstrar a viabilidade técnica} de um sistema de monitoramento autônomo e totalmente embutido no ecossistema Flutter, sem dependência de ferramentas nativas externas (Android Developers~\cite{android2024});
   \item \textbf{Avaliar o impacto da coleta de métricas} sobre o desempenho da aplicação, mensurando o \textit{overhead} introduzido pelo processo de monitoramento;
-  \item \textbf{Mensurar a precisão dos dados coletados}, comparando-os às medições obtidas por ferramentas oficiais como Android Profiler e Xcode Instruments (AOSP~\cite{aosp2024});
+  \item \textbf{Mensurar a precisão dos dados coletados}, comparando-os às medições obtidas por ferramentas oficiais como Android Profiler, Perfetto e Xcode Instruments~\cite{android2024,aosp2024,apple2024};
   \item \textbf{Validar a eficácia das recomendações heurísticas}, verificando se sua aplicação gera melhorias tangíveis no desempenho e no consumo de recursos;
   \item \textbf{Promover a reprodutibilidade científica}, disponibilizando publicamente o código-fonte e a documentação técnica do protótipo, conforme recomendam Wohlin \textit{et al.}~\cite{wohlin2012}.
 \end{itemize}
@@ -39,7 +39,7 @@ A escolha de uma metodologia de natureza aplicada e abordagem experimental funda
 Conforme destaca Yin~\cite{yin2015}, abordagens experimentais e estudos de caso são apropriados quando o pesquisador busca compreender relações de causa e efeito entre variáveis observáveis em ambientes complexos como é o caso de aplicações móveis em execução sobre diferentes plataformas e dispositivos.
 
 No caso do \texttt{collector\_flutter}, a observação direta de variáveis como \textit{frame time}, reconstruções de widgets e uso de memória é indispensável para a avaliação de sua precisão e impacto.  
-Seguindo a orientação de Meyer e Krause~\cite{meyer2022performance}, a análise experimental é essencial para estudos de engenharia de software focados em desempenho, pois permite associar métricas quantitativas a efeitos percebidos pelo usuário final.
+Estudos empíricos recentes sobre desempenho móvel reforçam que tempo de execução, memória e energia devem ser avaliados de forma conjunta, pois cada indicador pode reagir de modo distinto às mudanças realizadas no software~\cite{rua2024largescale}. Por isso, a análise experimental é essencial para associar métricas quantitativas a efeitos percebidos pelo usuário final.
 
 Assim, a abordagem metodológica proposta combina:
 \begin{itemize}

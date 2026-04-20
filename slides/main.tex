@@ -229,10 +229,10 @@ Desenvolver e avaliar o \collectorFlutter{}, uma biblioteca Dart/Flutter embarca
 \toprule
 \textbf{Autor} & \textbf{Contribuição} & \textbf{Relação com este trabalho} \\
 \midrule
-Pathak et al. (2012) & Modelagem energética fina por chamadas de sistema em smartphones Android. & Mostra que rede e interface pesam no consumo energético. \\
+Pathak et al. (2011) & Modelagem energética fina por chamadas de sistema em smartphones Android. & Mostra que rede e interface pesam no consumo energético. \\
 Hao et al. (2013) & Estimativa de consumo energético por análise de programa. & Fundamenta proxies de energia sem instrumentação física dedicada. \\
-Li e Halfond (2014) & Estudo empírico de energia em apps Android. & Reforça a medição por métricas observáveis de execução. \\
-Cheng e Wang (2020) & Análise de consumo energético por abordagem baseada em framework. & Apoia a ligação entre otimização de software e economia de energia. \\
+Li et al. (2014) & Estudo empírico de energia em apps Android. & Reforça a medição por métricas observáveis de execução. \\
+Hoque et al. (2015) & Revisão sobre modelagem, profiling e depuração de energia em dispositivos móveis. & Organiza métodos, limites e sinais úteis para diagnóstico. \\
 \bottomrule
 \end{tabularx}
 \vspace{2mm}
@@ -246,10 +246,10 @@ Cheng e Wang (2020) & Análise de consumo energético por abordagem baseada em f
 \toprule
 \textbf{Autor} & \textbf{Contribuição} & \textbf{Relação com este trabalho} \\
 \midrule
-Liu et al. (2019) & Correlação entre eventos de sistema, GPU, latência e responsividade. & Base para heurísticas que traduzem métricas em sintomas. \\
-He et al. (2019) & Comparação de frameworks multiplataforma por renderização, memória e ponte nativa. & Situa Flutter no debate de desempenho cross-platform. \\
-Zhang et al. (2021) & Avaliação de eficiência energética em Flutter e React Native. & Destaca impacto de \rebuilds{} e reconciliação da árvore de widgets. \\
-Meyer e Krause (2022) & Avaliação de Flutter vs. React Native em ambientes de produção. & Apoia a escolha de métricas de performance percebida. \\
+Ravindranath et al. (2012) & Monitoramento de desempenho móvel em aplicações reais com AppInsight. & Inspira coleta próxima do contexto real de execução. \\
+Rua e Saraiva (2024) & Estudo empírico em larga escala sobre energia, tempo de execução e memória. & Justifica analisar múltiplos sinais em conjunto. \\
+Nawrocki et al. (2021) & Comparação entre frameworks nativos e multiplataforma. & Situa Flutter no debate de desempenho cross-platform. \\
+Flutter DevTools (2026) & Ferramentas oficiais para inspecionar frames, memória e execução em Flutter. & Alinha as métricas do protótipo ao ecossistema Flutter. \\
 \bottomrule
 \end{tabularx}
 \vspace{2mm}
@@ -263,11 +263,11 @@ Meyer e Krause (2022) & Avaliação de Flutter vs. React Native em ambientes de 
 \toprule
 \textbf{Autor} & \textbf{Contribuição} & \textbf{Relação com este trabalho} \\
 \midrule
-Banerjee et al. (2020) & Monitoramento em tempo de execução para detectar anomalias. & Inspira coleta não-intrusiva durante a execução. \\
-Johnson (2020) & Monitoramento de eventos de sistema e frames para otimização. & Reforça a necessidade de recomendações automáticas. \\
-Kumar e Gupta (2019) & Revisão de técnicas de otimização em renderização, memória, rede e energia. & Organiza os eixos usados pelo \collectorFlutter{}. \\
-Rodrigues (2021) & Ferramentas embarcadas têm maior adoção que ferramentas externas. & Justifica o foco em dashboard dentro do app. \\
-Santos (2023) e Silva (2022) & Relação entre \rebuilds{}, CPU e consumo em apps móveis. & Fundamenta a heurística sobre reconstruções excessivas. \\
+Sun et al. (2023) & Revisão sobre diagnóstico de ineficiências energéticas em apps Android. & Ajuda a transformar sintomas em hipóteses de causa. \\
+Bangash et al. (2023) & Estimativa de energia a partir do uso de APIs em apps móveis. & Apoia heurísticas baseadas em eventos e padrões de uso. \\
+Android Profiler e Perfetto & Profiling detalhado de CPU, memória, rede, energia e tracing. & Servem como referência para comparação técnica. \\
+Instruments e Firebase & Profiling no ecossistema Apple e monitoramento de performance em produção. & Mostram forças e limites das soluções externas. \\
+\collectorFlutter{} & Monitoramento embarcado com recomendações acionáveis. & Atua na lacuna entre medir e decidir o próximo passo. \\
 \bottomrule
 \end{tabularx}
 \end{frame}

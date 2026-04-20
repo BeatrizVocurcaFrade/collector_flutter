@@ -81,9 +81,9 @@ Transição:
 
 Fala sugerida:
 
-> O primeiro grupo trata de energia e métricas observáveis. Pathak e coautores mostram que chamadas de rede e renderização de interface respondem por uma parte importante do consumo energético em smartphones. Hao e também Li e Halfond reforçam uma ideia importante para este trabalho: mesmo sem instrumentação física dedicada, é possível estimar consumo energético a partir de sinais do próprio software.
+> O primeiro grupo trata de energia e métricas observáveis. Pathak e coautores mostram que é possível relacionar chamadas de sistema e componentes do smartphone ao consumo de energia. Hao e coautores reforçam essa ideia ao estimar consumo energético por análise de programa. Já Li, Hao, Gui e Halfond fazem um estudo empírico em aplicações Android e mostram que o comportamento do software influencia diretamente o gasto energético.
 
-> Isso é importante porque o `collector_flutter` não nasce como um medidor elétrico. Ele trabalha com proxies: tempo de frame, memória, rede e eventos de execução.
+> Isso é importante porque o `collector_flutter` não nasce como um medidor elétrico. Ele trabalha com proxies: tempo de frame, memória, rede, eventos de execução e reconstruções. A literatura ajuda a defender que esses sinais são úteis para observar sintomas de ineficiência.
 
 Ênfase:
 
@@ -94,19 +94,19 @@ Fala sugerida:
 
 Fala sugerida:
 
-> O segundo grupo aproxima a discussão do desenvolvimento móvel e do Flutter. Liu e coautores relacionam eventos de sistema e renderização com métricas percebidas pelo usuário, como FPS e responsividade. He e Meyer e Krause discutem diferenças de desempenho entre frameworks multiplataforma. Zhang e coautores entram diretamente no ecossistema Flutter e apontam o impacto dos `rebuilds` frequentes.
+> O segundo grupo aproxima a discussão do monitoramento móvel. Ravindranath e coautores, com o AppInsight, mostram a importância de observar desempenho em aplicações reais, durante a execução. Hoque e coautores organizam o campo de modelagem, profiling e depuração de energia em dispositivos móveis. Rua e Saraiva trazem uma visão empírica em larga escala sobre energia, tempo de execução e memória.
 
-> Essa parte da literatura ajudou a definir quais sinais deveriam aparecer no protótipo: não só memória ou rede isoladas, mas também frames, percentis, `jank` e reconstruções.
+> Para o Flutter, a ponte vem também da documentação oficial e do DevTools, que mostram quais métricas são relevantes no ecossistema: frames, `jank`, uso de memória, eventos de rede e inspeção de reconstruções. Essa parte da literatura ajudou a definir que o protótipo não deveria olhar só para uma métrica isolada, mas para um conjunto de sinais.
 
 ### Slide 9 - Trabalhos relacionados III: automação e recomendações - 1min30s
 
 Fala sugerida:
 
-> O terceiro grupo olha para automação e adoção. Banerjee discute monitoramento em tempo de execução. Johnson destaca a importância de recomendações automáticas. Kumar e Gupta organizam estratégias de otimização em renderização, memória, rede e energia. Rodrigues mostra que soluções embutidas tendem a ser mais adotadas do que ferramentas externas. Santos e Silva reforçam a ligação entre reconstruções, CPU e consumo.
+> O terceiro grupo trata de diagnóstico e ação. Sun e coautores revisam formas de diagnosticar ineficiências energéticas em apps Android. Bangash e coautores mostram que o uso de APIs pode ser analisado como indício de consumo energético. Nawrocki e coautores ajudam a situar o debate de frameworks nativos e multiplataforma, que é importante porque o Flutter busca produtividade sem ignorar desempenho.
 
 Frase-chave:
 
-> Aqui aparece a peça que mais interessa ao meu trabalho: não basta medir. A ferramenta precisa ajudar o desenvolvedor a interpretar.
+> Aqui aparece a peça que mais interessa ao meu trabalho: não basta medir. A ferramenta precisa ajudar o desenvolvedor a interpretar e priorizar o que fazer primeiro.
 
 ### Slide 10 - Lacuna de pesquisa - 30s
 
@@ -269,3 +269,145 @@ Fala sugerida:
 - Quando falar de limitações, seja tranquila: reconhecer limite técnico passa segurança.
 - Se perguntarem sobre overhead, responda como critério de projeto e validação planejada, evitando prometer um número que não foi medido com protocolo estatístico completo.
 - Se perguntarem por que não usar só DevTools, responda: DevTools continua importante; a proposta é diminuir atrito e dar feedback contínuo dentro do app.
+
+## Resumo rápido das referências
+
+Esta parte não é para ser lida inteira na apresentação. Ela serve como cola de estudo para responder perguntas da banca e lembrar por que cada fonte entrou no TCC.
+
+1. Pathak et al. (2011) - Fine-grained Power Modeling for Smartphones Using System Call Tracing
+
+Resumo: propõe uma modelagem fina de consumo energético em smartphones a partir do rastreamento de chamadas de sistema. O ponto mais importante é mostrar que ações de software, como rede, I/O e atividade de interface, podem ser relacionadas a consumo de energia.
+
+Por que foi importante: ajudou a sustentar a ideia de usar sinais observáveis do software como aproximação para problemas de energia, mesmo quando o protótipo não mede corrente elétrica diretamente.
+
+2. Hao et al. (2013) - Estimating Mobile Application Energy Consumption Using Program Analysis
+
+Resumo: apresenta uma abordagem para estimar consumo energético de aplicações móveis usando análise de programa. O trabalho reforça que é possível estudar energia a partir da estrutura e do comportamento do código.
+
+Por que foi importante: deu base para tratar métricas de execução como indícios defensáveis de consumo, principalmente quando combinadas com rede, memória e tempo de processamento.
+
+3. Li, Hao, Gui e Halfond (2014) - An Empirical Study of the Energy Consumption of Android Applications
+
+Resumo: investiga empiricamente o consumo de energia em aplicações Android e relaciona esse consumo a comportamentos de software. Mostra que diferentes padrões de uso de recursos afetam o gasto energético.
+
+Por que foi importante: reforçou a escolha de observar rede, memória e execução como dimensões relevantes para o `collector_flutter`.
+
+4. Ravindranath et al. (2012) - AppInsight: Mobile App Performance Monitoring in the Wild
+
+Resumo: apresenta o AppInsight, uma solução de monitoramento de desempenho em aplicações móveis em uso real. O foco está em capturar gargalos fora de um laboratório totalmente controlado.
+
+Por que foi importante: inspirou a ideia de aproximar o diagnóstico do contexto real de execução, em vez de depender apenas de ferramentas externas usadas ocasionalmente.
+
+5. Hoque et al. (2015) - Modeling, Profiling, and Debugging the Energy Consumption of Mobile Devices
+
+Resumo: é uma revisão ampla sobre modelagem, profiling e depuração do consumo energético em dispositivos móveis. Organiza técnicas, desafios e limitações da área.
+
+Por que foi importante: ajudou a fundamentar a discussão sobre energia no TCC e também a reconhecer limites, como a dificuldade de medir CPU e bateria com precisão sem integração nativa.
+
+6. Rua e Saraiva (2024) - A Large-scale Empirical Study on Mobile Performance: Energy, Run-time and Memory
+
+Resumo: analisa desempenho móvel em larga escala considerando energia, tempo de execução e memória. O trabalho mostra que essas dimensões precisam ser observadas em conjunto.
+
+Por que foi importante: fortaleceu a decisão de o protótipo não olhar apenas para FPS, mas combinar frames, memória, rede e outros sinais.
+
+7. Sun et al. (2023) - Energy Inefficiency Diagnosis for Android Applications: A Literature Review
+
+Resumo: revisa estudos sobre diagnóstico de ineficiência energética em aplicações Android. Mapeia causas, métodos de detecção e estratégias usadas na literatura.
+
+Por que foi importante: ajudou a organizar a noção de diagnóstico: detectar sintomas, interpretar causas prováveis e apontar caminhos de otimização.
+
+8. Bangash et al. (2023) - Energy Consumption Estimation of API-usage in Mobile Apps via Static Analysis
+
+Resumo: investiga como o uso de APIs em apps móveis pode ser analisado para estimar consumo de energia. O trabalho mostra que certas chamadas e padrões de uso podem sinalizar maior custo energético.
+
+Por que foi importante: reforçou a ideia de que eventos e APIs usados pelo aplicativo podem alimentar heurísticas de recomendação.
+
+9. Nawrocki et al. (2021) - A Comparison of Native and Cross-Platform Frameworks for Mobile Applications
+
+Resumo: compara frameworks nativos e multiplataforma para aplicações móveis. Discute desempenho, desenvolvimento e implicações práticas dessa escolha.
+
+Por que foi importante: situou o Flutter no debate de frameworks multiplataforma e ajudou a justificar por que monitoramento de desempenho é relevante nesse ecossistema.
+
+10. Flutter (2026) - Flutter: Build Apps for Any Screen
+
+Resumo: documentação oficial que apresenta o Flutter como framework para desenvolvimento multiplataforma.
+
+Por que foi importante: serviu como fonte institucional para contextualizar o ecossistema em que o `collector_flutter` foi desenvolvido.
+
+11. Flutter DevTools (2026) - Flutter and Dart DevTools
+
+Resumo: documentação oficial das ferramentas de diagnóstico do Flutter e Dart, incluindo inspeção de desempenho, memória e outros recursos.
+
+Por que foi importante: foi a principal referência para comparar a proposta com uma ferramenta oficial do ecossistema Flutter.
+
+12. Android Developers (2024) - Profile Your App Performance
+
+Resumo: documentação oficial do Android Profiler, ferramenta usada para observar CPU, memória, rede e energia em apps Android.
+
+Por que foi importante: funcionou como referência de ferramenta madura de profiling, mostrando o que já existe e onde ainda há atrito para uso contínuo dentro do app.
+
+13. Perfetto (2024) - Perfetto Tracing Documentation
+
+Resumo: documentação oficial do Perfetto, plataforma de tracing detalhado para análise de desempenho.
+
+Por que foi importante: ajudou a caracterizar ferramentas de baixo nível, muito completas, mas que exigem interpretação técnica mais especializada.
+
+14. Apple (2024) - Profiling Apps Using Instruments
+
+Resumo: documentação oficial do Instruments, ferramenta da Apple para profiling em apps iOS e macOS.
+
+Por que foi importante: entrou na comparação para mostrar que o problema de diagnóstico não é só Android ou Flutter; cada plataforma tem ferramentas fortes, mas externas ao fluxo comum do app.
+
+15. Firebase (2026) - Firebase Performance Monitoring
+
+Resumo: documentação oficial do Firebase Performance Monitoring, voltado a acompanhar desempenho em aplicações, especialmente em produção.
+
+Por que foi importante: ajudou a diferenciar o foco do `collector_flutter`: o protótipo busca feedback rápido durante desenvolvimento, não apenas monitoramento remoto em produção.
+
+16. UNITAR e ITU (2024) - Global E-waste Monitor 2024
+
+Resumo: relatório global sobre lixo eletrônico, ciclo de vida de dispositivos e impacto ambiental da tecnologia.
+
+Por que foi importante: fundamentou a parte de humanidades, principalmente a relação entre software eficiente, vida útil percebida dos aparelhos e sustentabilidade digital.
+
+17. Gil (2019) - Métodos e Técnicas de Pesquisa Social
+
+Resumo: livro de metodologia que orienta classificação, planejamento e condução de pesquisas.
+
+Por que foi importante: apoiou a caracterização do TCC como pesquisa aplicada, com objetivo prático e construção de uma solução.
+
+18. Lakatos e Marconi (2021) - Fundamentos de Metodologia Científica
+
+Resumo: obra clássica sobre método científico, estrutura de pesquisa e fundamentação acadêmica.
+
+Por que foi importante: ajudou a sustentar a organização metodológica do trabalho, especialmente a relação entre problema, objetivos, procedimentos e análise.
+
+19. Yin (2015) - Estudo de Caso: Planejamento e Métodos
+
+Resumo: referência sobre planejamento de estudo de caso, coleta de evidências e organização de protocolos.
+
+Por que foi importante: contribuiu para pensar a validação do protótipo de forma estruturada, com cenários, evidências e limites explícitos.
+
+20. Wohlin et al. (2012) - Experimentation in Software Engineering
+
+Resumo: obra central sobre experimentação em engenharia de software, incluindo planejamento, execução e interpretação de estudos experimentais.
+
+Por que foi importante: sustentou os cenários controlados de teste e a cautela ao tratar resultados quantitativos como evidência científica.
+
+21. Pressman e Maxim (2020) - Software Engineering: A Practitioner's Approach
+
+Resumo: referência geral de engenharia de software, cobrindo processo, requisitos, projeto, qualidade e testes.
+
+Por que foi importante: apoiou a organização do desenvolvimento do protótipo, dos requisitos e das atividades de validação.
+
+22. Sommerville (2019) - Engenharia de Software
+
+Resumo: obra de engenharia de software com foco em requisitos, arquitetura, projeto e manutenção de sistemas.
+
+Por que foi importante: reforçou decisões de arquitetura modular e separação de responsabilidades no pacote.
+
+23. Martin (2018) - Clean Architecture
+
+Resumo: apresenta princípios de arquitetura limpa, separação de camadas e independência entre regras de negócio e detalhes externos.
+
+Por que foi importante: ajudou a justificar a separação entre Data, Domain e Presentation no `collector_flutter`, deixando o protótipo mais testável e extensível.

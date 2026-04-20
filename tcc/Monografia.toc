@@ -14,7 +14,7 @@
 \contentsline {section}{\numberline {2.3}Impactos Ambientais e Eficiência Computacional}{8}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Aspectos Éticos no Monitoramento de Aplicações}{9}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Responsabilidade Tecnológica no Desenvolvimento de Software}{9}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Síntese}{10}{section.2.6}%
+\contentsline {section}{\numberline {2.6}Síntese}{9}{section.2.6}%
 \contentsline {chapter}{\numberline {3}Metodologia e Desenvolvimento}{11}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Abordagem Metodológica}{11}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Natureza da Pesquisa}{11}{subsection.3.1.1}%
@@ -48,10 +48,10 @@
 \contentsline {subsubsection}{Coleta e Análise de Dados}{23}{section*.24}%
 \contentsline {subsubsection}{Métrica de Eficiência Energética}{23}{section*.25}%
 \contentsline {subsubsection}{Validação das Recomendações Heurísticas}{23}{section*.26}%
-\contentsline {section}{\numberline {3.6}Descrição do Protótipo e Arquitetura da Solução}{23}{section.3.6}%
+\contentsline {section}{\numberline {3.6}Descrição do Protótipo e Arquitetura da Solução}{24}{section.3.6}%
 \contentsline {subsection}{\numberline {3.6.1}Concepção e Premissas de Projeto}{24}{subsection.3.6.1}%
 \contentsline {subsection}{\numberline {3.6.2}Arquitetura Geral do Sistema}{24}{subsection.3.6.2}%
-\contentsline {subsubsection}{Camada Data}{24}{section*.27}%
+\contentsline {subsubsection}{Camada Data}{25}{section*.27}%
 \contentsline {subsubsection}{Camada Domain}{25}{section*.28}%
 \contentsline {subsubsection}{Camada Presentation}{25}{section*.29}%
 \contentsline {subsection}{\numberline {3.6.3}Componentes Principais}{25}{subsection.3.6.3}%

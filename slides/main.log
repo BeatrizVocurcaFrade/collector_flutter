@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  19 APR 2026 21:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  19 APR 2026 22:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1531,11 +1531,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 36852 strings out of 477958
- 768855 string characters out of 5838580
+ 36848 strings out of 477958
+ 768746 string characters out of 5838580
  1967330 words of memory out of 5000000
  55990 multiletter control sequences out of 15000+600000
- 850914 words of font info for 225 fonts, out of 8000000 for 9000
+ 850370 words of font info for 222 fonts, out of 8000000 for 9000
  61 hyphenation exceptions out of 8191
  128i,15n,122p,1001b,1233s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </tmp/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1440.600pk> </t
@@ -1546,7 +1546,7 @@ xmf-dist/fonts/enc/dvips/fira/fir_iln36p.enc}</usr/share/texlive/texmf-dist/fon
 ts/type1/public/fira/FiraSans-Italic.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/fira/FiraSans-Medium.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /public/fira/FiraSans-Regular.pfb>
-Output written on main.pdf (29 pages, 1303767 bytes).
+Output written on main.pdf (29 pages, 1303477 bytes).
 PDF statistics:
  419 PDF objects out of 1000 (max. 8388607)
  212 compressed objects within 3 object streams
