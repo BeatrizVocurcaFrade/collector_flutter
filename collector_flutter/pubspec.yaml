@@ -3,7 +3,7 @@ description: >-
   Real-time resource monitoring for Flutter apps — FPS, jank, memory, CPU,
   battery, HTTP traffic, and custom events with an embedded dashboard and
   actionable recommendations.
-version: 0.1.1
+version: 0.1.2
 repository: https://github.com/BeatrizVocurcaFrade/collector_flutter
 homepage: https://github.com/BeatrizVocurcaFrade/collector_flutter
 issue_tracker: https://github.com/BeatrizVocurcaFrade/collector_flutter/issues
