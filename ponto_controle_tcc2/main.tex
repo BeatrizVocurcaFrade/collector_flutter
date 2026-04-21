@@ -1,0 +1,144 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{tabularx}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+
+\setstretch{1.15}
+\setlist{itemsep=0.3em, topsep=0.4em}
+\hypersetup{hidelinks}
+\pagestyle{empty}
+
+\definecolor{primary}{HTML}{1F4E79}
+\definecolor{secondary}{HTML}{EAF2F8}
+\definecolor{linecolor}{HTML}{C9D8E6}
+\definecolor{softgray}{HTML}{F6F8FA}
+
+\newtcolorbox{sectionbox}[1]{
+  enhanced,
+  colback=white,
+  colframe=linecolor,
+  boxrule=0.7pt,
+  arc=2mm,
+  left=4mm,
+  right=4mm,
+  top=3mm,
+  bottom=3mm,
+  title=#1,
+  coltitle=primary,
+  fonttitle=\bfseries,
+  colbacktitle=secondary
+}
+
+\begin{document}
+
+\begin{tcolorbox}[
+  enhanced,
+  colback=secondary,
+  colframe=primary,
+  boxrule=1pt,
+  arc=2mm,
+  left=5mm,
+  right=5mm,
+  top=4mm,
+  bottom=4mm
+]
+\begin{center}
+{\Large \textbf{Relatório do Ponto de Controle}}\\[0.15cm]
+{\large \textbf{Trabalho de Conclusão de Curso II}}\\[0.25cm]
+\textcolor{primary}{\rule{0.65\linewidth}{0.7pt}}
+\end{center}
+\end{tcolorbox}
+
+\begin{sectionbox}{DADOS GERAIS (campos preenchidos pelo aluno)}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.2cm} X}
+Aluna: & Beatriz Vocurca Frade \\
+Título do Trabalho: & Monitoramento e Otimização do Consumo de Recursos em Aplicativos Flutter: Proposta de Ferramenta de Apoio ao Desenvolvimento \\
+\end{tabularx}
+\end{sectionbox}
+
+\begin{sectionbox}{ESTADO ATUAL (campo preenchido pelo aluno)}
+\noindent
+O trabalho encontra-se em fase avançada e sem atraso crítico em relação ao cronograma geral do TCC II. O núcleo técnico do projeto foi concluído, com o protótipo funcional do \texttt{collector\_flutter} implementado, validado qualitativamente em cenários controlados e disponibilizado publicamente tanto no repositório GitHub quanto no pub.dev (\url{https://pub.dev/packages/collector_flutter}). A arquitetura, os módulos de coleta, análise, recomendação, exportação e visualização já estão consolidados, assim como a suíte de 48 testes automatizados.
+
+\vspace{0.3cm}
+
+\noindent
+No momento, o trabalho está posicionado na etapa de refinamento final da monografia, com foco em revisão tipográfica, consistência textual, alinhamento entre capítulos, ajustes finos de formatação e consolidação dos documentos necessários para a defesa. Isso significa que a parte mais sensível do desenvolvimento técnico já foi concluída, e o esforço atual está concentrado em acabamento acadêmico, documentação e preparação institucional.
+
+\vspace{0.3cm}
+
+\noindent
+Em relação ao cronograma, a situação atual é compatível com a entrega do ponto de controle em 03 de maio de 2026 e com os marcos seguintes do semestre. Não há, até o momento, indício de comprometimento da conclusão do trabalho até a data final prevista. A principal pendência administrativa em aberto é a definição do membro externo da banca, etapa que precisa ser concluída antes da entrega do documento de marcação de defesa.
+
+\vspace{0.3cm}
+
+\noindent
+Ainda restam etapas importantes de validação experimental antes do fechamento definitivo do trabalho. Em especial, faltam os testes de validação cruzada com ferramentas de referência e a ampliação dos experimentos em dispositivos físicos, para fortalecer a análise comparativa e a robustez dos resultados quantitativos.
+\end{sectionbox}
+
+\begin{sectionbox}{PENDÊNCIAS PRINCIPAIS E PRÓXIMOS PASSOS}
+\begin{itemize}
+  \item Definição do membro externo da banca.
+  \item Realização dos testes de validação cruzada com ferramentas de referência.
+  \item Execução e consolidação dos testes em dispositivos físicos.
+  \item Revisão final da monografia, com foco em formatação, consistência textual e fechamento documental.
+\end{itemize}
+\end{sectionbox}
+
+\begin{sectionbox}{CRONOGRAMA DETALHADO}
+\noindent
+Para tornar mais claro o estágio do trabalho e os próximos passos, o cronograma restante foi detalhado da seguinte forma:
+
+\vspace{0.3cm}
+
+\rowcolors{2}{softgray}{white}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{4.2cm} X}
+Período & Atividade \\
+20 abr. 2026 a 26 abr. 2026 & Revisão tipográfica da monografia, correção de estouros horizontais, consolidação do texto de resultados e atualização do status do pacote já publicado. \\
+27 abr. 2026 a 03 maio 2026 & Finalização do presente relatório e entrega do ponto de controle. \\
+04 maio 2026 a 10 maio 2026 & Revisão da monografia com foco em consistência textual, bibliografia, links e alinhamento entre monografia, slides e roteiro da apresentação. \\
+11 maio 2026 a 17 maio 2026 & Preparação e entrega do documento de marcação de defesa, com definição do membro externo da banca. \\
+18 maio 2026 a 31 maio 2026 & Ajustes orientados no texto, planejamento e execução dos testes de validação cruzada, além da consolidação da versão para entrega inicial. \\
+01 jun. 2026 a 07 jun. 2026 & Finalização da versão inicial da monografia, organização dos testes em dispositivos físicos e entrega do texto inicial. \\
+08 jun. 2026 a 14 jun. 2026 & Incorporação de correções, revisão final de formatação, verificação de coerência entre texto, figuras e referências, refinamento da apresentação e consolidação dos resultados experimentais. \\
+15 jun. 2026 a 23 jun. 2026 & Fechamento da versão final, conferência ABNT, revisão final orientada e entrega do texto final da monografia. \\
+\end{tabularx}
+\end{sectionbox}
+
+\begin{sectionbox}{DATAS OFICIAIS DO TCC II}
+\rowcolors{2}{softgray}{white}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{4cm} X}
+Data & Marco \\
+03 maio 2026 & Entrega do ponto de controle. \\
+17 maio 2026 & Entrega do documento de marcação de defesa. \\
+07 jun. 2026 & Entrega do texto inicial da monografia. \\
+23 jun. 2026 & Entrega do texto final da monografia. \\
+\end{tabularx}
+\end{sectionbox}
+
+\begin{sectionbox}{SÍNTESE}
+Com base nesse cenário, a previsão é de continuidade regular do trabalho até a defesa, com foco principal em revisão final, consolidação documental e fechamento das pendências administrativas.
+\end{sectionbox}
+
+\begin{sectionbox}{AVALIAÇÃO DO ORIENTADOR (campo preenchido pelo orientador)}
+Avaliação do estado atual do trabalho indicando se o aluno terá condições de finalizar o trabalho até a data limite estipulada no cronograma do TCC II.
+
+\vspace{7cm}
+
+\noindent
+Assinatura do orientador.
+\end{sectionbox}
+
+\end{document}

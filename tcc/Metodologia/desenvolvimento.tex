@@ -55,7 +55,8 @@ A modelagem do sistema foi conduzida de forma modular, com base em três camadas
 
 Esse modelo arquitetural facilita o isolamento das dependências e a manutenção evolutiva do código.
 
-A Figura~\ref{fig:architecture} ilustra a arquitetura de três camadas adotada no protótipo \collectorFlutter{}.
+A Figura~\ref{fig:architecture} ilustra a arquitetura de três camadas adotada no protótipo.
+Ela organiza o \collectorFlutter{} em coleta, análise e visualização.
 
 \begin{figure}[H]
   \centering
@@ -366,7 +367,7 @@ Alguns exemplos incluem:
   \item \textbf{FPS abaixo de 50:} “Verifique operações pesadas no ciclo de renderização. Considere o uso de \texttt{RepaintBoundary}.”
   \item \textbf{Uso elevado de memória:} “Otimize o descarte de objetos e utilize coleções paginadas.”
   \item \textbf{Chamadas de rede lentas:} “Implemente cache local e controle de tempo de resposta.”
-  \item \textbf{Layout sobrecarregado:} “Simplifique hierarquias de widgets e utilize \texttt{ListView.builder} para renderização sob demanda.”
+  \item \textbf{Layout sobrecarregado:} “Simplifique hierarquias de widgets e prefira listas com renderização sob demanda, como \texttt{ListView.builder}.”
 \end{itemize}
 
 Essas recomendações são exibidas dinamicamente conforme as métricas coletadas, permitindo ajustes rápidos durante o processo de desenvolvimento.
@@ -390,9 +391,16 @@ O código-fonte e demais arquivos do projeto estão disponíveis no repositório
   \url{https://github.com/BeatrizVocurcaFrade/collector_flutter}
 \end{center}
 
+\vspace{0.3cm}
+\noindent
+O pacote também foi publicado no repositório oficial do ecossistema Dart/Flutter, permitindo instalação direta e ampliando o acesso da comunidade à ferramenta:
+
+\begin{center}
+  \url{https://pub.dev/packages/collector_flutter}
+\end{center}
 
 \vspace{0.3cm}
-Essa disponibilização permite que outros pesquisadores e desenvolvedores avaliem, testem e expandam o sistema, contribuindo para o avanço das pesquisas sobre desempenho e eficiência energética em aplicações Flutter.
+Essa disponibilização em GitHub e pub.dev permite que outros pesquisadores e desenvolvedores avaliem, testem e expandam o sistema, contribuindo para o avanço das pesquisas sobre desempenho e eficiência energética em aplicações Flutter.
 
 
 
@@ -562,5 +570,3 @@ Essa combinação de testes unitários e manuais possibilitou uma avaliação co
 \vspace{0.5em}
 
 A infraestrutura descrita nesta seção assegura que o protótipo \texttt{collector\_flutter} seja executado de forma estável e reproduzível, permitindo uma análise detalhada do desempenho e da eficiência de aplicações Flutter em ambiente Android.
-
-

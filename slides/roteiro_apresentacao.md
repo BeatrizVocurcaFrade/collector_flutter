@@ -638,7 +638,7 @@ Objetivo do slide:
 
 Fala sugerida:
 
-> As limitações iniciais foram endereçadas: CPU via platform channel Android, bateria via BatteryManager e UIDevice, exportação JSON/CSV e 48 testes automatizados. O que fica como trabalho futuro são experimentos quantitativos formais, suporte completo de CPU no iOS, avaliação de usabilidade com desenvolvedores Flutter e publicação no pub.dev.
+> As limitações iniciais foram endereçadas: CPU via platform channel Android, bateria via BatteryManager e UIDevice, exportação JSON/CSV, 48 testes automatizados e publicação do pacote no pub.dev. O que fica como trabalho futuro são experimentos quantitativos formais, suporte completo de CPU no iOS e avaliação de usabilidade com desenvolvedores Flutter.
 
 Trabalhos futuros:
 
@@ -647,7 +647,6 @@ Trabalhos futuros:
 - Múltiplos dispositivos.
 - Comparação estatística com ferramentas oficiais.
 - Usabilidade com desenvolvedores.
-- Publicação no pub.dev.
 
 ### Slide 27 - Contribuições - 45s
 
@@ -1200,7 +1199,7 @@ Resposta:
 
 Resposta:
 
-> Executaria a validação quantitativa formal em múltiplos dispositivos, completaria CPU no iOS, faria avaliação de usabilidade com desenvolvedores Flutter e prepararia a publicação no pub.dev.
+> Executaria a validação quantitativa formal em múltiplos dispositivos, completaria CPU no iOS, faria avaliação de usabilidade com desenvolvedores Flutter e ampliaria a documentação e a adoção do pacote já publicado.
 
 ### 35. Qual é a resposta mais curta para "por que esse trabalho importa?"
 

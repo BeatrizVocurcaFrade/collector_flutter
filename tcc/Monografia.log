@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  20 APR 2026 11:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  20 APR 2026 22:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -285,8 +285,10 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip56
+) (/usr/share/texlive/texmf-dist/tex/latex/xurl/xurl.sty
+Package: xurl 2022/01/09 v 0.10 modify URL breaks
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 51.
+Package hyperref Info: Option `colorlinks' set `true' on input line 52.
  (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
 \labelindent=\skip57
@@ -296,7 +298,7 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 \enit@count@id=\count289
 \enitdp@description=\count290
 )
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 66.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 69.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 ) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -306,24 +308,24 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 ) (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/revisao.aux) (./DescricaoProcesso/Humanidades.aux) (./Metodologia/inicio.aux) (./Metodologia/cronograma.aux) (./Metodologia/desenvolvimento.aux) (./Metodologia/teste.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Bibliografia/Bibliografia.aux))
 \openout1 = `Monografia.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count292
@@ -377,7 +379,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 66.
+Package hyperref Info: Link coloring ON on input line 69.
 (./Monografia.out) (./Monografia.out)
 \@outlinefile=\write3
 \openout3 = `Monografia.out'.
@@ -445,35 +447,30 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 11
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Overfull \hbox (56.17355pt too wide) in paragraph at lines 23--24
-\T1/ptm/m/n/12 O pro-pó-sito deste tra-ba-lho é pro-je-tar, im-ple-men-tar e ava-liar pre-li-mi-nar-mente o \T1/pcr/m/n/12 collector_flutter\T1/ptm/m/n/12 ,
+Underfull \hbox (badness 4254) in paragraph at lines 23--24
+\T1/ptm/m/n/12 O pro-pó-sito deste tra-ba-lho é pro-je-tar, im-ple-men-tar e ava-liar pre-li-mi-nar-mente o
+ []
+
+
+Underfull \hbox (badness 2875) in paragraph at lines 23--24
+\T1/pcr/m/n/12 collector_flutter\T1/ptm/m/n/12 , uma bi-bli-o-teca Dart para mo-ni-to-ra-mento de de-sem-pe-nho
  []
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.27 
-      [1
+l.26 A
+       proposta nÃ£o substitui ferramentas de diagnÃ³stico especializadas co... [1
 
 
 
 
 
 ]
-Overfull \hbox (42.5423pt too wide) in paragraph at lines 52--53
-\T1/ptm/m/n/12 O ob-je-tivo ge-ral deste tra-ba-lho é de-sen-vol-ver e ava-liar ex-pe-ri-men-tal-mente o \T1/pcr/m/n/12 collector_flutter\T1/ptm/m/n/12 ,
- []
+Underfull \vbox (badness 1484) has occurred while \output is active []
 
-
-Underfull \vbox (badness 3623) has occurred while \output is active []
-
- [2]
-Overfull \hbox (0.88826pt too wide) in paragraph at lines 58--59
-[]\T1/ptm/m/n/12 Identificar e do-cu-men-tar as li-mi-ta-ções das fer-ra-men-tas de di-ag-nós-tico exis-ten-tes quanto
- []
-
-[3])
+ [2] [3])
 \openout2 = `DescricaoProcesso/revisao.aux'.
 
  (./DescricaoProcesso/revisao.tex
@@ -536,12 +533,7 @@ Overfull \hbox (21.77359pt too wide) in paragraph at lines 27--62
 
 
 
-] [5]
-Overfull \hbox (23.52258pt too wide) in paragraph at lines 74--75
-\T1/ptm/m/n/12 de-fei-tos e abor-da-gens de aná-lise de pro-grama [[]]. O mo-tor heu-rís-tico do \T1/pcr/m/n/12 collector_flutter
- []
-
-) [6]
+] [5]) [6]
 \openout2 = `DescricaoProcesso/Humanidades.aux'.
 
  (./DescricaoProcesso/Humanidades.tex
@@ -556,11 +548,6 @@ Cap\'{\i }tulo 2.
 
  (./Metodologia/inicio.tex
 Cap\'{\i }tulo 3.
-
-Overfull \hbox (0.46976pt too wide) in paragraph at lines 31--32
-\T1/ptm/m/n/12 fonte e a do-cu-men-ta-ção téc-nica do pro-tó-tipo, con-forme re-co-men-dam Woh-lin \T1/ptm/m/it/12 et al. \T1/ptm/m/n/12 [[]]. 
- []
-
 [11
 
 
@@ -662,41 +649,37 @@ Overfull \hbox (21.77359pt too wide) in paragraph at lines 73--101
 
 
 ]
-Overfull \hbox (34.96721pt too wide) in paragraph at lines 58--59
-[]\T1/ptm/m/n/12 A Fi-gura [][]3.2[][] ilus-tra a ar-qui-te-tura de três ca-ma-das ado-tada no pro-tó-tipo \T1/pcr/m/n/12 collector_flutter\T1/ptm/m/n/12 . 
- []
-
 <./Metodologia//sequenceDiagram.png, id=607, 4421.51875pt x 2076.75874pt>
 File: ./Metodologia//sequenceDiagram.png Graphic file (type png)
 <use ./Metodologia//sequenceDiagram.png>
-Package pdftex.def Info: ./Metodologia//sequenceDiagram.png  used on input line 62.
+Package pdftex.def Info: ./Metodologia//sequenceDiagram.png  used on input line 63.
 (pdftex.def)             Requested size: 396.91325pt x 186.4249pt.
-[20 <./Metodologia//sequenceDiagram.png>]
-Overfull \hbox (15.03679pt too wide) in paragraph at lines 87--88
-[]\T1/ptm/m/n/12 Comparação pre-li-mi-nar com mé-tri-cas ob-ti-das via An-droid Pro-fi-ler e Per-fetto (AOSP [[]]). 
+ [20 <./Metodologia//sequenceDiagram.png>]
+Underfull \hbox (badness 2005) in paragraph at lines 88--89
+[]\T1/ptm/m/n/12 Comparação pre-li-mi-nar com mé-tri-cas ob-ti-das via An-droid Pro-fi-ler e Per-fetto
  []
 
 [21] [22] [23]
 <Metodologia/sequenceDiagram.png, id=654, 4421.51875pt x 2076.75874pt>
 File: Metodologia/sequenceDiagram.png Graphic file (type png)
 <use Metodologia/sequenceDiagram.png>
-Package pdftex.def Info: Metodologia/sequenceDiagram.png  used on input line 248.
+Package pdftex.def Info: Metodologia/sequenceDiagram.png  used on input line 249.
 (pdftex.def)             Requested size: 396.91325pt x 186.4249pt.
  [24 <./Metodologia/sequenceDiagram.png>]
-Overfull \hbox (12.69865pt too wide) in paragraph at lines 275--277
-\T1/ptm/m/n/12 mó-ria. Ele ofe-rece uma API aces-sí-vel ao de-sen-vol-ve-dor com mé-to-dos como \T1/pcr/m/n/12 recordWidget-
+Underfull \hbox (badness 7504) in paragraph at lines 276--278
+\T1/pcr/m/n/12 recordWidget-Rebuild()\T1/ptm/m/n/12 , \T1/pcr/m/n/12 recordNetwork() \T1/ptm/m/n/12 e \T1/pcr/m/n/12 recordFrameTiming()\T1/ptm/m/n/12 ,
  []
 
 [25] [26]
 <Metodologia/prototipoquandoestaok.jpeg, id=681, 740.7675pt x 1606.0pt>
 File: Metodologia/prototipoquandoestaok.jpeg Graphic file (type jpg)
 <use Metodologia/prototipoquandoestaok.jpeg>
-Package pdftex.def Info: Metodologia/prototipoquandoestaok.jpeg  used on input line 333.
+Package pdftex.def Info: Metodologia/prototipoquandoestaok.jpeg  used on input line 334.
 (pdftex.def)             Requested size: 162.73198pt x 352.81552pt.
 <Metodologia/prototipoquandonaoestaok.jpeg, id=682, 740.7675pt x 1606.0pt>
 File: Metodologia/prototipoquandonaoestaok.jpeg Graphic file (type jpg)
 <use Metodologia/prototipoquandonaoestaok.jpeg>
-Package pdftex.def Info: Metodologia/prototipoquandonaoestaok.jpeg  used on input line 343.
+Package pdftex.def Info: Metodologia/prototipoquandonaoestaok.jpeg  used on input line 344.
 (pdftex.def)             Requested size: 162.73198pt x 352.81552pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -705,19 +688,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <./Metodologia//iconedoappexamplo.jpeg, id=687, 318.18875pt x 338.26375pt>
 File: ./Metodologia//iconedoappexamplo.jpeg Graphic file (type jpg)
 <use ./Metodologia//iconedoappexamplo.jpeg>
-Package pdftex.def Info: ./Metodologia//iconedoappexamplo.jpeg  used on input line 353.
+Package pdftex.def Info: ./Metodologia//iconedoappexamplo.jpeg  used on input line 354.
 (pdftex.def)             Requested size: 124.45724pt x 132.30666pt.
- [28 <./Metodologia/prototipoquandonaoestaok.jpeg> <./Metodologia//iconedoappexamplo.jpeg>]
-Overfull \hbox (41.43752pt too wide) in paragraph at lines 369--370
-[]\T1/ptm/b/n/12 Layout so-bre-car-re-gado: \T1/ptm/m/n/12 ^^PSim-pli-fi-que hi-e-rar-quias de wid-gets e uti-lize \T1/pcr/m/n/12 ListView.builder
- []
-
-
-Overfull \hbox (6.26825pt too wide) in paragraph at lines 413--415
-\T1/pcr/m/n/12 dumpsys gfxinfo\T1/ptm/m/n/12 , e o \T1/pcr/m/n/12 Xcode Instruments\T1/ptm/m/n/12 . Fo-ram ana-li-sa-das va-riá-veis como tempo
- []
-
-[29] [30] [31] [32] [33]) [34]
+ [28 <./Metodologia/prototipoquandonaoestaok.jpeg> <./Metodologia//iconedoappexamplo.jpeg>] [29] [30] [31] [32] [33]) [34]
 \openout2 = `Metodologia/teste.aux'.
 
  (./Metodologia/teste.tex [35
@@ -725,18 +698,8 @@ Overfull \hbox (6.26825pt too wide) in paragraph at lines 413--415
 
 
 ]
-Overfull \hbox (66.13223pt too wide) in paragraph at lines 44--45
-[]\T1/ptm/m/n/12 Foram dis-pa-ra-das múl-ti-plas re-qui-si-ções HTTP pa-ra-le-las, uti-li-zando o mé-todo \T1/pcr/m/n/12 recordNetwork()\T1/ptm/m/n/12 ,
- []
-
-
-Overfull \hbox (37.93378pt too wide) in paragraph at lines 68--69
-[]\T1/ptm/b/n/12 Tempo mé-dio de ren-de-ri-za-ção de qua-dro\T1/ptm/m/n/12 : cal-cu-lado a par-tir dos even-tos de \T1/pcr/m/n/12 FrameTiming\T1/ptm/m/n/12 ; 
- []
-
-
-Overfull \hbox (77.07745pt too wide) in paragraph at lines 70--71
-[]\T1/ptm/b/n/12 Número de re-cons-tru-ções de wid-gets\T1/ptm/m/n/12 : con-ta-bi-li-zado por meio do com-po-nente \T1/pcr/m/n/12 RebuildObserver\T1/ptm/m/n/12 ; 
+Underfull \hbox (badness 2181) in paragraph at lines 44--45
+[]\T1/ptm/m/n/12 Foram dis-pa-ra-das múl-ti-plas re-qui-si-ções HTTP pa-ra-le-las, uti-li-zando o mé-todo
  []
 
 [36]
@@ -755,71 +718,28 @@ Underfull \hbox (badness 2635) in paragraph at lines 148--149
  []
 
 
-Overfull \hbox (40.75496pt too wide) in paragraph at lines 134--151
-\T1/ptm/m/n/12 qui-sa-do-res, re-for-çando a con-fi-a-bi-li-dade ci-en-tí-fica da ava-li-a-ção do pro-tó-tipo \T1/pcr/m/n/12 collector_flutter\T1/ptm/m/n/12 . 
+Underfull \hbox (badness 1253) in paragraph at lines 134--151
+[]\T1/ptm/m/n/12 Essas prá-ti-cas as-se-gu-ram que os ex-pe-ri-men-tos pos-sam ser re-pro-du-zi-dos por ou-
  []
 
-)
-Underfull \vbox (badness 1057) has occurred while \output is active []
 
- [37] [38]
+Underfull \hbox (badness 1881) in paragraph at lines 134--151
+\T1/ptm/m/n/12 tros pes-qui-sa-do-res, re-for-çando a con-fi-a-bi-li-dade ci-en-tí-fica da ava-li-a-ção do pro-tó-tipo
+ []
+
+) [37] [38]
 \openout2 = `Resultados/Resultados.aux'.
 
  (./Resultados/Resultados.tex
 Cap\'{\i }tulo 4.
 
-Overfull \hbox (52.70706pt too wide) in paragraph at lines 8--9
-\T1/ptm/m/n/12 Este ca-pí-tulo apre-senta os re-sul-ta-dos ob-ti-dos ao longo do de-sen-vol-vi-mento do \T1/pcr/m/n/12 collector_flutter\T1/ptm/m/n/12 ,
+Underfull \hbox (badness 1675) in paragraph at lines 32--32
+[]\T1/ptm/m/n/10.95 Monitoramento de uso de me-mó-ria
  []
 
 
-Overfull \hbox (1.38893pt too wide) in paragraph at lines 31--31
-[]\T1/pcr/m/n/12 MemoryDataSource| 
- []
-
-
-Overfull \hbox (8.58893pt too wide) in paragraph at lines 33--33
-[]\T1/pcr/m/n/12 HttpClientWrapper| 
- []
-
-
-Overfull \hbox (8.58893pt too wide) in paragraph at lines 39--39
-[]\T1/pcr/m/n/12 BatteryDataSource| 
- []
-
-
-Underfull \hbox (badness 5217) in paragraph at lines 49--49
-[]\T1/ptm/m/n/12 Painel vi-sual com grá-fi-cos em
- []
-
-
-Overfull \hbox (8.58893pt too wide) in paragraph at lines 51--51
-[]\T1/pcr/m/n/12 ResourceCollector| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--53
-[]\T1/ptm/m/n/12 Suíte de 48 tes-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--53
-\T1/ptm/m/n/12 tes uni-tá-rios co-brindo
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--53
-\T1/pcr/m/n/12 Analyzer\T1/ptm/m/n/12 , \T1/pcr/m/n/12 Recommender\T1/ptm/m/n/12 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--53
-\T1/pcr/m/n/12 ExportService\T1/ptm/m/n/12 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--53
-\T1/pcr/m/n/12 CpuDataSource \T1/ptm/m/n/12 e
+Underfull \hbox (badness 4739) in paragraph at lines 38--38
+[]\T1/ptm/m/n/10.95 Coleta de uso de CPU por pro-
  []
 
 
@@ -830,164 +750,49 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-] [40]
-Overfull \hbox (23.91907pt too wide) in paragraph at lines 65--66
-\T1/ptm/m/n/12 en-ti-da-des de ne-gó-cio (\T1/pcr/m/n/12 Telemetry\T1/ptm/m/n/12 ) e os três ca-sos de uso (\T1/pcr/m/n/12 CollectMetricsUseCase\T1/ptm/m/n/12 ,
- []
-
-
-Overfull \hbox (1.24074pt too wide) in paragraph at lines 65--66
-\T1/pcr/m/n/12 AnalyzePerformanceUseCase \T1/ptm/m/n/12 e \T1/pcr/m/n/12 GenerateRecommendationsUseCase\T1/ptm/m/n/12 ),
- []
-
-[41]
+] [40] [41]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <12> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 107.
-
-Overfull \hbox (20.01865pt too wide) in paragraph at lines 111--112
-\T1/ptm/m/n/12 de res-posta e có-digo de sta-tus. Em con-di-ções de alta frequên-cia de re-qui-si-ções, o \T1/pcr/m/n/12 Recommender
- []
-
-[42]
-Overfull \hbox (47.52168pt too wide) in paragraph at lines 128--129
-[]\T1/ptm/b/n/12 Coleta de mé-tri-cas de CPU: \T1/ptm/m/n/12 im-ple-men-tada via \T1/ptm/m/it/12 plat-form chan-nel \T1/ptm/m/n/12 An-droid (\T1/pcr/m/n/12 CpuDataSource\T1/ptm/m/n/12 ),
- []
-
-[43] [44])
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 108.
+ [42] [43])
 \openout2 = `Conclusao/Conclusao.aux'.
 
  (./Conclusao/Conclusao.tex
 Cap\'{\i }tulo 5.
 
-Overfull \hbox (24.1853pt too wide) in paragraph at lines 14--15
-\T1/ptm/m/n/12 en-tre fon-tes de da-dos (\T1/pcr/m/n/12 FrameDataSource\T1/ptm/m/n/12 , \T1/pcr/m/n/12 MemoryDataSource\T1/ptm/m/n/12 , \T1/pcr/m/n/12 HttpClientWrapper\T1/ptm/m/n/12 ,
- []
-
-
-Overfull \hbox (36.48486pt too wide) in paragraph at lines 14--15
-\T1/ptm/m/n/12 (\T1/pcr/m/n/12 Analyzer\T1/ptm/m/n/12 , \T1/pcr/m/n/12 Recommender\T1/ptm/m/n/12 ) e ca-mada de apre-sen-ta-ção (\T1/pcr/m/n/12 DashboardPage\T1/ptm/m/n/12 , \T1/pcr/m/n/12 CollectorBloc\T1/ptm/m/n/12 )
- []
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [45
+ [44
 
 
 
 
 
-]
-Overfull \hbox (112.06984pt too wide) in paragraph at lines 31--32
-\T1/ptm/m/n/12 aná-lise e vi-su-a-li-za-ção dis-po-ni-bi-li-za-dos no re-po-si-tó-rio \T1/pcr/m/n/12 BeatrizVocurcaFrade/collector_flutter\T1/ptm/m/n/12 ,
- []
-
-
-Overfull \hbox (2.49805pt too wide) in paragraph at lines 51--52
-\T1/ptm/m/n/12 tual em re-la-ção a fer-ra-men-tas de re-fe-rên-cia (An-droid Pro-fi-ler, \T1/pcr/m/n/12 adb shell dumpsys
- []
-
-[46] [47])
+] [45] [46])
 \openout2 = `Bibliografia/Bibliografia.aux'.
 
- (./Bibliografia/Bibliografia.tex
-Overfull \hbox (106.7489pt too wide) in paragraph at lines 20--26
-\T1/pcr/m/n/12 estimating-[]mobile-[]application-[]energy-[]consumption-[]using-[]program-[]analysis .
- []
-
-[48
+ (./Bibliografia/Bibliografia.tex [47
 
 
 
 
 
-]
-Underfull \hbox (badness 4805) in paragraph at lines 96--100
-[]\T1/ptm/m/n/12 ANDROID DE-VE-LO-PERS.  \T1/ptm/b/n/12 Pro-file Your App Per-for-mance\T1/ptm/m/n/12 .  Dis-po-ní-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 96--100
-\T1/ptm/m/n/12 vel em: [][]$\T1/pcr/m/n/12 https : / / developer . android . com / studio / profile /
- []
-
-
-Underfull \hbox (badness 1681) in paragraph at lines 108--112
-[]\T1/ptm/m/n/12 APPLE.  \T1/ptm/b/n/12 Pro-fi-ling Apps Using Ins-tru-ments\T1/ptm/m/n/12 .  Dis-po-ní-vel em: [][]$\T1/pcr/m/n/12 https : / /
- []
-
-
-Underfull \hbox (badness 1838) in paragraph at lines 124--129
-[]\T1/ptm/m/n/12 UNITAR; ITU.  \T1/ptm/b/n/12 Glo-bal E-waste Mo-ni-tor 2024\T1/ptm/m/n/12 .  Ge-neva/Bonn: UNI-TAR;
- []
-
-
-Underfull \hbox (badness 5970) in paragraph at lines 135--140
-[]\T1/ptm/m/n/12 GIL, A. C.  \T1/ptm/b/n/12 Mé-to-dos e Téc-ni-cas de Pes-quisa So-cial\T1/ptm/m/n/12 .  7. ed. São
- []
-
-
-Underfull \hbox (badness 1248) in paragraph at lines 135--140
-\T1/ptm/m/n/12 Paulo: Atlas, 2019.  Dis-po-ní-vel em: [][]$\T1/pcr/m/n/12 https : / / www . grupogen . com . br /
- []
-
-
-Underfull \hbox (badness 1655) in paragraph at lines 163--168
-[]\T1/ptm/m/n/12 PRESSMAN, R. S.; MA-XIM, B. R.  \T1/ptm/b/n/12 Soft-ware En-gi-ne-e-ring: A Prac-ti-ti-o-
- []
-
-
-Underfull \hbox (badness 1755) in paragraph at lines 163--168
-\T1/ptm/b/n/12 ner's Ap-pro-ach\T1/ptm/m/n/12 .  9. ed. New York: McGraw-Hill Edu-ca-tion, 2020.  Dis-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 163--168
-\T1/ptm/m/n/12 po-ní-vel em: [][]$\T1/pcr/m/n/12 https : / / www . mheducation . com / highered / product /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 163--168
-\T1/pcr/m/n/12 software-[]engineering-[]a-[]practitioners-[]approach-[]pressman .
- []
-
-[49]
-Underfull \hbox (badness 10000) in paragraph at lines 177--182
-[]\T1/ptm/m/n/12 MARTIN, R. C.  \T1/ptm/b/n/12 Clean Ar-chi-tec-ture: A Crafts-man's Guide
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 177--182
-\T1/ptm/b/n/12 to Soft-ware Struc-ture and De-sign\T1/ptm/m/n/12 .  Bos-ton: Pe-ar-son, 2018.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 177--182
-\T1/ptm/m/n/12 Dis-po-ní-vel em: [][]$\T1/pcr/m/n/12 https : / / www . informit . com / store /
- []
-
-
-Overfull \hbox (117.4489pt too wide) in paragraph at lines 177--182
-\T1/pcr/m/n/12 clean-[]architecture-[]a-[]craftsmans-[]guide-[]to-[]software-[]structure-[]9780134494166$[][]\T1/ptm/m/n/12 .
- []
-
-) [50] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/revisao.aux) (./DescricaoProcesso/Humanidades.aux) (./Metodologia/inicio.aux) (./Metodologia/cronograma.aux) (./Metodologia/desenvolvimento.aux) (./Metodologia/teste.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Bibliografia/Bibliografia.aux))
+] [48]) [49] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/revisao.aux) (./DescricaoProcesso/Humanidades.aux) (./Metodologia/inicio.aux) (./Metodologia/cronograma.aux) (./Metodologia/desenvolvimento.aux) (./Metodologia/teste.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Bibliografia/Bibliografia.aux))
 Package rerunfilecheck Info: File `Monografia.out' has not changed.
 (rerunfilecheck)             Checksum: D9D0282C44F6AD29C44D26FA9651F76E;16249.
  ) 
 Here is how much of TeX's memory you used:
- 12289 strings out of 477958
- 203303 string characters out of 5838580
- 1869330 words of memory out of 5000000
- 31890 multiletter control sequences out of 15000+600000
- 552702 words of font info for 81 fonts, out of 8000000 for 9000
+ 12330 strings out of 477958
+ 204190 string characters out of 5838580
+ 1877330 words of memory out of 5000000
+ 31924 multiletter control sequences out of 15000+600000
+ 563244 words of font info for 95 fonts, out of 8000000 for 9000
  61 hyphenation exceptions out of 8191
  75i,11n,76p,964b,592s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Monografia.pdf (56 pages, 1812893 bytes).
+Output written on Monografia.pdf (55 pages, 1813685 bytes).
 PDF statistics:
- 970 PDF objects out of 1000 (max. 8388607)
- 870 compressed objects within 9 object streams
- 228 named destinations out of 1000 (max. 500000)
+ 968 PDF objects out of 1000 (max. 8388607)
+ 869 compressed objects within 9 object streams
+ 227 named destinations out of 1000 (max. 500000)
  623 words of extra memory for PDF output out of 10000 (max. 10000000)
 
