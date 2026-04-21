@@ -395,10 +395,10 @@ class _MetricCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: color.withValues(alpha: 0.09),
+          color: color.withOpacity(0.09),
           boxShadow: [
             BoxShadow(
-              color: color.withValues(alpha: 0.22),
+              color: color.withOpacity(0.22),
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
@@ -502,7 +502,7 @@ class _FrameChart extends StatelessWidget {
 
     return Card(
       elevation: 4,
-      shadowColor: Colors.blueAccent.withValues(alpha: 0.25),
+      shadowColor: Colors.blueAccent.withOpacity(0.25),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 12, 16, 8),
@@ -539,7 +539,7 @@ class _FrameChart extends StatelessWidget {
                             horizontalLines: [
                               HorizontalLine(
                                 y: frameBudgetMs,
-                                color: Colors.red.withValues(alpha: 0.6),
+                                color: Colors.red.withOpacity(0.6),
                                 strokeWidth: 2,
                                 dashArray: [5, 5],
                               ),
@@ -581,8 +581,8 @@ class _FrameChart extends StatelessWidget {
                                 show: true,
                                 gradient: LinearGradient(
                                   colors: [
-                                    Colors.blueAccent.withValues(alpha: 0.55),
-                                    Colors.blueAccent.withValues(alpha: 0.04),
+                                    Colors.blueAccent.withOpacity(0.55),
+                                    Colors.blueAccent.withOpacity(0.04),
                                   ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
@@ -641,7 +641,7 @@ class _FrameChartHeader extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
@@ -745,7 +745,7 @@ class _NetworkEventTile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.purple.withValues(alpha: 0.12),
+              color: Colors.purple.withOpacity(0.12),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(

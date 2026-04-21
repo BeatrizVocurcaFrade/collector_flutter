@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Replaced `syncfusion_flutter_charts` (proprietary) with `fl_chart ^0.69.0` (MIT) for the frame timing chart — removes the Syncfusion Community License requirement from downstream projects
-- All `.withValues(alpha:)` calls replaced with `.withValues(alpha:)` for compatibility with Flutter SDK ≥ 3.24 and < 3.27
+- All `.withOpacity()` calls replaced with `.withOpacity()` for compatibility with Flutter SDK ≥ 3.24 and < 3.27
 
 ### Fixed
 - Removed unused `_FrameSample` class after chart library migration

@@ -71,7 +71,7 @@ ClipRRect(
             PlotBand(
               start: frameBudgetMs,
               end: frameBudgetMs,
-              borderColor: Colors.red.withValues(alpha:0.6),
+              borderColor: Colors.red.withOpacity(0.6),
               borderWidth: 2,
               dashArray: const <double>[5, 5],
             ),
