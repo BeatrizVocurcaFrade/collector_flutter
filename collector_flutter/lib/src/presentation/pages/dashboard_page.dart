@@ -90,6 +90,7 @@ class _DashboardPageState extends State<DashboardPage> {
           targetFps: a.targetFps,
           frameBudgetMs: a.frameBudgetMs,
           confidence: a.confidence,
+          hasEnoughWindowFrames: a.hasEnoughWindowFrames,
           cpuPercent: a.cpuUsagePercent,
           batteryLevel: a.batteryLevel,
           isCharging: a.isCharging,
@@ -210,6 +211,7 @@ class _MetricGrid extends StatelessWidget {
   final double targetFps;
   final double frameBudgetMs;
   final MetricConfidence confidence;
+  final bool hasEnoughWindowFrames;
   final double cpuPercent;
   final int batteryLevel;
   final bool isCharging;
@@ -224,6 +226,7 @@ class _MetricGrid extends StatelessWidget {
     required this.targetFps,
     required this.frameBudgetMs,
     required this.confidence,
+    required this.hasEnoughWindowFrames,
     required this.cpuPercent,
     required this.batteryLevel,
     required this.isCharging,
@@ -250,8 +253,10 @@ class _MetricGrid extends StatelessWidget {
         _metricCard(
           icon: Icons.speed,
           title: 'FPS',
-          value: confidence == MetricConfidence.none ? '--' : fps,
-          color: _fpsColor(fpsVal),
+          value: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames || fpsVal <= 0) ? '--' : fps,
+          color: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames || fpsVal <= 0)
+              ? Colors.grey.shade500
+              : _fpsColor(fpsVal),
           info: 'Quadros por segundo renderizados.\n'
               'Alvo atual: ${targetFps.toStringAsFixed(0)} FPS.\n'
               'Abaixo de 30 indica lentidao grave.\n\n'
@@ -270,8 +275,12 @@ class _MetricGrid extends StatelessWidget {
         _metricCard(
           icon: Icons.warning_amber_rounded,
           title: 'Jank',
-          value: '$jank',
-          color: jank > 5 ? Colors.orange.shade600 : Colors.green.shade600,
+          value: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames) ? '--' : '$jank',
+          color: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
+              ? Colors.grey.shade500
+              : jank > 5
+                  ? Colors.orange.shade600
+                  : Colors.green.shade600,
           info: 'Frames acima do limiar de tempo.\n'
               'Orcamento atual: ${frameBudgetMs.toStringAsFixed(1)} ms.\n\n'
               'Use o Flutter DevTools timeline para inspecionar.',
@@ -287,8 +296,10 @@ class _MetricGrid extends StatelessWidget {
         _metricCard(
           icon: Icons.bar_chart_rounded,
           title: 'P95 Frame',
-          value: '${p95Ms}ms',
-          color: _p95Color(double.tryParse(p95Ms) ?? 0),
+          value: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames) ? '--' : '${p95Ms}ms',
+          color: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
+              ? Colors.grey.shade500
+              : _p95Color(double.tryParse(p95Ms) ?? 0),
           info: 'Percentil 95 do tempo de frame.\n'
               'Reflete a experiencia dos usuarios mais lentos.\n\n'
               'Manter perto de ${frameBudgetMs.toStringAsFixed(1)} ms evita jank perceptivel.',

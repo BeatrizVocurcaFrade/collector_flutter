@@ -7,15 +7,21 @@ class Recommender {
   List<Recommendation> generate(AnalysisResult result) {
     final recommendations = <Recommendation>[];
     final modeLabel = kReleaseMode ? 'Release' : 'Debug/Profile';
-    final lowFps = result.estimatedFps > 0 &&
-        result.estimatedFps < result.targetFps * 0.85;
-    final hasJank = result.longFrames > 5 ||
-        result.frameStats.p95Ms > result.frameBudgetMs * 1.2;
+    final hasStableData = result.confidence == MetricConfidence.stable;
+    final lowFps = hasStableData &&
+        result.hasEnoughWindowFrames &&
+        result.estimatedFps > 0 &&
+        result.estimatedFps < result.targetFps * 0.75;
+    final hasJank = hasStableData &&
+        result.hasEnoughWindowFrames &&
+        (result.longFrames > 5 ||
+            result.frameStats.p95Ms > result.frameBudgetMs * 2.0);
     final currentMemoryMB = result.memoryStats.currentRssMB > 0
         ? result.memoryStats.currentRssMB
         : result.memoryMB;
-    final hasMemoryPressure =
-        currentMemoryMB > 0 && currentMemoryMB > (kReleaseMode ? 300 : 600);
+    final hasMemoryPressure = hasStableData &&
+        currentMemoryMB > 0 &&
+        currentMemoryMB > (kReleaseMode ? 400 : 800);
     final hasNetworkPressure =
         result.networkStats.requestCount > 50 || result.networkRequests > 50;
     final hasNetworkFailure = result.networkStats.failedRequests > 0;

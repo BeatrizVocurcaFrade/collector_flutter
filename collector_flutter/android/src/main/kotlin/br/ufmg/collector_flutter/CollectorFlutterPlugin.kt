@@ -25,13 +25,13 @@ class CollectorFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
-            "getCpuUsage" -> Thread {
+            "getCpuUsage" -> {
                 try {
                     result.success(getCpuUsage())
                 } catch (e: Exception) {
                     result.success(-1.0)
                 }
-            }.start()
+            }
             "getBatteryLevel" -> {
                 try {
                     result.success(getBatteryLevel())
@@ -50,27 +50,34 @@ class CollectorFlutterPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private data class CpuStat(val total: Long, val idle: Long)
+    // Cached values for delta-based CPU measurement (no sleep needed).
+    private var prevCpuTicks: Long = -1L
+    private var prevWallMs: Long = -1L
 
-    private fun parseProcStat(): CpuStat {
-        val line = File("/proc/stat").useLines { lines ->
-            lines.first { it.startsWith("cpu ") }
-        }
-        val parts = line.trim().split("\\s+".toRegex()).drop(1).map { it.toLong() }
-        // Fields: user, nice, system, idle, iowait, irq, softirq, steal
-        val idle = parts[3] + if (parts.size > 4) parts[4] else 0L
-        val total = parts.sum()
-        return CpuStat(total, idle)
+    private fun readProcessCpuTicks(): Long {
+        // /proc/self/stat is always readable by the own process on all Android versions.
+        // Format: pid (name) state ... utime stime ...
+        // Skip the name field (may contain spaces) by finding the closing ')'.
+        val text = File("/proc/self/stat").readText()
+        val afterParen = text.indexOf(')') + 2
+        val fields = text.substring(afterParen).trim().split("\\s+".toRegex())
+        // After ')': state ppid pgrp session tty tpgid flags minflt cminflt majflt cmajflt utime stime
+        // utime = index 11, stime = index 12
+        return fields[11].toLong() + fields[12].toLong()
     }
 
     private fun getCpuUsage(): Double {
-        val stat1 = parseProcStat()
-        Thread.sleep(200)
-        val stat2 = parseProcStat()
-        val deltaTotal = stat2.total - stat1.total
-        val deltaIdle = stat2.idle - stat1.idle
-        if (deltaTotal <= 0) return 0.0
-        return (1.0 - deltaIdle.toDouble() / deltaTotal.toDouble()) * 100.0
+        val nowTicks = readProcessCpuTicks()
+        val nowMs = System.currentTimeMillis()
+        val result = if (prevCpuTicks >= 0L && prevWallMs >= 0L) {
+            val ticksDelta = nowTicks - prevCpuTicks
+            val wallDelta = nowMs - prevWallMs
+            if (wallDelta <= 0L || ticksDelta < 0L) 0.0
+            else (ticksDelta * 1000.0 / 100.0 / wallDelta * 100.0).coerceAtMost(100.0)
+        } else 0.0
+        prevCpuTicks = nowTicks
+        prevWallMs = nowMs
+        return result
     }
 
     private fun getBatteryLevel(): Int {

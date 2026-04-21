@@ -20,6 +20,11 @@ class PerformanceBudget {
   final int networkRequestWarning;
   final double networkLatencyWarningMs;
   final int minFrameSamples;
+  final int minSessionSeconds;
+
+  /// Número mínimo de frames na janela atual para acionar alertas de FPS/jank/P95.
+  /// Janelas com poucos frames (app idle, apenas monitoring) são ignoradas.
+  final int minWindowFrames;
 
   const PerformanceBudget({
     this.targetFrameRate = 60,
@@ -27,6 +32,8 @@ class PerformanceBudget {
     this.networkRequestWarning = 50,
     this.networkLatencyWarningMs = 1500,
     this.minFrameSamples = 10,
+    this.minSessionSeconds = 6,
+    this.minWindowFrames = 15,
   });
 
   double get frameBudgetMs => 1000.0 / targetFrameRate;
@@ -39,6 +46,8 @@ class PerformanceBudget {
     int? networkRequestWarning,
     double? networkLatencyWarningMs,
     int? minFrameSamples,
+    int? minSessionSeconds,
+    int? minWindowFrames,
   }) {
     return PerformanceBudget(
       targetFrameRate: targetFrameRate ?? this.targetFrameRate,
@@ -48,6 +57,8 @@ class PerformanceBudget {
       networkLatencyWarningMs:
           networkLatencyWarningMs ?? this.networkLatencyWarningMs,
       minFrameSamples: minFrameSamples ?? this.minFrameSamples,
+      minSessionSeconds: minSessionSeconds ?? this.minSessionSeconds,
+      minWindowFrames: minWindowFrames ?? this.minWindowFrames,
     );
   }
 }
@@ -224,29 +235,35 @@ class Analyzer {
   }) : budget = budget ??
             PerformanceBudget(
               targetFrameRate: 1000.0 / frameThresholdMs,
-              memoryWarningMB: kReleaseMode ? 300 : 600,
+              memoryWarningMB: kReleaseMode ? 400 : 800,
             );
 
   double get frameThresholdMs => budget.frameBudgetMs;
 
   AnalysisResult analyzeTelemetry(TelemetryModel telemetry) {
     final currentFrames = telemetry.frameTimings;
-    final framesForStats =
-        currentFrames.isNotEmpty ? currentFrames : telemetry.recentFrameTimings;
-    final frameMsList = framesForStats
+    // Use only the current collection window for stats/jank — falling back to
+    // recentFrameTimings contaminates idle windows with stale jank data.
+    final frameMsList = currentFrames
         .map((frame) => frame.totalSpan.inMicroseconds / 1000.0)
         .toList();
     final stats = FrameStats.compute(frameMsList);
-    final confidence = _confidenceFor(currentFrames.length);
+    final confidence = _confidenceFor(
+      currentFrameCount: currentFrames.length,
+      totalSessionFrames: telemetry.totalFrameCount,
+      sessionAge: telemetry.sessionDuration,
+    );
     final estimatedFps = _estimateFps(
       currentFrames: currentFrames.length,
-      sampleDuration: telemetry.sampleDuration,
       frameStats: stats,
     );
     final longFrames =
         frameMsList.where((frameMs) => frameMs > budget.warningFrameMs).length;
     final jankRate =
         stats.sampleCount == 0 ? 0.0 : longFrames / stats.sampleCount;
+    // App idle: janela tem só 2-5 frames do próprio monitoring; métricas de
+    // frame não são confiáveis até haver atividade real do usuário.
+    final hasEnoughWindowFrames = frameMsList.length >= budget.minWindowFrames;
     final memoryStats = MemoryStats.compute(
       telemetry.memoryHistory,
       current: telemetry.memoryInfo,
@@ -255,6 +272,7 @@ class Analyzer {
     final issues = _findIssues(
       estimatedFps: estimatedFps,
       confidence: confidence,
+      hasEnoughWindowFrames: hasEnoughWindowFrames,
       frameStats: stats,
       longFrames: longFrames,
       jankRate: jankRate,
@@ -272,7 +290,7 @@ class Analyzer {
       memoryBytes: telemetry.memoryInfo?.currentRssInBytes ?? 0,
       networkRequests: networkStats.requestCount,
       issues: issues,
-      note: _noteFor(confidence, currentFrames.length),
+      note: _noteFor(confidence, telemetry.totalFrameCount, telemetry.sessionDuration),
       frameStats: stats,
       memoryTrendMBperMin: memoryStats.trendMBperMin,
       memoryStats: memoryStats,
@@ -286,28 +304,28 @@ class Analyzer {
       cpuUsagePercent: telemetry.cpuUsagePercent,
       batteryLevel: telemetry.batteryLevel,
       isCharging: telemetry.isCharging,
+      hasEnoughWindowFrames: hasEnoughWindowFrames,
     );
   }
 
-  MetricConfidence _confidenceFor(int currentFrameCount) {
-    if (currentFrameCount == 0) return MetricConfidence.none;
-    if (currentFrameCount < budget.minFrameSamples) {
-      return MetricConfidence.warmingUp;
-    }
+  MetricConfidence _confidenceFor({
+    required int currentFrameCount,
+    required int totalSessionFrames,
+    required Duration sessionAge,
+  }) {
+    if (totalSessionFrames == 0) return MetricConfidence.none;
+    if (totalSessionFrames < budget.minFrameSamples) return MetricConfidence.warmingUp;
+    if (sessionAge.inSeconds < budget.minSessionSeconds) return MetricConfidence.warmingUp;
     return MetricConfidence.stable;
   }
 
+  // Uses per-frame quality (1000/avgMs) so an idle Flutter app — which renders
+  // very few frames because nothing is dirty — is not penalised with 0 fps.
   double _estimateFps({
     required int currentFrames,
-    required Duration sampleDuration,
     required FrameStats frameStats,
   }) {
     if (currentFrames == 0) return 0;
-    if (currentFrames > 0 && sampleDuration.inMilliseconds >= 250) {
-      return currentFrames *
-          Duration.millisecondsPerSecond /
-          sampleDuration.inMilliseconds;
-    }
     if (frameStats.avgMs <= 0) return 0;
     return min(budget.targetFrameRate, 1000.0 / frameStats.avgMs);
   }
@@ -315,6 +333,7 @@ class Analyzer {
   List<String> _findIssues({
     required double estimatedFps,
     required MetricConfidence confidence,
+    required bool hasEnoughWindowFrames,
     required FrameStats frameStats,
     required int longFrames,
     required double jankRate,
@@ -326,9 +345,14 @@ class Analyzer {
   }) {
     final issues = <String>[];
     final hasStableFrames = confidence == MetricConfidence.stable;
+    // Gate frame-based metrics on window size: idle windows (2-5 frames from
+    // monitoring alone) produce misleading P95/FPS/jank readings.
+    final canAnalyzeFrames = hasStableFrames && hasEnoughWindowFrames;
 
-    if (hasStableFrames && estimatedFps > 0) {
-      final lowFpsLimit = budget.targetFrameRate * 0.85;
+    if (canAnalyzeFrames && estimatedFps > 0) {
+      // 0.75 (45 fps for 60 fps target) gives headroom for the monitoring
+      // overhead itself (vm_service queries, periodic setState, etc.).
+      final lowFpsLimit = budget.targetFrameRate * 0.75;
       if (estimatedFps < lowFpsLimit) {
         issues.add(
           'FPS abaixo do alvo (${estimatedFps.toStringAsFixed(1)}/${budget.targetFrameRate.toStringAsFixed(0)})',
@@ -336,19 +360,21 @@ class Analyzer {
       }
     }
 
-    if (hasStableFrames && frameStats.p95Ms > budget.warningFrameMs) {
+    // Use severeFrameMs (2× budget ≈ 33 ms) to avoid flagging the small spikes
+    // caused by the collector's own vm_service queries every ~1.8 s.
+    if (canAnalyzeFrames && frameStats.p95Ms > budget.severeFrameMs) {
       issues.add(
         'P95 de frame acima do orçamento (${frameStats.p95Ms.toStringAsFixed(1)} ms)',
       );
     }
 
-    if (hasStableFrames && longFrames >= 3 && jankRate > 0.05) {
+    if (canAnalyzeFrames && longFrames >= 3 && jankRate > 0.05) {
       issues.add(
         'Jank detectado: $longFrames frames longos (${(jankRate * 100).toStringAsFixed(1)}%)',
       );
     }
 
-    if (memoryStats.currentRssMB > budget.memoryWarningMB) {
+    if (hasStableFrames && memoryStats.currentRssMB > budget.memoryWarningMB) {
       issues.add(
         'Uso de memória elevado (${memoryStats.currentRssMB.toStringAsFixed(1)} MB)',
       );
@@ -389,13 +415,20 @@ class Analyzer {
     return issues;
   }
 
-  String? _noteFor(MetricConfidence confidence, int currentFrameCount) {
-    return switch (confidence) {
-      MetricConfidence.none => 'Aguardando frames renderizados',
-      MetricConfidence.warmingUp =>
-        'Coletando dados iniciais ($currentFrameCount/${budget.minFrameSamples} frames)',
-      MetricConfidence.stable => null,
-    };
+  String? _noteFor(
+    MetricConfidence confidence,
+    int totalSessionFrames,
+    Duration sessionAge,
+  ) {
+    if (confidence == MetricConfidence.none) return 'Aguardando frames renderizados';
+    if (confidence == MetricConfidence.warmingUp) {
+      if (totalSessionFrames < budget.minFrameSamples) {
+        return 'Coletando dados iniciais ($totalSessionFrames/${budget.minFrameSamples} frames)';
+      }
+      final remaining = budget.minSessionSeconds - sessionAge.inSeconds;
+      return 'Estabilizando métricas... (${remaining}s restantes)';
+    }
+    return null;
   }
 }
 
@@ -427,6 +460,10 @@ class AnalysisResult {
   /// Indica se o dispositivo está carregando.
   final bool isCharging;
 
+  /// Janela atual tem frames suficientes para análise confiável (>= minWindowFrames).
+  /// False em app idle — apenas frames do próprio monitoring presentes.
+  final bool hasEnoughWindowFrames;
+
   AnalysisResult({
     required this.estimatedFps,
     required this.avgFrameMs,
@@ -448,6 +485,7 @@ class AnalysisResult {
     this.cpuUsagePercent = -1.0,
     this.batteryLevel = -1,
     this.isCharging = false,
+    this.hasEnoughWindowFrames = false,
   })  : frameStats = frameStats ?? FrameStats.empty(),
         memoryStats = memoryStats ?? MemoryStats.empty(),
         networkStats = networkStats ?? NetworkStats.empty(),
