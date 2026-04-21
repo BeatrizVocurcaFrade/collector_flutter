@@ -20,6 +20,8 @@ class TelemetryRepositoryImpl implements IResourceRepository {
   final int maxNetworkEvents;
   final int maxMemorySamples;
   final int maxCustomEvents;
+  final int minCpuSamples;
+  final int maxCpuSamples;
 
   final DateTime _sessionStart = DateTime.now();
   late DateTime _lastCollectAt = _sessionStart;
@@ -31,6 +33,7 @@ class TelemetryRepositoryImpl implements IResourceRepository {
   final List<NetworkEvent> _networkHistory = [];
   final Map<String, dynamic> _customEventLatest = {};
   final List<CustomEventRecord> _customEventLog = [];
+  final List<double> _cpuSamples = [];
   MemoryInfo? _lastMemorySnapshot;
 
   TelemetryRepositoryImpl({
@@ -44,6 +47,8 @@ class TelemetryRepositoryImpl implements IResourceRepository {
     this.maxNetworkEvents = 1000,
     this.maxMemorySamples = 120,
     this.maxCustomEvents = 1000,
+    this.minCpuSamples = 3,
+    this.maxCpuSamples = 5,
   })  : cpuSource = cpuSource ?? CpuDataSource(),
         batterySource = batterySource ?? BatteryDataSource();
 
@@ -112,6 +117,7 @@ class TelemetryRepositoryImpl implements IResourceRepository {
     final cpuPercent = await cpuFuture;
     final battery = await batteryFuture;
     final charging = await chargingFuture;
+    final smoothedCpuPercent = _smoothCpu(cpuPercent);
 
     return TelemetryModel(
       frameTimings: frames,
@@ -129,10 +135,23 @@ class TelemetryRepositoryImpl implements IResourceRepository {
       totalFrameCount: _totalFrameCount,
       totalNetworkRequests: _totalNetworkRequests,
       rebuildCount: _rebuildCount,
-      cpuUsagePercent: cpuPercent,
+      cpuUsagePercent: smoothedCpuPercent,
       batteryLevel: battery,
       isCharging: charging,
     );
+  }
+
+  double _smoothCpu(double cpuPercent) {
+    if (cpuPercent < 0) return -1.0;
+
+    _cpuSamples.add(cpuPercent.clamp(0, 100).toDouble());
+    _trim(_cpuSamples, maxCpuSamples);
+
+    if (_cpuSamples.length < minCpuSamples) {
+      return -1.0;
+    }
+
+    return _cpuSamples.reduce((a, b) => a + b) / _cpuSamples.length;
   }
 
   void _trim<T>(List<T> values, int maxLength) {

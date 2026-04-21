@@ -150,16 +150,29 @@ void main() {
       double cpu = -1.0,
       int battery = -1,
       bool charging = false,
-    }) =>
-        TelemetryModel(
-          cpuUsagePercent: cpu,
-          batteryLevel: battery,
-          isCharging: charging,
-        );
+      bool warmup = false,
+    }) {
+      final start = DateTime(2024, 1, 1, 12);
+      return TelemetryModel(
+        cpuUsagePercent: cpu,
+        batteryLevel: battery,
+        isCharging: charging,
+        sessionStart: start,
+        capturedAt: warmup
+            ? start.add(const Duration(seconds: 2))
+            : start.add(const Duration(seconds: 12)),
+      );
+    }
 
     test('CPU elevada (>80%) gera issue', () {
       final result = analyzer.analyzeTelemetry(makeModel(cpu: 85.0));
       expect(result.issues.any((i) => i.contains('CPU elevada')), isTrue);
+    });
+
+    test('CPU elevada no início da sessão não gera issue', () {
+      final result =
+          analyzer.analyzeTelemetry(makeModel(cpu: 100.0, warmup: true));
+      expect(result.issues.any((i) => i.contains('CPU')), isFalse);
     });
 
     test('CPU moderada (60–80%) gera issue', () {

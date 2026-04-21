@@ -32,6 +32,15 @@ class PerformanceBudget {
   /// Número mínimo de frames longos para alertar jank/P95 por overhead repetido.
   final int minJankLongFrames;
 
+  /// Número mínimo de amostras para considerar tendência de memória confiável.
+  final int minMemoryTrendSamples;
+
+  /// Duração mínima da janela de memória para evitar spikes de inicialização.
+  final int minMemoryTrendSeconds;
+
+  /// Tempo mínimo de sessão antes de alertar CPU.
+  final int minCpuSessionSeconds;
+
   const PerformanceBudget({
     this.targetFrameRate = 60,
     this.memoryWarningMB = 300,
@@ -42,6 +51,9 @@ class PerformanceBudget {
     this.minWindowFrames = 15,
     this.minNetworkSamples = 5,
     this.minJankLongFrames = 6,
+    this.minMemoryTrendSamples = 5,
+    this.minMemoryTrendSeconds = 60,
+    this.minCpuSessionSeconds = 10,
   });
 
   double get frameBudgetMs => 1000.0 / targetFrameRate;
@@ -58,6 +70,9 @@ class PerformanceBudget {
     int? minWindowFrames,
     int? minNetworkSamples,
     int? minJankLongFrames,
+    int? minMemoryTrendSamples,
+    int? minMemoryTrendSeconds,
+    int? minCpuSessionSeconds,
   }) {
     return PerformanceBudget(
       targetFrameRate: targetFrameRate ?? this.targetFrameRate,
@@ -71,6 +86,11 @@ class PerformanceBudget {
       minWindowFrames: minWindowFrames ?? this.minWindowFrames,
       minNetworkSamples: minNetworkSamples ?? this.minNetworkSamples,
       minJankLongFrames: minJankLongFrames ?? this.minJankLongFrames,
+      minMemoryTrendSamples:
+          minMemoryTrendSamples ?? this.minMemoryTrendSamples,
+      minMemoryTrendSeconds:
+          minMemoryTrendSeconds ?? this.minMemoryTrendSeconds,
+      minCpuSessionSeconds: minCpuSessionSeconds ?? this.minCpuSessionSeconds,
     );
   }
 }
@@ -136,6 +156,7 @@ class MemoryStats {
   final double peakRssMB;
   final double trendMBperMin;
   final int sampleCount;
+  final Duration sampleDuration;
 
   const MemoryStats({
     required this.currentRssMB,
@@ -143,6 +164,7 @@ class MemoryStats {
     required this.peakRssMB,
     required this.trendMBperMin,
     required this.sampleCount,
+    this.sampleDuration = Duration.zero,
   });
 
   factory MemoryStats.empty() => const MemoryStats(
@@ -151,6 +173,7 @@ class MemoryStats {
         peakRssMB: 0,
         trendMBperMin: 0,
         sampleCount: 0,
+        sampleDuration: Duration.zero,
       );
 
   static MemoryStats compute(
@@ -167,11 +190,13 @@ class MemoryStats {
     final last = current ?? samples.last;
     final peak = samples.map((s) => s.currentRssMB).reduce((a, b) => max(a, b));
     var trend = 0.0;
+    var sampleDuration = Duration.zero;
 
     if (samples.length >= 2) {
       final first = samples.first;
-      final elapsed = samples.last.timestamp.difference(first.timestamp);
-      final minutes = elapsed.inMilliseconds / Duration.millisecondsPerMinute;
+      sampleDuration = samples.last.timestamp.difference(first.timestamp);
+      final minutes =
+          sampleDuration.inMilliseconds / Duration.millisecondsPerMinute;
       if (minutes > 0) {
         trend = (samples.last.currentRssMB - first.currentRssMB) / minutes;
       }
@@ -183,6 +208,7 @@ class MemoryStats {
       peakRssMB: peak,
       trendMBperMin: trend,
       sampleCount: samples.length,
+      sampleDuration: sampleDuration,
     );
   }
 }
@@ -290,6 +316,7 @@ class Analyzer {
       jankRate: jankRate,
       memoryStats: memoryStats,
       networkStats: networkStats,
+      sessionAge: telemetry.sessionDuration,
       cpuUsagePercent: telemetry.cpuUsagePercent,
       batteryLevel: telemetry.batteryLevel,
       isCharging: telemetry.isCharging,
@@ -359,6 +386,7 @@ class Analyzer {
     required double jankRate,
     required MemoryStats memoryStats,
     required NetworkStats networkStats,
+    required Duration sessionAge,
     double cpuUsagePercent = -1.0,
     int batteryLevel = -1,
     bool isCharging = false,
@@ -371,6 +399,10 @@ class Analyzer {
     final hasRepeatedLongFrames = longFrames >= budget.minJankLongFrames;
     final hasEnoughNetworkSamples =
         networkStats.requestCount >= budget.minNetworkSamples;
+    final hasReliableMemoryTrend = memoryStats.sampleCount >=
+            budget.minMemoryTrendSamples &&
+        memoryStats.sampleDuration.inSeconds >= budget.minMemoryTrendSeconds;
+    final canAnalyzeCpu = sessionAge.inSeconds >= budget.minCpuSessionSeconds;
 
     if (canAnalyzeFrames && estimatedFps > 0) {
       // 0.75 (45 fps for 60 fps target) gives headroom for the monitoring
@@ -401,7 +433,7 @@ class Analyzer {
 
     // Absolute RSS is unreliable on Android (system libs inflate it by 200-300 MB).
     // Only the growth trend reliably signals a leak.
-    if (memoryStats.sampleCount >= 3 && memoryStats.trendMBperMin > 30) {
+    if (hasReliableMemoryTrend && memoryStats.trendMBperMin > 30) {
       issues.add(
         'Possível crescimento de memória: +${memoryStats.trendMBperMin.toStringAsFixed(1)} MB/min',
       );
@@ -422,7 +454,7 @@ class Analyzer {
       );
     }
 
-    if (cpuUsagePercent >= 0) {
+    if (canAnalyzeCpu && cpuUsagePercent >= 0) {
       if (cpuUsagePercent > 80) {
         issues.add('CPU elevada (${cpuUsagePercent.toStringAsFixed(1)}%)');
       } else if (cpuUsagePercent > 60) {

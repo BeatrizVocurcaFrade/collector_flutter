@@ -245,6 +245,7 @@ class _MetricGrid extends StatelessWidget {
         : memoryTrendMBperMin > 10
             ? Colors.orange
             : Colors.green;
+    final isCpuReady = confidence == MetricConfidence.stable && cpuPercent >= 0;
 
     return Wrap(
       spacing: 8,
@@ -253,8 +254,14 @@ class _MetricGrid extends StatelessWidget {
         _metricCard(
           icon: Icons.speed,
           title: 'FPS',
-          value: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames || fpsVal <= 0) ? '--' : fps,
-          color: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames || fpsVal <= 0)
+          value: (confidence != MetricConfidence.stable ||
+                  !hasEnoughWindowFrames ||
+                  fpsVal <= 0)
+              ? '--'
+              : fps,
+          color: (confidence != MetricConfidence.stable ||
+                  !hasEnoughWindowFrames ||
+                  fpsVal <= 0)
               ? Colors.grey.shade500
               : _fpsColor(fpsVal),
           info: 'Quadros por segundo renderizados.\n'
@@ -268,19 +275,23 @@ class _MetricGrid extends StatelessWidget {
           value: '$memory MB',
           color: Colors.blueAccent.shade400,
           info: 'Uso de memoria RSS do processo.\n'
-              'Acima de 200 MB pode indicar vazamentos.\n\n'
-              'Revise listas, caches e streams nao cancelados.',
+              'No Android, RSS absoluto inclui bibliotecas do sistema.\n\n'
+              'Alertas de memoria usam tendencia sustentada, nao valor absoluto.',
           badge: Icon(trendIcon, size: 13, color: trendColor),
         ),
         _metricCard(
           icon: Icons.warning_amber_rounded,
           title: 'Jank',
-          value: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames) ? '--' : '$jank',
-          color: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
-              ? Colors.grey.shade500
-              : jank > 5
-                  ? Colors.orange.shade600
-                  : Colors.green.shade600,
+          value:
+              (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
+                  ? '--'
+                  : '$jank',
+          color:
+              (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
+                  ? Colors.grey.shade500
+                  : jank > 5
+                      ? Colors.orange.shade600
+                      : Colors.green.shade600,
           info: 'Frames acima do limiar de tempo.\n'
               'Orcamento atual: ${frameBudgetMs.toStringAsFixed(1)} ms.\n\n'
               'Use o Flutter DevTools timeline para inspecionar.',
@@ -296,10 +307,14 @@ class _MetricGrid extends StatelessWidget {
         _metricCard(
           icon: Icons.bar_chart_rounded,
           title: 'P95 Frame',
-          value: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames) ? '--' : '${p95Ms}ms',
-          color: (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
-              ? Colors.grey.shade500
-              : _p95Color(double.tryParse(p95Ms) ?? 0),
+          value:
+              (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
+                  ? '--'
+                  : '${p95Ms}ms',
+          color:
+              (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
+                  ? Colors.grey.shade500
+                  : _p95Color(double.tryParse(p95Ms) ?? 0),
           info: 'Percentil 95 do tempo de frame.\n'
               'Reflete a experiencia dos usuarios mais lentos.\n\n'
               'Manter perto de ${frameBudgetMs.toStringAsFixed(1)} ms evita jank perceptivel.',
@@ -307,11 +322,11 @@ class _MetricGrid extends StatelessWidget {
         _metricCard(
           icon: Icons.developer_board,
           title: 'CPU',
-          value: cpuPercent < 0 ? 'N/D' : '${cpuPercent.toStringAsFixed(1)}%',
-          color: _cpuColor(cpuPercent),
+          value: isCpuReady ? '${cpuPercent.toStringAsFixed(1)}%' : '--',
+          color: isCpuReady ? _cpuColor(cpuPercent) : Colors.grey.shade500,
           info: 'Uso de CPU do processo (Android).\n'
-              'Acima de 80% indica sobrecarga.\n\n'
-              'Mova trabalho pesado para Isolates e reduza timers frequentes.',
+              'A leitura inicial e suavizada para evitar picos de partida.\n\n'
+              'Acima de 80% sustentado indica sobrecarga.',
         ),
         _metricCard(
           icon: isCharging ? Icons.battery_charging_full : Icons.battery_std,

@@ -265,9 +265,19 @@ void main() {
               timestamp: start.add(const Duration(seconds: 30)),
             ),
             MemoryInfo(
-              currentRssInBytes: 170 * 1024 * 1024,
+              currentRssInBytes: 160 * 1024 * 1024,
+              heapUsageInBytes: 48 * 1024 * 1024,
+              timestamp: start.add(const Duration(seconds: 60)),
+            ),
+            MemoryInfo(
+              currentRssInBytes: 190 * 1024 * 1024,
+              heapUsageInBytes: 49 * 1024 * 1024,
+              timestamp: start.add(const Duration(seconds: 90)),
+            ),
+            MemoryInfo(
+              currentRssInBytes: 220 * 1024 * 1024,
               heapUsageInBytes: 50 * 1024 * 1024,
-              timestamp: start.add(const Duration(minutes: 1)),
+              timestamp: start.add(const Duration(minutes: 2)),
             ),
           ],
         ),
@@ -278,6 +288,47 @@ void main() {
         contains(predicate<String>(
           (issue) => issue.contains('Possível crescimento de memória'),
         )),
+      );
+    });
+
+    test('não gera issue de memória por tendência curta de inicialização', () {
+      final analyzer = Analyzer();
+      final start = DateTime(2024, 1, 1, 12);
+      final result = analyzer.analyzeTelemetry(
+        _stableTelemetry(
+          memoryHistory: [
+            MemoryInfo(
+              currentRssInBytes: 100 * 1024 * 1024,
+              heapUsageInBytes: 40 * 1024 * 1024,
+              timestamp: start,
+            ),
+            MemoryInfo(
+              currentRssInBytes: 130 * 1024 * 1024,
+              heapUsageInBytes: 45 * 1024 * 1024,
+              timestamp: start.add(const Duration(seconds: 5)),
+            ),
+            MemoryInfo(
+              currentRssInBytes: 160 * 1024 * 1024,
+              heapUsageInBytes: 48 * 1024 * 1024,
+              timestamp: start.add(const Duration(seconds: 10)),
+            ),
+            MemoryInfo(
+              currentRssInBytes: 190 * 1024 * 1024,
+              heapUsageInBytes: 49 * 1024 * 1024,
+              timestamp: start.add(const Duration(seconds: 15)),
+            ),
+            MemoryInfo(
+              currentRssInBytes: 220 * 1024 * 1024,
+              heapUsageInBytes: 50 * 1024 * 1024,
+              timestamp: start.add(const Duration(seconds: 20)),
+            ),
+          ],
+        ),
+      );
+
+      expect(
+        result.issues.where((issue) => issue.contains('memória')),
+        isEmpty,
       );
     });
 
