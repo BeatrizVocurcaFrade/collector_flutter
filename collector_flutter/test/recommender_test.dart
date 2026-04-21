@@ -9,6 +9,11 @@ AnalysisResult _makeResult({
   int memoryBytes = 0,
   int networkRequests = 0,
   List<String> issues = const [],
+  FrameStats? frameStats,
+  MemoryStats? memoryStats,
+  NetworkStats? networkStats,
+  MetricConfidence confidence = MetricConfidence.stable,
+  bool hasEnoughWindowFrames = true,
 }) {
   return AnalysisResult(
     estimatedFps: fps,
@@ -17,6 +22,11 @@ AnalysisResult _makeResult({
     memoryBytes: memoryBytes,
     networkRequests: networkRequests,
     issues: issues,
+    frameStats: frameStats,
+    memoryStats: memoryStats,
+    networkStats: networkStats,
+    confidence: confidence,
+    hasEnoughWindowFrames: hasEnoughWindowFrames,
   );
 }
 
@@ -31,6 +41,33 @@ void main() {
       expect(recs, hasLength(1));
       expect(recs.first.title, 'Tudo OK');
       expect(recs.first.severity, Severity.info);
+    });
+
+    test('retorna "Tudo OK" em idle com RSS alto e uma request lenta/falha',
+        () {
+      final recs = recommender.generate(
+        _makeResult(
+          hasEnoughWindowFrames: false,
+          memoryStats: const MemoryStats(
+            currentRssMB: 900,
+            heapUsageMB: 80,
+            peakRssMB: 900,
+            trendMBperMin: 0,
+            sampleCount: 1,
+          ),
+          networkStats: const NetworkStats(
+            requestCount: 1,
+            failedRequests: 1,
+            totalRequestBytes: 10,
+            totalResponseBytes: 0,
+            avgDurationMs: 2000,
+            p95DurationMs: 2000,
+          ),
+        ),
+      );
+
+      expect(recs, hasLength(1));
+      expect(recs.first.title, 'Tudo OK');
     });
   });
 
@@ -51,14 +88,35 @@ void main() {
   });
 
   group('Recommender — jank', () {
-    test('gera alerta de jank quando longFrames > 5', () {
-      final recs = recommender.generate(_makeResult(longFrames: 10));
+    test('gera alerta de jank quando longFrames >= 6', () {
+      final recs = recommender.generate(_makeResult(longFrames: 6));
       final jank = recs.where((r) => r.title.contains('jank')).toList();
       expect(jank, isNotEmpty);
     });
 
-    test('não gera alerta de jank quando longFrames <= 5', () {
+    test('não gera alerta de jank quando longFrames < 6', () {
       final recs = recommender.generate(_makeResult(longFrames: 5));
+      final jank = recs.where((r) => r.title.contains('jank')).toList();
+      expect(jank, isEmpty);
+    });
+
+    test('não gera alerta de jank por P95 isolado sem issue do Analyzer', () {
+      final recs = recommender.generate(
+        _makeResult(
+          longFrames: 5,
+          frameStats: const FrameStats(
+            p50Ms: 16,
+            p95Ms: 40,
+            p99Ms: 40,
+            stdDevMs: 8,
+            avgMs: 24,
+            minMs: 16,
+            maxMs: 40,
+            sampleCount: 15,
+          ),
+        ),
+      );
+
       final jank = recs.where((r) => r.title.contains('jank')).toList();
       expect(jank, isEmpty);
     });
@@ -74,6 +132,25 @@ void main() {
 
     test('não gera alerta de rede quando requests <= 50', () {
       final recs = recommender.generate(_makeResult(networkRequests: 50));
+      final net = recs.where((r) => r.title.contains('rede')).toList();
+      expect(net, isEmpty);
+    });
+
+    test('não gera alerta de rede por P95/falha isolados sem issue do Analyzer',
+        () {
+      final recs = recommender.generate(
+        _makeResult(
+          networkStats: const NetworkStats(
+            requestCount: 1,
+            failedRequests: 1,
+            totalRequestBytes: 10,
+            totalResponseBytes: 0,
+            avgDurationMs: 2000,
+            p95DurationMs: 2000,
+          ),
+        ),
+      );
+
       final net = recs.where((r) => r.title.contains('rede')).toList();
       expect(net, isEmpty);
     });

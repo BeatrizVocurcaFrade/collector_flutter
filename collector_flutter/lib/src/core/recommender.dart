@@ -12,20 +12,13 @@ class Recommender {
         result.hasEnoughWindowFrames &&
         result.estimatedFps > 0 &&
         result.estimatedFps < result.targetFps * 0.75;
-    final hasJank = hasStableData &&
-        result.hasEnoughWindowFrames &&
-        (result.longFrames > 5 ||
-            result.frameStats.p95Ms > result.frameBudgetMs * 2.0);
+    final hasJank =
+        hasStableData && result.hasEnoughWindowFrames && result.longFrames >= 6;
     final currentMemoryMB = result.memoryStats.currentRssMB > 0
         ? result.memoryStats.currentRssMB
         : result.memoryMB;
-    final hasMemoryPressure = hasStableData &&
-        currentMemoryMB > 0 &&
-        currentMemoryMB > (kReleaseMode ? 400 : 800);
     final hasNetworkPressure =
         result.networkStats.requestCount > 50 || result.networkRequests > 50;
-    final hasNetworkFailure = result.networkStats.failedRequests > 0;
-    final hasNetworkLatency = result.networkStats.p95DurationMs > 1500;
 
     if (result.confidence == MetricConfidence.warmingUp) {
       recommendations.add(
@@ -71,7 +64,7 @@ class Recommender {
       );
     }
 
-    if (_hasIssue(result, 'memória') || hasMemoryPressure) {
+    if (_hasIssue(result, 'memória')) {
       recommendations.add(
         Recommendation(
           title: 'Revise pressão de memória',
@@ -88,9 +81,7 @@ class Recommender {
     if (_hasIssue(result, 'rede') ||
         _hasIssue(result, 'Latência') ||
         _hasIssue(result, 'Falhas') ||
-        hasNetworkPressure ||
-        hasNetworkFailure ||
-        hasNetworkLatency) {
+        hasNetworkPressure) {
       recommendations.add(
         Recommendation(
           title: 'Ajuste o fluxo de rede',
@@ -99,7 +90,8 @@ class Recommender {
               'P95: ${result.networkStats.p95DurationMs.toStringAsFixed(0)} ms.\n\n'
               'Use cache, debounce, cancelamento de requests obsoletos e '
               'agrupe chamadas que disparam juntas.',
-          severity: hasNetworkFailure ? Severity.medium : Severity.low,
+          severity:
+              _hasIssue(result, 'Falhas') ? Severity.medium : Severity.low,
         ),
       );
     }
@@ -108,7 +100,8 @@ class Recommender {
       recommendations.add(
         Recommendation(
           title: 'Alto uso de CPU detectado',
-          detail: 'CPU atual: ${result.cpuUsagePercent.toStringAsFixed(1)}%.\n\n'
+          detail:
+              'CPU atual: ${result.cpuUsagePercent.toStringAsFixed(1)}%.\n\n'
               'Mova computações pesadas para Isolates, reduza timers frequentes '
               'e evite rebuilds desnecessários no caminho crítico.',
           severity: Severity.high,
@@ -118,7 +111,8 @@ class Recommender {
       recommendations.add(
         Recommendation(
           title: 'Uso moderado de CPU',
-          detail: 'CPU atual: ${result.cpuUsagePercent.toStringAsFixed(1)}%.\n\n'
+          detail:
+              'CPU atual: ${result.cpuUsagePercent.toStringAsFixed(1)}%.\n\n'
               'Monitore tendências; considere otimizar loops e reduzir '
               'frequência de coleta se não necessário.',
           severity: Severity.low,

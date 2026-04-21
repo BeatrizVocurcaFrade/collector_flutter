@@ -1,10 +1,59 @@
+import 'dart:ui' show FrameTiming;
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:collector_flutter/src/core/analyzer.dart';
 import 'package:collector_flutter/src/data/models/telemetry_model.dart';
 
-// FrameTiming não pode ser instanciado diretamente nos testes — usamos um
-// stub simples que expõe os campos necessários via TelemetryModel personalizado.
-// Como não conseguimos criar FrameTiming, testamos FrameStats.compute diretamente.
+// FrameTiming tem factory para testes; usamos timestamps sintéticos para
+// exercitar o Analyzer sem depender do engine reportar frames reais.
+
+FrameTiming _frameTiming(double totalMs) {
+  final totalUs = (totalMs * Duration.microsecondsPerMillisecond).round();
+  return FrameTiming(
+    vsyncStart: 0,
+    buildStart: 0,
+    buildFinish: totalUs ~/ 2,
+    rasterStart: totalUs ~/ 2,
+    rasterFinish: totalUs,
+    rasterFinishWallTime: totalUs,
+  );
+}
+
+TelemetryModel _stableTelemetry({
+  List<FrameTiming> frameTimings = const [],
+  List<MemoryInfo> memoryHistory = const [],
+  MemoryInfo? memoryInfo,
+  List<NetworkEvent> networkEvents = const [],
+}) {
+  final start = DateTime(2024, 1, 1, 12);
+  return TelemetryModel(
+    frameTimings: frameTimings,
+    memoryInfo: memoryInfo,
+    memoryHistory: memoryHistory,
+    networkEvents: networkEvents,
+    sessionStart: start,
+    capturedAt: start.add(const Duration(seconds: 7)),
+    totalFrameCount: frameTimings.length,
+    totalNetworkRequests: networkEvents.length,
+  );
+}
+
+NetworkEvent _networkEvent({
+  int statusCode = 200,
+  Duration duration = const Duration(milliseconds: 100),
+  String? error,
+}) {
+  return NetworkEvent(
+    url: 'https://example.com',
+    method: 'GET',
+    statusCode: statusCode,
+    requestBytes: 10,
+    responseBytes: 100,
+    timestamp: DateTime(2024),
+    duration: duration,
+    error: error,
+  );
+}
 
 void main() {
   group('FrameStats.compute', () {
@@ -179,6 +228,158 @@ void main() {
       expect(stats.totalResponseBytes, 150);
       expect(stats.avgDurationMs, closeTo(200, 0.01));
       expect(stats.failureRate, closeTo(0.5, 0.01));
+    });
+  });
+
+  group('Analyzer — alert gates', () {
+    test('não gera issue de memória por RSS alto isolado', () {
+      final analyzer = Analyzer();
+      final result = analyzer.analyzeTelemetry(
+        _stableTelemetry(
+          memoryInfo: MemoryInfo(
+            currentRssInBytes: 900 * 1024 * 1024,
+            heapUsageInBytes: 80 * 1024 * 1024,
+            timestamp: DateTime(2024),
+          ),
+        ),
+      );
+
+      expect(
+          result.issues.where((issue) => issue.contains('memória')), isEmpty);
+    });
+
+    test('gera issue de memória apenas por tendência alta', () {
+      final analyzer = Analyzer();
+      final start = DateTime(2024, 1, 1, 12);
+      final result = analyzer.analyzeTelemetry(
+        _stableTelemetry(
+          memoryHistory: [
+            MemoryInfo(
+              currentRssInBytes: 100 * 1024 * 1024,
+              heapUsageInBytes: 40 * 1024 * 1024,
+              timestamp: start,
+            ),
+            MemoryInfo(
+              currentRssInBytes: 130 * 1024 * 1024,
+              heapUsageInBytes: 45 * 1024 * 1024,
+              timestamp: start.add(const Duration(seconds: 30)),
+            ),
+            MemoryInfo(
+              currentRssInBytes: 170 * 1024 * 1024,
+              heapUsageInBytes: 50 * 1024 * 1024,
+              timestamp: start.add(const Duration(minutes: 1)),
+            ),
+          ],
+        ),
+      );
+
+      expect(
+        result.issues,
+        contains(predicate<String>(
+          (issue) => issue.contains('Possível crescimento de memória'),
+        )),
+      );
+    });
+
+    test('não gera issue de rede com apenas uma request lenta e falha', () {
+      final analyzer = Analyzer();
+      final result = analyzer.analyzeTelemetry(
+        _stableTelemetry(
+          networkEvents: [
+            _networkEvent(
+              statusCode: 500,
+              duration: const Duration(seconds: 2),
+            ),
+          ],
+        ),
+      );
+
+      expect(result.issues.where((issue) => issue.contains('rede')), isEmpty);
+      expect(
+          result.issues.where((issue) => issue.contains('Latência')), isEmpty);
+    });
+
+    test('gera issue de rede com 5 requests e P95 alto', () {
+      final analyzer = Analyzer();
+      final result = analyzer.analyzeTelemetry(
+        _stableTelemetry(
+          networkEvents: [
+            _networkEvent(),
+            _networkEvent(),
+            _networkEvent(),
+            _networkEvent(),
+            _networkEvent(duration: const Duration(seconds: 2)),
+          ],
+        ),
+      );
+
+      expect(
+        result.issues,
+        contains(predicate<String>(
+          (issue) => issue.contains('Latência de rede elevada'),
+        )),
+      );
+    });
+
+    test('gera issue de rede com 5 requests e falhas', () {
+      final analyzer = Analyzer();
+      final result = analyzer.analyzeTelemetry(
+        _stableTelemetry(
+          networkEvents: [
+            _networkEvent(),
+            _networkEvent(),
+            _networkEvent(),
+            _networkEvent(),
+            _networkEvent(statusCode: 500),
+          ],
+        ),
+      );
+
+      expect(
+        result.issues,
+        contains(predicate<String>(
+          (issue) => issue.contains('Falhas de rede'),
+        )),
+      );
+    });
+
+    test('não gera jank com 15 frames e 5 frames longos', () {
+      final analyzer = Analyzer();
+      final result = analyzer.analyzeTelemetry(
+        _stableTelemetry(
+          frameTimings: [
+            ...List.generate(10, (_) => _frameTiming(10)),
+            ...List.generate(5, (_) => _frameTiming(40)),
+          ],
+        ),
+      );
+
+      expect(result.longFrames, 5);
+      expect(result.issues.where((issue) => issue.contains('Jank')), isEmpty);
+      expect(
+        result.issues.where((issue) => issue.contains('P95 de frame')),
+        isEmpty,
+      );
+    });
+
+    test('gera jank com 15 frames e 6 frames longos', () {
+      final analyzer = Analyzer();
+      final result = analyzer.analyzeTelemetry(
+        _stableTelemetry(
+          frameTimings: [
+            ...List.generate(9, (_) => _frameTiming(10)),
+            ...List.generate(6, (_) => _frameTiming(40)),
+          ],
+        ),
+      );
+
+      expect(result.longFrames, 6);
+      expect(
+        result.issues,
+        contains(predicate<String>(
+          (issue) => issue.contains('Jank detectado'),
+        )),
+      );
     });
   });
 }

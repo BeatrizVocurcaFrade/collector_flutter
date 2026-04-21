@@ -26,6 +26,12 @@ class PerformanceBudget {
   /// Janelas com poucos frames (app idle, apenas monitoring) são ignoradas.
   final int minWindowFrames;
 
+  /// Número mínimo de requests para considerar alertas de falha/latência.
+  final int minNetworkSamples;
+
+  /// Número mínimo de frames longos para alertar jank/P95 por overhead repetido.
+  final int minJankLongFrames;
+
   const PerformanceBudget({
     this.targetFrameRate = 60,
     this.memoryWarningMB = 300,
@@ -34,6 +40,8 @@ class PerformanceBudget {
     this.minFrameSamples = 10,
     this.minSessionSeconds = 6,
     this.minWindowFrames = 15,
+    this.minNetworkSamples = 5,
+    this.minJankLongFrames = 6,
   });
 
   double get frameBudgetMs => 1000.0 / targetFrameRate;
@@ -48,6 +56,8 @@ class PerformanceBudget {
     int? minFrameSamples,
     int? minSessionSeconds,
     int? minWindowFrames,
+    int? minNetworkSamples,
+    int? minJankLongFrames,
   }) {
     return PerformanceBudget(
       targetFrameRate: targetFrameRate ?? this.targetFrameRate,
@@ -59,6 +69,8 @@ class PerformanceBudget {
       minFrameSamples: minFrameSamples ?? this.minFrameSamples,
       minSessionSeconds: minSessionSeconds ?? this.minSessionSeconds,
       minWindowFrames: minWindowFrames ?? this.minWindowFrames,
+      minNetworkSamples: minNetworkSamples ?? this.minNetworkSamples,
+      minJankLongFrames: minJankLongFrames ?? this.minJankLongFrames,
     );
   }
 }
@@ -290,7 +302,11 @@ class Analyzer {
       memoryBytes: telemetry.memoryInfo?.currentRssInBytes ?? 0,
       networkRequests: networkStats.requestCount,
       issues: issues,
-      note: _noteFor(confidence, telemetry.totalFrameCount, telemetry.sessionDuration),
+      note: _noteFor(
+        confidence,
+        telemetry.totalFrameCount,
+        telemetry.sessionDuration,
+      ),
       frameStats: stats,
       memoryTrendMBperMin: memoryStats.trendMBperMin,
       memoryStats: memoryStats,
@@ -314,8 +330,12 @@ class Analyzer {
     required Duration sessionAge,
   }) {
     if (totalSessionFrames == 0) return MetricConfidence.none;
-    if (totalSessionFrames < budget.minFrameSamples) return MetricConfidence.warmingUp;
-    if (sessionAge.inSeconds < budget.minSessionSeconds) return MetricConfidence.warmingUp;
+    if (totalSessionFrames < budget.minFrameSamples) {
+      return MetricConfidence.warmingUp;
+    }
+    if (sessionAge.inSeconds < budget.minSessionSeconds) {
+      return MetricConfidence.warmingUp;
+    }
     return MetricConfidence.stable;
   }
 
@@ -348,6 +368,9 @@ class Analyzer {
     // Gate frame-based metrics on window size: idle windows (2-5 frames from
     // monitoring alone) produce misleading P95/FPS/jank readings.
     final canAnalyzeFrames = hasStableFrames && hasEnoughWindowFrames;
+    final hasRepeatedLongFrames = longFrames >= budget.minJankLongFrames;
+    final hasEnoughNetworkSamples =
+        networkStats.requestCount >= budget.minNetworkSamples;
 
     if (canAnalyzeFrames && estimatedFps > 0) {
       // 0.75 (45 fps for 60 fps target) gives headroom for the monitoring
@@ -362,24 +385,22 @@ class Analyzer {
 
     // Use severeFrameMs (2× budget ≈ 33 ms) to avoid flagging the small spikes
     // caused by the collector's own vm_service queries every ~1.8 s.
-    if (canAnalyzeFrames && frameStats.p95Ms > budget.severeFrameMs) {
+    if (canAnalyzeFrames &&
+        hasRepeatedLongFrames &&
+        frameStats.p95Ms > budget.severeFrameMs) {
       issues.add(
         'P95 de frame acima do orçamento (${frameStats.p95Ms.toStringAsFixed(1)} ms)',
       );
     }
 
-    if (canAnalyzeFrames && longFrames >= 3 && jankRate > 0.05) {
+    if (canAnalyzeFrames && hasRepeatedLongFrames && jankRate > 0.05) {
       issues.add(
         'Jank detectado: $longFrames frames longos (${(jankRate * 100).toStringAsFixed(1)}%)',
       );
     }
 
-    if (hasStableFrames && memoryStats.currentRssMB > budget.memoryWarningMB) {
-      issues.add(
-        'Uso de memória elevado (${memoryStats.currentRssMB.toStringAsFixed(1)} MB)',
-      );
-    }
-
+    // Absolute RSS is unreliable on Android (system libs inflate it by 200-300 MB).
+    // Only the growth trend reliably signals a leak.
     if (memoryStats.sampleCount >= 3 && memoryStats.trendMBperMin > 30) {
       issues.add(
         'Possível crescimento de memória: +${memoryStats.trendMBperMin.toStringAsFixed(1)} MB/min',
@@ -390,11 +411,12 @@ class Analyzer {
       issues.add('Muitas requisições de rede (${networkStats.requestCount})');
     }
 
-    if (networkStats.failedRequests > 0) {
+    if (hasEnoughNetworkSamples && networkStats.failedRequests > 0) {
       issues.add('Falhas de rede (${networkStats.failedRequests})');
     }
 
-    if (networkStats.p95DurationMs > budget.networkLatencyWarningMs) {
+    if (hasEnoughNetworkSamples &&
+        networkStats.p95DurationMs > budget.networkLatencyWarningMs) {
       issues.add(
         'Latência de rede elevada (P95 ${networkStats.p95DurationMs.toStringAsFixed(0)} ms)',
       );
@@ -420,7 +442,9 @@ class Analyzer {
     int totalSessionFrames,
     Duration sessionAge,
   ) {
-    if (confidence == MetricConfidence.none) return 'Aguardando frames renderizados';
+    if (confidence == MetricConfidence.none) {
+      return 'Aguardando frames renderizados';
+    }
     if (confidence == MetricConfidence.warmingUp) {
       if (totalSessionFrames < budget.minFrameSamples) {
         return 'Coletando dados iniciais ($totalSessionFrames/${budget.minFrameSamples} frames)';
