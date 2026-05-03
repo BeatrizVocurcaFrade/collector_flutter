@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  21 APR 2026 11:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  3 MAY 2026 20:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -554,12 +554,18 @@ Cap\'{\i }tulo 3.
 
 
 ]
-<Metodologia/cicloDeVida.png, id=546, 4209.7275pt x 1980.39874pt>
-File: Metodologia/cicloDeVida.png Graphic file (type png)
-<use Metodologia/cicloDeVida.png>
-Package pdftex.def Info: Metodologia/cicloDeVida.png  used on input line 67.
-(pdftex.def)             Requested size: 418.96548pt x 197.08449pt.
- [12] [13 <./Metodologia/cicloDeVida.png>]) [14]
+<../images/mermaid/outputs//ciclo_de_vida.png, id=546, 5093.0275pt x 2009.5075pt>
+File: ../images/mermaid/outputs//ciclo_de_vida.png Graphic file (type png)
+<use ../images/mermaid/outputs//ciclo_de_vida.png>
+Package pdftex.def Info: ../images/mermaid/outputs//ciclo_de_vida.png  used on input line 67.
+(pdftex.def)             Requested size: 418.96548pt x 165.30194pt.
+ [12]
+<../images/mermaid/outputs//metodologia_pesquisa.png, id=555, 5769.555pt x 1700.3525pt>
+File: ../images/mermaid/outputs//metodologia_pesquisa.png Graphic file (type png)
+<use ../images/mermaid/outputs//metodologia_pesquisa.png>
+Package pdftex.def Info: ../images/mermaid/outputs//metodologia_pesquisa.png  used on input line 76.
+(pdftex.def)             Requested size: 418.96548pt x 123.47346pt.
+ [13 <../images/mermaid/outputs//ciclo_de_vida.png (PNG copy)> <../images/mermaid/outputs//metodologia_pesquisa.png (PNG copy)>]) [14] [15]
 \openout2 = `Metodologia/cronograma.aux'.
 
  (./Metodologia/cronograma.tex
@@ -637,63 +643,61 @@ Overfull \hbox (21.77359pt too wide) in paragraph at lines 73--101
  [][] 
  []
 
-) [15
+) [16
 
 
 
-] [16] [17] [18]
+] [17] [18] [19]
 \openout2 = `Metodologia/desenvolvimento.aux'.
 
- (./Metodologia/desenvolvimento.tex [19
+ (./Metodologia/desenvolvimento.tex [20
 
 
 
 ]
-<./Metodologia//sequenceDiagram.png, id=607, 4421.51875pt x 2076.75874pt>
-File: ./Metodologia//sequenceDiagram.png Graphic file (type png)
-<use ./Metodologia//sequenceDiagram.png>
-Package pdftex.def Info: ./Metodologia//sequenceDiagram.png  used on input line 63.
-(pdftex.def)             Requested size: 396.91325pt x 186.4249pt.
- [20 <./Metodologia//sequenceDiagram.png>]
+Underfull \hbox (badness 1466) in paragraph at lines 58--60
+[]\T1/ptm/m/n/12 A Fi-gura [][]3.3[][] ilus-tra a ar-qui-te-tura lo-cal ado-tada no pro-tó-tipo. Ela or-ga-niza o
+ []
+
+<../images/mermaid/outputs//arquitetura_fluxo_collector.png, id=611, 6391.88pt x 1722.435pt>
+File: ../images/mermaid/outputs//arquitetura_fluxo_collector.png Graphic file (type png)
+<use ../images/mermaid/outputs//arquitetura_fluxo_collector.png>
+Package pdftex.def Info: ../images/mermaid/outputs//arquitetura_fluxo_collector.png  used on input line 63.
+(pdftex.def)             Requested size: 418.96548pt x 112.88208pt.
+[21 <../images/mermaid/outputs//arquitetura_fluxo_collector.png (PNG copy)>]
 Underfull \hbox (badness 2005) in paragraph at lines 88--89
 []\T1/ptm/m/n/12 Comparação pre-li-mi-nar com mé-tri-cas ob-ti-das via An-droid Pro-fi-ler e Per-fetto
  []
 
-[21] [22] [23]
-<Metodologia/sequenceDiagram.png, id=654, 4421.51875pt x 2076.75874pt>
-File: Metodologia/sequenceDiagram.png Graphic file (type png)
-<use Metodologia/sequenceDiagram.png>
-Package pdftex.def Info: Metodologia/sequenceDiagram.png  used on input line 249.
-(pdftex.def)             Requested size: 396.91325pt x 186.4249pt.
- [24 <./Metodologia/sequenceDiagram.png>]
-Underfull \hbox (badness 7504) in paragraph at lines 276--278
+[22] [23] [24]
+Underfull \hbox (badness 7504) in paragraph at lines 232--234
 \T1/pcr/m/n/12 recordWidget-Rebuild()\T1/ptm/m/n/12 , \T1/pcr/m/n/12 recordNetwork() \T1/ptm/m/n/12 e \T1/pcr/m/n/12 recordFrameTiming()\T1/ptm/m/n/12 ,
  []
 
 [25] [26]
-<Metodologia/prototipoquandoestaok.jpeg, id=681, 740.7675pt x 1606.0pt>
-File: Metodologia/prototipoquandoestaok.jpeg Graphic file (type jpg)
-<use Metodologia/prototipoquandoestaok.jpeg>
-Package pdftex.def Info: Metodologia/prototipoquandoestaok.jpeg  used on input line 334.
+<../images/figures//prototipoquandoestaok.jpeg, id=674, 740.7675pt x 1606.0pt>
+File: ../images/figures//prototipoquandoestaok.jpeg Graphic file (type jpg)
+<use ../images/figures//prototipoquandoestaok.jpeg>
+Package pdftex.def Info: ../images/figures//prototipoquandoestaok.jpeg  used on input line 290.
 (pdftex.def)             Requested size: 162.73198pt x 352.81552pt.
-<Metodologia/prototipoquandonaoestaok.jpeg, id=682, 740.7675pt x 1606.0pt>
-File: Metodologia/prototipoquandonaoestaok.jpeg Graphic file (type jpg)
-<use Metodologia/prototipoquandonaoestaok.jpeg>
-Package pdftex.def Info: Metodologia/prototipoquandonaoestaok.jpeg  used on input line 344.
+<../images/figures//prototipoquandonaoestaok.jpeg, id=675, 740.7675pt x 1606.0pt>
+File: ../images/figures//prototipoquandonaoestaok.jpeg Graphic file (type jpg)
+<use ../images/figures//prototipoquandonaoestaok.jpeg>
+Package pdftex.def Info: ../images/figures//prototipoquandonaoestaok.jpeg  used on input line 300.
 (pdftex.def)             Requested size: 162.73198pt x 352.81552pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [27 <./Metodologia/prototipoquandoestaok.jpeg>]
-<./Metodologia//iconedoappexamplo.jpeg, id=687, 318.18875pt x 338.26375pt>
-File: ./Metodologia//iconedoappexamplo.jpeg Graphic file (type jpg)
-<use ./Metodologia//iconedoappexamplo.jpeg>
-Package pdftex.def Info: ./Metodologia//iconedoappexamplo.jpeg  used on input line 354.
+ [27 <../images/figures//prototipoquandoestaok.jpeg>]
+<../images/figures//iconedoappexamplo.jpeg, id=681, 318.18875pt x 338.26375pt>
+File: ../images/figures//iconedoappexamplo.jpeg Graphic file (type jpg)
+<use ../images/figures//iconedoappexamplo.jpeg>
+Package pdftex.def Info: ../images/figures//iconedoappexamplo.jpeg  used on input line 310.
 (pdftex.def)             Requested size: 124.45724pt x 132.30666pt.
- [28 <./Metodologia/prototipoquandonaoestaok.jpeg> <./Metodologia//iconedoappexamplo.jpeg>] [29] [30] [31] [32] [33]) [34]
+
+Underfull \vbox (badness 2126) has occurred while \output is active []
+
+ [28 <../images/figures//prototipoquandonaoestaok.jpeg> <../images/figures//iconedoappexamplo.jpeg>] [29] [30] [31] [32]) [33]
 \openout2 = `Metodologia/teste.aux'.
 
- (./Metodologia/teste.tex [35
+ (./Metodologia/teste.tex [34
 
 
 
@@ -702,7 +706,7 @@ Underfull \hbox (badness 2181) in paragraph at lines 44--45
 []\T1/ptm/m/n/12 Foram dis-pa-ra-das múl-ti-plas re-qui-si-ções HTTP pa-ra-le-las, uti-li-zando o mé-todo
  []
 
-[36]
+[35]
 Underfull \hbox (badness 1609) in paragraph at lines 142--143
 []\T1/ptm/m/n/12 Avaliar im-pacto de re-builds fre-
  []
@@ -717,17 +721,7 @@ Underfull \hbox (badness 2635) in paragraph at lines 148--149
 []\T1/ptm/m/n/12 Simular com-por-ta-mento pró-ximo
  []
 
-
-Underfull \hbox (badness 1253) in paragraph at lines 134--151
-[]\T1/ptm/m/n/12 Essas prá-ti-cas as-se-gu-ram que os ex-pe-ri-men-tos pos-sam ser re-pro-du-zi-dos por ou-
- []
-
-
-Underfull \hbox (badness 1881) in paragraph at lines 134--151
-\T1/ptm/m/n/12 tros pes-qui-sa-do-res, re-for-çando a con-fi-a-bi-li-dade ci-en-tí-fica da ava-li-a-ção do pro-tó-tipo
- []
-
-) [37] [38]
+) [36] [37]
 \openout2 = `Resultados/Resultados.aux'.
 
  (./Resultados/Resultados.tex
@@ -745,15 +739,15 @@ Underfull \hbox (badness 4739) in paragraph at lines 38--38
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [39
+ [38
 
 
 
 
-] [40] [41]
+] [39] [40]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <12> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 108.
- [42] [43])
+ [41] [42])
 \openout2 = `Conclusao/Conclusao.aux'.
 
  (./Conclusao/Conclusao.tex
@@ -761,38 +755,38 @@ Cap\'{\i }tulo 5.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [44
+ [43
 
 
 
 
 
-] [45] [46])
+] [44] [45])
 \openout2 = `Bibliografia/Bibliografia.aux'.
 
- (./Bibliografia/Bibliografia.tex [47
+ (./Bibliografia/Bibliografia.tex [46
 
 
 
 
 
-] [48]) [49] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/revisao.aux) (./DescricaoProcesso/Humanidades.aux) (./Metodologia/inicio.aux) (./Metodologia/cronograma.aux) (./Metodologia/desenvolvimento.aux) (./Metodologia/teste.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Bibliografia/Bibliografia.aux))
+] [47]) [48] (./Monografia.aux (./Capa/capa.aux) (./Resumo/Resumo.aux) (./TabelaConteudo/TabelaConteudo.aux) (./ListaFiguras/ListaFiguras.aux) (./Introducao/Introducao.aux) (./DescricaoProcesso/revisao.aux) (./DescricaoProcesso/Humanidades.aux) (./Metodologia/inicio.aux) (./Metodologia/cronograma.aux) (./Metodologia/desenvolvimento.aux) (./Metodologia/teste.aux) (./Resultados/Resultados.aux) (./Conclusao/Conclusao.aux) (./Bibliografia/Bibliografia.aux))
 Package rerunfilecheck Info: File `Monografia.out' has not changed.
-(rerunfilecheck)             Checksum: D9D0282C44F6AD29C44D26FA9651F76E;16249.
+(rerunfilecheck)             Checksum: B54835E5900DED70C5A4A6B291D960AA;16112.
  ) 
 Here is how much of TeX's memory you used:
- 12330 strings out of 477958
- 204190 string characters out of 5838580
+ 12338 strings out of 477958
+ 204980 string characters out of 5838580
  1877330 words of memory out of 5000000
- 31924 multiletter control sequences out of 15000+600000
+ 31932 multiletter control sequences out of 15000+600000
  563244 words of font info for 95 fonts, out of 8000000 for 9000
  61 hyphenation exceptions out of 8191
- 75i,11n,76p,964b,592s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,76p,964b,668s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Monografia.pdf (55 pages, 1833877 bytes).
+Output written on Monografia.pdf (54 pages, 1851178 bytes).
 PDF statistics:
- 968 PDF objects out of 1000 (max. 8388607)
- 869 compressed objects within 9 object streams
- 227 named destinations out of 1000 (max. 500000)
+ 958 PDF objects out of 1000 (max. 8388607)
+ 863 compressed objects within 9 object streams
+ 225 named destinations out of 1000 (max. 500000)
  623 words of extra memory for PDF output out of 10000 (max. 10000000)
 

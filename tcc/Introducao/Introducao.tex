@@ -49,7 +49,7 @@ O problema é que a detecção precoce de regressões de desempenho requer instr
 
 \section{Objetivos}
 
-O objetivo geral deste trabalho é desenvolver e avaliar experimentalmente uma biblioteca Flutter para monitoramento de desempenho embutido. Essa biblioteca recebeu o nome de \texttt{collector\_flutter}. Busca-se demonstrar que é possível construir um sistema com \textit{overhead} inferior a 5\% sobre o tempo médio de renderização de quadros e precisão comparável, dentro de margem de 10\%, às ferramentas de referência do ecossistema.
+O objetivo geral deste trabalho é desenvolver e validar funcionalmente uma biblioteca Flutter para monitoramento de desempenho embutido. Essa biblioteca recebeu o nome de \texttt{collector\_flutter}. Busca-se demonstrar que é possível construir um sistema integrado ao aplicativo, capaz de coletar métricas, analisá-las por heurísticas e apresentar recomendações acionáveis durante o desenvolvimento.
 
 Os objetivos específicos são:
 
@@ -59,7 +59,7 @@ Os objetivos específicos são:
   \item Projetar uma arquitetura modular de três camadas que separe coleta, análise e apresentação de métricas, garantindo baixo acoplamento e extensibilidade.
   \item Implementar os módulos de coleta (FPS, memória, rede, eventos), análise heurística e visualização em tempo real como um pacote Dart publicável.
   \item Validar o protótipo em quatro cenários experimentais controlados, confirmando a operacionalidade do sistema e a pertinência das heurísticas implementadas.
-  \item Mensurar o \textit{overhead} introduzido pelo monitoramento e a precisão das métricas coletadas em comparação com Android Profiler e \texttt{adb shell dumpsys gfxinfo}.
+  \item Verificar qualitativamente o impacto percebido do monitoramento e a coerência das métricas coletadas em comparação preliminar com Android Profiler e \texttt{adb shell dumpsys gfxinfo}.
   \item Disponibilizar o protótipo como código aberto, com documentação técnica suficiente para reprodução e extensão por outros pesquisadores.
 \end{enumerate}
 
@@ -67,7 +67,7 @@ Os objetivos específicos são:
 
 O Capítulo~2 apresenta a fundamentação teórica, reunindo a revisão bibliográfica sobre monitoramento de recursos e ferramentas de diagnóstico existentes, e o contexto de humanidades que situa o trabalho nas dimensões de sustentabilidade digital, impacto social e responsabilidade ética.
 
-O Capítulo~3 descreve a metodologia adotada, incluindo a natureza da pesquisa, o ciclo de vida iterativo, a arquitetura do protótipo, os requisitos funcionais e não funcionais, a especificação dos módulos implementados e os procedimentos experimentais planejados.
+O Capítulo~3 descreve a metodologia adotada, incluindo a natureza da pesquisa, o ciclo de vida iterativo, a arquitetura do protótipo, os requisitos funcionais e não funcionais, a especificação dos módulos implementados e os procedimentos de validação funcional.
 
 O Capítulo~4 apresenta os resultados do desenvolvimento: o estado de implementação de cada módulo, a evolução das limitações identificadas, a validação arquitetural e as observações qualitativas dos quatro cenários experimentais.
 

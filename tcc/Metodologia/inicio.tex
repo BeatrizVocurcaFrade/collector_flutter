@@ -25,9 +25,9 @@ A adoção de uma abordagem aplicada e experimental permite atender a objetivos 
 
 \begin{itemize}
   \item \textbf{Demonstrar a viabilidade técnica} de um sistema de monitoramento autônomo e totalmente embutido no ecossistema Flutter, sem dependência de ferramentas nativas externas (Android Developers~\cite{android2024});
-  \item \textbf{Avaliar o impacto da coleta de métricas} sobre o desempenho da aplicação, mensurando o \textit{overhead} introduzido pelo processo de monitoramento;
-  \item \textbf{Mensurar a precisão dos dados coletados}, comparando-os às medições obtidas por ferramentas oficiais como Android Profiler, Perfetto e Xcode Instruments~\cite{android2024,aosp2024,apple2024};
-  \item \textbf{Validar a eficácia das recomendações heurísticas}, verificando se sua aplicação gera melhorias tangíveis no desempenho e no consumo de recursos;
+  \item \textbf{Avaliar preliminarmente o impacto da coleta de métricas} sobre o desempenho da aplicação, observando sinais de \textit{overhead} durante execuções controladas;
+  \item \textbf{Verificar a coerência dos dados coletados}, comparando-os de forma preliminar com sinais observados em ferramentas de referência como Android Profiler e Perfetto~\cite{android2024,aosp2024};
+  \item \textbf{Validar qualitativamente as recomendações heurísticas}, verificando se os alertas gerados são compatíveis com os gargalos induzidos nos cenários de teste;
   \item \textbf{Promover a reprodutibilidade científica}, disponibilizando publicamente o código-fonte e a documentação técnica do protótipo, conforme recomendam Wohlin \textit{et al.}~\cite{wohlin2012}.
 \end{itemize}
 
@@ -39,13 +39,13 @@ A escolha de uma metodologia de natureza aplicada e abordagem experimental funda
 Conforme destaca Yin~\cite{yin2015}, abordagens experimentais e estudos de caso são apropriados quando o pesquisador busca compreender relações de causa e efeito entre variáveis observáveis em ambientes complexos como é o caso de aplicações móveis em execução sobre diferentes plataformas e dispositivos.
 
 No caso do \texttt{collector\_flutter}, a observação direta de variáveis como \textit{frame time}, reconstruções de widgets e uso de memória é indispensável para a avaliação de sua precisão e impacto.  
-Estudos empíricos recentes sobre desempenho móvel reforçam que tempo de execução, memória e energia devem ser avaliados de forma conjunta, pois cada indicador pode reagir de modo distinto às mudanças realizadas no software~\cite{rua2024largescale}. Por isso, a análise experimental é essencial para associar métricas quantitativas a efeitos percebidos pelo usuário final.
+Estudos empíricos recentes sobre desempenho móvel reforçam que tempo de execução, memória e energia devem ser avaliados de forma conjunta, pois cada indicador pode reagir de modo distinto às mudanças realizadas no software~\cite{rua2024largescale}. Por isso, a análise experimental é essencial para associar métricas observáveis a efeitos percebidos durante a execução do aplicativo.
 
 Assim, a abordagem metodológica proposta combina:
 \begin{itemize}
   \item fundamentos teóricos sobre desempenho, eficiência e sustentabilidade digital;
-  \item experimentação controlada em dispositivos Android e iOS;
-  \item análise comparativa dos resultados obtidos com ferramentas nativas de referência.
+  \item execução controlada do protótipo em ambiente Android;
+  \item análise qualitativa dos resultados observados e comparação preliminar com ferramentas nativas de referência.
 \end{itemize}
 
 Essa integração entre teoria e prática garante a robustez científica do estudo e o caráter inovador do sistema proposto, permitindo que ele seja avaliado, reproduzido e aprimorado em diferentes contextos de desenvolvimento.
@@ -60,13 +60,22 @@ O processo adotado neste trabalho segue um \textbf{ciclo de vida iterativo e inc
 Esse ciclo foi estruturado com base em princípios de engenharia de software (Pressman e Maxim~\cite{pressman2020engenharia}; Sommerville~\cite{sommerville2019software}) e em diretrizes de experimentação em engenharia de software (Wohlin \textit{et al.}~\cite{wohlin2012}), garantindo rastreabilidade entre objetivos, decisões de projeto e resultados.
 
 A Figura~\ref{fig:ciclo-vida} representa o ciclo metodológico adotado, organizado em fases com \textbf{entradas}, \textbf{atividades}, \textbf{artefatos gerados} e \textbf{critérios de término}.  
-O ciclo contempla dois momentos do trabalho: (i) \textbf{TCC 1}, voltado à fundamentação e ao protótipo inicial; e (ii) \textbf{TCC 2}, voltado à consolidação, testes experimentais e análise estatística.
+O ciclo contempla dois momentos do trabalho: (i) \textbf{TCC 1}, voltado à fundamentação e ao protótipo inicial; e (ii) \textbf{TCC 2}, voltado à consolidação do protótipo, aos testes funcionais e à análise qualitativa dos resultados.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth]{Metodologia/cicloDeVida.png}
+  \includegraphics[width=0.95\textwidth]{ciclo_de_vida.png}
   \caption{Ciclo de vida metodológico adotado (iterativo e incremental).}
   \label{fig:ciclo-vida}
+\end{figure}
+
+A Figura~\ref{fig:metodologia-pesquisa} sintetiza a estratégia metodológica adotada no trabalho, articulando fundamentação teórica, levantamento de requisitos, construção do protótipo e validação funcional. Essa organização evidencia que a avaliação realizada nesta versão tem caráter qualitativo e funcional, sem protocolo estatístico formal ou questionário externo de usabilidade.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{metodologia_pesquisa.png}
+  \caption{Estratégia metodológica da pesquisa, com foco em revisão bibliográfica, requisitos, implementação e validação funcional do protótipo.}
+  \label{fig:metodologia-pesquisa}
 \end{figure}
 
 \subsubsection{Visão Geral das Fases e Entregáveis}
@@ -92,10 +101,10 @@ O ciclo de vida foi operacionalizado em quatro fases principais, descritas a seg
 \textbf{Critério de conclusão:} protótipo executável, capaz de coletar e exibir métricas em tempo real em ambiente controlado.
 
 \paragraph{Fase 4: Avaliação Experimental, Análise e Validação}
-\textbf{Objetivo:} validar empiricamente precisão, impacto e utilidade do protótipo, comparando resultados com ferramentas de referência e aplicando análise estatística.  
-\textbf{Atividades:} definição dos cenários experimentais, execução repetida dos testes, coleta automatizada, análise descritiva e inferencial (quando aplicável), comparação com ferramentas oficiais.  
-\textbf{Artefatos/saídas:} (i) base de dados experimental (JSON), (ii) tabelas e gráficos, (iii) métricas de erro/precisão e \textit{overhead}, (iv) discussão de resultados e limitações.  
-\textbf{Critério de conclusão:} evidências empíricas suficientes para aceitar/refutar hipóteses e responder aos objetivos do trabalho.
+\textbf{Objetivo:} validar funcionalmente o protótipo, observando se as métricas coletadas e as recomendações geradas são coerentes com os gargalos induzidos em cenários controlados.  
+\textbf{Atividades:} definição dos cenários experimentais, execução manual controlada, coleta automatizada de telemetria, inspeção dos resultados e comparação preliminar com ferramentas oficiais.  
+\textbf{Artefatos/saídas:} (i) registros de telemetria em JSON, (ii) tabela de cenários, (iii) evidências visuais do painel, (iv) discussão de resultados e limitações.  
+\textbf{Critério de conclusão:} evidências suficientes para demonstrar a operacionalidade do protótipo e a pertinência das heurísticas implementadas.
 
 \subsubsection{Iterações e Rastreabilidade}
 
@@ -107,7 +116,7 @@ Para garantir rastreabilidade, cada funcionalidade do protótipo foi associada a
 O ciclo metodológico foi distribuído ao longo do cronograma em dois macroperíodos:
 \begin{itemize}
   \item \textbf{TCC 1:} foco nas Fases 1, 2 e início da Fase 3, resultando em fundamentação teórica consolidada e protótipo inicial funcional.
-  \item \textbf{TCC 2:} foco na conclusão da Fase 3 e execução completa da Fase 4, resultando em experimentação, análise estatística e redação final da monografia.
+  \item \textbf{TCC 2:} foco na conclusão da Fase 3 e execução da Fase 4 em caráter funcional e qualitativo, resultando em análise dos cenários controlados e redação final da monografia.
 \end{itemize}
 
 Essa estrutura torna explícito o ciclo de vida adotado e define o que se espera em cada etapa do processo, atendendo ao requisito de maior rigor e sistematização metodológica.

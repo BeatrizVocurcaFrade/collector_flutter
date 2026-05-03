@@ -1,0 +1,30 @@
+%%{init: {'theme': 'base', 'themeVariables': {'background': '#ffffff', 'primaryColor': '#ffffff', 'primaryTextColor': '#102a43', 'primaryBorderColor': '#1f7a8c', 'lineColor': '#334e68', 'secondaryColor': '#edf7f6', 'tertiaryColor': '#fff8e6', 'fontFamily': 'Arial, Helvetica, sans-serif', 'fontSize': '24px'}, 'flowchart': {'htmlLabels': true, 'nodeSpacing': 46, 'rankSpacing': 68, 'curve': 'basis'}} }%%
+flowchart LR
+  start([Inicio do projeto])
+
+  subgraph tcc1["Periodo TCC 1"]
+    direction TB
+    f1["<b>Fase 1</b><br/>Fundamentacao e revisao bibliografica<br/><br/><b>Entradas:</b> tema, problema inicial, bases de dados<br/><b>Atividades:</b> busca, selecao, leitura e sintese<br/><b>Saidas:</b> revisao estruturada, problema e objetivos"]
+    f2["<b>Fase 2</b><br/>Requisitos, escopo e especificacao<br/><br/><b>Entradas:</b> revisao e lacunas identificadas<br/><b>Atividades:</b> RF/RNF, metas e criterios<br/><b>Saidas:</b> requisitos verificaveis e metas de overhead"]
+    f3["<b>Fase 3</b><br/>Projeto, implementacao e integracao<br/><br/><b>Entradas:</b> requisitos e arquitetura proposta<br/><b>Atividades:</b> Clean Architecture, implementacao incremental e testes iniciais<br/><b>Saidas:</b> prototipo funcional, dashboard e exportacao"]
+  end
+
+  subgraph tcc2["Periodo TCC 2"]
+    direction TB
+    f4["<b>Fase 4</b><br/>Avaliacao experimental e validacao<br/><br/><b>Entradas:</b> prototipo e plano experimental<br/><b>Atividades:</b> cenarios controlados, coleta e comparacao preliminar<br/><b>Saidas:</b> evidencias qualitativas, testes, tabelas e discussao"]
+    final["<b>Conclusoes e redacao final</b><br/>Contribuicoes, limitacoes e trabalhos futuros"]
+  end
+
+  done([Final])
+
+  start --> f1 --> f2 --> f3 --> f4 --> final --> done
+  f4 -. "Resultados indicam ajustes" .-> f3
+  f4 -. "Ajuste de metricas" .-> f2
+  f2 -. "Refino de requisitos" .-> f3
+
+  classDef phase fill:#ffffff,stroke:#1f7a8c,stroke-width:3px,color:#102a43;
+  classDef period fill:#edf7f6,stroke:#7b8794,stroke-width:2px,color:#102a43;
+  classDef terminal fill:#fff8e6,stroke:#b7791f,stroke-width:3px,color:#102a43;
+  class f1,f2,f3,f4,final phase;
+  class tcc1,tcc2 period;
+  class start,done terminal;

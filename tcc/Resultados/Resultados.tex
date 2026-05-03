@@ -132,7 +132,7 @@ As execuções preliminares da primeira fase do trabalho evidenciaram um conjunt
 
   \item \textbf{Persistência e exportação de dados:} o \texttt{ExportService} oferece exportação completa da sessão de telemetria em JSON estruturado, incluindo frames, memória, rede, CPU, bateria, análise e recomendações, além da exportação de timings de frames em CSV. Os dados são copiados para a área de transferência do sistema, permitindo integração com ferramentas externas de análise;
 
-  \item \textbf{Testes automatizados:} a suíte cobre 48 casos unitários distribuídos em cinco arquivos. Entre eles estão \texttt{analyzer\_test.dart}, \texttt{recommender\_test.dart}, \texttt{export\_service\_test.dart} e o novo \texttt{cpu\_battery\_test.dart}. Os testes verificam corretude estatística, detecção de anomalias, geração de recomendações, serialização e comportamento de \textit{fallback} dos \textit{platform channels};
+  \item \textbf{Testes automatizados:} a suíte cobre 48 casos unitários distribuídos em quatro arquivos. Entre eles estão \texttt{analyzer\_test.dart}, \texttt{recommender\_test.dart}, \texttt{export\_service\_test.dart} e o novo \texttt{cpu\_battery\_test.dart}. Os testes verificam cálculos internos, detecção de anomalias, geração de recomendações, serialização e comportamento de \textit{fallback} dos \textit{platform channels};
 
   \item \textbf{Imprecisão no gráfico de frames:} a implementação inicial utilizava o instante atual como eixo X, em vez dos índices sequenciais dos quadros coletados. Esse defeito foi corrigido durante o desenvolvimento.
 \end{enumerate}

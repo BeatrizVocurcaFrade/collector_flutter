@@ -1,0 +1,46 @@
+%%{init: {'theme': 'base', 'themeVariables': {'background': '#ffffff', 'primaryColor': '#ffffff', 'primaryTextColor': '#102a43', 'primaryBorderColor': '#1f7a8c', 'lineColor': '#334e68', 'secondaryColor': '#edf7f6', 'tertiaryColor': '#fff8e6', 'fontFamily': 'Arial, Helvetica, sans-serif', 'fontSize': '23px'}, 'flowchart': {'htmlLabels': true, 'nodeSpacing': 42, 'rankSpacing': 64, 'curve': 'basis'}} }%%
+flowchart LR
+  app["<b>Aplicacao Flutter</b><br/>Widget rebuilds, rede e eventos"]
+
+  subgraph data["Camada de Dados - coleta e armazenamento"]
+    direction TB
+    collector["<b>ResourceCollector</b><br/>start, stop, recordNetwork,<br/>recordWidgetRebuild e collectNow"]
+    apis["<b>Coleta via APIs Flutter</b><br/>SchedulerBinding, FrameTiming,<br/>vm_service e HTTP wrapper"]
+    telemetry["<b>Telemetria local</b><br/>Metric, ResourceEvent,<br/>Frame, memoria, CPU, bateria e rede"]
+    export["<b>ExportService</b><br/>Serializacao JSON/CSV"]
+  end
+
+  subgraph domain["Camada de Dominio - logica e regras"]
+    direction TB
+    collectUse["CollectMetricsUseCase"]
+    analyze["<b>Analyzer</b><br/>correlaciona metricas<br/>e detecta anomalias"]
+    recommend["<b>Recommender</b><br/>gera recomendacoes<br/>por severidade"]
+    heuristics["<b>Regras heuristicas</b><br/>FPS abaixo de 50, jank,<br/>memoria, rede e rebuilds"]
+  end
+
+  subgraph presentation["Camada de Apresentacao - UI e dashboard"]
+    direction TB
+    bloc["Bloc/Cubit"]
+    dashboard["<b>Dashboard</b><br/>graficos e metricas<br/>em tempo real"]
+    insights["<b>Insights automaticos</b><br/>usar const, aplicar RepaintBoundary,<br/>reduzir payloads de rede"]
+    feedback["<b>Feedback do desenvolvedor</b><br/>ajustes seletivos em componentes<br/>criticos da UI"]
+  end
+
+  advantages["<b>Vantagens do modelo local</b><br/>Zero backend, execucao offline,<br/>baixo overhead e alta responsividade"]
+
+  app --> collector --> apis --> telemetry --> collectUse
+  telemetry --> export
+  collectUse --> analyze --> recommend --> bloc --> dashboard --> insights --> feedback
+  heuristics --> analyze
+  heuristics --> recommend
+  feedback -. "Nova execucao e novas metricas" .-> app
+  data --> advantages
+  domain --> advantages
+  presentation --> advantages
+
+  classDef layer fill:#edf7f6,stroke:#7b8794,stroke-width:2px,color:#102a43;
+  classDef node fill:#ffffff,stroke:#1f7a8c,stroke-width:3px,color:#102a43;
+  classDef highlight fill:#fff8e6,stroke:#b7791f,stroke-width:3px,color:#102a43;
+  class data,domain,presentation layer;
+  class collector,apis,telemetry,export,collectUse,analyze,recommend,heuristics,bloc,dashboard,insights,feedback node;
+  class app,advantages highlight;

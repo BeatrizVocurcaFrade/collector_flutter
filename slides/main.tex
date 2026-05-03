@@ -18,7 +18,7 @@
 \usepackage{microtype}
 \usepackage{ragged2e}
 
-\graphicspath{{fig/}}
+\graphicspath{{../images/figures/}{../images/mermaid/outputs/}}
 
 \definecolor{collectorInk}{HTML}{12302F}
 \definecolor{collectorTeal}{HTML}{1F8A70}
@@ -101,7 +101,7 @@
   columns=fullflexible
 }
 
-\IfFileExists{fig/background.jpg}{\background{fig/background.jpg}}{}
+\IfFileExists{../images/figures/background.jpg}{\background{../images/figures/background.jpg}}{}
 
 \title[Monitoramento Flutter]{Monitoramento e otimização de recursos em aplicativos Flutter}
 \author[B. V. Frade]{Beatriz Vocurca Frade}
@@ -331,7 +331,7 @@ O \collectorFlutter{} ocupa essa lacuna: menos laboratório externo, mais diagn�
   \end{itemize}
   \column{0.36\textwidth}
   \centering
-  \IfFileExists{fig/iconedoappexamplo.jpeg}{%
+  \IfFileExists{../images/figures/iconedoappexamplo.jpeg}{%
     \includegraphics[height=0.45\textheight]{iconedoappexamplo.jpeg}
   }{%
     \metric{\textwidth}{collectorTeal}{collector\_flutter}
@@ -375,8 +375,8 @@ Flipper / LeakCanary & Depuração e memória em ecossistemas específicos. & N�
   \end{accentbox}
   \column{0.48\textwidth}
   \centering
-  \IfFileExists{fig/sequenceDiagram.png}{%
-    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{sequenceDiagram.png}
+  \IfFileExists{../images/mermaid/outputs/arquitetura_fluxo_collector.png}{%
+    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{arquitetura_fluxo_collector.png}
   }{%
     \begin{tikzpicture}[node distance=9mm, every node/.style={draw, rounded corners, align=center, minimum width=3cm, minimum height=8mm}]
       \node (d) {Data};
@@ -482,14 +482,14 @@ collector.recordEvent('checkout_started', {'items': 3});
 \begin{columns}[T,onlytextwidth]
   \column{0.48\textwidth}
   \centering
-  \IfFileExists{fig/prototipoquandoestaok.jpeg}{%
+  \IfFileExists{../images/figures/prototipoquandoestaok.jpeg}{%
     \includegraphics[height=0.68\textheight]{prototipoquandoestaok.jpeg}
   }{Estado saudável}
 
   \small Estado saudável
   \column{0.48\textwidth}
   \centering
-  \IfFileExists{fig/prototipoquandonaoestaok.jpeg}{%
+  \IfFileExists{../images/figures/prototipoquandonaoestaok.jpeg}{%
     \includegraphics[height=0.68\textheight]{prototipoquandonaoestaok.jpeg}
   }{Gargalos detectados}
 
@@ -509,8 +509,8 @@ collector.recordEvent('checkout_started', {'items': 3});
   \end{itemize}
   \column{0.42\textwidth}
   \centering
-  \IfFileExists{fig/cicloDeVida.png}{%
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{cicloDeVida.png}
+  \IfFileExists{../images/mermaid/outputs/ciclo_de_vida.png}{%
+    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{ciclo_de_vida.png}
   }{%
     \begin{accentbox}{Ciclo}
       Revisão \(\rightarrow\) requisitos \(\rightarrow\) protótipo \(\rightarrow\) validação
@@ -705,9 +705,9 @@ Performance não é apenas fazer o app correr mais rápido; é fazer o app respe
 {\Large \collectorFlutter{}}
 
 \vspace{7mm}
-\IfFileExists{fig/logo2.png}{\includegraphics[height=0.7cm]{logo2.png}}{}
+\IfFileExists{../images/figures/logo2.png}{\includegraphics[height=0.7cm]{logo2.png}}{}
 \hspace{10mm}
-\IfFileExists{fig/logo1.jpeg}{\includegraphics[height=1cm]{logo1.jpeg}}{}
+\IfFileExists{../images/figures/logo1.jpeg}{\includegraphics[height=1cm]{logo1.jpeg}}{}
 
 \vfill
 \small Beatriz Vocurca Frade \quad | \quad Engenharia de Sistemas -- UFMG

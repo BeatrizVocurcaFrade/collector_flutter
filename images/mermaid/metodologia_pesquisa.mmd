@@ -1,0 +1,36 @@
+%%{init: {'theme': 'base', 'themeVariables': {'background': '#ffffff', 'primaryColor': '#ffffff', 'primaryTextColor': '#102a43', 'primaryBorderColor': '#1f7a8c', 'lineColor': '#334e68', 'secondaryColor': '#edf7f6', 'tertiaryColor': '#fff8e6', 'fontFamily': 'Arial, Helvetica, sans-serif', 'fontSize': '24px'}, 'flowchart': {'htmlLabels': true, 'nodeSpacing': 50, 'rankSpacing': 72, 'curve': 'basis'}} }%%
+flowchart LR
+  root["<b>Metodologia da pesquisa</b><br/>Pesquisa aplicada com validacao funcional e qualitativa"]
+
+  natureza["<b>Natureza aplicada</b><br/>Desenvolvimento de prototipo funcional<br/>Solucao pratica para desenvolvedores Flutter"]
+  estrategia["<b>Estrategia de pesquisa</b><br/>Ciclo iterativo e incremental<br/>Rastreabilidade entre requisitos, arquitetura e resultados"]
+
+  subgraph base["Fundamentacao e escopo"]
+    direction TB
+    revisao["<b>Revisao bibliografica</b><br/>Ferramentas de monitoramento<br/>Metricas de desempenho<br/>Consumo energetico"]
+    requisitos["<b>Levantamento de requisitos</b><br/>Necessidades de desenvolvedores Flutter<br/>Observacao do problema de uso<br/>RF, RNF e criterios de avaliacao"]
+  end
+
+  subgraph construcao["Construcao do prototipo"]
+    direction TB
+    projeto["<b>Projeto e implementacao</b><br/>Dart, Flutter, Bloc, HTTP e vm_service<br/>Arquitetura modular e reuso<br/>Dashboard e exportacao JSON/CSV"]
+    testes["<b>Validacao funcional</b><br/>Testes automatizados<br/>Execucoes manuais controladas<br/>Comparacao preliminar com ferramentas de referencia"]
+  end
+
+  resultados["<b>Resultados esperados/observados</b><br/>Baixo overhead como meta de projeto<br/>Precisao e confiabilidade das metricas<br/>Clareza das recomendacoes heuristicas"]
+
+  root --> natureza --> revisao
+  root --> estrategia --> requisitos
+  revisao --> requisitos
+  requisitos --> projeto
+  projeto --> testes
+  testes --> resultados
+  estrategia -. "Iteracoes e refinamentos" .-> requisitos
+  testes -. "Ajustes de metricas e heuristicas" .-> projeto
+
+  classDef main fill:#fff8e6,stroke:#b7791f,stroke-width:3px,color:#102a43;
+  classDef box fill:#ffffff,stroke:#1f7a8c,stroke-width:3px,color:#102a43;
+  classDef group fill:#edf7f6,stroke:#7b8794,stroke-width:2px,color:#102a43;
+  class root,resultados main;
+  class natureza,estrategia,revisao,requisitos,projeto,testes box;
+  class base,construcao group;

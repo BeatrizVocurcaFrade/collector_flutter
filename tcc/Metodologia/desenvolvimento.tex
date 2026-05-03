@@ -55,13 +55,13 @@ A modelagem do sistema foi conduzida de forma modular, com base em três camadas
 
 Esse modelo arquitetural facilita o isolamento das dependências e a manutenção evolutiva do código.
 
-A Figura~\ref{fig:architecture} ilustra a arquitetura de três camadas adotada no protótipo.
-Ela organiza o \collectorFlutter{} em coleta, análise e visualização.
+A Figura~\ref{fig:architecture} ilustra a arquitetura local adotada no protótipo.
+Ela organiza o \collectorFlutter{} em coleta, telemetria, análise, recomendações e visualização integrada.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.9\textwidth]{sequenceDiagram.png}
-  \caption{Arquitetura de três camadas do protótipo \collectorFlutter{}: Data (coleta), Domain (análise) e Presentation (visualização).}
+  \includegraphics[width=0.95\textwidth]{arquitetura_fluxo_collector.png}
+  \caption{Arquitetura local e fluxo de dados do protótipo \collectorFlutter{}: coleta, análise, recomendação e apresentação no painel integrado.}
   \label{fig:architecture}
 \end{figure}
 
@@ -90,58 +90,28 @@ O processo envolveu:
 
 \subsection{Fase 4 – Avaliação Experimental e Validação}
 
-A última fase compreendeu o planejamento, execução e análise dos experimentos realizados com o protótipo, visando validar seu desempenho e confiabilidade.
-\subsubsection{Plano Estatístico dos Experimentos}
+A última fase compreendeu o planejamento, execução e análise de cenários controlados com o protótipo, visando validar sua operacionalidade, a coerência das métricas coletadas e a pertinência das recomendações heurísticas. A avaliação apresentada neste trabalho tem caráter funcional e qualitativo; experimentos quantitativos com amostra ampliada e testes estatísticos são tratados como trabalhos futuros.
 
-O protocolo de avaliação quantitativa, definido como trabalho futuro, prevê um plano estatístico
-formal para garantir validade interna e confiabilidade dos resultados.
-Os procedimentos planejados incluem:
-
-\begin{itemize}
-    \item \textbf{Tamanho mínimo de amostra}: será estimado por meio de
-    \textit{power analysis} considerando nível de confiança de 95\% e 
-    poder estatístico mínimo de 80\%, conforme recomendações de \cite{wohlin2012};
-    
-    \item \textbf{Número de execuções}: cada cenário será repetido pelo 
-    menos 30 vezes, permitindo a aplicação de testes estatísticos paramétricos
-    ou não-paramétricos;
-
-    \item \textbf{Testes estatísticos}: serão aplicados testes de hipótese
-    (teste t pareado ou teste de Mann--Whitney, dependendo da normalidade),
-    para comparar métricas ``com coletor'' e ``sem coletor'';
-
-    \item \textbf{Intervalos de confiança}: todas as médias serão acompanhadas
-    de intervalos de confiança a 95\%;
-
-    \item \textbf{Validação cruzada}: os resultados obtidos serão comparados 
-    com métricas provenientes do Android Profiler e Perfetto.
-\end{itemize}
-
-Esse plano permite que o impacto do \texttt{collector\_flutter} seja avaliado
-de forma estatisticamente robusta, evitando conclusões baseadas apenas
-em observações individuais.
-\subsubsection{Planejamento dos Experimentos}
+\subsubsection{Planejamento dos Cenários}
 \subsubsection{Variáveis do Experimento}
 
-Para estruturar o experimento de forma sistemática, foram definidas
-variáveis independentes, dependentes e de controle, conforme
-recomendado em experimentação em engenharia de software
-(\cite{wohlin2012}).
+Para estruturar os cenários de forma sistemática, foram definidas variáveis observadas e condições de controle, conforme recomendado em experimentação em engenharia de software~\cite{wohlin2012}.
 
 \begin{itemize}
 
-\item \textbf{Variáveis independentes}
+\item \textbf{Condições manipuladas}
 \begin{itemize}
-\item presença do coletor de métricas (ativado ou desativado);
 \item tipo de cenário de carga (interface, rede, memória ou combinado).
+\item acionamento manual das rotinas de simulação no aplicativo de exemplo.
 \end{itemize}
 
-\item \textbf{Variáveis dependentes}
+\item \textbf{Métricas observadas}
 \begin{itemize}
 \item FPS médio;
 \item tempo médio de renderização de quadros;
 \item uso de memória;
 \item número de reconstruções de widgets.
+\item eventos de rede e recomendações emitidas.
 \end{itemize}
 
 \item \textbf{Variáveis de controle}
@@ -149,39 +119,36 @@ recomendado em experimentação em engenharia de software
 \item versão do Flutter SDK;
 \item modelo do dispositivo utilizado;
 \item modo de execução da aplicação (\textit{profile});
-\item duração fixa dos cenários experimentais.
+\item sequência de acionamento dos cenários.
 \end{itemize}
 
 \end{itemize}
-O planejamento experimental foi orientado pelas diretrizes de Wohlin \textit{et al.}~\cite{wohlin2012}, contemplando definição de hipóteses, variáveis e procedimentos de coleta.  
-As hipóteses principais foram:
+
+O planejamento experimental foi orientado pelas diretrizes de Wohlin \textit{et al.}~\cite{wohlin2012}, contemplando a definição de cenários, variáveis e procedimentos de coleta. As hipóteses foram tratadas como expectativas de funcionamento do protótipo:
 
 \begin{itemize}
-  \item H1 – O \texttt{collector\_flutter} mede métricas de desempenho com precisão comparável às ferramentas nativas;
-  \item H2 – O \textit{overhead} introduzido pela coleta é inferior a 5\%;
-  \item H3 – As recomendações geradas contribuem para a otimização perceptível de desempenho.
+  \item H1 – O \texttt{collector\_flutter} registra métricas coerentes com os cenários de carga induzidos;
+  \item H2 – A coleta não impede a execução interativa do aplicativo de demonstração;
+  \item H3 – As recomendações geradas são compatíveis com os sintomas provocados nos cenários.
 \end{itemize}
 
 \subsubsection{Execução dos Testes}
 
-Os testes foram conduzidos em dispositivos físicos Android (versões 12 e 13) e iOS (versão 16), sob diferentes níveis de carga.  
-Foram utilizadas aplicações simuladas com variações intencionais de complexidade gráfica e número de reconstruções de widgets, a fim de provocar gargalos mensuráveis.  
-Durante os experimentos, foram comparados os valores de FPS, latência média e uso de CPU obtidos pelo protótipo e pelas ferramentas oficiais (Android Developers~\cite{android2024}).
+Os testes foram conduzidos no aplicativo de exemplo em ambiente Android, sob diferentes tipos de carga. Foram utilizadas variações intencionais de complexidade gráfica, chamadas de rede, alocação de memória e reconstruções de widgets, a fim de provocar gargalos observáveis. Durante as execuções, os sinais exibidos pelo painel foram confrontados qualitativamente com o comportamento esperado dos cenários e com observações em ferramentas oficiais de diagnóstico Android~\cite{android2024}.
 
 \subsubsection{Coleta e Análise de Dados}
 
 A coleta de dados foi realizada de forma automatizada, com as métricas sendo armazenadas em formato JSON e processadas pelo módulo \texttt{Analyzer}.  
-A análise comparativa baseou-se em indicadores estatísticos de correlação e desvio médio absoluto, buscando quantificar a precisão das medições e o impacto do monitoramento no desempenho.  
+A análise baseou-se na inspeção dos registros exportados, das mensagens de recomendação e da resposta visual do painel durante os cenários controlados.  
 
-Os resultados foram então avaliados segundo os critérios definidos na Seção de \textbf{Critérios de Avaliação}, considerando precisão, \textit{overhead} e eficácia das recomendações, conforme metodologia de experimentação em engenharia de software proposta por Wohlin \textit{et al.}~\cite{wohlin2012}.
+Os resultados foram então avaliados segundo os critérios definidos na Seção de \textbf{Critérios de Avaliação}, considerando coerência das métricas, impacto percebido da coleta e pertinência das recomendações.
 
-\subsubsection{Métrica de Eficiência Energética}
+\subsubsection{Métricas Relacionadas à Eficiência Energética}
 
-A eficiência energética será medida por meio de \textbf{métricas indiretas}
+Neste trabalho, a eficiência energética foi tratada por meio de \textbf{métricas indiretas}
 (\textit{energy proxies}), conforme utilizado em trabalhos sobre estimativa,
 perfilamento e diagnóstico energético em aplicações móveis~\cite{hao2013estimating,li2014empirical,hoque2015energy,sun2023energyinefficiency}.
-Devido à indisponibilidade de instrumentação física dedicada para medir
-corrente elétrica, serão adotados os seguintes proxies:
+Devido à indisponibilidade de instrumentação física dedicada para medir corrente elétrica, foram observados os seguintes proxies:
 
 \begin{itemize}
     \item uso médio de CPU;
@@ -192,27 +159,22 @@ corrente elétrica, serão adotados os seguintes proxies:
 \end{itemize}
 
 A literatura demonstra que essas métricas apresentam correlação significativa
-com o consumo real de energia em dispositivos móveis. A análise energética
-será, portanto, inferencial, baseada na variação dessas métricas antes e
-depois das recomendações.
+com o consumo real de energia em dispositivos móveis. A análise energética foi, portanto, inferencial e qualitativa, limitada à observação dos sinais coletados pelo protótipo.
 
 
 \subsubsection{Validação das Recomendações Heurísticas}
 
 A eficácia das recomendações geradas pelo módulo \texttt{Recommender}
-será avaliada por meio de um processo de ``antes e depois'', aplicando
-cada recomendação em cenários controlados e medindo:
+foi avaliada verificando se os alertas emitidos correspondiam aos sintomas induzidos em cada cenário controlado:
 
 \begin{itemize}
-    \item variação percentual de FPS;
-    \item redução no tempo médio de quadro;
-    \item redução de reconstruções;
-    \item impacto no uso de CPU e memória.
+    \item queda de FPS e aumento de \textit{jank} em cargas de interface;
+    \item crescimento de memória durante alocações intensivas;
+    \item aumento de eventos e latência em chamadas de rede;
+    \item priorização de recomendações quando múltiplos sintomas ocorrem simultaneamente.
 \end{itemize}
 
-Melhorias serão consideradas significativas quando apresentarem
-diferença estatisticamente válida (p $<$ 0{,}05) segundo os testes
-descritos no Plano Estatístico dos Experimentos.
+Essa validação permitiu discutir a pertinência das heurísticas implementadas sem caracterizar um estudo estatístico de eficácia.
 
 
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -243,13 +205,7 @@ Essas premissas visam garantir a reprodutibilidade científica e a aplicabilidad
 \subsection{Arquitetura Geral do Sistema}
 
 A arquitetura do sistema é organizada em três camadas conceituais \textit{Data}, \textit{Domain} e \textit{Presentation} que interagem de forma desacoplada e síncrona por meio de \texttt{Streams} reativas.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.9\textwidth]{Metodologia/sequenceDiagram.png}
-  \caption{Mapa conceitual da arquitetura geral do protótipo \texttt{collector\_flutter}.}
-  \label{fig:sequenceDiagram}
-\end{figure}
+A visão geral dessa organização foi apresentada na Figura~\ref{fig:architecture}, que também explicita o fluxo entre coleta, análise, recomendações e painel visual.
 
 \subsubsection{Camada Data}
 
@@ -331,7 +287,7 @@ Esses testes auxiliam na validação experimental do sistema sob diferentes cond
 \textbf{Exemplo de painel com desempenho ideal:}
 \begin{figure}[H]
   \centering
-  \includegraphics[height=0.8\textwidth]{Metodologia/prototipoquandoestaok.jpeg}
+  \includegraphics[height=0.8\textwidth]{prototipoquandoestaok.jpeg}
   \caption{Painel do aplicativo em condição de desempenho estável, com indicadores verdes e recomendações informativas.}
   \label{fig:prototype_ok}
 \end{figure}
@@ -341,7 +297,7 @@ Esses testes auxiliam na validação experimental do sistema sob diferentes cond
 \textbf{Exemplo de painel com gargalos detectados:}
 \begin{figure}[H]
   \centering
-  \includegraphics[height=0.8\textwidth]{Metodologia/prototipoquandonaoestaok.jpeg}
+  \includegraphics[height=0.8\textwidth]{prototipoquandonaoestaok.jpeg}
   \caption{Painel do aplicativo com anomalias detectadas, como FPS baixo e uso de memória elevado.}
   \label{fig:prototype_notok}
 \end{figure}
@@ -411,69 +367,47 @@ Essa disponibilização em GitHub e pub.dev permite que outros pesquisadores e d
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Critérios de Avaliação}
 
-A avaliação do protótipo \texttt{collector\_flutter} foi conduzida segundo quatro dimensões principais: \textbf{precisão das métricas coletadas}, \textbf{overhead introduzido}, \textbf{eficácia das recomendações geradas} e \textbf{usabilidade da interface}.  
-Cada critério foi definido para mensurar, de forma objetiva, a viabilidade técnica e a aplicabilidade prática do sistema em ambientes reais de desenvolvimento Flutter.
+A validação do protótipo \texttt{collector\_flutter} foi conduzida segundo três dimensões efetivamente observadas: \textbf{coerência das métricas coletadas}, \textbf{impacto percebido da coleta} e \textbf{pertinência das recomendações geradas}.  
+Cada critério foi definido para verificar, de forma funcional, a viabilidade técnica e a aplicabilidade prática do sistema em ambientes reais de desenvolvimento Flutter.
 
 
 
-\subsection{Precisão das Métricas Coletadas}
+\subsection{Coerência das Métricas Coletadas}
 
-A precisão das métricas foi avaliada comparando-se os valores registrados pelo protótipo com os obtidos em ferramentas de referência, como \texttt{Android Profiler}, \texttt{adb shell dumpsys gfxinfo}, e o \texttt{Xcode Instruments}.  
-Foram analisadas variáveis como tempo médio de renderização de quadros (\textit{frame time}), taxa de quadros por segundo (FPS), e consumo de memória.  
+A coerência das métricas foi verificada observando-se se os valores registrados pelo protótipo acompanhavam os cenários de carga induzidos no aplicativo de exemplo. Foram analisadas variáveis como tempo médio de renderização de quadros (\textit{frame time}), taxa de quadros por segundo (FPS), consumo de memória, eventos de rede e reconstruções de widgets.
 
-A análise considerou a diferença percentual entre os valores medidos pelas ferramentas oficiais e aqueles obtidos pelo coletor. Diferenças inferiores a 5\% foram classificadas como \textbf{alta precisão}, entre 5\% e 10\% como \textbf{moderada}, e superiores a 10\% como \textbf{baixa precisão}.  
-
-Os testes foram executados em dispositivos físicos Android (versões 12 e 13) e iOS (versão 16), em modo \textit{profile}, garantindo a equivalência entre as medições.
+A comparação com ferramentas de referência, como \texttt{Android Profiler} e \texttt{adb shell dumpsys gfxinfo}, foi utilizada apenas como apoio qualitativo, sem cálculo formal de erro percentual ou intervalo de confiança.
 
 \subsection{Overhead Introduzido pelo Sistema}
 
 O overhead representa o impacto que o agente de coleta impõe ao desempenho do aplicativo monitorado.  
-Para mensurá-lo, compararam-se o tempo médio de renderização de quadros, o consumo de CPU e o uso de memória com o protótipo ativado e desativado.  
+Neste trabalho, esse impacto foi tratado como critério de observação funcional: o coletor deveria permanecer ativo sem impedir a interação com o aplicativo de demonstração nem bloquear a atualização do painel.
 
-O cálculo do overhead foi obtido pela diferença percentual entre os tempos de execução com e sem o monitoramento:
+O cálculo abaixo foi mantido como referência metodológica para avaliações futuras:
 
 \[
 Overhead (\%) = \frac{T_{com} - T_{sem}}{T_{sem}} \times 100
 \]
 
 onde \(T_{com}\) e \(T_{sem}\) representam, respectivamente, os tempos médios com o coletor habilitado e desabilitado.  
-
-Valores inferiores a 3\% foram considerados \textbf{aceitáveis}, assegurando que o monitoramento não interfere significativamente na execução da aplicação.  
+Uma mensuração quantitativa desse indicador exige execuções repetidas e controle estatístico, sendo indicada como continuidade do trabalho.
 
 \subsection{Eficácia das Recomendações Geradas}
 
-A eficácia das recomendações heurísticas foi avaliada aplicando-se as sugestões do módulo \texttt{Recommender} em um conjunto de cenários de teste previamente instrumentados.  
+As recomendações heurísticas foram avaliadas verificando-se se o módulo \texttt{Recommender} emitia alertas compatíveis com os gargalos induzidos nos cenários controlados.
 
-Foram analisados indicadores de melhoria percentual nas seguintes métricas:
+Foram analisados sinais como:
 \begin{itemize}
-  \item \textbf{FPS médio:} aumento da fluidez de renderização após as correções sugeridas;
-  \item \textbf{Tempo de quadro:} redução do tempo médio de renderização;
-  \item \textbf{Uso de memória:} diminuição de alocações redundantes ou vazamentos simulados.
+  \item \textbf{FPS e \textit{jank}:} recomendações associadas a frames longos e quedas de fluidez;
+  \item \textbf{Memória:} alertas relacionados a crescimento sustentado de RSS;
+  \item \textbf{Rede:} recomendações diante de volume elevado, falhas ou latência de requisições;
+  \item \textbf{Carga combinada:} priorização de recomendações quando múltiplos sintomas ocorrem ao mesmo tempo.
 \end{itemize}
 
-As recomendações foram classificadas em três níveis de impacto:
-\begin{itemize}
-  \item \textbf{Alta eficácia}: melhoria superior a 10\% em qualquer métrica crítica;
-  \item \textbf{Média eficácia}: melhoria entre 5\% e 10\%;
-  \item \textbf{Baixa eficácia}: melhoria inferior a 5\% ou estatisticamente irrelevante.
-\end{itemize}
+\subsection{Clareza da Interface}
 
-Esse processo permitiu validar a aplicabilidade prática das heurísticas implementadas e verificar se as recomendações realmente resultam em otimizações perceptíveis no desempenho do aplicativo.
-
-\subsection{Usabilidade e Clareza da Interface}
-
-A avaliação da usabilidade do painel (\texttt{Dashboard}) foi conduzida de forma qualitativa, com um grupo de desenvolvedores convidados para testar o protótipo em ambiente controlado.  
-
-Foi aplicado um questionário baseado nos princípios da norma ISO 9241-11, contemplando critérios como:
-\begin{itemize}
-  \item \textbf{Facilidade de uso:} tempo necessário para compreender e utilizar o painel;
-  \item \textbf{Clareza visual:} legibilidade das métricas e distinção de níveis de severidade;
-  \item \textbf{Utilidade das recomendações:} relevância prática das sugestões apresentadas;
-  \item \textbf{Satisfação geral:} percepção subjetiva sobre a experiência de uso.
-\end{itemize}
-
-Os resultados foram analisados de forma descritiva, considerando médias e comentários qualitativos.  
-Essa análise complementou os resultados técnicos, permitindo validar o equilíbrio entre desempenho, precisão e experiência do usuário.
+A clareza do painel (\texttt{Dashboard}) foi observada internamente durante as execuções manuais, considerando a legibilidade das métricas, a distinção visual dos níveis de severidade e a facilidade de relacionar um alerta ao cenário executado.
+Não foi realizado, nesta versão, um estudo de usabilidade com desenvolvedores externos nem aplicação de questionário. Esse tipo de protocolo permanece como possibilidade de trabalho futuro.
 
 
 

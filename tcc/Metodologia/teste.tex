@@ -3,7 +3,7 @@
 \section{Procedimentos de Teste e Coleta de Dados}
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Esta seção descreve os procedimentos experimentais utilizados para avaliar o desempenho e a precisão do protótipo \texttt{collector\_flutter}. O objetivo principal dos experimentos foi validar empiricamente três aspectos fundamentais do sistema: (i) a precisão das métricas coletadas, (ii) o impacto de execução introduzido pelo processo de monitoramento e (iii) a utilidade das recomendações heurísticas geradas pelo sistema.
+Esta seção descreve os procedimentos utilizados para validar funcionalmente o protótipo \texttt{collector\_flutter}. O objetivo principal dos testes foi observar três aspectos fundamentais do sistema: (i) a coerência das métricas coletadas, (ii) o impacto percebido da coleta durante a execução e (iii) a pertinência das recomendações heurísticas geradas pelo sistema.
 
 Para garantir validade científica e reprodutibilidade, os testes foram conduzidos em ambiente controlado, seguindo protocolos experimentais inspirados nas diretrizes de experimentação em engenharia de software propostas por Wohlin \textit{et al.}~\cite{wohlin2012}.
 
@@ -19,7 +19,7 @@ O protocolo de execução foi composto pelas seguintes etapas:
 
 \item \textbf{Inicialização do coletor}: ativação do módulo \texttt{ResourceCollector} por meio do método \texttt{start()}, responsável por iniciar a captura das métricas de desempenho.
 
-\item \textbf{Execução do cenário experimental}: cada cenário foi executado por um período fixo de 60 segundos, garantindo quantidade suficiente de amostras para análise estatística.
+\item \textbf{Execução do cenário experimental}: cada cenário foi acionado no aplicativo de exemplo por tempo suficiente para observar a reação do coletor e do painel visual.
 
 \item \textbf{Registro das métricas}: durante a execução do cenário, o coletor registrou continuamente métricas de desempenho relacionadas à renderização, uso de memória, chamadas de rede e reconstruções de widgets.
 
@@ -27,7 +27,7 @@ O protocolo de execução foi composto pelas seguintes etapas:
 
 \end{enumerate}
 
-Cada cenário experimental foi executado \textbf{dez vezes} em condições idênticas, permitindo reduzir efeitos de variabilidade do sistema operacional e do hardware. Os resultados apresentados neste trabalho correspondem às médias aritméticas das execuções, acompanhadas de análise de dispersão.
+Os cenários foram executados manualmente em condições controladas, com o objetivo de verificar a operacionalidade do sistema e identificar inconsistências nas heurísticas. Os resultados apresentados neste trabalho são de natureza qualitativa.
 
 \subsection{Definição dos Cenários Experimentais}
 
@@ -75,11 +75,11 @@ As métricas analisadas foram:
 
 \end{itemize}
 
-Os dados coletados foram serializados em formato JSON estruturado, permitindo posterior análise estatística e comparação entre execuções experimentais.
+Os dados coletados foram serializados em formato JSON estruturado, permitindo inspeção posterior e reprodutibilidade dos registros observados.
 
 \subsection{Métodos de Comparação}
 
-Para validar a precisão das medições obtidas pelo protótipo, os resultados foram comparados com ferramentas oficiais de análise de desempenho do ecossistema Android.
+Para apoiar a verificação das medições obtidas pelo protótipo, os resultados foram confrontados qualitativamente com ferramentas oficiais de análise de desempenho do ecossistema Android.
 
 As ferramentas utilizadas como referência foram:
 
@@ -91,7 +91,7 @@ As ferramentas utilizadas como referência foram:
 
 \end{itemize}
 
-A comparação foi realizada utilizando o cálculo de erro percentual entre os valores obtidos pelo protótipo e pelas ferramentas de referência:
+A comparação quantitativa por erro percentual não foi executada nesta versão, mas a expressão abaixo documenta o cálculo previsto para estudos futuros:
 
 \[
 Erro (\%) = \frac{|M_{ref} - M_{proto}|}{M_{ref}} \times 100
@@ -99,13 +99,13 @@ Erro (\%) = \frac{|M_{ref} - M_{proto}|}{M_{ref}} \times 100
 
 onde \(M_{ref}\) representa o valor obtido pela ferramenta de referência e \(M_{proto}\) representa o valor registrado pelo protótipo.
 
-\subsection{Análise Estatística dos Resultados}
+\subsection{Análise dos Resultados}
 
-Os dados coletados foram analisados utilizando medidas estatísticas descritivas, incluindo média, desvio padrão e variação percentual entre execuções. Essa análise permitiu avaliar a estabilidade das medições e identificar possíveis variações decorrentes de fatores externos.
+Os dados coletados foram analisados de forma qualitativa, considerando a coerência entre o cenário acionado, as métricas exibidas no painel e as recomendações emitidas pelo módulo \texttt{Recommender}.
 
-Além disso, foi calculado o \textit{overhead} introduzido pelo coletor, comparando o tempo médio de renderização de quadros com o sistema ativado e desativado.
+Além disso, o \textit{overhead} foi tratado como critério metodológico para avaliações futuras, comparando o tempo médio de renderização de quadros com o sistema ativado e desativado.
 
-O cálculo foi realizado utilizando a seguinte expressão:
+O cálculo previsto utiliza a seguinte expressão:
 
 \[
 Overhead (\%) = \frac{T_{com} - T_{sem}}{T_{sem}} \times 100
@@ -125,13 +125,13 @@ Para garantir a validade experimental dos resultados, foram adotadas medidas de 
 
 \item execução dos testes em ambiente com temperatura e carga de bateria estáveis;
 
-\item repetição dos experimentos múltiplas vezes para reduzir variações estatísticas;
+\item repetição manual dos cenários quando necessário para confirmar o comportamento observado;
 
 \item padronização do formato de saída das métricas em arquivos JSON.
 
 \end{itemize}
 
-Essas práticas asseguram que os experimentos possam ser reproduzidos por outros pesquisadores, reforçando a confiabilidade científica da avaliação do protótipo \texttt{collector\_flutter}.
+Essas práticas auxiliam a reprodução dos cenários por outros pesquisadores, reforçando a transparência da avaliação funcional do protótipo \texttt{collector\_flutter}.
 \begin{table}[H]
 \centering
 \caption{Resumo dos cenários experimentais utilizados nos testes.}

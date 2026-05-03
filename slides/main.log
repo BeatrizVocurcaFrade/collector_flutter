@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  20 APR 2026 22:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  3 MAY 2026 20:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1323,10 +1323,11 @@ LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/it' in size <5> not available
 put line 113.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/it' will be
 (Font)              scaled to size 5.0pt on input line 113.
-<fig/background.jpg, id=53, 955.57pt x 602.25pt>
-File: fig/background.jpg Graphic file (type jpg)
-<use fig/background.jpg>
-Package pdftex.def Info: fig/background.jpg  used on input line 113.
+<../images/figures/background.jpg, id=53, 955.57pt x 602.25pt>
+File: ../images/figures/background.jpg Graphic file (type jpg)
+<use ../images/figures/background.jpg>
+Package pdftex.def Info: ../images/figures/background.jpg  used on input line 1
+13.
 (pdftex.def)             Requested size: 406.3233pt x 256.0748pt.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <4> not available
 (Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
@@ -1335,7 +1336,8 @@ LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
 (Font)              scaled to size 4.0pt on input line 113.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./fig/background.jpg>]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <../images/figures/backgrou
+nd.jpg>]
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
 (Font)              scaled to size 8.0pt on input line 140.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <14.4> not availab
@@ -1353,7 +1355,8 @@ LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <9> not available
 ut line 140.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
 (Font)              scaled to size 9.0pt on input line 140.
- [2
+
+[2
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 158--158
@@ -1398,14 +1401,15 @@ LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
 ] [11
 
 ]
-<fig//iconedoappexamplo.jpeg, id=131, 318.18875pt x 338.26375pt>
-File: fig//iconedoappexamplo.jpeg Graphic file (type jpg)
-<use fig//iconedoappexamplo.jpeg>
-Package pdftex.def Info: fig//iconedoappexamplo.jpeg  used on input line 344.
+<../images/figures//iconedoappexamplo.jpeg, id=131, 318.18875pt x 338.26375pt>
+File: ../images/figures//iconedoappexamplo.jpeg Graphic file (type jpg)
+<use ../images/figures//iconedoappexamplo.jpeg>
+Package pdftex.def Info: ../images/figures//iconedoappexamplo.jpeg  used on inp
+ut line 344.
 (pdftex.def)             Requested size: 101.95842pt x 108.3935pt.
  [12
 
- <./fig//iconedoappexamplo.jpeg>] [13
+ <../images/figures//iconedoappexamplo.jpeg>] [13
 
 ]
 Underfull \hbox (badness 1092) in paragraph at lines 390--390
@@ -1413,14 +1417,18 @@ Underfull \hbox (badness 1092) in paragraph at lines 390--390
  Analyzer \T1/FiraSans-OsF/regular/n/10 (+20) e
  []
 
-<fig//sequenceDiagram.png, id=145, 4421.51875pt x 2076.75874pt>
-File: fig//sequenceDiagram.png Graphic file (type png)
-<use fig//sequenceDiagram.png>
-Package pdftex.def Info: fig//sequenceDiagram.png  used on input line 390.
-(pdftex.def)             Requested size: 196.59842pt x 92.341pt.
+<../images/mermaid/outputs//arquitetura_fluxo_collector.png, id=145, 6391.88pt 
+x 1722.435pt>
+File: ../images/mermaid/outputs//arquitetura_fluxo_collector.png Graphic file (
+type png)
+<use ../images/mermaid/outputs//arquitetura_fluxo_collector.png>
+Package pdftex.def Info: ../images/mermaid/outputs//arquitetura_fluxo_collector
+.png  used on input line 390.
+(pdftex.def)             Requested size: 196.62473pt x 52.98492pt.
 [14
 
- <./fig//sequenceDiagram.png>] [15
+ <../images/mermaid/outputs//arquitetura_fluxo_collector.png (PNG copy)>]
+[15
 
 ] [16
 
@@ -1432,29 +1440,33 @@ Package pdftex.def Info: fig//sequenceDiagram.png  used on input line 390.
  (./main.vrb) [18
 
 ]
-<fig//prototipoquandoestaok.jpeg, id=180, 740.7675pt x 1606.0pt>
-File: fig//prototipoquandoestaok.jpeg Graphic file (type jpg)
-<use fig//prototipoquandoestaok.jpeg>
-Package pdftex.def Info: fig//prototipoquandoestaok.jpeg  used on input line 49
-8.
+<../images/figures//prototipoquandoestaok.jpeg, id=178, 740.7675pt x 1606.0pt>
+File: ../images/figures//prototipoquandoestaok.jpeg Graphic file (type jpg)
+<use ../images/figures//prototipoquandoestaok.jpeg>
+Package pdftex.def Info: ../images/figures//prototipoquandoestaok.jpeg  used on
+ input line 498.
 (pdftex.def)             Requested size: 75.55049pt x 163.79396pt.
-<fig//prototipoquandonaoestaok.jpeg, id=181, 740.7675pt x 1606.0pt>
-File: fig//prototipoquandonaoestaok.jpeg Graphic file (type jpg)
-<use fig//prototipoquandonaoestaok.jpeg>
-Package pdftex.def Info: fig//prototipoquandonaoestaok.jpeg  used on input line
- 498.
+<../images/figures//prototipoquandonaoestaok.jpeg, id=179, 740.7675pt x 1606.0p
+t>
+File: ../images/figures//prototipoquandonaoestaok.jpeg Graphic file (type jpg)
+<use ../images/figures//prototipoquandonaoestaok.jpeg>
+Package pdftex.def Info: ../images/figures//prototipoquandonaoestaok.jpeg  used
+ on input line 498.
 (pdftex.def)             Requested size: 75.55049pt x 163.79396pt.
  [19
 
- <./fig//prototipoquandoestaok.jpeg> <./fig//prototipoquandonaoestaok.jpeg>]
-<fig//cicloDeVida.png, id=189, 4209.7275pt x 1980.39874pt>
-File: fig//cicloDeVida.png Graphic file (type png)
-<use fig//cicloDeVida.png>
-Package pdftex.def Info: fig//cicloDeVida.png  used on input line 520.
-(pdftex.def)             Requested size: 172.02182pt x 80.9249pt.
+ <../images/figures//prototipoquandoestaok.jpeg> <../images/figures//prototipoq
+uandonaoestaok.jpeg>]
+<../images/mermaid/outputs//ciclo_de_vida.png, id=187, 5093.0275pt x 2009.5075p
+t>
+File: ../images/mermaid/outputs//ciclo_de_vida.png Graphic file (type png)
+<use ../images/mermaid/outputs//ciclo_de_vida.png>
+Package pdftex.def Info: ../images/mermaid/outputs//ciclo_de_vida.png  used on 
+input line 520.
+(pdftex.def)             Requested size: 172.05711pt x 67.88693pt.
  [20
 
- <./fig//cicloDeVida.png>] [21
+ <../images/mermaid/outputs//ciclo_de_vida.png (PNG copy)>] [21
 
 ] [22
 
@@ -1504,19 +1516,20 @@ LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
 (Font)              scaled to size 24.88pt on input line 714.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
 (Font)              scaled to size 24.88pt on input line 714.
-<fig//logo2.png, id=247, 863.225pt x 336.25626pt>
-File: fig//logo2.png Graphic file (type png)
-<use fig//logo2.png>
-Package pdftex.def Info: fig//logo2.png  used on input line 714.
+<../images/figures//logo2.png, id=244, 863.225pt x 336.25626pt>
+File: ../images/figures//logo2.png Graphic file (type png)
+<use ../images/figures//logo2.png>
+Package pdftex.def Info: ../images/figures//logo2.png  used on input line 714.
 (pdftex.def)             Requested size: 51.1195pt x 19.91684pt.
-<fig//logo1.jpeg, id=248, 200.75pt x 197.73875pt>
-File: fig//logo1.jpeg Graphic file (type jpg)
-<use fig//logo1.jpeg>
-Package pdftex.def Info: fig//logo1.jpeg  used on input line 714.
+<../images/figures//logo1.jpeg, id=246, 200.75pt x 197.73875pt>
+File: ../images/figures//logo1.jpeg Graphic file (type jpg)
+<use ../images/figures//logo1.jpeg>
+Package pdftex.def Info: ../images/figures//logo1.jpeg  used on input line 714.
+
 (pdftex.def)             Requested size: 28.88591pt x 28.45274pt.
  [29
 
- <./fig//logo2.png> <./fig//logo1.jpeg>]
+ <../images/figures//logo2.png> <../images/figures//logo1.jpeg>]
 \tf@nav=\write6
 \openout6 = `main.nav'.
 
@@ -1526,30 +1539,31 @@ Package pdftex.def Info: fig//logo1.jpeg  used on input line 714.
 \tf@snm=\write8
 \openout8 = `main.snm'.
 
- (./main.aux)
+
+(./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 36860 strings out of 477958
- 769073 string characters out of 5838580
+ 36862 strings out of 477958
+ 770304 string characters out of 5838580
  1967330 words of memory out of 5000000
  55999 multiletter control sequences out of 15000+600000
  850700 words of font info for 224 fonts, out of 8000000 for 9000
  61 hyphenation exceptions out of 8191
  128i,15n,122p,1001b,1233s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </tmp/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1440.600pk> </t
-mp/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.525pk> </tmp/.te
-xlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> </tmp/.texlive2
-022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk>{/usr/share/texlive/te
-xmf-dist/fonts/enc/dvips/fira/fir_iln36p.enc}</usr/share/texlive/texmf-dist/fon
-ts/type1/public/fira/FiraSans-Italic.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/fira/FiraSans-Medium.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/fira/FiraSans-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb>
-Output written on main.pdf (29 pages, 1313798 bytes).
+ </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1440.6
+00pk> </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt080
+0.525pk> </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt
+0800.600pk> </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/e
+ctt1000.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_iln36p.en
+c}</usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Italic.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Medium.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Regular.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on main.pdf (29 pages, 1422837 bytes).
 PDF statistics:
- 428 PDF objects out of 1000 (max. 8388607)
+ 426 PDF objects out of 1000 (max. 8388607)
  215 compressed objects within 3 object streams
  59 named destinations out of 1000 (max. 500000)
  72437 words of extra memory for PDF output out of 74296 (max. 10000000)
