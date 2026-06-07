@@ -112,260 +112,192 @@
 
 \maketitle
 
-\begin{frame}{Visão geral da defesa}
-\chaptertag{Mapa da apresentação}
+\begin{frame}{Roteiro da defesa}
+\chaptertag{20 minutos}
 \begin{columns}[T,onlytextwidth]
   \column{0.33\textwidth}
   \begin{accentbox}{1. Problema}
-    Introdução, contexto Flutter, motivação e objetivos.
+    Contexto Flutter, motivação e pergunta de pesquisa.
   \end{accentbox}
-  \begin{infobox}{2. Base científica}
-    Trabalhos relacionados e lacuna de pesquisa.
+  \begin{infobox}{2. Base}
+    Literatura, ferramentas existentes e lacuna.
   \end{infobox}
   \column{0.33\textwidth}
-  \begin{accentbox}{3. Humanidades}
-    Sustentabilidade digital, inclusão, ética e privacidade.
+  \begin{accentbox}{3. Solução}
+    \collectorFlutter{}, arquitetura, métricas e dashboard.
   \end{accentbox}
-  \begin{infobox}{4. Solução}
-    Arquitetura, módulos, métricas e dashboard.
+  \begin{infobox}{4. Método}
+    Cenários controlados, evidências e limites.
   \end{infobox}
   \column{0.33\textwidth}
-  \begin{accentbox}{5. Método}
-    Requisitos, experimentos e cenários de teste.
+  \begin{accentbox}{5. Resultados}
+    Sinais observados, ADB, 60 testes e contribuições.
   \end{accentbox}
   \begin{infobox}{6. Fechamento}
-    Resultados, contribuições, limitações e conclusão.
+    Limitações, trabalhos futuros e conclusão.
   \end{infobox}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Introdução}
-\chaptertag{Capítulo 1 -- Introdução}
+\begin{frame}{Ponto de partida}
+\chaptertag{Introdução}
 \begin{columns}[T,onlytextwidth]
-  \column{0.55\textwidth}
+  \column{0.58\textwidth}
   \begin{itemize}
-    \item Flutter consolidou-se como um dos principais caminhos para apps multiplataforma.
-    \item Interfaces ricas aumentam pressão sobre CPU, GPU, memória e rede.
-    \item Em dispositivos móveis, pequenas ineficiências viram experiência ruim: travamentos, quedas de FPS e drenagem de bateria.
-    \item O diagnóstico de desempenho precisa acontecer durante o desenvolvimento, não apenas no fim do projeto.
+    \item Flutter acelera o desenvolvimento multiplataforma.
+    \item Apps modernos combinam animações, listas dinâmicas, rede, estado reativo e dispositivos muito diferentes.
+    \item Desempenho ruim aparece como \jank{}, queda de FPS, uso alto de memória, rede excessiva e bateria menor.
+    \item O diagnóstico precisa acontecer enquanto o app ainda está sendo construído.
   \end{itemize}
-  \column{0.38\textwidth}
-  \begin{accentbox}{Ideia central}
-    Performance é uma conversa contínua com o aplicativo: cada frame conta um pouco da história.
-  \end{accentbox}
-  \metric{\textwidth}{collectorTeal}{Termômetro embarcado}
+  \column{0.36\textwidth}
+  \metric{\textwidth}{collectorTeal}{FPS}
+  \metric{\textwidth}{collectorCoral}{Jank}
+  \metric{\textwidth}{collectorGold}{Memória}
+  \metric{\textwidth}{collectorTeal}{Rede}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Problema de pesquisa}
-\chaptertag{Capítulo 1 -- Problema}
+\chaptertag{Ferramentas fortes, uso com atrito}
 \begin{columns}[T,onlytextwidth]
-  \column{0.48\textwidth}
-  \begin{infobox}{Ferramentas atuais}
-    \devtools{}, Android Profiler, Perfetto e Xcode Instruments oferecem dados ricos, mas exigem troca de contexto, configuração manual e interpretação especializada.
+  \column{0.49\textwidth}
+  \begin{infobox}{O que já existe}
+    \devtools{}, Android Profiler, Perfetto, Instruments e Firebase entregam dados ricos para profiling e diagnóstico.
   \end{infobox}
-  \column{0.48\textwidth}
-  \begin{accentbox}{Consequência prática}
-    O diagnóstico tende a ser adiado. Quando a regressão aparece, ela já pode ter chegado ao usuário.
-  \end{accentbox}
-\end{columns}
-\vspace{2mm}
-\begin{center}
-\Large\bfseries
-Como tornar o diagnóstico de performance mais acessível, contínuo e acionável em Flutter?
-\end{center}
-\end{frame}
-
-\begin{frame}{Motivação}
-\chaptertag{Capítulo 1 -- Motivação e justificativa}
-\begin{columns}[T,onlytextwidth]
-  \column{0.32\textwidth}
-  \begin{accentbox}{Experiência}
-    \jank{}, lentidão e memória alta tornam o app menos confiável.
-  \end{accentbox}
-  \column{0.32\textwidth}
-  \begin{infobox}{Energia}
-    Renderização, rede e CPU elevam consumo de bateria e aquecimento.
-  \end{infobox}
-  \column{0.32\textwidth}
-  \begin{accentbox}{Inclusão}
-    Apps leves funcionam melhor em aparelhos antigos ou de entrada.
+  \column{0.49\textwidth}
+  \begin{accentbox}{O que dificulta o uso contínuo}
+    Ferramentas externas exigem configuração, troca de contexto e interpretação manual dos dados.
   \end{accentbox}
 \end{columns}
 \vspace{3mm}
-\begin{itemize}
-  \item A literatura relaciona métricas observáveis de execução ao consumo energético.
-  \item Em Flutter, \rebuilds{} frequentes e frames longos são sintomas importantes.
-  \item A lacuna está entre ``ter dados'' e ``saber agir sobre eles''.
-\end{itemize}
+\begin{center}
+{\Large\bfseries Como tornar o diagnóstico de desempenho mais acessível, contínuo e acionável em Flutter?}
+\end{center}
 \end{frame}
 
 \begin{frame}{Objetivos}
-\chaptertag{Capítulo 1 -- Objetivos}
+\chaptertag{O que o trabalho se propôs a entregar}
 \begin{accentbox}{Objetivo geral}
-Desenvolver e avaliar o \collectorFlutter{}, uma biblioteca Dart/Flutter embarcada para coletar métricas, analisar padrões de degradação e recomendar otimizações em tempo real.
+Desenvolver e avaliar funcionalmente o \collectorFlutter{}, uma biblioteca Dart/Flutter embarcada para coletar métricas, analisar sintomas de degradação e exibir recomendações em tempo real.
 \end{accentbox}
-\vspace{2mm}
+\vspace{1.5mm}
 \begin{columns}[T,onlytextwidth]
   \column{0.5\textwidth}
   \begin{itemize}
-    \item Coletar FPS, \jank{}, memória, rede, eventos e \rebuilds{}.
-    \item Projetar arquitetura modular e extensível.
-    \item Exibir dados em um dashboard integrado ao app.
+    \item Coletar FPS, \jank{}, memória, rede, CPU, bateria, eventos e \rebuilds{}.
+    \item Organizar o pacote em arquitetura modular.
+    \item Exibir um dashboard dentro do app.
   \end{itemize}
   \column{0.5\textwidth}
   \begin{itemize}
     \item Gerar recomendações heurísticas por severidade.
-    \item Manter \overhead{} alvo inferior a 5\%.
-    \item Apoiar ensino, pesquisa e reprodutibilidade.
+    \item Exportar sessões em JSON e CSV.
+    \item Validar o comportamento em cenários controlados.
   \end{itemize}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Trabalhos relacionados I: energia e métricas}
-\chaptertag{Capítulo 2 -- Revisão bibliográfica}
-\footnotesize
-\begin{tabularx}{\textwidth}{L{2.6cm}Y Y}
-\toprule
-\textbf{Autor} & \textbf{Contribuição} & \textbf{Relação com este trabalho} \\
-\midrule
-Pathak et al. (2011) & Modelagem energética fina por chamadas de sistema em smartphones Android. & Mostra que rede e interface pesam no consumo energético. \\
-Hao et al. (2013) & Estimativa de consumo energético por análise de programa. & Fundamenta proxies de energia sem instrumentação física dedicada. \\
-Li et al. (2014) & Estudo empírico de energia em apps Android. & Reforça a medição por métricas observáveis de execução. \\
-Hoque et al. (2015) & Revisão sobre modelagem, profiling e depuração de energia em dispositivos móveis. & Organiza métodos, limites e sinais úteis para diagnóstico. \\
-\bottomrule
-\end{tabularx}
-\vspace{2mm}
-\smallref{Síntese: energia pode ser inferida por sinais como CPU, frames, memória e rede.}
-\end{frame}
-
-\begin{frame}{Trabalhos relacionados II: profiling e Flutter}
-\chaptertag{Capítulo 2 -- Revisão bibliográfica}
-\footnotesize
-\begin{tabularx}{\textwidth}{L{2.7cm}Y Y}
-\toprule
-\textbf{Autor} & \textbf{Contribuição} & \textbf{Relação com este trabalho} \\
-\midrule
-Ravindranath et al. (2012) & Monitoramento de desempenho móvel em aplicações reais com AppInsight. & Inspira coleta próxima do contexto real de execução. \\
-Rua e Saraiva (2024) & Estudo empírico em larga escala sobre energia, tempo de execução e memória. & Justifica analisar múltiplos sinais em conjunto. \\
-Nawrocki et al. (2021) & Comparação entre frameworks nativos e multiplataforma. & Situa Flutter no debate de desempenho cross-platform. \\
-Flutter DevTools (2026) & Ferramentas oficiais para inspecionar frames, memória e execução em Flutter. & Alinha as métricas do protótipo ao ecossistema Flutter. \\
-\bottomrule
-\end{tabularx}
-\vspace{2mm}
-\smallref{Síntese: em Flutter, renderização e reconstrução de widgets são pontos críticos.}
-\end{frame}
-
-\begin{frame}{Trabalhos relacionados III: automação e recomendações}
-\chaptertag{Capítulo 2 -- Estudos acadêmicos relacionados}
-\footnotesize
-\begin{tabularx}{\textwidth}{L{2.7cm}Y Y}
-\toprule
-\textbf{Autor} & \textbf{Contribuição} & \textbf{Relação com este trabalho} \\
-\midrule
-Sun et al. (2023) & Revisão sobre diagnóstico de ineficiências energéticas em apps Android. & Ajuda a transformar sintomas em hipóteses de causa. \\
-Bangash et al. (2023) & Estimativa de energia a partir do uso de APIs em apps móveis. & Apoia heurísticas baseadas em eventos e padrões de uso. \\
-Android Profiler e Perfetto & Profiling detalhado de CPU, memória, rede, energia e tracing. & Servem como referência para comparação técnica. \\
-Instruments e Firebase & Profiling no ecossistema Apple e monitoramento de performance em produção. & Mostram forças e limites das soluções externas. \\
-\collectorFlutter{} & Monitoramento embarcado com recomendações acionáveis. & Atua na lacuna entre medir e decidir o próximo passo. \\
-\bottomrule
-\end{tabularx}
-\end{frame}
-
-\begin{frame}{Lacuna de pesquisa}
-\chaptertag{Capítulo 2 -- Síntese crítica}
+\begin{frame}{Base científica}
+\chaptertag{O que a literatura ajudou a decidir}
 \begin{columns}[T,onlytextwidth]
-  \column{0.49\textwidth}
-  \begin{infobox}{O que já existe}
-    \begin{itemize}
-      \item Métricas maduras de profiling.
-      \item Ferramentas oficiais detalhadas.
-      \item Estudos sobre energia, memória, rede e renderização.
-    \end{itemize}
+  \column{0.33\textwidth}
+  \begin{accentbox}{Energia}
+    Estudos como Pathak, Hao, Li e Hoque relacionam consumo a CPU, rede, execução e memória.
+  \end{accentbox}
+  \column{0.33\textwidth}
+  \begin{infobox}{Performance móvel}
+    AppInsight e Rua/Saraiva reforçam análise de múltiplos sinais, não apenas uma métrica isolada.
   \end{infobox}
-  \column{0.49\textwidth}
-  \begin{accentbox}{O que falta}
-    \begin{itemize}
-      \item Coleta dentro do app monitorado.
-      \item Baixa fricção de uso no ciclo diário.
-      \item Recomendações automáticas e acionáveis.
-    \end{itemize}
+  \column{0.33\textwidth}
+  \begin{accentbox}{Diagnóstico}
+    Sun e Bangash apoiam a ideia de transformar sintomas observáveis em hipóteses de otimização.
   \end{accentbox}
 \end{columns}
-\vspace{2mm}
+\vspace{3mm}
 \begin{center}
 \bfseries
-O \collectorFlutter{} ocupa essa lacuna: menos laboratório externo, mais diagnóstico no fluxo real de desenvolvimento.
+Síntese: desempenho móvel é multidimensional; a ferramenta precisa observar vários sinais ao mesmo tempo.
 \end{center}
 \end{frame}
 
-\begin{frame}{Contextualização em humanidades}
-\chaptertag{Capítulo 3 -- Contexto social, ambiental e ético}
+\begin{frame}{Lacuna identificada}
+\chaptertag{Entre medir e agir}
 \begin{columns}[T,onlytextwidth]
-  \column{0.5\textwidth}
-  \begin{accentbox}{Sustentabilidade digital}
-    Software ineficiente consome mais energia, aquece o dispositivo e pode acelerar obsolescência percebida.
-  \end{accentbox}
-  \begin{infobox}{Inclusão digital}
-    Otimizar performance amplia a chance de o app funcionar bem em dispositivos de entrada.
+  \column{0.48\textwidth}
+  \begin{infobox}{Ferramentas de referência}
+    \begin{itemize}
+      \item Medições detalhadas.
+      \item Ótimas para investigação profunda.
+      \item Importantes como referência técnica.
+    \end{itemize}
   \end{infobox}
-  \column{0.5\textwidth}
-  \begin{accentbox}{Ética e privacidade}
-    O protótipo coleta métricas técnicas de desempenho, sem dados pessoais ou conteúdo do usuário.
+  \column{0.48\textwidth}
+  \begin{accentbox}{Espaço do trabalho}
+    \begin{itemize}
+      \item Feedback dentro do app.
+      \item Baixa fricção durante o desenvolvimento.
+      \item Recomendações iniciais para orientar ação.
+    \end{itemize}
   \end{accentbox}
-  \begin{infobox}{Responsabilidade}
-    Diagnosticar consumo de recursos é parte da qualidade social e ambiental do software.
-  \end{infobox}
 \end{columns}
+\vspace{2mm}
+\smallref{O ponto aqui não é substituir o Profiler; é aproximar o primeiro diagnóstico do fluxo diário de desenvolvimento.}
 \end{frame}
 
-\begin{frame}{Proposta}
-\chaptertag{Capítulo 4 -- Descrição do protótipo}
+\begin{frame}{Humanidades}
+\chaptertag{Por que performance também é impacto}
+\begin{columns}[T,onlytextwidth]
+  \column{0.33\textwidth}
+  \begin{accentbox}{Experiência}
+    Apps lentos reduzem confiança, fluidez e sensação de qualidade.
+  \end{accentbox}
+  \column{0.33\textwidth}
+  \begin{infobox}{Inclusão}
+    Eficiência ajuda o app a funcionar melhor em aparelhos de entrada ou mais antigos.
+  \end{infobox}
+  \column{0.33\textwidth}
+  \begin{accentbox}{Ética}
+    O pacote coleta métricas técnicas, sem dados pessoais ou conteúdo do usuário.
+  \end{accentbox}
+\end{columns}
+\vspace{3mm}
+\begin{center}
+\bfseries
+Otimizar recursos é também respeitar bateria, dispositivo e contexto de uso.
+\end{center}
+\end{frame}
+
+\begin{frame}{Proposta: \collectorFlutter{}}
+\chaptertag{Termômetro embarcado}
 \begin{columns}[T,onlytextwidth]
   \column{0.58\textwidth}
   \begin{itemize}
-    \item \collectorFlutter{} é um pacote Dart/Flutter de monitoramento embarcado.
-    \item Funciona como uma tela do próprio app, sem servidor externo.
-    \item Coleta métricas, aplica análise heurística e exibe recomendações.
-    \item Foco: acessibilidade, reprodutibilidade e baixo acoplamento.
+    \item Pacote Dart/Flutter de código aberto.
+    \item Coleta métricas dentro da própria aplicação monitorada.
+    \item Analisa sintomas por heurísticas e severidade.
+    \item Exibe recomendações em um dashboard integrado.
+    \item Exporta dados para inspeção externa.
   \end{itemize}
-  \column{0.36\textwidth}
+  \column{0.34\textwidth}
   \centering
   \IfFileExists{../images/figures/iconedoappexamplo.jpeg}{%
-    \includegraphics[height=0.45\textheight]{iconedoappexamplo.jpeg}
+    \includegraphics[height=0.44\textheight]{iconedoappexamplo.jpeg}
   }{%
     \metric{\textwidth}{collectorTeal}{collector\_flutter}
   }
 \end{columns}
 \vspace{1mm}
 \begin{accentbox}{Em uma frase}
-Um painel de diagnóstico que mora dentro do aplicativo e transforma telemetria em ação.
+A ferramenta funciona como um termômetro embarcado: observa sinais vitais do app e mostra onde investigar primeiro.
 \end{accentbox}
 \end{frame}
 
-\begin{frame}{Ferramentas atuais: comparação}
-\chaptertag{Capítulo 2 -- Ferramentas de monitoramento existentes}
-\footnotesize
-\begin{tabularx}{\textwidth}{L{2.6cm}Y Y}
-\toprule
-\textbf{Ferramenta} & \textbf{Força principal} & \textbf{Limitação para o caso de uso} \\
-\midrule
-\devtools{} & Timeline, widgets, memória e CPU. & Exige ferramenta separada e interpretação manual. \\
-Perfetto & Traços detalhados de sistema Android. & Baixo nível, configuração manual e alto custo cognitivo. \\
-Android Profiler & CPU, memória, rede e energia no Android Studio. & Restrito a Android e dependente de ambiente externo. \\
-Xcode Instruments & Profiling avançado para iOS/macOS. & Ecossistema Apple, coleta manual e curva de aprendizado. \\
-Firebase Performance & Monitoramento em produção. & Pouca granularidade para renderização e CPU. \\
-Flipper / LeakCanary & Depuração e memória em ecossistemas específicos. & Não cobrem o fluxo Flutter completo. \\
-\bottomrule
-\end{tabularx}
-\end{frame}
-
-\begin{frame}{Arquitetura geral}
-\chaptertag{Capítulo 4 -- Arquitetura da solução}
+\begin{frame}{Arquitetura}
+\chaptertag{Três camadas}
 \begin{columns}[T,onlytextwidth]
-  \column{0.48\textwidth}
+  \column{0.42\textwidth}
   \begin{accentbox}{Data}
-    Fontes de dados para frames, memória, rede e eventos.
+    Fontes de dados para frames, memória, rede, eventos, CPU e bateria.
   \end{accentbox}
   \begin{infobox}{Domain}
     Entidades, casos de uso, \texttt{Analyzer} e \texttt{Recommender}.
@@ -373,204 +305,58 @@ Flipper / LeakCanary & Depuração e memória em ecossistemas específicos. & N�
   \begin{accentbox}{Presentation}
     \texttt{CollectorBloc}, \texttt{DashboardPage} e visualização reativa.
   \end{accentbox}
-  \column{0.48\textwidth}
+  \column{0.54\textwidth}
   \centering
   \IfFileExists{../images/mermaid/outputs/arquitetura_fluxo_collector.png}{%
-    \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{arquitetura_fluxo_collector.png}
+    \includegraphics[width=\textwidth,height=0.66\textheight,keepaspectratio]{arquitetura_fluxo_collector.png}
   }{%
-    \begin{tikzpicture}[node distance=9mm, every node/.style={draw, rounded corners, align=center, minimum width=3cm, minimum height=8mm}]
-      \node (d) {Data};
-      \node[below=of d] (m) {Domain};
-      \node[below=of m] (p) {Presentation};
-      \draw[-{Latex}] (d) -- (m);
-      \draw[-{Latex}] (m) -- (p);
-    \end{tikzpicture}
+    \metric{\textwidth}{collectorTeal}{Data -> Domain -> Presentation}
   }
 \end{columns}
 \end{frame}
 
-\begin{frame}{Fluxo do sistema}
-\chaptertag{Capítulo 4 -- Coleta, análise e recomendação}
-\centering
-\begin{tikzpicture}[
-  node distance=9mm,
-  flowstep/.style={draw=collectorTeal, fill=collectorMint, rounded corners=2mm, minimum width=3.1cm, minimum height=1.2cm, align=center, font=\bfseries},
-  arrow/.style={-{Latex}, thick, color=collectorCoral}
-]
-  \node[flowstep] (collect) {1. Coletar\\frames, memória, rede};
-  \node[flowstep, right=of collect] (analyze) {2. Analisar\\padrões e anomalias};
-  \node[flowstep, right=of analyze] (recommend) {3. Recomendar\\ações por severidade};
-  \node[flowstep, below=of analyze] (dash) {4. Visualizar\\dashboard no app};
-  \draw[arrow] (collect) -- (analyze);
-  \draw[arrow] (analyze) -- (recommend);
-  \draw[arrow] (recommend) |- (dash);
-  \draw[arrow] (dash) -| (collect);
-\end{tikzpicture}
-\vspace{5mm}
-\begin{accentbox}{Leitura lúdica}
-O app envia sinais vitais; o coletor escuta, interpreta e devolve uma prescrição de otimização.
-\end{accentbox}
-\end{frame}
-
-\begin{frame}{Métricas coletadas}
-\chaptertag{Capítulo 4 -- Instrumentação}
+\begin{frame}{Dashboard integrado}
+\chaptertag{Evidência visual do pacote}
 \begin{columns}[T,onlytextwidth]
-  \column{0.25\textwidth}
-  \metric{\textwidth}{collectorTeal}{FPS}
-  \metric{\textwidth}{collectorCoral}{Jank}
-  \column{0.25\textwidth}
-  \metric{\textwidth}{collectorGold}{P50/P95/P99}
-  \metric{\textwidth}{collectorTeal}{Memória}
-  \column{0.25\textwidth}
-  \metric{\textwidth}{collectorCoral}{Rede}
-  \metric{\textwidth}{collectorGold}{Eventos}
-  \column{0.25\textwidth}
-  \metric{\textwidth}{collectorTeal}{Rebuilds}
-  \metric{\textwidth}{collectorCoral}{JSON/CSV}
-\end{columns}
-\vspace{2mm}
-\begin{itemize}
-  \item Frames: \texttt{SchedulerBinding} e \texttt{FrameTiming}.
-  \item Memória: RSS e heap via VM Service, com fallback quando necessário.
-  \item Rede: cliente HTTP instrumentado com URL, status, latência e bytes.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Módulos principais}
-\chaptertag{Capítulo 4 -- Componentes}
-\footnotesize
-\begin{tabularx}{\textwidth}{L{3cm}Y}
-\toprule
-\textbf{Módulo} & \textbf{Papel na solução} \\
-\midrule
-\texttt{ResourceCollector} & Fachada pública: inicia, para, coleta agora e gerencia ciclo de vida. \\
-\texttt{Collector} / fontes de dados & Capturam frames, memória, rede, eventos e \rebuilds{}. \\
-\texttt{Analyzer} & Resume métricas e detecta sinais de degradação. \\
-\texttt{Recommender} & Converte sintomas em recomendações por severidade. \\
-\texttt{DashboardPage} & Exibe cartões, gráficos, rede e recomendações dentro do app. \\
-\texttt{ExportService} & Serializa a sessão em JSON e frames em CSV para análise externa. \\
-\bottomrule
-\end{tabularx}
-\end{frame}
-
-\begin{frame}[fragile]{Integração no app}
-\chaptertag{Capítulo 4 -- Uso prático}
-\begin{lstlisting}[style=dart]
-final collector = ResourceCollector(
-  collectionInterval: const Duration(seconds: 2),
-  budget: const PerformanceBudget(targetFrameRate: 60),
-);
-
-await collector.start();
-
-Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (_) => DashboardPage(collector: collector),
-  ),
-);
-
-await collector.network.get(Uri.parse('https://api.exemplo.com/dados'));
-collector.recordEvent('checkout_started', {'items': 3});
-\end{lstlisting}
-\vspace{1mm}
-\smallref{A proposta é reduzir fricção: poucas chamadas ativam coleta, painel e instrumentação de rede.}
-\end{frame}
-
-\begin{frame}{Protótipo visual}
-\chaptertag{Capítulo 4 -- Dashboard integrado}
-\begin{columns}[T,onlytextwidth]
-  \column{0.48\textwidth}
+  \column{0.49\textwidth}
   \centering
   \IfFileExists{../images/figures/prototipoquandoestaok.jpeg}{%
-    \includegraphics[height=0.68\textheight]{prototipoquandoestaok.jpeg}
-  }{Estado saudável}
+    \includegraphics[height=0.69\textheight]{prototipoquandoestaok.jpeg}
+  }{\metric{\textwidth}{collectorTeal}{Estado estável}}
 
-  \small Estado saudável
-  \column{0.48\textwidth}
+  \small Estado estável
+  \column{0.49\textwidth}
   \centering
   \IfFileExists{../images/figures/prototipoquandonaoestaok.jpeg}{%
-    \includegraphics[height=0.68\textheight]{prototipoquandonaoestaok.jpeg}
-  }{Gargalos detectados}
+    \includegraphics[height=0.69\textheight]{prototipoquandonaoestaok.jpeg}
+  }{\metric{\textwidth}{collectorCoral}{Gargalos}}
 
   \small Gargalos detectados
 \end{columns}
 \end{frame}
 
 \begin{frame}{Metodologia}
-\chaptertag{Capítulo 4 -- Metodologia e desenvolvimento}
+\chaptertag{Avaliação funcional}
 \begin{columns}[T,onlytextwidth]
-  \column{0.52\textwidth}
+  \column{0.48\textwidth}
   \begin{itemize}
-    \item Pesquisa aplicada: constrói uma solução prática para um problema específico.
-    \item Abordagem experimental: observa variáveis de desempenho sob cenários controlados.
-    \item Ciclo iterativo e incremental: revisão, requisitos, implementação e validação.
-    \item Rastreabilidade entre requisitos, módulos e critérios de avaliação.
+    \item Pesquisa aplicada: constrói uma solução prática.
+    \item Ciclo iterativo: revisão, requisitos, implementação e validação.
+    \item Execuções controladas no aplicativo de exemplo.
+    \item Resultados tratados como evidência funcional, não estatística.
   \end{itemize}
-  \column{0.42\textwidth}
+  \column{0.48\textwidth}
   \centering
-  \IfFileExists{../images/mermaid/outputs/ciclo_de_vida.png}{%
-    \includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{ciclo_de_vida.png}
+  \IfFileExists{../images/mermaid/outputs/metodologia_pesquisa.png}{%
+    \includegraphics[width=\textwidth,height=0.58\textheight,keepaspectratio]{metodologia_pesquisa.png}
   }{%
-    \begin{accentbox}{Ciclo}
-      Revisão \(\rightarrow\) requisitos \(\rightarrow\) protótipo \(\rightarrow\) validação
-    \end{accentbox}
+    \metric{\textwidth}{collectorTeal}{Revisão -> pacote -> cenários -> análise}
   }
 \end{columns}
 \end{frame}
 
-\begin{frame}{Requisitos do sistema}
-\chaptertag{Capítulo 4 -- Requisitos funcionais e não funcionais}
-\begin{columns}[T,onlytextwidth]
-  \column{0.49\textwidth}
-  \begin{accentbox}{Funcionais}
-    \begin{itemize}
-      \item Coletar métricas em tempo real.
-      \item Correlacionar degradações.
-      \item Gerar recomendações.
-      \item Exibir dashboard integrado.
-      \item Simular cenários de carga.
-    \end{itemize}
-  \end{accentbox}
-  \column{0.49\textwidth}
-  \begin{infobox}{Não funcionais}
-    \begin{itemize}
-      \item Operar integralmente em Dart.
-      \item \overhead{} alvo abaixo de 5\%.
-      \item Interface fluida e responsiva.
-      \item Modularidade e separação de responsabilidades.
-      \item Extensibilidade para novas métricas.
-    \end{itemize}
-  \end{infobox}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Procedimentos de teste}
-\chaptertag{Capítulo 4 -- Procedimentos experimentais}
-\begin{columns}[T,onlytextwidth]
-  \column{0.5\textwidth}
-  \begin{itemize}
-    \item Execução preferencial em modo \textit{profile}.
-    \item Preparação do ambiente antes de cada execução.
-    \item Cenários com duração controlada e repetição.
-    \item Coleta estruturada em JSON e CSV.
-  \end{itemize}
-  \column{0.5\textwidth}
-  \begin{itemize}
-    \item Comparação planejada com Android Profiler e \texttt{adb shell dumpsys gfxinfo}.
-    \item Cálculo de erro percentual para precisão.
-    \item Cálculo de \overhead{} sobre tempo médio de frame.
-    \item Análise estatística para validação ampliada.
-  \end{itemize}
-\end{columns}
-\vspace{2mm}
-\begin{accentbox}{Critério científico}
-Resultados quantitativos entram apenas quando sustentados por protocolo e repetição suficientes.
-\end{accentbox}
-\end{frame}
-
-\begin{frame}{Cenários experimentais}
-\chaptertag{Capítulo 4 -- Cargas controladas}
+\begin{frame}{Cenários testados}
+\chaptertag{Quatro cargas controladas}
 \begin{columns}[T,onlytextwidth]
   \column{0.25\textwidth}
   \begin{accentbox}{1. Rebuilds}
@@ -582,126 +368,162 @@ Resultados quantitativos entram apenas quando sustentados por protocolo e repeti
   \end{infobox}
   \column{0.25\textwidth}
   \begin{accentbox}{3. Memória}
-    Alocação e liberação de objetos grandes.
+    Alocação intensiva de objetos.
   \end{accentbox}
   \column{0.25\textwidth}
   \begin{infobox}{4. Combinado}
-    Interface, rede e memória ao mesmo tempo.
+    Interface, rede, memória e CPU.
   \end{infobox}
 \end{columns}
 \vspace{3mm}
 \begin{center}
 \bfseries
-Cada cenário provoca um sintoma; o dashboard precisa perceber e explicar.
+Cada cenário provoca um sintoma esperado; o painel precisa tornar esse sintoma visível.
 \end{center}
 \end{frame}
 
-\begin{frame}{Resultados implementados}
-\chaptertag{Capítulo 5 -- Resultados e discussão}
+\begin{frame}{Evidências dos cenários}
+\chaptertag{Imagens geradas no projeto}
 \begin{columns}[T,onlytextwidth]
-  \column{0.5\textwidth}
-  \begin{itemize}
-    \item Pacote \collectorFlutter{} estruturado como biblioteca Flutter plugin.
-    \item Coleta de frames, memória, rede, eventos customizados e \rebuilds{}.
-    \item Coleta de CPU via \textit{platform channel} Android (\texttt{/proc/stat}).
-    \item Monitoramento de bateria via \texttt{BatteryManager} (Android) e \texttt{UIDevice} (iOS).
-    \item Dashboard com cartões de CPU, bateria e demais métricas.
-    \item Exportação JSON e CSV via \texttt{ExportService}.
-  \end{itemize}
-  \column{0.5\textwidth}
-  \begin{itemize}
-    \item 48 testes automatizados cobrindo \texttt{Analyzer}, \texttt{Recommender}, \texttt{ExportService}, \texttt{CpuDataSource} e \texttt{BatteryDataSource}.
-    \item Heurísticas de CPU (alerta acima de 60\% e 80\%) e bateria (alerta abaixo de 20\%).
-    \item Recomendações de Isolate para CPU alta e redução de coleta para bateria baixa.
-    \item Correções de sincronização, gráfico, URL e histórico de memória.
-  \end{itemize}
+  \column{0.25\textwidth}
+  \centering
+  \includegraphics[height=0.60\textheight]{evidencia_cenario_rebuilds.png}
+
+  \scriptsize Rebuilds
+  \column{0.25\textwidth}
+  \centering
+  \includegraphics[height=0.60\textheight]{evidencia_cenario_rede.png}
+
+  \scriptsize Rede
+  \column{0.25\textwidth}
+  \centering
+  \includegraphics[height=0.60\textheight]{evidencia_cenario_memoria.png}
+
+  \scriptsize Memória
+  \column{0.25\textwidth}
+  \centering
+  \includegraphics[height=0.60\textheight]{evidencia_cenario_combinado.png}
+
+  \scriptsize Carga combinada
 \end{columns}
+\vspace{1mm}
+\smallref{As capturas foram preservadas na monografia como Apêndice B, junto das leituras ADB.}
 \end{frame}
 
-\begin{frame}{Resultados qualitativos}
-\chaptertag{Capítulo 5 -- Validação preliminar}
+\begin{frame}{Resultados observados}
+\chaptertag{O que apareceu nos logs e no painel}
 \footnotesize
-\begin{tabularx}{\textwidth}{L{3.1cm}Y}
+\begin{tabularx}{\textwidth}{L{2.8cm}Y Y}
 \toprule
-\textbf{Cenário} & \textbf{Comportamento observado} \\
+\textbf{Cenário} & \textbf{Sinais registrados} & \textbf{Leitura para a defesa} \\
 \midrule
-Rebuilds intensivos & Quedas de FPS e frames longos foram detectados; recomendações sugeriram \texttt{const}, isolamento de reconstruções e padrões reativos. \\
-Rede simultânea & Requisições foram registradas com URL, status e latência; alto volume gerou alerta de cache/debounce. \\
-Memória intensiva & Crescimento de RSS foi acompanhado com suavização para evitar falsos positivos transitórios. \\
-Carga combinada & Múltiplas métricas foram processadas sem interferência entre módulos; recomendações foram priorizadas por severidade. \\
+Rebuilds & 30 \textit{rebuilds}, FPS 55{,}4, P95 20{,}4 ms e 2 frames longos. & O painel reagiu à carga de interface. \\
+Rede & 9 requisições, FPS 42{,}9, P95 139{,}5 ms e 4 frames longos. & O interceptador registrou eventos e latências. \\
+Memória & ADB: RSS 236.480 KB e PSS 222.232 KB. & Houve crescimento real, mas o snapshot do painel mostrou limitação de leitura. \\
+Combinado & 17 requisições, 54 \textit{rebuilds}, FPS 44{,}6, P95 37{,}7 ms e CPU 75{,}3\%. & O sistema processou múltiplos sinais e priorizou alertas. \\
 \bottomrule
 \end{tabularx}
-\vspace{2mm}
-\smallref{Esses resultados sustentam a operacionalidade do protótipo; a validação quantitativa ampla é uma evolução natural.}
+\vspace{1mm}
+\smallref{Essa evidência mostra operacionalidade, não precisão estatística.}
 \end{frame}
 
-\begin{frame}{Evolução do protótipo}
-\chaptertag{Capítulo 5 -- Limitações superadas}
+\begin{frame}{ADB, Profiler e limites}
+\chaptertag{Transparência metodológica}
 \begin{columns}[T,onlytextwidth]
   \column{0.5\textwidth}
-  \begin{accentbox}{Limitações superadas}
+  \begin{accentbox}{O que foi usado de fato}
     \begin{itemize}
-      \item \textbf{CPU:} \textit{platform channel} Android (\texttt{/proc/stat}).
-      \item \textbf{Bateria:} \texttt{BatteryManager} (Android) e \texttt{UIDevice} (iOS).
-      \item \textbf{Exportação:} JSON e CSV via \texttt{ExportService}.
-      \item \textbf{Testes:} 48 testes unitários automatizados.
+      \item \texttt{adb shell dumpsys meminfo}
+      \item \texttt{adb shell dumpsys gfxinfo}
+      \item Logs \texttt{EVIDENCE} do aplicativo
+      \item Capturas reais do emulador
     \end{itemize}
   \end{accentbox}
   \column{0.5\textwidth}
-  \begin{infobox}{Trabalhos futuros}
-    \begin{itemize}
-      \item CPU completo no iOS (Mach APIs).
-      \item Experimentos quantitativos formais ($\geq$30 repetições, 3 dispositivos).
-      \item Comparação estatística com ferramentas de referência.
-      \item Avaliação de usabilidade (ISO 9241-11).
-    \end{itemize}
+  \begin{infobox}{Como interpretar}
+    Android Profiler e Perfetto ficaram como referências conceituais. Nesta avaliação, não houve série comparativa quantitativa nem cálculo formal de erro percentual.
+  \end{infobox}
+  \begin{accentbox}{Limitação importante}
+    O \texttt{gfxinfo} confirmou a superfície Flutter, mas retornou contadores HWUI zerados nessa execução.
+  \end{accentbox}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Testes automatizados}
+\chaptertag{60 casos aprovados}
+\begin{columns}[T,onlytextwidth]
+  \column{0.46\textwidth}
+  \metric{\textwidth}{collectorTeal}{60 testes}
+  \begin{itemize}
+    \item 24 em análise e estatísticas.
+    \item 17 em CPU e bateria.
+    \item 12 em recomendações.
+    \item 7 em exportação.
+  \end{itemize}
+  \column{0.52\textwidth}
+  \scriptsize
+  \begin{tabular}{p{2.2cm}p{3.3cm}r}
+  \toprule
+  \textbf{Arquivo} & \textbf{Cobertura} & \textbf{Casos} \\
+  \midrule
+  Analyzer & \rule{2.8cm}{0.45em} & 24 \\
+  CPU/bateria & \rule{2.0cm}{0.45em} & 17 \\
+  Recommender & \rule{1.4cm}{0.45em} & 12 \\
+  ExportService & \rule{0.8cm}{0.45em} & 7 \\
+  \bottomrule
+  \end{tabular}
+  \vspace{3mm}
+
+  \begin{infobox}{Papel dos testes}
+    Eles verificam regras internas, serialização e fallbacks. Não substituem experimentos quantitativos em dispositivos reais.
   \end{infobox}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Contribuições}
-\chaptertag{Capítulo 6 -- Conclusões}
+\begin{frame}{Limitações e trabalhos futuros}
+\chaptertag{O que fica para evoluir}
 \begin{columns}[T,onlytextwidth]
-  \column{0.33\textwidth}
-  \begin{accentbox}{Técnica}
-    Biblioteca aberta, modular e embarcada para diagnóstico de performance em Flutter, disponível no GitHub e no pub.dev.
-  \end{accentbox}
-  \column{0.33\textwidth}
-  \begin{infobox}{Científica}
-    Arquitetura, requisitos, cenários e protocolo orientados à reprodutibilidade.
+  \column{0.5\textwidth}
+  \begin{infobox}{Limitações}
+    \begin{itemize}
+      \item Validação funcional, sem análise estatística.
+      \item Foco principal em Android.
+      \item Sem estudo formal de usabilidade.
+      \item Comparação ADB apenas como apoio qualitativo.
+    \end{itemize}
   \end{infobox}
-  \column{0.33\textwidth}
-  \begin{accentbox}{Social}
-    Apoio a software mais eficiente, inclusivo e consciente de privacidade.
+  \column{0.5\textwidth}
+  \begin{accentbox}{Trabalhos futuros}
+    \begin{itemize}
+      \item Rodadas quantitativas com múltiplos dispositivos.
+      \item Séries comparáveis com Profiler, Perfetto e ADB.
+      \item CPU e energia mais completas no iOS.
+      \item Avaliação com desenvolvedores Flutter.
+    \end{itemize}
   \end{accentbox}
 \end{columns}
-\vspace{4mm}
-\begin{center}
-\Large\bfseries
-Monitorar melhor é uma forma de projetar melhor.
-\end{center}
 \end{frame}
 
 \begin{frame}{Conclusão}
-\chaptertag{Capítulo 6 -- Considerações finais}
+\chaptertag{Mensagem final}
 \begin{itemize}
-  \item O trabalho mostrou que é viável aproximar o diagnóstico de performance do fluxo cotidiano de desenvolvimento Flutter.
-  \item O \collectorFlutter{} evoluiu de 4 para 6 métricas (CPU e bateria), com 48 testes e exportação integrada.
-  \item A arquitetura em camadas favoreceu extensão e testabilidade: os novos módulos foram adicionados sem alterações nas camadas superiores.
-  \item A contribuição extrapola desempenho: eficiência também dialoga com sustentabilidade, inclusão digital e responsabilidade tecnológica.
+  \item O \collectorFlutter{} aproxima o primeiro diagnóstico de desempenho do fluxo real de desenvolvimento Flutter.
+  \item A arquitetura em camadas permitiu evoluir o pacote com CPU, bateria, exportação e testes.
+  \item Os quatro cenários controlados indicaram operacionalidade e recomendações compatíveis com os sintomas induzidos.
+  \item A validação foi honesta sobre seus limites: funcional e qualitativa, com trabalhos futuros bem definidos.
 \end{itemize}
 \vspace{3mm}
-\begin{accentbox}{Mensagem final}
-Performance não é apenas fazer o app correr mais rápido; é fazer o app respeitar melhor o dispositivo, a bateria e a pessoa que o usa.
+\begin{accentbox}{Fechamento}
+Performance não é apenas fazer o app rodar mais rápido; é fazer o app respeitar melhor o dispositivo, a bateria e a pessoa que o usa.
 \end{accentbox}
 \end{frame}
 
 \begin{frame}[plain]
 \centering
-\vspace{16mm}
+\vspace{15mm}
 {\Huge\bfseries Perguntas?}
 
-\vspace{8mm}
+\vspace{7mm}
 {\Large \collectorFlutter{}}
 
 \vspace{7mm}

@@ -1,0 +1,58 @@
+% !TEX root = ../Monografia.tex
+\chapter{Evidências Visuais e Leituras ADB}
+\label{ap:evidencias}
+
+Este apêndice reúne as capturas obtidas no aplicativo de exemplo do \collectorFlutter{} executado em modo \textit{profile} no emulador Android \texttt{sdk gphone64 x86\_64}, Android 16 (API 36), em 5 de junho de 2026.
+As telas foram capturadas por ADB e os valores complementares foram extraídos dos logs \texttt{EVIDENCE} emitidos pelo próprio aplicativo e dos comandos \texttt{adb shell dumpsys meminfo com.example.example} e \texttt{adb shell dumpsys gfxinfo com.example.example}.
+
+\begin{table}[htbp]
+\centering
+\caption{Resumo das evidências coletadas no emulador Android.}
+\label{tab:ap-evidencias-adb}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{2.7cm}|p{5.3cm}|p{5.3cm}|}
+\hline
+\textbf{Cenário} & \textbf{Sinais do \collectorFlutter{}} & \textbf{Leituras complementares por ADB} \\
+\hline
+Reconstruções intensivas & 30 \textit{rebuilds}; FPS 55{,}4; P95 20{,}4 ms; 2 frames longos; CPU 22{,}1\%; recomendação: ``Tudo OK''. & \texttt{meminfo}: RSS total 199.208 KB e PSS total 113.674 KB. \texttt{gfxinfo}: processo e superfície Flutter ativos, porém contadores HWUI de frames retornaram 0. \\
+\hline
+Chamadas de rede & 9 requisições; FPS 42{,}9; P95 139{,}5 ms; 4 frames longos; recomendação de performance de frames. & \texttt{meminfo}: RSS total 213.380 KB e PSS total 126.599 KB. \texttt{gfxinfo}: superfície Flutter ativa, mas sem contadores HWUI utilizáveis. \\
+\hline
+Alocação de memória & Painel registrou a execução do cenário, mas a leitura de memória do coletor apareceu como 0{,}0 MB no snapshot capturado. & \texttt{meminfo} durante a alocação: RSS total 236.480 KB e PSS total 222.232 KB, evidenciando aumento real de memória no processo. \\
+\hline
+Carga combinada & 17 requisições; 54 \textit{rebuilds}; FPS 44{,}6; P95 37{,}7 ms; CPU 75{,}3\%; recomendações de performance de frames e uso moderado de CPU. & \texttt{gfxinfo}: superfície Flutter ativa, mas contadores HWUI zerados. Uma leitura posterior de \texttt{meminfo} registrou RSS total 128.988 KB e PSS total 107.293 KB após liberação parcial da carga. \\
+\hline
+\end{tabular}
+\end{table}
+
+\noindent
+Os contadores zerados de \texttt{gfxinfo} foram mantidos como evidência da limitação observada: nesta execução, o aplicativo Flutter renderizou por uma \textit{SurfaceView}, e os agregados HWUI tradicionais não forneceram uma série de FPS comparável à métrica interna do pacote.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[height=0.82\textheight]{evidencia_cenario_rebuilds.png}
+  \caption{Evidência visual do cenário de reconstruções intensivas de interface.}
+  \label{fig:ap-evidencia-rebuilds}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[height=0.82\textheight]{evidencia_cenario_rede.png}
+  \caption{Evidência visual do cenário de chamadas de rede simultâneas.}
+  \label{fig:ap-evidencia-rede}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[height=0.82\textheight]{evidencia_cenario_memoria.png}
+  \caption{Evidência visual do cenário de alocação intensiva de memória.}
+  \label{fig:ap-evidencia-memoria}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[height=0.82\textheight]{evidencia_cenario_combinado.png}
+  \caption{Evidência visual do cenário de carga combinada.}
+  \label{fig:ap-evidencia-combinado}
+\end{figure}

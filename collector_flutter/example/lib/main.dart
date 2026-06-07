@@ -85,6 +85,7 @@ class _CollectorAppState extends State<CollectorApp>
     });
     await Future<void>.delayed(const Duration(milliseconds: 120));
     await collector.collectNow();
+    _logEvidenceSnapshot('jank');
     _showStatus('Jank simulado. Grafico atualizado com novos frames.');
   }
 
@@ -109,6 +110,7 @@ class _CollectorAppState extends State<CollectorApp>
     final retainedMB = (_memoryPressure?.length ?? 0) * chunkMB;
     collector.recordEvent('simulate_memory', {'size_mb': retainedMB});
     await collector.collectNow(forceMemory: true);
+    _logEvidenceSnapshot('memoria');
     _showStatus('Memoria alocada e coletada: $retainedMB MB.');
 
     await Future<void>.delayed(const Duration(seconds: 3));
@@ -145,6 +147,7 @@ class _CollectorAppState extends State<CollectorApp>
       'failures': failures,
     });
     await collector.collectNow();
+    _logEvidenceSnapshot('rede');
     _showStatus(
       failures == 0
           ? '$requestCount requisicoes registradas.'
@@ -165,7 +168,100 @@ class _CollectorAppState extends State<CollectorApp>
     }
     collector.recordEvent('simulate_rebuilds', {'count': 30});
     await collector.collectNow();
+    _logEvidenceSnapshot('rebuilds');
     _showStatus('30 rebuilds registrados no painel.');
+  }
+
+  Future<void> _simulateCombinedLoad() async {
+    debugPrint('Executando cenario combinado...');
+    const chunkMB = 24;
+    const chunks = 4;
+    final buffers = List.generate(
+      chunks,
+      (_) => Uint8List(chunkMB * 1024 * 1024),
+    );
+
+    for (final buffer in buffers) {
+      for (var offset = 0; offset < buffer.length; offset += 4096) {
+        buffer[offset] = 1;
+      }
+    }
+
+    _memoryPressure = buffers;
+    collector.recordEvent('simulate_combined_started', {
+      'memory_mb': chunkMB * chunks,
+      'network_requests': 8,
+      'rebuilds': 24,
+      'jank_bursts': 4,
+    });
+    await collector.collectNow(forceMemory: true);
+
+    final networkFuture = _simulateNetworkSpam();
+
+    var checksum = 0;
+    for (var i = 0; i < 24; i++) {
+      await Future<void>.delayed(const Duration(milliseconds: 16));
+      if (!mounted) return;
+      collector.trackRebuild();
+      setState(() {});
+
+      if (i % 6 == 0) {
+        final stopwatch = Stopwatch()..start();
+        while (stopwatch.elapsedMilliseconds < 70) {
+          for (var n = 0; n < 9000; n++) {
+            checksum = (checksum + n * (i + 1)) & 0x3fffffff;
+          }
+        }
+      }
+    }
+
+    await networkFuture;
+    collector.recordEvent('simulate_combined', {
+      'memory_mb': chunkMB * chunks,
+      'rebuilds': 24,
+      'checksum': checksum,
+    });
+    await Future<void>.delayed(const Duration(milliseconds: 160));
+    await collector.collectNow(forceMemory: true);
+    _logEvidenceSnapshot('combinado');
+    _showStatus('Carga combinada registrada no painel.');
+
+    await Future<void>.delayed(const Duration(seconds: 2));
+    _memoryPressure = null;
+    collector.recordEvent('simulate_combined_released', {
+      'memory_mb': chunkMB * chunks,
+    });
+    await collector.collectNow(forceMemory: true);
+  }
+
+  void _logEvidenceSnapshot(String scenario) {
+    final state = collector.bloc.state;
+    if (state is! CollectorData) {
+      debugPrint('EVIDENCE scenario=$scenario state=${state.runtimeType}');
+      return;
+    }
+
+    final analysis = state.analysis;
+    final telemetry = state.telemetry;
+    final recommendations = state.recommendations
+        .map((recommendation) => recommendation.title)
+        .join(' | ');
+
+    debugPrint(
+      'EVIDENCE scenario=$scenario '
+      'fps=${analysis.estimatedFps.toStringAsFixed(1)} '
+      'p95Ms=${analysis.frameStats.p95Ms.toStringAsFixed(1)} '
+      'longFrames=${analysis.longFrames} '
+      'jankRate=${(analysis.jankRate * 100).toStringAsFixed(1)} '
+      'memoryMB=${analysis.memoryStats.currentRssMB.toStringAsFixed(1)} '
+      'memoryTrendMBMin=${analysis.memoryStats.trendMBperMin.toStringAsFixed(1)} '
+      'networkRequests=${analysis.networkStats.requestCount} '
+      'networkFailures=${analysis.networkStats.failedRequests} '
+      'cpu=${analysis.cpuUsagePercent.toStringAsFixed(1)} '
+      'battery=${analysis.batteryLevel} '
+      'rebuilds=${telemetry.rebuildCount} '
+      'recommendations="$recommendations"',
+    );
   }
 
   void _showStatus(String message) {
@@ -237,6 +333,7 @@ class _CollectorAppState extends State<CollectorApp>
             onMemory: () => _runScenario(_simulateHighMemory),
             onNetwork: () => _runScenario(_simulateNetworkSpam),
             onRebuilds: () => _runScenario(_simulateRebuilds),
+            onCombined: () => _runScenario(_simulateCombinedLoad),
           ),
         ),
       ),
@@ -315,12 +412,14 @@ class _BottomActionBar extends StatelessWidget {
   final FutureOr<void> Function() onMemory;
   final FutureOr<void> Function() onNetwork;
   final FutureOr<void> Function() onRebuilds;
+  final FutureOr<void> Function() onCombined;
 
   const _BottomActionBar({
     required this.onJank,
     required this.onMemory,
     required this.onNetwork,
     required this.onRebuilds,
+    required this.onCombined,
   });
 
   @override
@@ -346,6 +445,11 @@ class _BottomActionBar extends StatelessWidget {
           label: 'Rebuilds',
           color: Colors.purpleAccent,
           onTap: onRebuilds),
+      _ActionItem(
+          icon: Icons.all_inclusive,
+          label: 'Combinado',
+          color: Colors.teal,
+          onTap: onCombined),
     ];
 
     return BottomAppBar(

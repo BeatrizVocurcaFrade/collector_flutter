@@ -5,60 +5,60 @@
 
 \chapter{Resultados e Discussão}
 
-Este capítulo apresenta os resultados obtidos ao longo do desenvolvimento do protótipo proposto. O artefato analisado é o \texttt{collector\_flutter}, aqui discutido em termos de implementação completa, evolução das limitações identificadas na primeira fase do trabalho e validações realizadas por meio de cenários experimentais controlados.
+Este capítulo apresenta o estado final do pacote \texttt{collector\_flutter} e os resultados observados nos cenários de validação. A discussão está organizada em três frentes: módulos implementados, comportamento do pacote durante a execução do aplicativo de exemplo e limitações identificadas a partir das evidências coletadas.
 
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
-\section{Desenvolvimento do Protótipo}
+\section{Desenvolvimento do Pacote}
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-O principal resultado é o protótipo funcional do \texttt{collector\_flutter}, implementado como um pacote Dart/Flutter e disponibilizado como código aberto. O desenvolvimento seguiu a arquitetura de três camadas definida na fase de projeto, resultando em uma solução modular, extensível e totalmente coberta por testes automatizados.
+O principal resultado é um pacote Dart/Flutter funcional, disponibilizado como código aberto e organizado em três camadas. Ao final do desenvolvimento, a solução reunia coleta de métricas, análise heurística, recomendações, painel integrado, exportação de dados e suíte automatizada de testes.
 
 \subsection{Módulos Implementados}
 
-A Tabela~\ref{tab:modulos-implementados} resume o estado de implementação de cada módulo do protótipo ao final do trabalho.
+A Tabela~\ref{tab:modulos-implementados} resume os módulos implementados e as evidências utilizadas para verificar sua entrega ao final do trabalho.
 
 \begin{table}[H]
 \centering
-\caption{Estado de implementação dos módulos do \texttt{collector\_flutter}.}
+\caption{Módulos implementados e evidências de validação do \texttt{collector\_flutter}.}
 \label{tab:modulos-implementados}
 \small
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{|p{4cm}|p{6cm}|p{4cm}|}
 \hline
-\textbf{Módulo} & \textbf{Funcionalidade} & \textbf{Status} \\
+\textbf{Módulo} & \textbf{Funcionalidade} & \textbf{Evidência de validação} \\
 \hline
-\texttt{FrameDataSource}  & Coleta de FPS e detecção de \textit{jank} via \texttt{SchedulerBinding} & \textbf{Completo} \\
+\texttt{FrameDataSource}  & Coleta de FPS e detecção de \textit{jank} via \texttt{SchedulerBinding} & Cenário de \textit{rebuilds} intensivos \\
 \hline
-\texttt{MemoryDataSource} & Monitoramento de uso de memória RSS e \textit{heap} via \texttt{vm\_service} & \textbf{Completo} \\
+\texttt{MemoryDataSource} & Monitoramento de uso de memória RSS e \textit{heap} via \texttt{vm\_service} & Cenário de alocação intensiva \\
 \hline
-\texttt{HttpClientWrapper} & Interceptação de requisições HTTP e registro de eventos de rede & \textbf{Completo} \\
+\texttt{HttpClientWrapper} & Interceptação de requisições HTTP e registro de eventos de rede & Cenário de chamadas simultâneas \\
 \hline
-\texttt{EventDataSource}  & Registro de eventos customizados definidos pelo desenvolvedor & \textbf{Completo} \\
+\texttt{EventDataSource}  & Registro de eventos customizados definidos pelo desenvolvedor & Inspeção dos eventos exportados \\
 \hline
-\texttt{CpuDataSource}    & Coleta de uso de CPU por processo via \textit{platform channel} Android (\texttt{/proc/stat}) & \textbf{Completo} \\
+\texttt{CpuDataSource}    & Coleta de uso de CPU por processo via \textit{platform channel} Android (\texttt{/proc/self/stat}) & Testes de canal e execução Android \\
 \hline
-\texttt{BatteryDataSource} & Monitoramento de bateria e estado de carregamento via \textit{platform channel} Android (\texttt{BatteryManager}) & \textbf{Completo} \\
+\texttt{BatteryDataSource} & Monitoramento de bateria e estado de carregamento via \textit{platform channel} Android (\texttt{BatteryManager}) & Testes de canal e painel visual \\
 \hline
-\texttt{Analyzer}         & Análise heurística de métricas e geração de \texttt{AnalysisResult} & \textbf{Completo} \\
+\texttt{Analyzer}         & Análise heurística de métricas e geração de \texttt{AnalysisResult} & Casos unitários e cenários controlados \\
 \hline
-\texttt{Recommender}      & Geração de recomendações de otimização com níveis de severidade & \textbf{Completo} \\
+\texttt{Recommender}      & Geração de recomendações de otimização com níveis de severidade & Recomendações emitidas nos cenários \\
 \hline
-\texttt{ExportService}    & Exportação de sessão de telemetria em JSON e CSV & \textbf{Completo} \\
+\texttt{ExportService}    & Exportação de sessão de telemetria em JSON e CSV & Testes de serialização \\
 \hline
-\texttt{CollectorBloc}    & Orquestração de estados e ciclo de coleta periódico & \textbf{Completo} \\
+\texttt{CollectorBloc}    & Orquestração de estados e ciclo de coleta periódico & Atualização contínua do painel \\
 \hline
-\texttt{DashboardPage}    & Painel visual com gráficos em tempo real e lista de recomendações & \textbf{Completo} \\
+\texttt{DashboardPage}    & Painel visual com gráficos em tempo real e lista de recomendações & Figuras~\ref{fig:evidencias-visuais-resultados} e Apêndice~\ref{ap:evidencias} \\
 \hline
-\texttt{ResourceCollector} & Ponto de entrada da biblioteca; gerencia ciclo de vida dos módulos & \textbf{Completo} \\
+\texttt{ResourceCollector} & Ponto de entrada da biblioteca; gerencia ciclo de vida dos módulos & Execução do aplicativo de exemplo \\
 \hline
-Testes automatizados      & Suíte de 48 testes unitários cobrindo análise, recomendação, exportação e os módulos de CPU e bateria & \textbf{Completo} \\
+Testes automatizados      & Suíte composta por 60 casos de teste distribuídos em quatro arquivos & Inspeção da suíte em \texttt{test/} e Apêndice~\ref{ap:testes} \\
 \hline
 \end{tabular}
 \end{table}
 
 \subsection{Estrutura da Biblioteca}
 
-O protótipo foi organizado em um pacote Dart publicável, com a seguinte estrutura de camadas:
+O sistema foi organizado em um pacote Dart publicável, com a seguinte estrutura de camadas:
 
 \begin{itemize}
   \item \textbf{Camada de Dados (\textit{Data}):} contém as seis fontes de dados (\textit{data sources}) responsáveis pela coleta de métricas de quadros, memória, rede, eventos customizados, CPU e bateria, além do modelo de dados \texttt{TelemetryModel} e a implementação do repositório \texttt{TelemetryRepositoryImpl};
@@ -69,32 +69,32 @@ O protótipo foi organizado em um pacote Dart publicável, com a seguinte estrut
 \end{itemize}
 
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
-\section{Validação Preliminar da Arquitetura}
+\section{Validação da Arquitetura}
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Para validar a aderência entre a arquitetura proposta e a implementação, foram realizadas inspeções de código e execuções manuais do protótipo no aplicativo de exemplo (\texttt{example/}), que oferece botões de simulação de carga para os quatro tipos de cenário definidos na metodologia.
+Para verificar a aderência entre a arquitetura proposta e a implementação, foram realizadas inspeções de código e execuções manuais do pacote no aplicativo de exemplo (\texttt{example/}), que oferece botões de simulação de carga para os quatro cenários definidos na metodologia.
 
 \subsection{Conformidade Arquitetural}
 
-A implementação demonstrou conformidade com os principais princípios arquiteturais adotados:
+A implementação atende aos principais princípios arquiteturais adotados:
 
 \begin{itemize}
-  \item \textbf{Independência de camadas:} alterações nos \textit{data sources} não afetam a camada de domínio, validando a separação de responsabilidades;
+  \item \textbf{Independência de camadas:} alterações nos \textit{data sources} permanecem restritas à camada de dados, preservando a camada de domínio;
   \item \textbf{Baixo acoplamento:} as dependências entre módulos são injetadas via construtores, sem uso de singletons globais (exceto o \texttt{HttpClientWrapper}, por necessidade de interceptação de rede);
-  \item \textbf{Testabilidade:} a estrutura de casos de uso e repositórios permite substituição de dependências por \textit{mocks} em testes unitários, confirmada pela cobertura de 48 testes automatizados;
+  \item \textbf{Testabilidade:} a estrutura de casos de uso e repositórios permite substituição de dependências por \textit{mocks} em testes unitários, exercitada pela suíte composta por 60 casos de teste automatizados;
   \item \textbf{Extensibilidade:} novos tipos de métricas podem ser adicionados implementando um novo \textit{data source} sem modificar as camadas superiores, como demonstrado pela inclusão dos módulos de CPU e bateria.
 \end{itemize}
 
 \subsection{Comportamento Observado em Execução}
 
-Durante as execuções manuais do aplicativo de exemplo em dispositivo Android (Samsung Galaxy A52, Android 13), foram feitas as seguintes observações qualitativas:
+Durante as execuções manuais do aplicativo de exemplo em ambiente Android, incluindo a execução documentada no emulador \texttt{sdk gphone64 x86\_64} com Android 16 (API 36), foram registradas as seguintes observações:
 
 \begin{itemize}
-  \item O módulo de coleta de quadros respondeu corretamente às variações de carga gráfica, detectando quedas de FPS e frames longos durante os cenários de \textit{rebuild} intensivo;
-  \item O módulo de memória apresentou leituras estáveis do RSS (\textit{Resident Set Size}), com suavização exponencial funcionando conforme projetado;
-  \item A interceptação de rede registrou corretamente as requisições HTTP geradas pelo cenário de carga de rede, incluindo URL, método, código de status e latência;
-  \item O módulo de CPU apresentou leituras coerentes via \textit{platform channel}, com aumento perceptível do percentual de uso durante cenários de carga computacional;
-  \item O mecanismo de recomendações heurísticas identificou corretamente os problemas injetados em cada cenário, produzindo sugestões contextualizadas com severidade adequada.
+  \item O módulo de quadros registrou queda de FPS, aumento de P95 e frames longos quando o cenário de \textit{rebuilds} foi acionado;
+  \item O cenário de memória gerou aumento mensurável de RSS nas leituras ADB, embora o painel tenha exibido 0{,}0 MB no snapshot capturado, limitação discutida na Seção~\ref{sec:cenario-memoria};
+  \item A interceptação de rede registrou as requisições HTTP geradas pelo cenário de carga de rede, incluindo URL, método, código de status e latência;
+  \item O módulo de CPU exibiu aumento de uso durante a carga combinada, chegando a 75{,}3\% no log registrado;
+  \item As recomendações emitidas acompanharam os sintomas induzidos, principalmente nos cenários de rede e carga combinada.
 \end{itemize}
 
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -103,36 +103,154 @@ Durante as execuções manuais do aplicativo de exemplo em dispositivo Android (
 
 Os quatro cenários experimentais definidos na metodologia foram executados com o objetivo de verificar a operacionalidade do sistema e identificar inconsistências nas heurísticas. Os resultados apresentados a seguir são de natureza qualitativa.
 
+A Tabela~\ref{tab:resultados-cenarios} sintetiza os principais sinais observados, as métricas acompanhadas e as evidências geradas durante a execução dos cenários. A Figura~\ref{fig:evidencias-visuais-resultados} mostra a diferença visual entre uma condição estável e uma condição com gargalos.
+Na tela estável, os indicadores permanecem em faixas aceitáveis e a recomendação exibida é apenas informativa. Na tela com anomalias, o painel passa a destacar sintomas como aumento de eventos de rede, queda de fluidez e alertas de severidade, permitindo que o desenvolvedor relacione o comportamento observado ao cenário executado.
+
+\begin{table}[H]
+\centering
+\caption{Síntese das evidências observadas nos cenários experimentais.}
+\label{tab:resultados-cenarios}
+\small
+\renewcommand{\arraystretch}{1.3}
+\footnotesize
+\begin{tabular}{|p{2.8cm}|p{4cm}|p{3.8cm}|p{2.8cm}|}
+\hline
+\textbf{Cenário} & \textbf{Sinais observados} & \textbf{Métricas acompanhadas} & \textbf{Evidência gerada} \\
+\hline
+Reconstruções intensivas & 30 \textit{rebuilds}, FPS 55{,}4, P95 20{,}4 ms e 2 frames longos & FPS, \textit{frame time} e \textit{jank} & Registro do cenário e captura do painel \\
+\hline
+Chamadas de rede & 9 requisições HTTP, FPS 42{,}9, P95 139{,}5 ms e 4 frames longos & URL, método, código de status e duração & Eventos de rede no painel e exportação \\
+\hline
+Alocação de memória & RSS total de 236.480 KB e PSS total de 222.232 KB por ADB & RSS, \textit{heap} e tendência de memória & Captura do painel e leitura ADB \\
+\hline
+Carga combinada & 17 requisições, 54 \textit{rebuilds}, FPS 44{,}6, P95 37{,}7 ms e CPU 75{,}3\% & FPS, memória, rede, CPU e recomendações & Recomendações de frames e CPU \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[height=0.50\textheight,keepaspectratio]{prototipoquandoestaok.jpeg}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[height=0.50\textheight,keepaspectratio]{prototipoquandonaoestaok.jpeg}
+  \end{minipage}
+  \caption{Evidências visuais do painel durante a validação: à esquerda, condição estável; à direita, condição com gargalos detectados, eventos de rede e alertas ativos.}
+  \label{fig:evidencias-visuais-resultados}
+\end{figure}
+
 \subsection{Cenário 1: Reconstruções Intensivas de Interface}
 
-A simulação de \textit{rebuilds} frequentes produziu reduções perceptíveis no FPS estimado e aumento no contador de frames longos. O módulo \texttt{Analyzer} identificou corretamente a condição e o \texttt{Recommender} gerou a recomendação de severidade \textit{medium}: \textit{``Muitos frames longos detectados. Considere usar \texttt{const} em widgets estáticos e isolar reconstruções com \texttt{ValueNotifier} ou \texttt{Selector}.''} A latência de detecção, contada a partir do início da carga, foi inferior ao intervalo de coleta de 2 segundos.
+A simulação de \textit{rebuilds} frequentes aumentou o contador de reconstruções e alterou os indicadores de renderização. Na execução registrada no emulador, o log indicou 30 \textit{rebuilds}, FPS estimado de 55{,}4, P95 de 20{,}4 ms e 2 frames longos. A captura correspondente está apresentada na Figura~\ref{fig:ap-evidencia-rebuilds}, no Apêndice~\ref{ap:evidencias}.
 
 \subsection{Cenário 2: Chamadas de Rede Simultâneas}
 
-O interceptador de rede registrou corretamente todas as requisições geradas, incluindo tempo de resposta e código de status. Em condições de alta frequência de requisições, o \texttt{Recommender} ativou a recomendação de severidade \textit{medium}: \textit{``Alto volume de requisições de rede detectado. Considere implementar \textit{cache} e debounce.''} Observou-se que o buffer de eventos de rede, limitado a 1.000 entradas, é suficiente para os cenários de teste planejados.
+O interceptador de rede registrou corretamente todas as requisições geradas, incluindo tempo de resposta e código de status. Na execução registrada, o painel acumulou 9 requisições HTTP com respostas \texttt{200}; o log de evidência apontou FPS estimado de 42{,}9, P95 de 139{,}5 ms, 4 frames longos e recomendação associada à performance de frames. A captura correspondente está na Figura~\ref{fig:ap-evidencia-rede}. Observou-se que o buffer de eventos de rede, limitado a 1.000 entradas, foi suficiente para os cenários de teste executados.
 
 \subsection{Cenário 3: Alocação Intensiva de Memória}
+\label{sec:cenario-memoria}
 
-O consumo de memória RSS aumentou gradualmente durante a injeção de carga. O sistema de suavização exponencial (\(0{,}7 \times \text{ant.} + 0{,}3 \times \text{novo}\)) evitou falsos positivos durante picos transitórios, enquanto manteve sensibilidade a tendências de crescimento sustentado. Em modo \textit{debug}, os limiares ajustados para 600 MB preveniram alertas desnecessários causados pelo \textit{overhead} inerente do modo de desenvolvimento.
+O consumo de memória foi observado por meio do cenário de alocação controlada e de leitura complementar por ADB. Durante a alocação, o comando \texttt{adb shell dumpsys meminfo com.example.example} registrou RSS total de 236.480 KB e PSS total de 222.232 KB. Esse valor confirma crescimento real de memória no processo. No snapshot visual capturado, entretanto, o cartão de memória do painel apareceu como 0{,}0 MB, sinalizando uma limitação da leitura interna no emulador usado para a evidência. A captura correspondente está na Figura~\ref{fig:ap-evidencia-memoria}.
 
 \subsection{Cenário 4: Carga Combinada}
 
-A execução simultânea dos três tipos de carga permitiu verificar que o sistema processa múltiplos tipos de métricas de forma independente e sem interferência entre módulos. O \texttt{Analyzer} priorizou corretamente as recomendações por severidade, apresentando os alertas mais críticos no topo do painel.
+A execução simultânea dos tipos de carga permitiu verificar que o painel continuou operável mesmo com múltiplos sinais sendo atualizados ao mesmo tempo. No cenário combinado, o log registrou 17 requisições, 54 \textit{rebuilds}, FPS estimado de 44{,}6, P95 de 37{,}7 ms e CPU em 75{,}3\%, resultando em recomendações de performance de frames e uso moderado de CPU. A captura correspondente está na Figura~\ref{fig:ap-evidencia-combinado}.
+
+\subsection{Comparação Qualitativa com ADB}
+
+As leituras por ADB foram utilizadas como apoio à interpretação dos cenários, não como cálculo formal de precisão. Em particular, o comando \texttt{dumpsys meminfo} forneceu leituras de memória do processo, enquanto \texttt{dumpsys gfxinfo} confirmou a presença da superfície Flutter, mas retornou contadores HWUI de frames zerados nessa execução. Por esse motivo, não foi calculado erro percentual de FPS a partir de \texttt{gfxinfo}.
+
+\begin{table}[H]
+\centering
+\caption{Comparação qualitativa entre sinais do painel e leituras ADB.}
+\label{tab:comparacao-adb}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{3cm}|p{5.4cm}|p{5.4cm}|}
+\hline
+\textbf{Cenário} & \textbf{Sinais do painel/log} & \textbf{Leitura ADB observada} \\
+\hline
+Reconstruções intensivas & 30 \textit{rebuilds}, FPS 55{,}4, P95 20{,}4 ms, CPU 22{,}1\%. & \texttt{meminfo}: RSS 199.208 KB; PSS 113.674 KB. \texttt{gfxinfo}: contadores HWUI indisponíveis para comparação. \\
+\hline
+Chamadas de rede & 9 requisições, FPS 42{,}9, P95 139{,}5 ms, 4 frames longos. & \texttt{meminfo}: RSS 213.380 KB; PSS 126.599 KB. \texttt{gfxinfo}: superfície ativa, sem série de frames comparável. \\
+\hline
+Alocação de memória & Cenário acionado no painel; leitura interna de memória indisponível no snapshot capturado. & \texttt{meminfo}: RSS 236.480 KB; PSS 222.232 KB durante a alocação. \\
+\hline
+Carga combinada & 17 requisições, 54 \textit{rebuilds}, FPS 44{,}6, P95 37{,}7 ms, CPU 75{,}3\%. & \texttt{gfxinfo}: superfície ativa, sem contadores HWUI utilizáveis; leitura posterior de \texttt{meminfo}: RSS 128.988 KB; PSS 107.293 KB. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Evidências Complementares da Validação}
+
+Além das observações por cenário, os resultados foram organizados em uma matriz de evidências para explicitar a relação entre o que foi testado, o artefato observado e a conclusão obtida. Essa organização liga os critérios definidos na metodologia aos resultados apresentados neste capítulo.
+
+\begin{table}[H]
+\centering
+\caption{Matriz de evidências da validação funcional.}
+\label{tab:matriz-evidencias}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3.6cm}|p{5.4cm}|p{5.2cm}|}
+\hline
+\textbf{Dimensão avaliada} & \textbf{Evidência observada} & \textbf{Resultado obtido} \\
+\hline
+Coerência das métricas & Variação de FPS, \textit{frame time}, memória, rede e CPU acompanhando os cenários induzidos & Os sinais coletados acompanharam o tipo de carga aplicada em cada cenário \\
+\hline
+Pertinência das recomendações & Alertas emitidos pelo \texttt{Recommender} durante \textit{rebuilds}, chamadas de rede e carga combinada & As recomendações foram compatíveis com os sintomas provocados nos testes \\
+\hline
+Estabilidade do painel & Atualização contínua das métricas e mudança visual entre estado estável e estado de alerta & O painel permaneceu operável durante a coleta e destacou severidades distintas \\
+\hline
+Exportação e rastreabilidade & Sessões exportáveis em JSON e \textit{timings} de quadros em CSV pelo \texttt{ExportService} & Os dados coletados puderam ser inspecionados fora do painel \\
+\hline
+Confiabilidade interna & Suíte automatizada distribuída em quatro arquivos de teste & Cálculos, serialização, recomendações e \textit{fallbacks} dos canais nativos foram exercitados por testes automatizados \\
+\hline
+\end{tabular}
+\end{table}
+
+A Tabela~\ref{tab:distribuicao-testes} apresenta a distribuição dos 60 casos de teste automatizados por arquivo. Essa informação complementa a validação manual, pois mostra que os componentes centrais de análise, recomendação, exportação e coleta de CPU/bateria foram verificados também por testes unitários. O detalhamento nominal dos casos de teste está no Apêndice~\ref{ap:testes}.
+
+\begin{table}[H]
+\centering
+\caption{Distribuição dos 60 casos de teste automatizados por arquivo.}
+\label{tab:distribuicao-testes}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{4.4cm}|p{7.2cm}|p{1.8cm}|}
+\hline
+\textbf{Arquivo de teste} & \textbf{Representação gráfica} & \textbf{Casos} \\
+\hline
+Análise & \rule{6.0cm}{0.45em} & 24 \\
+\hline
+CPU e bateria & \rule{4.25cm}{0.45em} & 17 \\
+\hline
+Recomendações & \rule{3.0cm}{0.45em} & 12 \\
+\hline
+Exportação & \rule{1.75cm}{0.45em} & 7 \\
+\hline
+\textbf{Total} & \rule{6.0cm}{0.45em} & \textbf{60} \\
+\hline
+\end{tabular}
+\end{table}
 
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
-\section{Evolução do Protótipo: Limitações Superadas}
+\section{Evolução do Pacote: Limitações Superadas}
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-As execuções preliminares da primeira fase do trabalho evidenciaram um conjunto de limitações técnicas, todas endereçadas ao longo do desenvolvimento:
+As execuções da primeira fase do trabalho evidenciaram um conjunto de limitações técnicas, todas endereçadas ao longo do desenvolvimento:
 
 \begin{enumerate}
-  \item \textbf{Coleta de métricas de CPU:} implementada via \textit{platform channel} Android, no módulo \texttt{CpuDataSource}, que lê o arquivo \texttt{/proc/stat} em duas amostragens espaçadas por 200\,ms. O percentual de uso é calculado por \((1 - \Delta_{\text{idle}} / \Delta_{\text{total}}) \times 100\). Em iOS, o canal retorna \texttt{--1.0} e o painel exibe ``N/D'', garantindo que a ausência de integração nativa não cause falhas na aplicação;
+  \item \textbf{Coleta de métricas de CPU:} implementada via \textit{platform channel} Android, no módulo \texttt{CpuDataSource}, que lê o arquivo \texttt{/proc/self/stat} e calcula a variação de tempo de CPU do processo entre amostras sucessivas. Em iOS, o canal retorna \texttt{-1.0} e o painel exibe ``N/D'', evitando falhas quando a métrica não está disponível;
 
   \item \textbf{Estimativa de consumo de bateria:} implementada via \textit{platform channel} Android, no módulo \texttt{BatteryDataSource}, que consulta o \texttt{BatteryManager} do sistema para obter o nível de carga (0--100\%) e o estado de carregamento. Um alerta de severidade \textit{medium} é gerado quando a bateria está abaixo de 20\% e o dispositivo não está carregando. Em iOS, o nível é obtido por \texttt{UIDevice.batteryLevel};
 
   \item \textbf{Persistência e exportação de dados:} o \texttt{ExportService} oferece exportação completa da sessão de telemetria em JSON estruturado, incluindo frames, memória, rede, CPU, bateria, análise e recomendações, além da exportação de timings de frames em CSV. Os dados são copiados para a área de transferência do sistema, permitindo integração com ferramentas externas de análise;
 
-  \item \textbf{Testes automatizados:} a suíte cobre 48 casos unitários distribuídos em quatro arquivos. Entre eles estão \texttt{analyzer\_test.dart}, \texttt{recommender\_test.dart}, \texttt{export\_service\_test.dart} e o novo \texttt{cpu\_battery\_test.dart}. Os testes verificam cálculos internos, detecção de anomalias, geração de recomendações, serialização e comportamento de \textit{fallback} dos \textit{platform channels};
+  \item \textbf{Testes automatizados:} a suíte é composta por 60 casos de teste distribuídos em quatro arquivos: \texttt{analyzer\_test.dart}, \texttt{recommender\_test.dart}, \texttt{export\_service\_test.dart} e \texttt{cpu\_battery\_test.dart}. Os testes verificam cálculos internos, detecção de anomalias, geração de recomendações, serialização e comportamento de \textit{fallback} dos \textit{platform channels};
 
   \item \textbf{Imprecisão no gráfico de frames:} a implementação inicial utilizava o instante atual como eixo X, em vez dos índices sequenciais dos quadros coletados. Esse defeito foi corrigido durante o desenvolvimento.
 \end{enumerate}
@@ -141,6 +259,6 @@ As execuções preliminares da primeira fase do trabalho evidenciaram um conjunt
 \section{Resumo do Capítulo}
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Este capítulo apresentou os resultados do desenvolvimento do \texttt{collector\_flutter}, abrangendo a implementação completa de todos os módulos planejados. A arquitetura de três camadas demonstrou-se adequada para os objetivos propostos, garantindo extensibilidade e baixo acoplamento. As limitações identificadas na primeira fase, ausência de métricas de CPU, energia, persistência e testes automatizados, foram todas endereçadas e incorporadas ao protótipo final. A validação qualitativa nos quatro cenários experimentais confirmou a operacionalidade do sistema e a pertinência das heurísticas de análise e recomendação.
+Este capítulo apresentou os resultados do desenvolvimento do \texttt{collector\_flutter}. A arquitetura de três camadas sustentou a inclusão dos módulos de CPU, bateria, exportação e testes sem alterar a organização central do pacote. Nos quatro cenários experimentais, o sistema permaneceu operável, registrou sinais compatíveis com as cargas induzidas e emitiu recomendações coerentes com os sintomas observados. As limitações encontradas, especialmente na leitura interna de memória e na ausência de série comparável via \texttt{gfxinfo}, delimitam o alcance da validação realizada.
 
 \clearpage

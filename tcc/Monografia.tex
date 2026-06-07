@@ -58,22 +58,23 @@
 \newcommand{\rebuild}{\textit{rebuild}}
 \newcommand{\rebuilds}{\textit{rebuilds}}
 \newcommand{\overhead}{\textit{overhead}}
-\newcommand{\collectorFlutter}{\texttt{collector\_flutter}}
+\newcommand{\collectorFlutter}{\texttt{collector\_\allowbreak flutter}}
 \newcommand{\devtools}{\textit{Flutter DevTools}}
 
 %----------------- PADRONIZAÇÃO DE LISTAS -----------------
 \usepackage{enumitem}
 \setlist{itemsep=0.3cm, parsep=0cm, topsep=0.3cm}
+\raggedbottom
 
 %----------------- INÍCIO DO DOCUMENTO -----------------
 \begin{document}
 
-\include{Capa/capa}
+\input{Capa/capa}
 
 \pagenumbering{roman}
-\include{Resumo/Resumo}
-\include{TabelaConteudo/TabelaConteudo}
-\include{ListaFiguras/ListaFiguras}
+\input{Resumo/Resumo}
+\input{TabelaConteudo/TabelaConteudo}
+\input{ListaFiguras/ListaFiguras}
 
 \pagenumbering{arabic}
 \setcounter{page}{1}
@@ -101,5 +102,10 @@
 
 % Referências
 \include{Bibliografia/Bibliografia}
+
+\appendix
+\include{Apendices/cronogramas}
+\include{Apendices/evidencias}
+\include{Apendices/testes}
 
 \end{document}

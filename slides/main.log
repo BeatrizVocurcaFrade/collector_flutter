@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  3 MAY 2026 20:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  7 JUN 2026 14:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1102,7 +1102,7 @@ LaTeX Font Info:    ... okay on input line 111.
 * paper: custom
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: includehead includefoot 
+* modes: includehead includefoot
 * h-part:(L,W,R)=(22.76219pt, 409.7197pt, 22.76219pt)
 * v-part:(T,H,B)=(0.0pt, 256.0748pt, 0.0pt)
 * \paperwidth=455.24408pt
@@ -1195,7 +1195,7 @@ LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
 (Font)                  T1/FiraSans-OsF/m/n --> T1/FiraSans-OsF/b/n on input li
 ne 111.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/FiraSans-OsF/m/it --> T1/FiraSans-OsF/b/it on input 
+(Font)                  T1/FiraSans-OsF/m/it --> T1/FiraSans-OsF/b/it on input
 line 111.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
 (Font)                  OT1/cmss/b/n --> T1/cmr/b/n on input line 111.
@@ -1206,34 +1206,34 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  T1/FiraSans-OsF/m/n --> T1/FiraSans-OsF/b/n on input li
 ne 111.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/FiraSans-OsF/m/it --> T1/FiraSans-OsF/b/it on input 
+(Font)                  T1/FiraSans-OsF/m/it --> T1/FiraSans-OsF/b/it on input
 line 111.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 111.
 
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
 -English.dict
-Dictionary: translator-basic-dictionary, Language: English 
+Dictionary: translator-basic-dictionary, Language: English
 )
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-bibliography-dic
 tionary-English.dict
-Dictionary: translator-bibliography-dictionary, Language: English 
+Dictionary: translator-bibliography-dictionary, Language: English
 )
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-environment-dict
 ionary-English.dict
-Dictionary: translator-environment-dictionary, Language: English 
+Dictionary: translator-environment-dictionary, Language: English
 )
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-months-dictionar
 y-English.dict
-Dictionary: translator-months-dictionary, Language: English 
+Dictionary: translator-months-dictionary, Language: English
 )
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-numbers-dictiona
 ry-English.dict
-Dictionary: translator-numbers-dictionary, Language: English 
+Dictionary: translator-numbers-dictionary, Language: English
 )
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-theorem-dictiona
 ry-English.dict
-Dictionary: translator-theorem-dictionary, Language: English 
+Dictionary: translator-theorem-dictionary, Language: English
 )
 \c@mv@tabular=\count377
 \c@mv@boldtabular=\count378
@@ -1340,6 +1340,20 @@ LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
 nd.jpg>]
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
 (Font)              scaled to size 8.0pt on input line 140.
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--140
+[]\T1/FiraSans-OsF/regular/n/10 (+20) Literatura, fer-ra-men-tas
+ []
+
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
+40.
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <14.4> not availab
 le
 (Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
@@ -1355,179 +1369,158 @@ LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <9> not available
 ut line 140.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
 (Font)              scaled to size 9.0pt on input line 140.
+ [2
 
-[2
+] [3
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 158--158
-[][]\T1/FiraSans-OsF/medium/n/14.4 (+20) Termômetro em-bar-
- []
-
-[3
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 177--177
-[]\T1/FiraSans-OsF/regular/n/10 (+20) O di-ag-nós-tico tende a ser adi-ado.
- []
-
-[4
+] [4
 
 ] [5
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 2
-23.
- (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
- [6
+[6
 
 ] [7
 
-]
-[8
-
-] [9
+] [8
 
 ]
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 300.
- [10
-
-] [11
-
-]
-<../images/figures//iconedoappexamplo.jpeg, id=131, 318.18875pt x 338.26375pt>
+<../images/figures//iconedoappexamplo.jpeg, id=112, 318.18875pt x 338.26375pt>
 File: ../images/figures//iconedoappexamplo.jpeg Graphic file (type jpg)
 <use ../images/figures//iconedoappexamplo.jpeg>
 Package pdftex.def Info: ../images/figures//iconedoappexamplo.jpeg  used on inp
-ut line 344.
-(pdftex.def)             Requested size: 101.95842pt x 108.3935pt.
- [12
+ut line 293.
+(pdftex.def)             Requested size: 99.6959pt x 105.98605pt.
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 293.
+ [9
 
- <../images/figures//iconedoappexamplo.jpeg>] [13
-
-]
-Underfull \hbox (badness 1092) in paragraph at lines 390--390
-[]\T1/FiraSans-OsF/regular/n/10 (+20) Entidades, ca-sos de uso, \T1/cmtt/m/n/10
- Analyzer \T1/FiraSans-OsF/regular/n/10 (+20) e
+ <../images/figures//iconedoappexamplo.jpeg>]
+Underfull \hbox (badness 1286) in paragraph at lines 316--316
+[]\T1/cmtt/m/n/10 CollectorBloc\T1/FiraSans-OsF/regular/n/10 (+20) , \T1/cmtt/m
+/n/10 DashboardPage \T1/FiraSans-OsF/regular/n/10 (+20) e
  []
 
-<../images/mermaid/outputs//arquitetura_fluxo_collector.png, id=145, 6391.88pt 
+<../images/mermaid/outputs//arquitetura_fluxo_collector.png, id=120, 6391.88pt
 x 1722.435pt>
 File: ../images/mermaid/outputs//arquitetura_fluxo_collector.png Graphic file (
 type png)
 <use ../images/mermaid/outputs//arquitetura_fluxo_collector.png>
 Package pdftex.def Info: ../images/mermaid/outputs//arquitetura_fluxo_collector
-.png  used on input line 390.
-(pdftex.def)             Requested size: 196.62473pt x 52.98492pt.
-[14
+.png  used on input line 316.
+(pdftex.def)             Requested size: 221.20282pt x 59.60805pt.
+[10
 
  <../images/mermaid/outputs//arquitetura_fluxo_collector.png (PNG copy)>]
-[15
-
-] [16
-
-] [17
-
-]
-\openout4 = `main.vrb'.
-
- (./main.vrb) [18
-
-]
-<../images/figures//prototipoquandoestaok.jpeg, id=178, 740.7675pt x 1606.0pt>
+<../images/figures//prototipoquandoestaok.jpeg, id=127, 740.7675pt x 1606.0pt>
 File: ../images/figures//prototipoquandoestaok.jpeg Graphic file (type jpg)
 <use ../images/figures//prototipoquandoestaok.jpeg>
 Package pdftex.def Info: ../images/figures//prototipoquandoestaok.jpeg  used on
- input line 498.
-(pdftex.def)             Requested size: 75.55049pt x 163.79396pt.
-<../images/figures//prototipoquandonaoestaok.jpeg, id=179, 740.7675pt x 1606.0p
+ input line 336.
+(pdftex.def)             Requested size: 76.6582pt x 166.20508pt.
+<../images/figures//prototipoquandonaoestaok.jpeg, id=128, 740.7675pt x 1606.0p
 t>
 File: ../images/figures//prototipoquandonaoestaok.jpeg Graphic file (type jpg)
 <use ../images/figures//prototipoquandonaoestaok.jpeg>
 Package pdftex.def Info: ../images/figures//prototipoquandonaoestaok.jpeg  used
- on input line 498.
-(pdftex.def)             Requested size: 75.55049pt x 163.79396pt.
- [19
+ on input line 336.
+(pdftex.def)             Requested size: 76.6582pt x 166.20508pt.
+
+[11
 
  <../images/figures//prototipoquandoestaok.jpeg> <../images/figures//prototipoq
 uandonaoestaok.jpeg>]
-<../images/mermaid/outputs//ciclo_de_vida.png, id=187, 5093.0275pt x 2009.5075p
-t>
-File: ../images/mermaid/outputs//ciclo_de_vida.png Graphic file (type png)
-<use ../images/mermaid/outputs//ciclo_de_vida.png>
-Package pdftex.def Info: ../images/mermaid/outputs//ciclo_de_vida.png  used on 
-input line 520.
-(pdftex.def)             Requested size: 172.05711pt x 67.88693pt.
- [20
+<../images/mermaid/outputs//metodologia_pesquisa.png, id=135, 5769.555pt x 1700
+.3525pt>
+File: ../images/mermaid/outputs//metodologia_pesquisa.png Graphic file (type pn
+g)
+<use ../images/mermaid/outputs//metodologia_pesquisa.png>
+Package pdftex.def Info: ../images/mermaid/outputs//metodologia_pesquisa.png  u
+sed on input line 356.
+(pdftex.def)             Requested size: 196.58485pt x 57.93575pt.
+ [12
 
- <../images/mermaid/outputs//ciclo_de_vida.png (PNG copy)>] [21
-
-] [22
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 597--597
+ <../images/mermaid/outputs//metodologia_pesquisa.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 383--383
 []\T1/FiraSans-OsF/regular/n/10 (+20) Reconstruções
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 597--597
+Underfull \hbox (badness 10000) in paragraph at lines 383--383
 []\T1/FiraSans-OsF/regular/n/10 (+20) Requisições HTTP
  []
 
-
-Underfull \hbox (badness 1571) in paragraph at lines 597--597
-[]\T1/FiraSans-OsF/regular/n/10 (+20) Alocação e li-be-ra-
- []
-
-
-Underfull \hbox (badness 6658) in paragraph at lines 597--597
-[]\T1/FiraSans-OsF/regular/n/10 (+20) Interface, rede e
- []
-
-[23
-
-] [24
-
-] [25
-
-] [26
+[13
 
 ]
-Underfull \hbox (badness 1430) in paragraph at lines 683--683
-[]\T1/FiraSans-OsF/regular/n/10 (+20) Biblioteca aberta, mo-du-
- []
+<../images/figures//evidencia_cenario_rebuilds.png, id=149, 1084.05pt x 2409.0p
+t>
+File: ../images/figures//evidencia_cenario_rebuilds.png Graphic file (type png)
 
-[27
+<use ../images/figures//evidencia_cenario_rebuilds.png>
+Package pdftex.def Info: ../images/figures//evidencia_cenario_rebuilds.png  use
+d on input line 411.
+(pdftex.def)             Requested size: 65.02365pt x 144.52711pt.
+<../images/figures//evidencia_cenario_rede.png, id=151, 1084.05pt x 2409.0pt>
+File: ../images/figures//evidencia_cenario_rede.png Graphic file (type png)
+<use ../images/figures//evidencia_cenario_rede.png>
+Package pdftex.def Info: ../images/figures//evidencia_cenario_rede.png  used on
+ input line 411.
+(pdftex.def)             Requested size: 65.02365pt x 144.52711pt.
+<../images/figures//evidencia_cenario_memoria.png, id=152, 1084.05pt x 2409.0pt
+>
+File: ../images/figures//evidencia_cenario_memoria.png Graphic file (type png)
+<use ../images/figures//evidencia_cenario_memoria.png>
+Package pdftex.def Info: ../images/figures//evidencia_cenario_memoria.png  used
+ on input line 411.
+(pdftex.def)             Requested size: 65.02365pt x 144.52711pt.
+<../images/figures//evidencia_cenario_combinado.png, id=153, 1084.05pt x 2409.0
+pt>
+File: ../images/figures//evidencia_cenario_combinado.png Graphic file (type png
+)
+<use ../images/figures//evidencia_cenario_combinado.png>
+Package pdftex.def Info: ../images/figures//evidencia_cenario_combinado.png  us
+ed on input line 411.
+(pdftex.def)             Requested size: 65.02365pt x 144.52711pt.
+ [14
 
-] [28
+ <../images/figures//evidencia_cenario_rebuilds.png> <../images/figures//eviden
+cia_cenario_rede.png> <../images/figures//evidencia_cenario_memoria.png> <../im
+ages/figures//evidencia_cenario_combinado.png>] [15
+
+] [16
+
+]
+LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
+(Font)              scaled to size 7.0pt on input line 481.
+ [17
+
+] [18
+
+]
+[19
 
 ]
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <24.88> not availa
 ble
 (Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
-ut line 714.
+ut line 536.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 24.88pt on input line 714.
+(Font)              scaled to size 24.88pt on input line 536.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
-(Font)              scaled to size 24.88pt on input line 714.
-<../images/figures//logo2.png, id=244, 863.225pt x 336.25626pt>
+(Font)              scaled to size 24.88pt on input line 536.
+<../images/figures//logo2.png, id=196, 863.225pt x 336.25626pt>
 File: ../images/figures//logo2.png Graphic file (type png)
 <use ../images/figures//logo2.png>
-Package pdftex.def Info: ../images/figures//logo2.png  used on input line 714.
+Package pdftex.def Info: ../images/figures//logo2.png  used on input line 536.
 (pdftex.def)             Requested size: 51.1195pt x 19.91684pt.
-<../images/figures//logo1.jpeg, id=246, 200.75pt x 197.73875pt>
+<../images/figures//logo1.jpeg, id=197, 200.75pt x 197.73875pt>
 File: ../images/figures//logo1.jpeg Graphic file (type jpg)
 <use ../images/figures//logo1.jpeg>
-Package pdftex.def Info: ../images/figures//logo1.jpeg  used on input line 714.
+Package pdftex.def Info: ../images/figures//logo1.jpeg  used on input line 536.
 
 (pdftex.def)             Requested size: 28.88591pt x 28.45274pt.
- [29
+ [20
 
  <../images/figures//logo2.png> <../images/figures//logo1.jpeg>]
 \tf@nav=\write6
@@ -1543,28 +1536,25 @@ Package pdftex.def Info: ../images/figures//logo1.jpeg  used on input line 714.
 (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
- ) 
+ )
 Here is how much of TeX's memory you used:
- 36862 strings out of 477958
- 770304 string characters out of 5838580
- 1967330 words of memory out of 5000000
- 55999 multiletter control sequences out of 15000+600000
- 850700 words of font info for 224 fonts, out of 8000000 for 9000
+ 36484 strings out of 477958
+ 767311 string characters out of 5838580
+ 1873330 words of memory out of 5000000
+ 55676 multiletter control sequences out of 15000+600000
+ 860850 words of font info for 198 fonts, out of 8000000 for 9000
  61 hyphenation exceptions out of 8191
- 128i,15n,122p,1001b,1233s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,15n,122p,1001b,1259s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1440.6
-00pk> </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt080
-0.525pk> </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt
-0800.600pk> </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/e
-ctt1000.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_iln36p.en
-c}</usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Italic.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Medium.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Regular.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on main.pdf (29 pages, 1422837 bytes).
+00pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_iln36p.enc} </home
+/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk></us
+r/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Italic.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Medium.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Regular.pfb>
+Output written on main.pdf (20 pages, 2701787 bytes).
 PDF statistics:
- 426 PDF objects out of 1000 (max. 8388607)
- 215 compressed objects within 3 object streams
- 59 named destinations out of 1000 (max. 500000)
- 72437 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 277 PDF objects out of 1000 (max. 8388607)
+ 155 compressed objects within 2 object streams
+ 41 named destinations out of 1000 (max. 500000)
+ 75529 words of extra memory for PDF output out of 89155 (max. 10000000)
 

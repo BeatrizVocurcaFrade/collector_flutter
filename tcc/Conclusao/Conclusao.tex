@@ -13,9 +13,9 @@ Este trabalho partiu de uma observação empírica sobre o ecossistema Flutter: 
 
 A arquitetura de três camadas (\textit{Data}, \textit{Domain} e \textit{Presentation}), baseada nos princípios da \textit{Clean Architecture}~\cite{martin2018clean}, demonstrou-se adequada para os objetivos do projeto. Na camada de dados, a coleta foi distribuída entre módulos de quadros, memória, rede, eventos, CPU e bateria. A lógica de análise permaneceu encapsulada em \texttt{Analyzer} e \texttt{Recommender}, enquanto a apresentação se apoiou principalmente em \texttt{DashboardPage} e \texttt{CollectorBloc}. Essa separação permitiu desenvolver, depurar e testar os componentes de forma independente. A extensibilidade da arquitetura foi confirmada na prática pela adição dos módulos de CPU e bateria sem modificações nas camadas superiores.
 
-A validação qualitativa nos quatro cenários experimentais confirmou a operacionalidade do sistema: detecção de \textit{jank} durante \textit{rebuilds} intensivos, registro correto de requisições HTTP sob carga de rede, estabilidade do monitoramento de memória com suavização exponencial, e processamento independente de múltiplos tipos de métricas sob carga combinada. As heurísticas de recomendação produziram sugestões contextualmente adequadas em todos os cenários, com latência de detecção inferior ao intervalo de coleta de dois segundos.
+A validação funcional nos quatro cenários experimentais indicou a operacionalidade do sistema: foram observadas variações de \textit{frame time} durante \textit{rebuilds} intensivos, registro de requisições HTTP sob carga de rede, aumento de memória em leitura complementar por ADB e processamento simultâneo de múltiplos tipos de métricas sob carga combinada. As heurísticas de recomendação produziram sugestões compatíveis com os sintomas observados, especialmente nos cenários de rede e carga combinada.
 
-Do ponto de vista acadêmico, o trabalho fortalece a linha de pesquisa em instrumentação não-intrusiva de aplicações móveis, propondo uma implementação concreta em Dart com \textit{overhead} controlado e arquitetura documentada. Do ponto de vista prático, disponibiliza um pacote de código aberto que reduz a barreira de acesso ao diagnóstico de desempenho para desenvolvedores Flutter sem infraestrutura ou conhecimento especializado em \textit{profiling}.
+Do ponto de vista acadêmico, o trabalho contribui para a discussão sobre instrumentação não-intrusiva de aplicações móveis, propondo uma implementação concreta em Dart com arquitetura documentada e avaliação funcional. Do ponto de vista prático, disponibiliza um pacote de código aberto que reduz a barreira de acesso ao diagnóstico de desempenho para desenvolvedores Flutter sem infraestrutura ou conhecimento especializado em \textit{profiling}.
 
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Contribuições do Trabalho}
@@ -24,33 +24,53 @@ Do ponto de vista acadêmico, o trabalho fortalece a linha de pesquisa em instru
 As principais contribuições deste trabalho são:
 
 \begin{enumerate}
-  \item \textbf{Revisão crítica da literatura:} síntese de estudos sobre monitoramento de recursos em plataformas móveis, identificando a lacuna entre a disponibilidade de ferramentas de diagnóstico e sua adoção contínua durante o desenvolvimento, e fundamentando as escolhas de projeto do protótipo.
+  \item \textbf{Revisão crítica da literatura:} síntese de estudos sobre monitoramento de recursos em plataformas móveis, identificando a lacuna entre a disponibilidade de ferramentas de diagnóstico e sua adoção contínua durante o desenvolvimento, e fundamentando as escolhas de projeto do pacote.
 
   \item \textbf{Arquitetura modular documentada:} definição e implementação de uma arquitetura de três camadas para sistemas de monitoramento embutido em Flutter, com especificação formal de requisitos funcionais (RF1--RF5) e não funcionais (RNF1--RNF5) e mapeamento explícito entre requisitos, módulos e critérios de avaliação experimental.
 
-  \item \textbf{Protótipo funcional de código aberto:} implementação de doze módulos de coleta, análise e visualização disponibilizados no repositório público do projeto e também publicados no pub.dev, incluindo coleta de CPU via \textit{platform channel} Android e monitoramento de bateria, além de correção de cinco defeitos identificados durante o desenvolvimento.
+  \item \textbf{Pacote funcional de código aberto:} implementação de doze módulos de coleta, análise e visualização disponibilizados no repositório público do projeto e também publicados no pub.dev, incluindo coleta de CPU via \textit{platform channel} Android e monitoramento de bateria, além de correção de cinco defeitos identificados durante o desenvolvimento.
 
   \item \textbf{Exportação de dados estruturada:} implementação do \texttt{ExportService} com exportação completa da sessão em JSON e de timings de frame em CSV, permitindo análise externa e reprodutibilidade das medições.
 
-  \item \textbf{Suíte de testes automatizados:} cobertura de 48 testes unitários distribuídos em quatro arquivos, verificando cálculos internos, detecção de anomalias, geração de recomendações, serialização e comportamento de \textit{fallback} dos \textit{platform channels}.
+  \item \textbf{Suíte de testes automatizados:} conjunto composto por 60 casos de teste distribuídos em quatro arquivos, verificando cálculos internos, detecção de anomalias, geração de recomendações, serialização e comportamento de \textit{fallback} dos \textit{platform channels}. A lista de casos e o resultado da execução estão documentados no Apêndice~\ref{ap:testes}.
 
-  \item \textbf{Validação qualitativa em quatro cenários controlados:} execução dos cenários de \textit{rebuilds} intensivos, carga de rede, alocação de memória e carga combinada, confirmando operacionalidade do sistema e pertinência das heurísticas implementadas.
+  \item \textbf{Validação funcional em quatro cenários controlados:} execução dos cenários de \textit{rebuilds} intensivos, carga de rede, alocação de memória e carga combinada, indicando operacionalidade do sistema e compatibilidade entre heurísticas e sintomas induzidos.
 
   \item \textbf{Discussão de implicações sociais e ambientais:} análise das dimensões de sustentabilidade digital, inclusão e responsabilidade ética associadas ao monitoramento de desempenho, situando a ferramenta no contexto mais amplo da engenharia de software sustentável.
 \end{enumerate}
 
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
+\section{Limitações do Estudo}
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Apesar dos resultados obtidos, a avaliação realizada apresenta limites metodológicos que devem ser considerados na interpretação das conclusões:
+
+\begin{itemize}
+  \item \textbf{Natureza qualitativa da validação:} os cenários controlados permitiram verificar a coerência funcional das métricas e das recomendações, mas não constituem um experimento estatístico com amostra ampliada, repetições padronizadas e intervalos de confiança.
+
+  \item \textbf{Foco principal em Android:} os testes funcionais foram conduzidos em ambiente Android, plataforma na qual os canais nativos de CPU e bateria foram efetivamente exercitados. No iOS, a leitura de bateria está disponível via \texttt{UIDevice.batteryLevel}, enquanto a leitura de CPU retorna valor sentinela em razão das restrições de \textit{sandbox}.
+
+  \item \textbf{Inspeção informal da interface:} a clareza do painel foi analisada durante as execuções manuais pelo próprio pesquisador, observando legibilidade das métricas, distinção visual de severidade e associação entre alertas e cenários. Não houve aplicação de instrumento formal de coleta nem avaliação com desenvolvedores externos.
+
+  \item \textbf{Comparação limitada com ferramentas de referência:} as leituras ADB serviram como apoio qualitativo. Em especial, \texttt{adb shell dumpsys gfxinfo} confirmou a superfície Flutter ativa, mas retornou contadores HWUI de frames zerados na execução em emulador, impossibilitando cálculo formal de erro de FPS em relação ao pacote.
+\end{itemize}
+
+% ---------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Trabalhos Futuros}
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-A versão atual do \texttt{collector\_flutter} abre espaço para extensões naturais em três frentes:
+A continuidade deste trabalho pode avançar em cinco direções principais:
 
 \begin{itemize}
-  \item \textbf{Suporte completo a CPU e bateria no iOS:} a integração via \textit{Mach task\_info} para CPU e \texttt{UIDevice.batteryLevel} para bateria está estruturada na camada de \textit{platform channel}, mas retorna valores sentinela (\texttt{--1}) na versão atual em razão das restrições de \textit{sandbox} do iOS. Uma expansão específica para a plataforma Apple completaria a cobertura multiplataforma do pacote;
+  \item \textbf{Validação quantitativa formal:} repetir cada cenário em múltiplas rodadas controladas, com amostra suficiente para calcular médias, desvio padrão, intervalos de confiança e erro percentual em relação a ferramentas de referência.
 
-  \item \textbf{Experimentos quantitativos formais:} a validação apresentada neste trabalho é de natureza qualitativa. Experimentos controlados com no mínimo 30 repetições por cenário, executados em múltiplos dispositivos físicos, permitiriam calcular o erro percentual em relação a ferramentas de referência (Android Profiler, \texttt{adb shell dumpsys gfxinfo}) e quantificar o \textit{overhead} real do pacote com intervalos de confiança estatísticos;
+  \item \textbf{Comparação sistemática com ferramentas especializadas:} executar os mesmos cenários com Android Profiler, Perfetto e comandos ADB, registrando séries temporais comparáveis de FPS, memória, CPU e eventos de renderização.
 
-  \item \textbf{Avaliação de usabilidade com desenvolvedores Flutter:} um protocolo de avaliação baseado na norma ISO 9241-11 permitiria medir a utilidade percebida das recomendações, a facilidade de integração do pacote e a clareza do painel visual, orientando refinamentos de experiência de uso.
+  \item \textbf{Ampliação de dispositivos:} avaliar o pacote em diferentes perfis de hardware, incluindo aparelhos de entrada, intermediários e topo de linha, além de versões variadas do Android.
+
+  \item \textbf{Suporte iOS mais completo:} evoluir os \textit{platform channels} para métricas nativas de CPU e energia no ecossistema Apple, respeitando as restrições de \textit{sandbox} da plataforma.
+
+  \item \textbf{Avaliação com desenvolvedores Flutter:} conduzir estudo de usabilidade com participantes externos para medir clareza do painel, utilidade das recomendações e facilidade de integração do pacote em projetos reais.
 \end{itemize}
 
 \clearpage

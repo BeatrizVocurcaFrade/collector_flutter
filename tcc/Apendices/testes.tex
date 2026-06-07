@@ -1,0 +1,94 @@
+% !TEX root = ../Monografia.tex
+\chapter{Casos de Teste Automatizados}
+\label{ap:testes}
+
+Este apêndice detalha os 60 casos de teste automatizados existentes na suíte do pacote \collectorFlutter{}.
+Em 5 de junho de 2026, o comando \texttt{flutter test}, executado no diretório \texttt{collector\_flutter/}, concluiu com 60 testes aprovados e nenhuma falha.
+
+\section{Análise e Estatísticas}
+
+O arquivo \texttt{analyzer\_test.dart} contém 24 casos:
+
+\begin{enumerate}
+  \item \texttt{FrameStats.compute} retorna vazio para lista vazia.
+  \item Calcula média de frames corretamente.
+  \item Calcula P50 para lista ímpar.
+  \item Calcula P50 por interpolação para lista par.
+  \item Calcula P95 corretamente.
+  \item Calcula P99 corretamente.
+  \item Calcula desvio padrão corretamente.
+  \item Retorna desvio padrão zero para lista com todos os valores iguais.
+  \item Conta corretamente o número de amostras.
+  \item Calcula estatísticas para lista com um único elemento.
+  \item \texttt{AnalysisResult.empty} retorna zeros e sem problemas.
+  \item \texttt{hasIssues} retorna verdadeiro quando há problemas.
+  \item Converte memória em bytes para MB corretamente.
+  \item Garante que duas instâncias do analisador não compartilham estado de memória.
+  \item Calcula pico e tendência de memória com \textit{timestamps} reais.
+  \item Calcula falhas, bytes e latência de rede.
+  \item Não gera alerta de memória por RSS alto isolado.
+  \item Gera alerta de memória apenas por tendência alta.
+  \item Não gera alerta de memória por tendência curta de inicialização.
+  \item Não gera alerta de rede com apenas uma requisição lenta e com falha.
+  \item Gera alerta de rede com 5 requisições e P95 alto.
+  \item Gera alerta de rede com 5 requisições e falhas.
+  \item Não gera \textit{jank} com 15 frames e 5 frames longos.
+  \item Gera \textit{jank} com 15 frames e 6 frames longos.
+\end{enumerate}
+
+\section{CPU e Bateria}
+
+O arquivo \texttt{cpu\_battery\_test.dart} contém 17 casos:
+
+\begin{enumerate}
+  \item \texttt{CpuDataSource} retorna \texttt{-1.0} quando \texttt{MissingPluginException} é lançada.
+  \item \texttt{CpuDataSource} retorna valor do \textit{platform channel} quando disponível.
+  \item \texttt{CpuDataSource} retorna \texttt{-1.0} quando \texttt{PlatformException} é lançada.
+  \item \texttt{BatteryDataSource.getBatteryLevel} retorna \texttt{-1} quando o plugin está indisponível.
+  \item \texttt{BatteryDataSource.getBatteryLevel} retorna o nível correto do \textit{platform channel}.
+  \item \texttt{BatteryDataSource.isCharging} retorna falso quando o plugin está indisponível.
+  \item \texttt{BatteryDataSource.isCharging} retorna verdadeiro quando o dispositivo está carregando.
+  \item CPU elevada acima de 80\% gera alerta.
+  \item CPU elevada no início da sessão não gera alerta.
+  \item CPU moderada entre 60\% e 80\% gera alerta.
+  \item CPU abaixo de 60\% não gera alerta.
+  \item CPU indisponível, indicada por \texttt{-1}, não gera alerta.
+  \item Bateria baixa sem carregamento gera alerta.
+  \item Bateria baixa com carregamento não gera alerta.
+  \item Bateria acima de 20\% não gera alerta.
+  \item \texttt{hasCpuData} retorna verdadeiro quando \texttt{cpuUsagePercent >= 0}.
+  \item \texttt{hasBatteryData} retorna verdadeiro quando \texttt{batteryLevel >= 0}.
+\end{enumerate}
+
+\section{Exportação}
+
+O arquivo \texttt{export\_service\_test.dart} contém 7 casos:
+
+\begin{enumerate}
+  \item \texttt{ExportService.toJson} retorna uma \textit{string} JSON válida.
+  \item Inclui a seção \texttt{session} com \texttt{sessionStart} e \texttt{rebuildCount}.
+  \item Inclui campos de frames com percentis.
+  \item Inclui seção de rede com lista de eventos.
+  \item Inclui recomendações serializadas com severidade como \textit{string}.
+  \item \texttt{frameTimingsToCsv} retorna o cabeçalho CSV correto para modelo sem frames.
+  \item CSV vazio contém apenas o cabeçalho quando não há frames.
+\end{enumerate}
+
+\section{Recomendações}
+
+O arquivo \texttt{recommender\_test.dart} contém 12 casos:
+
+\begin{enumerate}
+  \item Retorna ``Tudo OK'' quando não há anomalias.
+  \item Retorna ``Tudo OK'' em estado ocioso com RSS alto e uma requisição lenta ou com falha.
+  \item Gera recomendação de performance quando FPS é menor que 40 em modo \textit{debug/profile}.
+  \item Não gera recomendação de FPS quando FPS é igual a zero, indicando espera por dados.
+  \item Gera alerta de \textit{jank} quando há pelo menos 6 frames longos.
+  \item Não gera alerta de \textit{jank} quando há menos de 6 frames longos.
+  \item Não gera alerta de \textit{jank} por P95 isolado sem problema identificado pelo analisador.
+  \item Gera alerta de rede quando há mais de 50 requisições.
+  \item Não gera alerta de rede quando há 50 requisições ou menos.
+  \item Não gera alerta de rede por P95 ou falha isolados sem problema identificado pelo analisador.
+  \item Gera múltiplas recomendações simultaneamente quando há múltiplos problemas.
+  \item Mantém os valores do enum de severidade em ordem crescente.
+\end{enumerate}

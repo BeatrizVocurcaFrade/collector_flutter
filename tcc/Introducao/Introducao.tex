@@ -20,7 +20,7 @@ Este trabalho propõe o \collectorFlutter: um pacote Dart de código aberto que 
 \section{Propósito}
 
 
-O propósito deste trabalho é projetar, implementar e avaliar preliminarmente o \collectorFlutter, uma biblioteca Dart para monitoramento de desempenho em tempo real em aplicações Flutter. O pacote coleta métricas de renderização (FPS, \jank, percentis de tempo de quadro), uso de memória RSS e \textit{heap}, tráfego HTTP e eventos customizados definidos pelo desenvolvedor. Um motor heurístico analisa essas métricas a cada ciclo de coleta e exibe recomendações de otimização classificadas por severidade em um painel visual integrado.
+O propósito deste trabalho é projetar, implementar e validar funcionalmente o \collectorFlutter, uma biblioteca Dart para monitoramento de desempenho em tempo real em aplicações Flutter. O pacote coleta métricas de renderização (FPS, \jank, percentis de tempo de quadro), uso de memória RSS e \textit{heap}, tráfego HTTP e eventos customizados definidos pelo desenvolvedor. Um motor heurístico analisa essas métricas a cada ciclo de coleta e exibe recomendações de otimização classificadas por severidade em um painel visual integrado.
 
 
 A proposta não substitui ferramentas de diagnóstico especializadas como o \devtools{} ou o Android Profiler. Seu papel é diferente: funcionar como um termômetro contínuo durante o desenvolvimento, capaz de sinalizar regressões de desempenho no mesmo momento em que o código é exercitado, sem exigir que o desenvolvedor alterne de contexto para uma ferramenta externa.
@@ -58,19 +58,19 @@ Os objetivos específicos são:
   \item Identificar e documentar as limitações das ferramentas de diagnóstico existentes quanto à integração ao fluxo de desenvolvimento e à geração de recomendações automáticas.
   \item Projetar uma arquitetura modular de três camadas que separe coleta, análise e apresentação de métricas, garantindo baixo acoplamento e extensibilidade.
   \item Implementar os módulos de coleta (FPS, memória, rede, eventos), análise heurística e visualização em tempo real como um pacote Dart publicável.
-  \item Validar o protótipo em quatro cenários experimentais controlados, confirmando a operacionalidade do sistema e a pertinência das heurísticas implementadas.
-  \item Verificar qualitativamente o impacto percebido do monitoramento e a coerência das métricas coletadas em comparação preliminar com Android Profiler e \texttt{adb shell dumpsys gfxinfo}.
-  \item Disponibilizar o protótipo como código aberto, com documentação técnica suficiente para reprodução e extensão por outros pesquisadores.
+  \item Validar o pacote em quatro cenários experimentais controlados, confirmando a operacionalidade do sistema e a pertinência das heurísticas implementadas.
+  \item Verificar qualitativamente o impacto percebido do monitoramento e a coerência das métricas coletadas com apoio de ferramentas de referência, especialmente leituras complementares obtidas por \texttt{adb shell dumpsys gfxinfo} e \texttt{adb shell dumpsys meminfo}.
+  \item Disponibilizar o pacote como código aberto, com documentação técnica suficiente para reprodução e extensão por outros pesquisadores.
 \end{enumerate}
 
 \section{Visão Geral do Documento}
 
 O Capítulo~2 apresenta a fundamentação teórica, reunindo a revisão bibliográfica sobre monitoramento de recursos e ferramentas de diagnóstico existentes, e o contexto de humanidades que situa o trabalho nas dimensões de sustentabilidade digital, impacto social e responsabilidade ética.
 
-O Capítulo~3 descreve a metodologia adotada, incluindo a natureza da pesquisa, o ciclo de vida iterativo, a arquitetura do protótipo, os requisitos funcionais e não funcionais, a especificação dos módulos implementados e os procedimentos de validação funcional.
+O Capítulo~3 descreve a metodologia adotada, incluindo a natureza da pesquisa, o ciclo de vida iterativo, a arquitetura do pacote, os requisitos funcionais e não funcionais, a especificação dos módulos implementados e os procedimentos de validação funcional.
 
 O Capítulo~4 apresenta os resultados do desenvolvimento: o estado de implementação de cada módulo, a evolução das limitações identificadas, a validação arquitetural e as observações qualitativas dos quatro cenários experimentais.
 
-O Capítulo~5 consolida as conclusões do trabalho, apresenta as contribuições alcançadas e delineia trabalhos futuros naturais, incluindo experimentos quantitativos formais e avaliação de usabilidade.
+O Capítulo~5 consolida as conclusões do trabalho, apresenta as contribuições alcançadas e discute as limitações metodológicas do estudo.
 
 \clearpage

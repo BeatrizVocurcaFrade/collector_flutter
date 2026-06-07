@@ -24,82 +24,91 @@
 \contentsline {subsubsection}{Visão Geral das Fases e Entregáveis}{13}{section*.8}%
 \contentsline {paragraph}{Fase 1: Fundamentação e Revisão Bibliográfica}{13}{section*.9}%
 \contentsline {paragraph}{Fase 2: Requisitos, Escopo e Especificação}{14}{section*.10}%
-\contentsline {paragraph}{Fase 3: Projeto, Implementação e Integração do Protótipo}{14}{section*.11}%
+\contentsline {paragraph}{Fase 3: Projeto, Implementação e Integração do Pacote}{14}{section*.11}%
 \contentsline {paragraph}{Fase 4: Avaliação Experimental, Análise e Validação}{14}{section*.12}%
 \contentsline {subsubsection}{Iterações e Rastreabilidade}{14}{section*.13}%
 \contentsline {subsubsection}{Relação com o Cronograma do TCC 1 e TCC 2}{14}{section*.14}%
-\contentsline {section}{\numberline {3.2}Cronograma de Execução}{16}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Cronograma do TCC 1}{16}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Cronograma do TCC 2}{16}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Etapas de Desenvolvimento}{16}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Fase 1 – Revisão Bibliográfica e Fundamentação Teórica}{16}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}Fase 2 – Levantamento de Requisitos e Especificação}{20}{subsection.3.5.2}%
-\contentsline {subsubsection}{Requisitos Funcionais}{20}{section*.15}%
-\contentsline {subsubsection}{Requisitos Não Funcionais}{20}{section*.16}%
-\contentsline {subsection}{\numberline {3.5.3}Fase 3 – Projeto e Implementação do Protótipo}{21}{subsection.3.5.3}%
-\contentsline {subsubsection}{Modelagem e Arquitetura de Software}{21}{section*.17}%
-\contentsline {subsubsection}{Tecnologias e Ferramentas Utilizadas}{21}{section*.18}%
-\contentsline {subsubsection}{Integração dos Módulos e Testes Iniciais}{22}{section*.19}%
-\contentsline {subsection}{\numberline {3.5.4}Fase 4 – Avaliação Experimental e Validação}{22}{subsection.3.5.4}%
-\contentsline {subsubsection}{Planejamento dos Cenários}{22}{section*.20}%
-\contentsline {subsubsection}{Variáveis do Experimento}{22}{section*.21}%
-\contentsline {subsubsection}{Execução dos Testes}{23}{section*.22}%
-\contentsline {subsubsection}{Coleta e Análise de Dados}{23}{section*.23}%
-\contentsline {subsubsection}{Métricas Relacionadas à Eficiência Energética}{23}{section*.24}%
-\contentsline {subsubsection}{Validação das Recomendações Heurísticas}{24}{section*.25}%
-\contentsline {section}{\numberline {3.6}Descrição do Protótipo e Arquitetura da Solução}{24}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Concepção e Premissas de Projeto}{24}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Arquitetura Geral do Sistema}{25}{subsection.3.6.2}%
-\contentsline {subsubsection}{Camada Data}{25}{section*.26}%
-\contentsline {subsubsection}{Camada Domain}{25}{section*.27}%
-\contentsline {subsubsection}{Camada Presentation}{25}{section*.28}%
-\contentsline {subsection}{\numberline {3.6.3}Componentes Principais}{25}{subsection.3.6.3}%
-\contentsline {subsubsection}{Collector}{25}{section*.29}%
-\contentsline {subsubsection}{Analyzer}{25}{section*.30}%
-\contentsline {subsubsection}{Recommender}{26}{section*.31}%
-\contentsline {subsubsection}{Dashboard}{26}{section*.32}%
-\contentsline {subsubsection}{Exporter (Opcional)}{26}{section*.33}%
-\contentsline {subsection}{\numberline {3.6.4}Interface e Painel de Visualização}{26}{subsection.3.6.4}%
-\contentsline {subsubsection}{Área de Métricas}{26}{section*.34}%
-\contentsline {subsubsection}{Área de Recomendações}{26}{section*.35}%
-\contentsline {subsubsection}{Gráfico Temporal e Indicadores}{26}{section*.36}%
-\contentsline {subsubsection}{Botões de Simulação e Teste}{27}{section*.37}%
-\contentsline {subsection}{\numberline {3.6.5}Regras de Recomendação}{29}{subsection.3.6.5}%
-\contentsline {subsection}{\numberline {3.6.6}Demonstração Prática e Disponibilização do Código-Fonte}{29}{subsection.3.6.6}%
-\contentsline {section}{\numberline {3.7}Critérios de Avaliação}{30}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Coerência das Métricas Coletadas}{30}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}Overhead Introduzido pelo Sistema}{30}{subsection.3.7.2}%
-\contentsline {subsection}{\numberline {3.7.3}Eficácia das Recomendações Geradas}{30}{subsection.3.7.3}%
-\contentsline {subsection}{\numberline {3.7.4}Clareza da Interface}{31}{subsection.3.7.4}%
-\contentsline {section}{\numberline {3.8}Ferramentas e Ambientes de Desenvolvimento}{31}{section.3.8}%
-\contentsline {subsection}{\numberline {3.8.1}Ambientes de Programação e IDEs}{31}{subsection.3.8.1}%
-\contentsline {subsection}{\numberline {3.8.2}SDKs e Dependências Utilizadas}{31}{subsection.3.8.2}%
-\contentsline {subsection}{\numberline {3.8.3}Ambientes de Teste e Dispositivos}{32}{subsection.3.8.3}%
-\contentsline {subsection}{\numberline {3.8.4}Ferramentas de Referência e Validação}{32}{subsection.3.8.4}%
-\contentsline {subsection}{\numberline {3.8.5}Frameworks e Bibliotecas de Apoio}{32}{subsection.3.8.5}%
-\contentsline {subsection}{\numberline {3.8.6}Ambientes de Testes Automatizados}{33}{subsection.3.8.6}%
-\contentsline {section}{\numberline {3.9}Procedimentos de Teste e Coleta de Dados}{34}{section.3.9}%
-\contentsline {subsection}{\numberline {3.9.1}Protocolo de Execução dos Testes}{34}{subsection.3.9.1}%
-\contentsline {subsection}{\numberline {3.9.2}Definição dos Cenários Experimentais}{34}{subsection.3.9.2}%
-\contentsline {subsection}{\numberline {3.9.3}Coleta de Métricas}{35}{subsection.3.9.3}%
-\contentsline {subsection}{\numberline {3.9.4}Métodos de Comparação}{35}{subsection.3.9.4}%
-\contentsline {subsection}{\numberline {3.9.5}Análise dos Resultados}{36}{subsection.3.9.5}%
-\contentsline {subsection}{\numberline {3.9.6}Controle Experimental e Reprodutibilidade}{36}{subsection.3.9.6}%
-\contentsline {chapter}{\numberline {4}Resultados e Discussão}{38}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Desenvolvimento do Protótipo}{38}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Módulos Implementados}{38}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Estrutura da Biblioteca}{39}{subsection.4.1.2}%
-\contentsline {section}{\numberline {4.2}Validação Preliminar da Arquitetura}{40}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Conformidade Arquitetural}{40}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Comportamento Observado em Execução}{40}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Análise dos Cenários Experimentais}{41}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Cenário 1: Reconstruções Intensivas de Interface}{41}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Cenário 2: Chamadas de Rede Simultâneas}{41}{subsection.4.3.2}%
+\contentsline {section}{\numberline {3.2}Etapas de Desenvolvimento}{16}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Fase 1 – Revisão Bibliográfica e Fundamentação Teórica}{16}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Fase 2 – Levantamento de Requisitos e Especificação}{17}{subsection.3.2.2}%
+\contentsline {subsubsection}{Requisitos Funcionais}{17}{section*.15}%
+\contentsline {subsubsection}{Requisitos Não Funcionais}{17}{section*.16}%
+\contentsline {subsection}{\numberline {3.2.3}Fase 3 – Projeto e Implementação do Pacote}{18}{subsection.3.2.3}%
+\contentsline {subsubsection}{Modelagem e Arquitetura de Software}{18}{section*.17}%
+\contentsline {subsubsection}{Tecnologias e Ferramentas Utilizadas}{18}{section*.18}%
+\contentsline {subsubsection}{Integração dos Módulos e Testes Iniciais}{19}{section*.19}%
+\contentsline {subsection}{\numberline {3.2.4}Fase 4 – Avaliação Experimental e Validação}{19}{subsection.3.2.4}%
+\contentsline {subsubsection}{Planejamento dos Cenários}{19}{section*.20}%
+\contentsline {subsubsection}{Variáveis do Experimento}{19}{section*.21}%
+\contentsline {subsubsection}{Execução dos Testes}{20}{section*.22}%
+\contentsline {subsubsection}{Coleta e Análise de Dados}{20}{section*.23}%
+\contentsline {subsubsection}{Métricas Relacionadas à Eficiência Energética}{20}{section*.24}%
+\contentsline {subsubsection}{Validação das Recomendações Heurísticas}{21}{section*.25}%
+\contentsline {section}{\numberline {3.3}Descrição do Pacote e Arquitetura da Solução}{21}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Concepção e Premissas de Projeto}{21}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Arquitetura Geral do Sistema}{22}{subsection.3.3.2}%
+\contentsline {subsubsection}{Camada Data}{22}{section*.26}%
+\contentsline {subsubsection}{Camada Domain}{22}{section*.27}%
+\contentsline {subsubsection}{Camada Presentation}{22}{section*.28}%
+\contentsline {subsection}{\numberline {3.3.3}Componentes Principais}{22}{subsection.3.3.3}%
+\contentsline {subsubsection}{Collector}{22}{section*.29}%
+\contentsline {subsubsection}{Analyzer}{22}{section*.30}%
+\contentsline {subsubsection}{Recommender}{23}{section*.31}%
+\contentsline {subsubsection}{Dashboard}{23}{section*.32}%
+\contentsline {subsubsection}{ExportService}{23}{section*.33}%
+\contentsline {subsection}{\numberline {3.3.4}Interface e Painel de Visualização}{23}{subsection.3.3.4}%
+\contentsline {subsubsection}{Área de Métricas}{23}{section*.34}%
+\contentsline {subsubsection}{Área de Recomendações}{23}{section*.35}%
+\contentsline {subsubsection}{Gráfico Temporal e Indicadores}{23}{section*.36}%
+\contentsline {subsubsection}{Botões de Simulação e Teste}{24}{section*.37}%
+\contentsline {subsection}{\numberline {3.3.5}Regras de Recomendação}{27}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Demonstração Prática e Disponibilização do Código-Fonte}{27}{subsection.3.3.6}%
+\contentsline {section}{\numberline {3.4}Critérios de Avaliação}{28}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Coerência das Métricas Coletadas}{28}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Overhead Introduzido pelo Sistema}{28}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Eficácia das Recomendações Geradas}{28}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Clareza da Interface}{29}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Ferramentas e Ambientes de Desenvolvimento}{29}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Ambientes de Programação e IDEs}{29}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}SDKs e Dependências Utilizadas}{29}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Ambientes de Teste e Dispositivos}{30}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}Ferramentas de Referência e Validação}{30}{subsection.3.5.4}%
+\contentsline {subsection}{\numberline {3.5.5}Frameworks e Bibliotecas de Apoio}{30}{subsection.3.5.5}%
+\contentsline {subsection}{\numberline {3.5.6}Ambientes de Testes Automatizados}{31}{subsection.3.5.6}%
+\contentsline {section}{\numberline {3.6}Procedimentos de Teste e Coleta de Dados}{32}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Procedimento de Execução dos Testes}{32}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Definição dos Cenários Experimentais}{32}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Coleta de Métricas}{33}{subsection.3.6.3}%
+\contentsline {subsection}{\numberline {3.6.4}Métodos de Comparação}{34}{subsection.3.6.4}%
+\contentsline {subsection}{\numberline {3.6.5}Análise dos Resultados}{34}{subsection.3.6.5}%
+\contentsline {subsection}{\numberline {3.6.6}Controle Experimental e Reprodutibilidade}{34}{subsection.3.6.6}%
+\contentsline {chapter}{\numberline {4}Resultados e Discussão}{36}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Desenvolvimento do Pacote}{36}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Módulos Implementados}{36}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Estrutura da Biblioteca}{37}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Validação da Arquitetura}{38}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Conformidade Arquitetural}{38}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Comportamento Observado em Execução}{38}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Análise dos Cenários Experimentais}{39}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Cenário 1: Reconstruções Intensivas de Interface}{40}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Cenário 2: Chamadas de Rede Simultâneas}{40}{subsection.4.3.2}%
 \contentsline {subsection}{\numberline {4.3.3}Cenário 3: Alocação Intensiva de Memória}{41}{subsection.4.3.3}%
 \contentsline {subsection}{\numberline {4.3.4}Cenário 4: Carga Combinada}{41}{subsection.4.3.4}%
-\contentsline {section}{\numberline {4.4}Evolução do Protótipo: Limitações Superadas}{42}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Resumo do Capítulo}{42}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Conclusões}{43}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Considerações Finais}{43}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Contribuições do Trabalho}{44}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Trabalhos Futuros}{44}{section.5.3}%
+\contentsline {subsection}{\numberline {4.3.5}Comparação Qualitativa com ADB}{41}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Evidências Complementares da Validação}{42}{subsection.4.3.6}%
+\contentsline {section}{\numberline {4.4}Evolução do Pacote: Limitações Superadas}{43}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Resumo do Capítulo}{43}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Conclusões}{44}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Considerações Finais}{44}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Contribuições do Trabalho}{45}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Limitações do Estudo}{45}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Trabalhos Futuros}{46}{section.5.4}%
+\contentsline {chapter}{\numberline {A}Cronogramas do Trabalho}{50}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Cronograma do TCC 1}{50}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Cronograma do TCC 2}{50}{section.A.2}%
+\contentsline {chapter}{\numberline {B}Evidências Visuais e Leituras ADB}{53}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Casos de Teste Automatizados}{59}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Análise e Estatísticas}{59}{section.C.1}%
+\contentsline {section}{\numberline {C.2}CPU e Bateria}{60}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Exportação}{61}{section.C.3}%
+\contentsline {section}{\numberline {C.4}Recomendações}{61}{section.C.4}%

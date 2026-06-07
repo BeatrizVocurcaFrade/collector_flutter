@@ -3,10 +3,18 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Ciclo de vida metodológico adotado (iterativo e incremental).}}{13}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Estratégia metodológica da pesquisa, com foco em revisão bibliográfica, requisitos, implementação e validação funcional do protótipo.}}{13}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Arquitetura local e fluxo de dados do protótipo \texttt {collector\_flutter}{}: coleta, análise, recomendação e apresentação no painel integrado.}}{21}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Painel do aplicativo em condição de desempenho estável, com indicadores verdes e recomendações informativas.}}{27}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Painel do aplicativo com anomalias detectadas, como FPS baixo e uso de memória elevado.}}{28}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Ícone do aplicativo de demonstração \texttt {Collector Flutter}.}}{28}{figure.3.6}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Estratégia metodológica da pesquisa, com foco em revisão bibliográfica, requisitos, implementação e validação funcional do pacote.}}{13}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Arquitetura local e fluxo de dados do pacote \texttt {collector\_\allowbreak flutter}{}: coleta, análise, recomendação e apresentação no painel integrado.}}{18}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Painel do aplicativo em condição de desempenho estável, com indicadores verdes e recomendações informativas.}}{25}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Painel do aplicativo com anomalias detectadas, como FPS baixo e uso de memória elevado.}}{26}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Ícone do aplicativo de demonstração \texttt {Collector Flutter}.}}{26}{figure.3.6}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Evidências visuais do painel durante a validação: à esquerda, condição estável; à direita, condição com gargalos detectados, eventos de rede e alertas ativos.}}{40}{figure.4.1}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Evidência visual do cenário de reconstruções intensivas de interface.}}{55}{figure.B.1}%
+\contentsline {figure}{\numberline {B.2}{\ignorespaces Evidência visual do cenário de chamadas de rede simultâneas.}}{56}{figure.B.2}%
+\contentsline {figure}{\numberline {B.3}{\ignorespaces Evidência visual do cenário de alocação intensiva de memória.}}{57}{figure.B.3}%
+\contentsline {figure}{\numberline {B.4}{\ignorespaces Evidência visual do cenário de carga combinada.}}{58}{figure.B.4}%
 \addvspace {10\p@ }

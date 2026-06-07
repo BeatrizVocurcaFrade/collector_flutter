@@ -2,7 +2,7 @@
 
 \subsection{Fase 2 – Levantamento de Requisitos e Especificação}
 
-A segunda fase envolveu o levantamento e a análise dos requisitos funcionais e não funcionais do sistema, de forma a alinhar a proposta às necessidades práticas de desenvolvedores Flutter.  
+A segunda fase envolveu o levantamento e a análise dos requisitos funcionais e não funcionais do sistema, de forma a alinhar a proposta às necessidades práticas de desenvolvedores Flutter.
 Seguindo o modelo sugerido por Sommerville~\cite{sommerville2019software}, o processo de elicitação de requisitos considerou aspectos de usabilidade, integração, portabilidade e impacto sobre o desempenho.
 
 \subsubsection{Requisitos Funcionais}
@@ -22,11 +22,11 @@ Os requisitos funcionais definem as operações que o sistema deve realizar. Ent
 Os requisitos não funcionais descrevem as propriedades de qualidade esperadas do sistema, como desempenho, compatibilidade e manutenibilidade (Pressman e Maxim~\cite{pressman2020engenharia}):
 
 \begin{itemize}
-  \item RNF1 – O sistema deve operar integralmente em Dart, sem dependência de código nativo;
+  \item RNF1 – O sistema deve operar majoritariamente em Dart, utilizando \textit{platform channels} apenas para métricas dependentes do sistema operacional, como CPU e bateria;
   \item RNF2 – O coletor deve introduzir um \textit{overhead} máximo de 5\% sobre o tempo médio de renderização da aplicação monitorada;
   \item RNF3 – A interface do painel deve manter atualização fluida e responsiva, com taxa mínima de 50 FPS em dispositivos de médio desempenho;
   \item RNF4 – A arquitetura deve seguir princípios de modularidade e separação de responsabilidades (Martin~\cite{martin2018clean});
-  \item RNF5 – O sistema deve permitir reuso e extensão, facilitando a integração de novos tipos de métricas ou heurísticas futuras.
+  \item RNF5 – O sistema deve permitir reuso e extensão, facilitando a integração de novos tipos de métricas ou heurísticas adicionais.
 \end{itemize}
 
 \noindent\textbf{Nota sobre limites de overhead.}
@@ -37,7 +37,7 @@ refere-se a uma \textit{meta de projeto}, mais conservadora, adotada
 para assegurar margem de segurança entre a operação real e o limite
 permitido pelos requisitos não funcionais.
 
-\subsection{Fase 3 – Projeto e Implementação do Protótipo}
+\subsection{Fase 3 – Projeto e Implementação do Pacote}
 
 Nesta etapa, foram definidas as estruturas de software, as tecnologias empregadas e o fluxo de integração entre módulos. O projeto adotou a \textbf{Clean Architecture} proposta por Martin~\cite{martin2018clean}, visando garantir independência entre camadas e testabilidade.
 
@@ -55,13 +55,13 @@ A modelagem do sistema foi conduzida de forma modular, com base em três camadas
 
 Esse modelo arquitetural facilita o isolamento das dependências e a manutenção evolutiva do código.
 
-A Figura~\ref{fig:architecture} ilustra a arquitetura local adotada no protótipo.
+A Figura~\ref{fig:architecture} ilustra a arquitetura local adotada no pacote.
 Ela organiza o \collectorFlutter{} em coleta, telemetria, análise, recomendações e visualização integrada.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\textwidth]{arquitetura_fluxo_collector.png}
-  \caption{Arquitetura local e fluxo de dados do protótipo \collectorFlutter{}: coleta, análise, recomendação e apresentação no painel integrado.}
+  \caption{Arquitetura local e fluxo de dados do pacote \collectorFlutter{}: coleta, análise, recomendação e apresentação no painel integrado.}
   \label{fig:architecture}
 \end{figure}
 
@@ -79,18 +79,18 @@ O ambiente de desenvolvimento foi configurado com as seguintes ferramentas e tec
 
 \subsubsection{Integração dos Módulos e Testes Iniciais}
 
-Após a implementação individual dos módulos, foi conduzida uma fase de integração incremental, conforme orientam Sommerville~\cite{sommerville2019software}.  
+Após a implementação individual dos módulos, foi conduzida uma fase de integração incremental, conforme orientam Sommerville~\cite{sommerville2019software}.
 O processo envolveu:
 \begin{itemize}
   \item Testes unitários em cada componente da camada \textbf{Data} e \textbf{Domain};
   \item Integração dos módulos via \texttt{StreamController} e \texttt{Bloc};
   \item Validação visual do painel (\textbf{Dashboard}) com dados simulados;
-  \item Comparação preliminar com métricas obtidas via Android Profiler e Perfetto (AOSP~\cite{aosp2024}).
+  \item Confronto qualitativo com sinais observados no painel e com leituras complementares obtidas por ADB.
 \end{itemize}
 
 \subsection{Fase 4 – Avaliação Experimental e Validação}
 
-A última fase compreendeu o planejamento, execução e análise de cenários controlados com o protótipo, visando validar sua operacionalidade, a coerência das métricas coletadas e a pertinência das recomendações heurísticas. A avaliação apresentada neste trabalho tem caráter funcional e qualitativo; experimentos quantitativos com amostra ampliada e testes estatísticos são tratados como trabalhos futuros.
+A última fase compreendeu o planejamento, execução e análise de cenários controlados com o pacote, visando validar sua operacionalidade, a coerência das métricas coletadas e a pertinência das recomendações heurísticas. A avaliação apresentada neste trabalho tem caráter funcional e qualitativo, delimitado aos cenários e dispositivos descritos nesta metodologia.
 
 \subsubsection{Planejamento dos Cenários}
 \subsubsection{Variáveis do Experimento}
@@ -124,7 +124,7 @@ Para estruturar os cenários de forma sistemática, foram definidas variáveis o
 
 \end{itemize}
 
-O planejamento experimental foi orientado pelas diretrizes de Wohlin \textit{et al.}~\cite{wohlin2012}, contemplando a definição de cenários, variáveis e procedimentos de coleta. As hipóteses foram tratadas como expectativas de funcionamento do protótipo:
+O planejamento experimental foi orientado pelas diretrizes de Wohlin \textit{et al.}~\cite{wohlin2012}, contemplando a definição de cenários, variáveis e procedimentos de coleta. As hipóteses foram tratadas como expectativas de funcionamento do pacote:
 
 \begin{itemize}
   \item H1 – O \texttt{collector\_flutter} registra métricas coerentes com os cenários de carga induzidos;
@@ -138,8 +138,8 @@ Os testes foram conduzidos no aplicativo de exemplo em ambiente Android, sob dif
 
 \subsubsection{Coleta e Análise de Dados}
 
-A coleta de dados foi realizada de forma automatizada, com as métricas sendo armazenadas em formato JSON e processadas pelo módulo \texttt{Analyzer}.  
-A análise baseou-se na inspeção dos registros exportados, das mensagens de recomendação e da resposta visual do painel durante os cenários controlados.  
+A coleta de dados foi realizada de forma automatizada, com as métricas sendo armazenadas em formato JSON e processadas pelo módulo \texttt{Analyzer}.
+A análise baseou-se na inspeção dos registros exportados, das mensagens de recomendação e da resposta visual do painel durante os cenários controlados.
 
 Os resultados foram então avaliados segundo os critérios definidos na Seção de \textbf{Critérios de Avaliação}, considerando coerência das métricas, impacto percebido da coleta e pertinência das recomendações.
 
@@ -159,7 +159,7 @@ Devido à indisponibilidade de instrumentação física dedicada para medir corr
 \end{itemize}
 
 A literatura demonstra que essas métricas apresentam correlação significativa
-com o consumo real de energia em dispositivos móveis. A análise energética foi, portanto, inferencial e qualitativa, limitada à observação dos sinais coletados pelo protótipo.
+com o consumo real de energia em dispositivos móveis. A análise energética foi, portanto, inferencial e qualitativa, limitada à observação dos sinais coletados pelo pacote.
 
 
 \subsubsection{Validação das Recomendações Heurísticas}
@@ -182,10 +182,10 @@ Essa validação permitiu discutir a pertinência das heurísticas implementadas
 
 
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
-\section{Descrição do Protótipo e Arquitetura da Solução}
+\section{Descrição do Pacote e Arquitetura da Solução}
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-O protótipo desenvolvido, denominado \texttt{collector\_flutter}, foi projetado para funcionar de forma totalmente embutida no aplicativo Flutter, realizando a coleta, análise e visualização de métricas de desempenho sem recorrer a servidores externos.  
+O pacote desenvolvido, denominado \texttt{collector\_flutter}, foi projetado para funcionar de forma totalmente embutida no aplicativo Flutter, realizando a coleta, análise e visualização de métricas de desempenho sem recorrer a servidores externos.
 A proposta fundamenta-se na construção de um sistema modular, multiplataforma e de baixo \textit{overhead}, conforme boas práticas de engenharia de software experimental (Wohlin \textit{et al.}~\cite{wohlin2012}; Pressman e Maxim~\cite{pressman2020engenharia}).
 
 \subsection{Concepção e Premissas de Projeto}
@@ -193,14 +193,14 @@ A proposta fundamenta-se na construção de um sistema modular, multiplataforma 
 A concepção do sistema teve como premissas fundamentais:
 
 \begin{itemize}
-  \item Executar integralmente em Dart, sem dependência de código nativo;
+  \item Executar majoritariamente em Dart, recorrendo a \textit{platform channels} apenas para métricas dependentes do sistema operacional, como CPU e bateria;
   \item Fornecer medições precisas em tempo real, com impacto mínimo sobre o desempenho do aplicativo monitorado;
   \item Manter arquitetura modular, permitindo substituição ou expansão de componentes;
   \item Adotar interface integrada ao próprio aplicativo, sem uso de ferramentas externas;
   \item Seguir princípios da \textbf{Clean Architecture} (Martin~\cite{martin2018clean}), assegurando separação de responsabilidades e testabilidade.
 \end{itemize}
 
-Essas premissas visam garantir a reprodutibilidade científica e a aplicabilidade prática do protótipo tanto em ambientes de desenvolvimento quanto em contextos de ensino e pesquisa.
+Essas premissas visam garantir a reprodutibilidade científica e a aplicabilidade prática do pacote tanto em ambientes de desenvolvimento quanto em contextos de ensino e pesquisa.
 
 \subsection{Arquitetura Geral do Sistema}
 
@@ -209,66 +209,66 @@ A visão geral dessa organização foi apresentada na Figura~\ref{fig:architectu
 
 \subsubsection{Camada Data}
 
-A camada \textbf{Data} é responsável pela coleta, persistência e serialização das métricas.  
-Nela, o módulo \texttt{ResourceCollector} utiliza APIs do Flutter, como \texttt{SchedulerBinding} e \texttt{FrameTiming}, para capturar informações de desempenho, convertendo-as em estruturas JSON processáveis.  
+A camada \textbf{Data} é responsável pela coleta, persistência e serialização das métricas.
+Nela, o módulo \texttt{ResourceCollector} utiliza APIs do Flutter, como \texttt{SchedulerBinding} e \texttt{FrameTiming}, para capturar informações de desempenho, convertendo-as em estruturas JSON processáveis.
 Os dados são transmitidos por \texttt{Streams} para as camadas superiores, garantindo atualização contínua e não bloqueante.
 
 \subsubsection{Camada Domain}
 
-A camada \textbf{Domain} implementa os casos de uso e a lógica central do sistema, incluindo os módulos de análise (\texttt{Analyzer}) e recomendação (\texttt{Recommender}).  
+A camada \textbf{Domain} implementa os casos de uso e a lógica central do sistema, incluindo os módulos de análise (\texttt{Analyzer}) e recomendação (\texttt{Recommender}).
 Ela é responsável por correlacionar as métricas coletadas, identificar gargalos e aplicar heurísticas de otimização baseadas em sintomas recorrentes de degradação, como queda de FPS, aumento de tempo de quadro, crescimento de memória e excesso de chamadas de rede.
 
 \subsubsection{Camada Presentation}
 
-A camada \textbf{Presentation} fornece a interface visual (\texttt{Dashboard}), responsável por exibir métricas, gráficos e recomendações em tempo real.  
+A camada \textbf{Presentation} fornece a interface visual (\texttt{Dashboard}), responsável por exibir métricas, gráficos e recomendações em tempo real.
 Sua estrutura é construída sobre o padrão \textit{Bloc/Cubit}, assegurando controle de estado previsível e reatividade imediata na exibição das métricas.
 
 \subsection{Componentes Principais}
 
-O sistema é composto por cinco módulos principais, que operam de forma integrada e independente.
+O sistema é composto por módulos de coleta, análise, recomendação, apresentação e exportação, que operam de forma integrada e independente.
 
 \subsubsection{Collector}
 
-O módulo \texttt{Collector} é o núcleo de instrumentação do sistema, responsável pela captura de eventos como reconstruções de widgets, tempo de renderização de quadros e uso de memória. 
+O módulo \texttt{Collector} é o núcleo de instrumentação do sistema, responsável pela captura de eventos como reconstruções de widgets, tempo de renderização de quadros e uso de memória.
 Ele oferece uma API acessível ao desenvolvedor com métodos como \texttt{recordWidget\-Rebuild()}, \texttt{recordNetwork()} e \texttt{recordFrameTiming()}, além de permitir o registro de eventos personalizados.
 
 \subsubsection{Analyzer}
 
-O módulo \texttt{Analyzer} processa as métricas recebidas e detecta padrões que indiquem degradação de desempenho como aumento de tempo de \textit{frame}, quedas de FPS e variações abruptas de reconstruções.  
+O módulo \texttt{Analyzer} processa as métricas recebidas e detecta padrões que indiquem degradação de desempenho como aumento de tempo de \textit{frame}, quedas de FPS e variações abruptas de reconstruções.
 Ele correlaciona dados entre diferentes fontes e envia resultados interpretados ao módulo de recomendação.
 
 \subsubsection{Recommender}
 
-O módulo \texttt{Recommender} interpreta as anomalias detectadas e aplica um conjunto de regras heurísticas baseadas em práticas recomendadas do Flutter.  
+O módulo \texttt{Recommender} interpreta as anomalias detectadas e aplica um conjunto de regras heurísticas baseadas em práticas recomendadas do Flutter.
 As recomendações são priorizadas por impacto e apresentadas de forma textual e visual ao desenvolvedor, promovendo a melhoria contínua do aplicativo.
 
 \subsubsection{Dashboard}
 
-O módulo \texttt{Dashboard} constitui o painel visual do sistema, exibindo métricas em tempo real e recomendações automáticas de otimização.  
+O módulo \texttt{Dashboard} constitui o painel visual do sistema, exibindo métricas em tempo real e recomendações automáticas de otimização.
 Ele é atualizado dinamicamente a partir de \texttt{Streams} internas e utiliza gráficos, indicadores de status e alertas coloridos para facilitar a interpretação.
 
-\subsubsection{Exporter (Opcional)}
+\subsubsection{ExportService}
 
-O módulo \texttt{Exporter}, ainda opcional, permite exportar métricas e relatórios em formatos CSV e JSON, ampliando o uso do sistema para contextos de pesquisa e auditoria de desempenho.
+O módulo \texttt{ExportService} permite exportar a sessão de telemetria em JSON e os \textit{timings} de quadros em CSV, ampliando o uso do sistema para contextos de pesquisa e auditoria de desempenho.
 
 \subsection{Interface e Painel de Visualização}
 
-A interface visual foi concebida para proporcionar clareza, responsividade e atualização contínua dos dados, sem prejudicar a experiência do desenvolvedor.  
+A interface visual foi concebida para proporcionar clareza, responsividade e atualização contínua dos dados, sem prejudicar a experiência do desenvolvedor.
 O painel é dividido em áreas funcionais complementares, que permitem análise simultânea e intuitiva das métricas coletadas.
 
 \subsubsection{Área de Métricas}
 
-Exibe os principais indicadores de desempenho como FPS médio, consumo de memória e número de reconstruções de widgets.  
+Exibe os principais indicadores de desempenho como FPS médio, consumo de memória e número de reconstruções de widgets.
 Cada indicador é representado por \textbf{cards coloridos} e ícones que sinalizam o estado atual da aplicação: verde (ideal), amarelo (atenção) e vermelho (crítico).
 
 \subsubsection{Área de Recomendações}
 
-Apresenta as sugestões geradas pelo módulo \texttt{Recommender}, priorizadas conforme impacto estimado.  
+Apresenta as sugestões geradas pelo módulo \texttt{Recommender}, priorizadas conforme impacto estimado.
 Essas recomendações auxiliam o desenvolvedor a identificar causas potenciais de lentidão e a aplicar boas práticas de otimização no código.
 
 \subsubsection{Gráfico Temporal e Indicadores}
 
-Inclui um gráfico de linha em tempo real, construído com a biblioteca \texttt{fl\_chart}, mostrando a variação temporal do tempo de renderização de quadros.  
+Inclui um gráfico de linha em tempo real, construído com a biblioteca \texttt{fl\_chart}, mostrando a variação temporal do tempo de renderização de quadros.
 Esse componente visual é essencial para identificar flutuações de desempenho, travamentos e pontos de gargalo durante a execução.
 
 \subsubsection{Botões de Simulação e Teste}
@@ -282,9 +282,8 @@ Disponibilizados na barra inferior do painel, permitem executar cenários artifi
 \end{itemize}
 Esses testes auxiliam na validação experimental do sistema sob diferentes condições de estresse.
 
-\vspace{0.4cm}
-\noindent
-\textbf{Exemplo de painel com desempenho ideal:}
+A Figura~\ref{fig:prototype_ok} apresenta o painel em uma condição estável, na qual os indicadores permanecem em faixas aceitáveis e as recomendações têm caráter informativo. Essa tela demonstra o estado de referência usado para comparar visualmente as situações de alerta durante os testes.
+
 \begin{figure}[H]
   \centering
   \includegraphics[height=0.8\textwidth]{prototipoquandoestaok.jpeg}
@@ -292,9 +291,8 @@ Esses testes auxiliam na validação experimental do sistema sob diferentes cond
   \label{fig:prototype_ok}
 \end{figure}
 
-\vspace{0.4cm}
-\noindent
-\textbf{Exemplo de painel com gargalos detectados:}
+A Figura~\ref{fig:prototype_notok} mostra o comportamento esperado quando há gargalos detectados: os cartões de métricas mudam de cor, o gráfico temporal passa a evidenciar oscilações e as recomendações deixam de ser apenas informativas para orientar possíveis ações de otimização.
+
 \begin{figure}[H]
   \centering
   \includegraphics[height=0.8\textwidth]{prototipoquandonaoestaok.jpeg}
@@ -302,9 +300,8 @@ Esses testes auxiliam na validação experimental do sistema sob diferentes cond
   \label{fig:prototype_notok}
 \end{figure}
 
-\vspace{0.4cm}
-\noindent
-\textbf{Ícone do aplicativo de demonstração:}
+A Figura~\ref{fig:prototype_icon} identifica o aplicativo de demonstração utilizado nas execuções manuais dos cenários experimentais.
+
 \begin{figure}[H]
   \centering
   \includegraphics[height=0.3\textwidth]{iconedoappexamplo.jpeg}
@@ -330,7 +327,7 @@ Essas recomendações são exibidas dinamicamente conforme as métricas coletada
 
 \subsection{Demonstração Prática e Disponibilização do Código-Fonte}
 
-O protótipo foi disponibilizado publicamente para garantir transparência e reprodutibilidade dos resultados, conforme recomenda Wohlin \textit{et al.}~\cite{wohlin2012}.  
+O pacote foi disponibilizado publicamente para garantir transparência e reprodutibilidade dos resultados, conforme recomenda Wohlin \textit{et al.}~\cite{wohlin2012}.
 
 O vídeo de demonstração mostra a execução em tempo real do sistema, com coleta, análise e recomendações heurísticas:
 
@@ -339,7 +336,6 @@ O vídeo de demonstração mostra a execução em tempo real do sistema, com col
   \url{https://drive.google.com/file/d/1KUQ7fFMNRIhe-NSW8loG3wTkQhb_eyOE/view?usp=drive_link}
 \end{center}
 
-\vspace{0.3cm}
 \noindent
 O código-fonte e demais arquivos do projeto estão disponíveis no repositório público:
 
@@ -347,7 +343,6 @@ O código-fonte e demais arquivos do projeto estão disponíveis no repositório
   \url{https://github.com/BeatrizVocurcaFrade/collector_flutter}
 \end{center}
 
-\vspace{0.3cm}
 \noindent
 O pacote também foi publicado no repositório oficial do ecossistema Dart/Flutter, permitindo instalação direta e ampliando o acesso da comunidade à ferramenta:
 
@@ -355,7 +350,6 @@ O pacote também foi publicado no repositório oficial do ecossistema Dart/Flutt
   \url{https://pub.dev/packages/collector_flutter}
 \end{center}
 
-\vspace{0.3cm}
 Essa disponibilização em GitHub e pub.dev permite que outros pesquisadores e desenvolvedores avaliem, testem e expandam o sistema, contribuindo para o avanço das pesquisas sobre desempenho e eficiência energética em aplicações Flutter.
 
 
@@ -367,30 +361,23 @@ Essa disponibilização em GitHub e pub.dev permite que outros pesquisadores e d
 % ---------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Critérios de Avaliação}
 
-A validação do protótipo \texttt{collector\_flutter} foi conduzida segundo três dimensões efetivamente observadas: \textbf{coerência das métricas coletadas}, \textbf{impacto percebido da coleta} e \textbf{pertinência das recomendações geradas}.  
+A validação do pacote \texttt{collector\_flutter} foi conduzida segundo três dimensões efetivamente observadas: \textbf{coerência das métricas coletadas}, \textbf{impacto percebido da coleta} e \textbf{pertinência das recomendações geradas}.
 Cada critério foi definido para verificar, de forma funcional, a viabilidade técnica e a aplicabilidade prática do sistema em ambientes reais de desenvolvimento Flutter.
 
 
 
 \subsection{Coerência das Métricas Coletadas}
 
-A coerência das métricas foi verificada observando-se se os valores registrados pelo protótipo acompanhavam os cenários de carga induzidos no aplicativo de exemplo. Foram analisadas variáveis como tempo médio de renderização de quadros (\textit{frame time}), taxa de quadros por segundo (FPS), consumo de memória, eventos de rede e reconstruções de widgets.
+A coerência das métricas foi verificada observando-se se os valores registrados pelo pacote acompanhavam os cenários de carga induzidos no aplicativo de exemplo. Foram analisadas variáveis como tempo médio de renderização de quadros (\textit{frame time}), taxa de quadros por segundo (FPS), consumo de memória, eventos de rede e reconstruções de widgets.
 
-A comparação com ferramentas de referência, como \texttt{Android Profiler} e \texttt{adb shell dumpsys gfxinfo}, foi utilizada apenas como apoio qualitativo, sem cálculo formal de erro percentual ou intervalo de confiança.
+A comparação com ferramentas de referência foi utilizada apenas como apoio qualitativo, sem cálculo formal de erro percentual ou intervalo de confiança. Na versão final documentada, as leituras complementares foram obtidas por \texttt{adb shell dumpsys gfxinfo} e \texttt{adb shell dumpsys meminfo}; Android Profiler e Perfetto permaneceram como referências técnicas do ecossistema, mas não foram empregados como fonte quantitativa de validação.
 
 \subsection{Overhead Introduzido pelo Sistema}
 
-O overhead representa o impacto que o agente de coleta impõe ao desempenho do aplicativo monitorado.  
+O overhead representa o impacto que o agente de coleta impõe ao desempenho do aplicativo monitorado.
 Neste trabalho, esse impacto foi tratado como critério de observação funcional: o coletor deveria permanecer ativo sem impedir a interação com o aplicativo de demonstração nem bloquear a atualização do painel.
 
-O cálculo abaixo foi mantido como referência metodológica para avaliações futuras:
-
-\[
-Overhead (\%) = \frac{T_{com} - T_{sem}}{T_{sem}} \times 100
-\]
-
-onde \(T_{com}\) e \(T_{sem}\) representam, respectivamente, os tempos médios com o coletor habilitado e desabilitado.  
-Uma mensuração quantitativa desse indicador exige execuções repetidas e controle estatístico, sendo indicada como continuidade do trabalho.
+Durante os testes, o critério observado foi a manutenção da interação com o aplicativo e da atualização do painel durante a coleta. Não foi realizada mensuração estatística do \textit{overhead}; por isso, os resultados discutem apenas o impacto percebido nas execuções controladas.
 
 \subsection{Eficácia das Recomendações Geradas}
 
@@ -406,8 +393,7 @@ Foram analisados sinais como:
 
 \subsection{Clareza da Interface}
 
-A clareza do painel (\texttt{Dashboard}) foi observada internamente durante as execuções manuais, considerando a legibilidade das métricas, a distinção visual dos níveis de severidade e a facilidade de relacionar um alerta ao cenário executado.
-Não foi realizado, nesta versão, um estudo de usabilidade com desenvolvedores externos nem aplicação de questionário. Esse tipo de protocolo permanece como possibilidade de trabalho futuro.
+A clareza do painel (\texttt{Dashboard}) foi observada por inspeção informal interna durante as execuções manuais, considerando a legibilidade das métricas, a distinção visual dos níveis de severidade e a facilidade de relacionar um alerta ao cenário executado. Essa análise não caracteriza avaliação formal de usabilidade com participantes externos; ela serviu apenas como critério funcional de leitura e interpretação do painel durante os testes.
 
 
 
@@ -417,7 +403,7 @@ Não foi realizado, nesta versão, um estudo de usabilidade com desenvolvedores 
 
 \section{Ferramentas e Ambientes de Desenvolvimento}
 
-O desenvolvimento e a validação do protótipo \texttt{collector\_flutter} foram conduzidos em ambiente controlado, com o objetivo de assegurar reprodutibilidade dos resultados e consistência das medições entre diferentes execuções.  
+O desenvolvimento e a validação do pacote \texttt{collector\_flutter} foram conduzidos em ambiente controlado, com o objetivo de assegurar reprodutibilidade dos resultados e consistência das medições entre diferentes execuções.
 As ferramentas selecionadas abrangem IDEs, SDKs e bibliotecas de apoio do ecossistema Flutter, compondo uma infraestrutura moderna, multiplataforma e voltada à análise de desempenho em aplicações Android.
 
 \subsection{Ambientes de Programação e IDEs}
@@ -426,7 +412,7 @@ O processo de implementação foi realizado nos seguintes ambientes de desenvolv
 
 \begin{itemize}
   \item \textbf{Visual Studio Code (VS Code):} principal ambiente de escrita e depuração do código Dart e Flutter, configurado com extensões para gerenciamento de pacotes, análise estática e execução de testes unitários.
-  \item \textbf{Android Studio:} empregado para execução do aplicativo em dispositivos físicos e emuladores Android, bem como para monitoramento de desempenho por meio do \textit{Android Profiler}.
+  \item \textbf{Android Studio:} empregado para execução do aplicativo em dispositivos físicos e emuladores Android, bem como para inspeção complementar de desempenho quando necessário.
 \end{itemize}
 
 Ambos os ambientes foram integrados ao controle de versão local via \texttt{Git}, permitindo o gerenciamento seguro e incremental do código-fonte durante o desenvolvimento.
@@ -442,7 +428,7 @@ O ambiente técnico foi configurado com versões estáveis dos SDKs e ferramenta
   \item \textbf{Gradle:} atualizado para suportar as dependências do projeto e a integração com o Android Studio.
 \end{itemize}
 
-Essa configuração assegura a execução consistente do protótipo em diferentes dispositivos Android, com coleta precisa de métricas e comportamento previsível.
+Essa configuração assegura a execução consistente do pacote em diferentes dispositivos Android, com coleta precisa de métricas e comportamento previsível.
 
 \subsection{Ambientes de Teste e Dispositivos}
 
@@ -464,15 +450,14 @@ Todos os testes foram conduzidos em modo \textit{profile}, permitindo medições
 
 \subsection{Ferramentas de Referência e Validação}
 
-A validação dos resultados obtidos pelo protótipo foi realizada com base em ferramentas oficiais do ecossistema Android, utilizadas como referência para comparação das métricas coletadas:
+A validação dos resultados obtidos pelo pacote foi realizada com apoio de ferramentas oficiais do ecossistema Android, utilizadas como referência qualitativa para as métricas coletadas:
 
 \begin{itemize}
-  \item \textbf{Android Profiler:} ferramenta principal de aferição de uso de CPU, memória e taxa de quadros (FPS), utilizada para comparação direta com os dados capturados pelo \texttt{collector\_flutter}.
-  \item \textbf{ADB (\textit{Android Debug Bridge}):} empregado para a coleta de informações complementares sobre processos, GPU e desempenho em tempo real.
-  \item \textbf{Power Monitor:} utilizado para medição indireta de consumo energético durante testes prolongados, apoiando a análise de eficiência do protótipo.
+  \item \textbf{ADB (\textit{Android Debug Bridge}):} empregado para a coleta de informações complementares sobre memória do processo e desempenho de quadros por meio dos comandos \texttt{dumpsys meminfo} e \texttt{dumpsys gfxinfo}.
+  \item \textbf{Android Profiler e Perfetto:} utilizados como referências conceituais e ferramentas oficiais de diagnóstico do ecossistema Android, mas sem geração de série comparativa quantitativa neste trabalho.
 \end{itemize}
 
-Essas ferramentas garantiram a validação cruzada dos resultados, assegurando a precisão e o baixo impacto do sistema de monitoramento sobre o desempenho do aplicativo.
+Essas ferramentas apoiaram a interpretação dos resultados, permitindo verificar se os sinais exibidos pelo painel acompanhavam o comportamento esperado dos cenários. A comparação permaneceu qualitativa e não caracteriza medição estatística de precisão.
 
 \subsection{Frameworks e Bibliotecas de Apoio}
 
@@ -494,13 +479,13 @@ Essas dependências foram selecionadas por sua estabilidade, compatibilidade com
 A confiabilidade do sistema foi verificada por meio de testes unitários e execuções manuais controladas. Essa abordagem garantiu a validação tanto da lógica interna quanto do comportamento visual e interativo do painel.
 
 \begin{itemize}
-  \item \textbf{Testes unitários:} implementados com o pacote \texttt{flutter\_test}, abrangendo módulos de coleta e análise (\texttt{Collector}, \texttt{Analyzer} e \texttt{Recommender}).  
+  \item \textbf{Testes unitários:} implementados com o pacote \texttt{flutter\_test}, abrangendo módulos de coleta e análise (\texttt{Collector}, \texttt{Analyzer} e \texttt{Recommender}).
   Esses testes asseguram que cada componente produza resultados consistentes e corretos em diferentes condições de entrada.
   \item \textbf{Testes manuais:} realizados diretamente em dispositivos físicos e emuladores, com execução de cenários controlados (rebuilds em massa, requisições de rede intensas, simulação de carga de CPU) para observar o comportamento do sistema em tempo real.
 \end{itemize}
 
-Essa combinação de testes unitários e manuais possibilitou uma avaliação confiável da precisão das métricas e da estabilidade geral do protótipo durante o uso prático.
+Essa combinação de testes unitários e manuais possibilitou uma avaliação funcional da coerência das métricas e da estabilidade geral do pacote durante o uso prático.
 
 \vspace{0.5em}
 
-A infraestrutura descrita nesta seção assegura que o protótipo \texttt{collector\_flutter} seja executado de forma estável e reproduzível, permitindo uma análise detalhada do desempenho e da eficiência de aplicações Flutter em ambiente Android.
+A infraestrutura descrita nesta seção assegura que o pacote \texttt{collector\_flutter} seja executado de forma estável e reproduzível, permitindo uma análise detalhada do desempenho e da eficiência de aplicações Flutter em ambiente Android.
