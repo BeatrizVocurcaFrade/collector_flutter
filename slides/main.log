@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  7 JUN 2026 14:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2025.11.2)  15 JUN 2026 22:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -914,6 +914,10 @@ File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
 s.geometric.code.tex
 File: pgflibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
 (/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
 Package: tcolorbox 2022/06/24 version 5.1.1 text color boxes
 
@@ -1076,24 +1080,24 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1102,7 +1106,7 @@ LaTeX Font Info:    ... okay on input line 111.
 * paper: custom
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: includehead includefoot
+* modes: includehead includefoot 
 * h-part:(L,W,R)=(22.76219pt, 409.7197pt, 22.76219pt)
 * v-part:(T,H,B)=(0.0pt, 256.0748pt, 0.0pt)
 * \paperwidth=455.24408pt
@@ -1151,105 +1155,105 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 111.
+Package hyperref Info: Link coloring OFF on input line 100.
 
 (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 111.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 100.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 111.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 100.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> T1/cmr/m/n on input line 111.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 111.
+(Font)                  OT1/cmss/m/n --> T1/cmr/m/n on input line 100.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> T1/FiraSans-OsF/b/n on input line 111.
+(Font)                  OT1/cmr/bx/n --> T1/FiraSans-OsF/b/n on input line 100.
 
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> T1/FiraSans-OsF/b/n on input line 111.
+(Font)                  OT1/cmr/bx/n --> T1/FiraSans-OsF/b/n on input line 100.
 
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 111.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> T1/FiraSans-OsF/m/n on input line 111.
+(Font)                  OT1/cmss/m/n --> T1/FiraSans-OsF/m/n on input line 100.
 
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> T1/FiraSans-OsF/m/n on input line 111
+(Font)                  OT1/cmss/bx/n --> T1/FiraSans-OsF/m/n on input line 100
 .
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 111.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> T1/FiraSans-OsF/m/it on input line 111
+(Font)                  OT1/cmr/m/it --> T1/FiraSans-OsF/m/it on input line 100
 .
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> T1/FiraSans-OsF/m/it on input line 11
-1.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 111.
+(Font)                  OT1/cmr/bx/it --> T1/FiraSans-OsF/m/it on input line 10
+0.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 111.
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 111.
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 100.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
 (Font)                  T1/FiraSans-OsF/m/n --> T1/FiraSans-OsF/b/n on input li
-ne 111.
+ne 100.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/FiraSans-OsF/m/it --> T1/FiraSans-OsF/b/it on input
-line 111.
+(Font)                  T1/FiraSans-OsF/m/it --> T1/FiraSans-OsF/b/it on input 
+line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> T1/cmr/b/n on input line 111.
+(Font)                  OT1/cmss/b/n --> T1/cmr/b/n on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
 (Font)                  T1/FiraSans-OsF/b/n --> T1/FiraSans-OsF/b/n on input li
-ne 111.
+ne 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  T1/FiraSans-OsF/m/n --> T1/FiraSans-OsF/b/n on input li
-ne 111.
+ne 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/FiraSans-OsF/m/it --> T1/FiraSans-OsF/b/it on input
-line 111.
+(Font)                  T1/FiraSans-OsF/m/it --> T1/FiraSans-OsF/b/it on input 
+line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 111.
+(Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 100.
 
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
 -English.dict
-Dictionary: translator-basic-dictionary, Language: English
+Dictionary: translator-basic-dictionary, Language: English 
 )
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-bibliography-dic
 tionary-English.dict
-Dictionary: translator-bibliography-dictionary, Language: English
+Dictionary: translator-bibliography-dictionary, Language: English 
 )
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-environment-dict
 ionary-English.dict
-Dictionary: translator-environment-dictionary, Language: English
+Dictionary: translator-environment-dictionary, Language: English 
 )
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-months-dictionar
 y-English.dict
-Dictionary: translator-months-dictionary, Language: English
+Dictionary: translator-months-dictionary, Language: English 
 )
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-numbers-dictiona
 ry-English.dict
-Dictionary: translator-numbers-dictionary, Language: English
+Dictionary: translator-numbers-dictionary, Language: English 
 )
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-theorem-dictiona
 ry-English.dict
-Dictionary: translator-theorem-dictionary, Language: English
+Dictionary: translator-theorem-dictionary, Language: English 
 )
 \c@mv@tabular=\count377
 \c@mv@boldtabular=\count378
 \c@lstlisting=\count379
-LaTeX Info: Redefining \microtypecontext on input line 111.
-Package microtype Info: Applying patch `item' on input line 111.
-Package microtype Info: Applying patch `toc' on input line 111.
-Package microtype Info: Applying patch `eqnum' on input line 111.
-Package microtype Info: Applying patch `footnote' on input line 111.
+LaTeX Info: Redefining \microtypecontext on input line 100.
+Package microtype Info: Applying patch `item' on input line 100.
+Package microtype Info: Applying patch `toc' on input line 100.
+Package microtype Info: Applying patch `eqnum' on input line 100.
+Package microtype Info: Applying patch `footnote' on input line 100.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 111.
+LaTeX Info: Redefining \showhyphens on input line 100.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1260,29 +1264,29 @@ Package microtype Info: Loading generic protrusion settings for font family
  (./main.nav)
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <5> not available
 (Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
-ut line 111.
+ut line 100.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 5.0pt on input line 111.
+(Font)              scaled to size 5.0pt on input line 100.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <17.28> not availa
 ble
 (Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
-ut line 113.
+ut line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 17.28pt on input line 113.
+(Font)              scaled to size 17.28pt on input line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
-(Font)              scaled to size 17.28pt on input line 113.
+(Font)              scaled to size 17.28pt on input line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
-(Font)              scaled to size 10.0pt on input line 113.
+(Font)              scaled to size 10.0pt on input line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <8> not available
 (Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
-ut line 113.
+ut line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 8.0pt on input line 113.
+(Font)              scaled to size 8.0pt on input line 102.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmss' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 113
+LaTeX Font Info:    Trying to load font information for U+msa on input line 102
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -1291,7 +1295,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 113
+LaTeX Font Info:    Trying to load font information for U+msb on input line 102
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1302,225 +1306,190 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <7> not available
 (Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
-ut line 113.
+ut line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 7.0pt on input line 113.
+(Font)              scaled to size 7.0pt on input line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/it' in size <10> not availabl
 e
 (Font)              Font shape `T1/FiraSans-OsF/regular/it' tried instead on in
-put line 113.
+put line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/it' will be
-(Font)              scaled to size 10.0pt on input line 113.
+(Font)              scaled to size 10.0pt on input line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/it' in size <7> not available
 
 (Font)              Font shape `T1/FiraSans-OsF/regular/it' tried instead on in
-put line 113.
+put line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/it' will be
-(Font)              scaled to size 7.0pt on input line 113.
+(Font)              scaled to size 7.0pt on input line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/it' in size <5> not available
 
 (Font)              Font shape `T1/FiraSans-OsF/regular/it' tried instead on in
-put line 113.
+put line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/it' will be
-(Font)              scaled to size 5.0pt on input line 113.
+(Font)              scaled to size 5.0pt on input line 102.
 <../images/figures/background.jpg, id=53, 955.57pt x 602.25pt>
 File: ../images/figures/background.jpg Graphic file (type jpg)
 <use ../images/figures/background.jpg>
 Package pdftex.def Info: ../images/figures/background.jpg  used on input line 1
-13.
+02.
 (pdftex.def)             Requested size: 406.3233pt x 256.0748pt.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <4> not available
 (Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
-ut line 113.
+ut line 102.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 4.0pt on input line 113.
+(Font)              scaled to size 4.0pt on input line 102.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <../images/figures/backgrou
 nd.jpg>]
+LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <14.4> not availab
+le
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
+ut line 120.
+LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
+(Font)              scaled to size 14.4pt on input line 120.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
-(Font)              scaled to size 8.0pt on input line 140.
+(Font)              scaled to size 14.4pt on input line 120.
+LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
+(Font)              scaled to size 9.0pt on input line 120.
+LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <9> not available
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
+ut line 120.
+LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
+(Font)              scaled to size 9.0pt on input line 120.
 
-Underfull \hbox (badness 10000) in paragraph at lines 140--140
-[]\T1/FiraSans-OsF/regular/n/10 (+20) Literatura, fer-ra-men-tas
- []
+[2
 
+]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
-40.
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+41.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <14.4> not availab
-le
-(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
-ut line 140.
-LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 14.4pt on input line 140.
-LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
-(Font)              scaled to size 14.4pt on input line 140.
-LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
-(Font)              scaled to size 9.0pt on input line 140.
-LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <9> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
-ut line 140.
-LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 9.0pt on input line 140.
- [2
-
-] [3
+ [3
 
 ] [4
 
-] [5
-
 ]
-[6
+<../images/figures//iconedoappexamplo.jpeg, id=87, 318.18875pt x 338.26375pt>
+File: ../images/figures//iconedoappexamplo.jpeg Graphic file (type jpg)
+<use ../images/figures//iconedoappexamplo.jpeg>
+Package pdftex.def Info: ../images/figures//iconedoappexamplo.jpeg  used on inp
+ut line 189.
+(pdftex.def)             Requested size: 86.10146pt x 91.53407pt.
+ [5
+
+ <../images/figures//iconedoappexamplo.jpeg>] [6
 
 ] [7
 
 ] [8
 
 ]
-<../images/figures//iconedoappexamplo.jpeg, id=112, 318.18875pt x 338.26375pt>
-File: ../images/figures//iconedoappexamplo.jpeg Graphic file (type jpg)
-<use ../images/figures//iconedoappexamplo.jpeg>
-Package pdftex.def Info: ../images/figures//iconedoappexamplo.jpeg  used on inp
-ut line 293.
-(pdftex.def)             Requested size: 99.6959pt x 105.98605pt.
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 293.
- [9
-
- <../images/figures//iconedoappexamplo.jpeg>]
-Underfull \hbox (badness 1286) in paragraph at lines 316--316
-[]\T1/cmtt/m/n/10 CollectorBloc\T1/FiraSans-OsF/regular/n/10 (+20) , \T1/cmtt/m
-/n/10 DashboardPage \T1/FiraSans-OsF/regular/n/10 (+20) e
- []
-
-<../images/mermaid/outputs//arquitetura_fluxo_collector.png, id=120, 6391.88pt
-x 1722.435pt>
-File: ../images/mermaid/outputs//arquitetura_fluxo_collector.png Graphic file (
-type png)
-<use ../images/mermaid/outputs//arquitetura_fluxo_collector.png>
-Package pdftex.def Info: ../images/mermaid/outputs//arquitetura_fluxo_collector
-.png  used on input line 316.
-(pdftex.def)             Requested size: 221.20282pt x 59.60805pt.
-[10
-
- <../images/mermaid/outputs//arquitetura_fluxo_collector.png (PNG copy)>]
-<../images/figures//prototipoquandoestaok.jpeg, id=127, 740.7675pt x 1606.0pt>
+<../images/figures//prototipoquandoestaok.jpeg, id=114, 740.7675pt x 1606.0pt>
 File: ../images/figures//prototipoquandoestaok.jpeg Graphic file (type jpg)
 <use ../images/figures//prototipoquandoestaok.jpeg>
 Package pdftex.def Info: ../images/figures//prototipoquandoestaok.jpeg  used on
- input line 336.
-(pdftex.def)             Requested size: 76.6582pt x 166.20508pt.
-<../images/figures//prototipoquandonaoestaok.jpeg, id=128, 740.7675pt x 1606.0p
+ input line 293.
+(pdftex.def)             Requested size: 75.55049pt x 163.79396pt.
+<../images/figures//prototipoquandonaoestaok.jpeg, id=115, 740.7675pt x 1606.0p
 t>
 File: ../images/figures//prototipoquandonaoestaok.jpeg Graphic file (type jpg)
 <use ../images/figures//prototipoquandonaoestaok.jpeg>
 Package pdftex.def Info: ../images/figures//prototipoquandonaoestaok.jpeg  used
- on input line 336.
-(pdftex.def)             Requested size: 76.6582pt x 166.20508pt.
-
-[11
+ on input line 293.
+(pdftex.def)             Requested size: 75.55049pt x 163.79396pt.
+ [9
 
  <../images/figures//prototipoquandoestaok.jpeg> <../images/figures//prototipoq
 uandonaoestaok.jpeg>]
-<../images/mermaid/outputs//metodologia_pesquisa.png, id=135, 5769.555pt x 1700
-.3525pt>
-File: ../images/mermaid/outputs//metodologia_pesquisa.png Graphic file (type pn
-g)
-<use ../images/mermaid/outputs//metodologia_pesquisa.png>
-Package pdftex.def Info: ../images/mermaid/outputs//metodologia_pesquisa.png  u
-sed on input line 356.
-(pdftex.def)             Requested size: 196.58485pt x 57.93575pt.
- [12
+[10
 
- <../images/mermaid/outputs//metodologia_pesquisa.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 383--383
-[]\T1/FiraSans-OsF/regular/n/10 (+20) Reconstruções
+]
+Underfull \hbox (badness 5446) in paragraph at lines 340--340
+[]\T1/FiraSans-OsF/regular/n/10 (+20) Reconstruções in-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 383--383
+Underfull \hbox (badness 2564) in paragraph at lines 340--340
+\T1/FiraSans-OsF/regular/n/10 (+20) ten-si-vas de in-ter-
+ []
+
+
+Underfull \hbox (badness 5260) in paragraph at lines 340--340
 []\T1/FiraSans-OsF/regular/n/10 (+20) Requisições HTTP
  []
 
-[13
+[11
+
+] [12
 
 ]
-<../images/figures//evidencia_cenario_rebuilds.png, id=149, 1084.05pt x 2409.0p
+<../images/figures//evidencia_cenario_rebuilds.png, id=140, 1084.05pt x 2409.0p
 t>
 File: ../images/figures//evidencia_cenario_rebuilds.png Graphic file (type png)
 
 <use ../images/figures//evidencia_cenario_rebuilds.png>
 Package pdftex.def Info: ../images/figures//evidencia_cenario_rebuilds.png  use
-d on input line 411.
-(pdftex.def)             Requested size: 65.02365pt x 144.52711pt.
-<../images/figures//evidencia_cenario_rede.png, id=151, 1084.05pt x 2409.0pt>
+d on input line 390.
+(pdftex.def)             Requested size: 50.9305pt x 113.21205pt.
+<../images/figures//evidencia_cenario_rede.png, id=142, 1084.05pt x 2409.0pt>
 File: ../images/figures//evidencia_cenario_rede.png Graphic file (type png)
 <use ../images/figures//evidencia_cenario_rede.png>
 Package pdftex.def Info: ../images/figures//evidencia_cenario_rede.png  used on
- input line 411.
-(pdftex.def)             Requested size: 65.02365pt x 144.52711pt.
-<../images/figures//evidencia_cenario_memoria.png, id=152, 1084.05pt x 2409.0pt
+ input line 390.
+(pdftex.def)             Requested size: 50.9305pt x 113.21205pt.
+<../images/figures//evidencia_cenario_memoria.png, id=143, 1084.05pt x 2409.0pt
 >
 File: ../images/figures//evidencia_cenario_memoria.png Graphic file (type png)
 <use ../images/figures//evidencia_cenario_memoria.png>
 Package pdftex.def Info: ../images/figures//evidencia_cenario_memoria.png  used
- on input line 411.
-(pdftex.def)             Requested size: 65.02365pt x 144.52711pt.
-<../images/figures//evidencia_cenario_combinado.png, id=153, 1084.05pt x 2409.0
+ on input line 390.
+(pdftex.def)             Requested size: 50.9305pt x 113.21205pt.
+<../images/figures//evidencia_cenario_combinado.png, id=144, 1084.05pt x 2409.0
 pt>
 File: ../images/figures//evidencia_cenario_combinado.png Graphic file (type png
 )
 <use ../images/figures//evidencia_cenario_combinado.png>
 Package pdftex.def Info: ../images/figures//evidencia_cenario_combinado.png  us
-ed on input line 411.
-(pdftex.def)             Requested size: 65.02365pt x 144.52711pt.
- [14
+ed on input line 390.
+(pdftex.def)             Requested size: 50.9305pt x 113.21205pt.
+ [13
 
  <../images/figures//evidencia_cenario_rebuilds.png> <../images/figures//eviden
 cia_cenario_rede.png> <../images/figures//evidencia_cenario_memoria.png> <../im
-ages/figures//evidencia_cenario_combinado.png>] [15
-
-] [16
-
-]
+ages/figures//evidencia_cenario_combinado.png>]
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
-(Font)              scaled to size 7.0pt on input line 481.
- [17
+(Font)              scaled to size 7.0pt on input line 424.
+ [14
 
-] [18
-
-]
-[19
+] [15
 
 ]
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <24.88> not availa
 ble
 (Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on inp
-ut line 536.
+ut line 454.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 24.88pt on input line 536.
+(Font)              scaled to size 24.88pt on input line 454.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/medium/n' will be
-(Font)              scaled to size 24.88pt on input line 536.
-<../images/figures//logo2.png, id=196, 863.225pt x 336.25626pt>
+(Font)              scaled to size 24.88pt on input line 454.
+<../images/figures//logo2.png, id=168, 863.225pt x 336.25626pt>
 File: ../images/figures//logo2.png Graphic file (type png)
 <use ../images/figures//logo2.png>
-Package pdftex.def Info: ../images/figures//logo2.png  used on input line 536.
+Package pdftex.def Info: ../images/figures//logo2.png  used on input line 454.
 (pdftex.def)             Requested size: 51.1195pt x 19.91684pt.
-<../images/figures//logo1.jpeg, id=197, 200.75pt x 197.73875pt>
+<../images/figures//logo1.jpeg, id=169, 200.75pt x 197.73875pt>
 File: ../images/figures//logo1.jpeg Graphic file (type jpg)
 <use ../images/figures//logo1.jpeg>
-Package pdftex.def Info: ../images/figures//logo1.jpeg  used on input line 536.
+Package pdftex.def Info: ../images/figures//logo1.jpeg  used on input line 454.
 
 (pdftex.def)             Requested size: 28.88591pt x 28.45274pt.
- [20
+ [16
 
  <../images/figures//logo2.png> <../images/figures//logo1.jpeg>]
 \tf@nav=\write6
@@ -1532,29 +1501,29 @@ Package pdftex.def Info: ../images/figures//logo1.jpeg  used on input line 536.
 \tf@snm=\write8
 \openout8 = `main.snm'.
 
-
-(./main.aux)
+ (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
- )
+ ) 
 Here is how much of TeX's memory you used:
- 36484 strings out of 477958
- 767311 string characters out of 5838580
- 1873330 words of memory out of 5000000
- 55676 multiletter control sequences out of 15000+600000
- 860850 words of font info for 198 fonts, out of 8000000 for 9000
+ 36594 strings out of 477958
+ 769207 string characters out of 5838580
+ 1868330 words of memory out of 5000000
+ 55781 multiletter control sequences out of 15000+600000
+ 862777 words of font info for 207 fonts, out of 8000000 for 9000
  61 hyphenation exceptions out of 8191
- 128i,15n,122p,1001b,1259s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,15n,122p,1001b,1242s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1440.6
-00pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_iln36p.enc} </home
-/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk></us
-r/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Italic.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Medium.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Regular.pfb>
-Output written on main.pdf (20 pages, 2701787 bytes).
+00pk> </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt080
+0.525pk> </home/usuario/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt
+1000.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_iln36p.enc}<
+/usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Italic.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Medium.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Regular.pfb>
+Output written on main.pdf (16 pages, 1774940 bytes).
 PDF statistics:
- 277 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
- 41 named destinations out of 1000 (max. 500000)
- 75529 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 271 PDF objects out of 1000 (max. 8388607)
+ 135 compressed objects within 2 object streams
+ 33 named destinations out of 1000 (max. 500000)
+ 80127 words of extra memory for PDF output out of 89155 (max. 10000000)
 
