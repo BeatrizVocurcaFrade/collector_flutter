@@ -38,8 +38,8 @@ class NetworkEvent {
     required this.timestamp,
     required this.duration,
     this.error,
-  })  : responseBytes = responseBytes ?? bytes ?? 0,
-        bytes = bytes ?? responseBytes ?? 0;
+  }) : responseBytes = responseBytes ?? bytes ?? 0,
+       bytes = bytes ?? responseBytes ?? 0;
 
   bool get failed => error != null || statusCode == 0 || statusCode >= 400;
 }
@@ -119,10 +119,10 @@ class TelemetryModel {
     this.cpuUsagePercent = -1.0,
     this.batteryLevel = -1,
     this.isCharging = false,
-  })  : sessionStart = sessionStart ?? DateTime.now(),
-        capturedAt = capturedAt ?? DateTime.now(),
-        sampleStart = sampleStart ?? sessionStart ?? DateTime.now(),
-        sampleDuration = sampleDuration ?? Duration.zero;
+  }) : sessionStart = sessionStart ?? DateTime.now(),
+       capturedAt = capturedAt ?? DateTime.now(),
+       sampleStart = sampleStart ?? sessionStart ?? DateTime.now(),
+       sampleDuration = sampleDuration ?? Duration.zero;
 
   /// Duração desde o início da sessão até o momento deste snapshot.
   Duration get sessionDuration => capturedAt.difference(sessionStart);

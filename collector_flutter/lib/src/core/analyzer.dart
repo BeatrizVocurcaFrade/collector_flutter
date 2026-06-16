@@ -120,15 +120,15 @@ class FrameStats {
   });
 
   factory FrameStats.empty() => const FrameStats(
-        p50Ms: 0,
-        p95Ms: 0,
-        p99Ms: 0,
-        stdDevMs: 0,
-        avgMs: 0,
-        minMs: 0,
-        maxMs: 0,
-        sampleCount: 0,
-      );
+    p50Ms: 0,
+    p95Ms: 0,
+    p99Ms: 0,
+    stdDevMs: 0,
+    avgMs: 0,
+    minMs: 0,
+    maxMs: 0,
+    sampleCount: 0,
+  );
 
   static FrameStats compute(List<double> frameMs) {
     if (frameMs.isEmpty) return FrameStats.empty();
@@ -168,23 +168,18 @@ class MemoryStats {
   });
 
   factory MemoryStats.empty() => const MemoryStats(
-        currentRssMB: 0,
-        heapUsageMB: 0,
-        peakRssMB: 0,
-        trendMBperMin: 0,
-        sampleCount: 0,
-        sampleDuration: Duration.zero,
-      );
+    currentRssMB: 0,
+    heapUsageMB: 0,
+    peakRssMB: 0,
+    trendMBperMin: 0,
+    sampleCount: 0,
+    sampleDuration: Duration.zero,
+  );
 
-  static MemoryStats compute(
-    List<MemoryInfo> history, {
-    MemoryInfo? current,
-  }) {
+  static MemoryStats compute(List<MemoryInfo> history, {MemoryInfo? current}) {
     final samples = history.isNotEmpty
         ? List<MemoryInfo>.from(history)
-        : [
-            if (current != null) current,
-          ];
+        : [if (current != null) current];
     if (samples.isEmpty) return MemoryStats.empty();
 
     final last = current ?? samples.last;
@@ -231,30 +226,33 @@ class NetworkStats {
   });
 
   factory NetworkStats.empty() => const NetworkStats(
-        requestCount: 0,
-        failedRequests: 0,
-        totalRequestBytes: 0,
-        totalResponseBytes: 0,
-        avgDurationMs: 0,
-        p95DurationMs: 0,
-      );
+    requestCount: 0,
+    failedRequests: 0,
+    totalRequestBytes: 0,
+    totalResponseBytes: 0,
+    avgDurationMs: 0,
+    p95DurationMs: 0,
+  );
 
   static NetworkStats compute(List<NetworkEvent> events) {
     if (events.isEmpty) return NetworkStats.empty();
 
-    final durations = events
-        .map((event) => event.duration.inMicroseconds / 1000.0)
-        .toList()
-      ..sort();
+    final durations =
+        events.map((event) => event.duration.inMicroseconds / 1000.0).toList()
+          ..sort();
     final totalDuration = durations.reduce((a, b) => a + b);
 
     return NetworkStats(
       requestCount: events.length,
       failedRequests: events.where((event) => event.failed).length,
-      totalRequestBytes:
-          events.fold(0, (sum, event) => sum + event.requestBytes),
-      totalResponseBytes:
-          events.fold(0, (sum, event) => sum + event.responseBytes),
+      totalRequestBytes: events.fold(
+        0,
+        (sum, event) => sum + event.requestBytes,
+      ),
+      totalResponseBytes: events.fold(
+        0,
+        (sum, event) => sum + event.responseBytes,
+      ),
       avgDurationMs: totalDuration / events.length,
       p95DurationMs: _percentile(durations, 95),
     );
@@ -267,14 +265,13 @@ class NetworkStats {
 class Analyzer {
   final PerformanceBudget budget;
 
-  Analyzer({
-    double frameThresholdMs = 16.6,
-    PerformanceBudget? budget,
-  }) : budget = budget ??
-            PerformanceBudget(
-              targetFrameRate: 1000.0 / frameThresholdMs,
-              memoryWarningMB: kReleaseMode ? 400 : 800,
-            );
+  Analyzer({double frameThresholdMs = 16.6, PerformanceBudget? budget})
+    : budget =
+          budget ??
+          PerformanceBudget(
+            targetFrameRate: 1000.0 / frameThresholdMs,
+            memoryWarningMB: kReleaseMode ? 400 : 800,
+          );
 
   double get frameThresholdMs => budget.frameBudgetMs;
 
@@ -295,10 +292,12 @@ class Analyzer {
       currentFrames: currentFrames.length,
       frameStats: stats,
     );
-    final longFrames =
-        frameMsList.where((frameMs) => frameMs > budget.warningFrameMs).length;
-    final jankRate =
-        stats.sampleCount == 0 ? 0.0 : longFrames / stats.sampleCount;
+    final longFrames = frameMsList
+        .where((frameMs) => frameMs > budget.warningFrameMs)
+        .length;
+    final jankRate = stats.sampleCount == 0
+        ? 0.0
+        : longFrames / stats.sampleCount;
     // App idle: janela tem só 2-5 frames do próprio monitoring; métricas de
     // frame não são confiáveis até haver atividade real do usuário.
     final hasEnoughWindowFrames = frameMsList.length >= budget.minWindowFrames;
@@ -399,8 +398,8 @@ class Analyzer {
     final hasRepeatedLongFrames = longFrames >= budget.minJankLongFrames;
     final hasEnoughNetworkSamples =
         networkStats.requestCount >= budget.minNetworkSamples;
-    final hasReliableMemoryTrend = memoryStats.sampleCount >=
-            budget.minMemoryTrendSamples &&
+    final hasReliableMemoryTrend =
+        memoryStats.sampleCount >= budget.minMemoryTrendSamples &&
         memoryStats.sampleDuration.inSeconds >= budget.minMemoryTrendSeconds;
     final canAnalyzeCpu = sessionAge.inSeconds >= budget.minCpuSessionSeconds;
 
@@ -542,20 +541,20 @@ class AnalysisResult {
     this.batteryLevel = -1,
     this.isCharging = false,
     this.hasEnoughWindowFrames = false,
-  })  : frameStats = frameStats ?? FrameStats.empty(),
-        memoryStats = memoryStats ?? MemoryStats.empty(),
-        networkStats = networkStats ?? NetworkStats.empty(),
-        frameBudgetMs = frameBudgetMs ?? (1000.0 / targetFps);
+  }) : frameStats = frameStats ?? FrameStats.empty(),
+       memoryStats = memoryStats ?? MemoryStats.empty(),
+       networkStats = networkStats ?? NetworkStats.empty(),
+       frameBudgetMs = frameBudgetMs ?? (1000.0 / targetFps);
 
   factory AnalysisResult.empty({String? note}) => AnalysisResult(
-        estimatedFps: 0,
-        avgFrameMs: 0,
-        longFrames: 0,
-        memoryBytes: 0,
-        networkRequests: 0,
-        issues: const [],
-        note: note,
-      );
+    estimatedFps: 0,
+    avgFrameMs: 0,
+    longFrames: 0,
+    memoryBytes: 0,
+    networkRequests: 0,
+    issues: const [],
+    note: note,
+  );
 
   bool get hasIssues => issues.isNotEmpty;
   bool get hasStableFrameData => confidence == MetricConfidence.stable;

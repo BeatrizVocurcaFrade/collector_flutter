@@ -43,32 +43,34 @@ void main() {
       expect(recs.first.severity, Severity.info);
     });
 
-    test('retorna "Tudo OK" em idle com RSS alto e uma request lenta/falha',
-        () {
-      final recs = recommender.generate(
-        _makeResult(
-          hasEnoughWindowFrames: false,
-          memoryStats: const MemoryStats(
-            currentRssMB: 900,
-            heapUsageMB: 80,
-            peakRssMB: 900,
-            trendMBperMin: 0,
-            sampleCount: 1,
+    test(
+      'retorna "Tudo OK" em idle com RSS alto e uma request lenta/falha',
+      () {
+        final recs = recommender.generate(
+          _makeResult(
+            hasEnoughWindowFrames: false,
+            memoryStats: const MemoryStats(
+              currentRssMB: 900,
+              heapUsageMB: 80,
+              peakRssMB: 900,
+              trendMBperMin: 0,
+              sampleCount: 1,
+            ),
+            networkStats: const NetworkStats(
+              requestCount: 1,
+              failedRequests: 1,
+              totalRequestBytes: 10,
+              totalResponseBytes: 0,
+              avgDurationMs: 2000,
+              p95DurationMs: 2000,
+            ),
           ),
-          networkStats: const NetworkStats(
-            requestCount: 1,
-            failedRequests: 1,
-            totalRequestBytes: 10,
-            totalResponseBytes: 0,
-            avgDurationMs: 2000,
-            p95DurationMs: 2000,
-          ),
-        ),
-      );
+        );
 
-      expect(recs, hasLength(1));
-      expect(recs.first.title, 'Tudo OK');
-    });
+        expect(recs, hasLength(1));
+        expect(recs.first.title, 'Tudo OK');
+      },
+    );
   });
 
   group('Recommender — FPS baixo', () {
@@ -136,24 +138,26 @@ void main() {
       expect(net, isEmpty);
     });
 
-    test('não gera alerta de rede por P95/falha isolados sem issue do Analyzer',
-        () {
-      final recs = recommender.generate(
-        _makeResult(
-          networkStats: const NetworkStats(
-            requestCount: 1,
-            failedRequests: 1,
-            totalRequestBytes: 10,
-            totalResponseBytes: 0,
-            avgDurationMs: 2000,
-            p95DurationMs: 2000,
+    test(
+      'não gera alerta de rede por P95/falha isolados sem issue do Analyzer',
+      () {
+        final recs = recommender.generate(
+          _makeResult(
+            networkStats: const NetworkStats(
+              requestCount: 1,
+              failedRequests: 1,
+              totalRequestBytes: 10,
+              totalResponseBytes: 0,
+              avgDurationMs: 2000,
+              p95DurationMs: 2000,
+            ),
           ),
-        ),
-      );
+        );
 
-      final net = recs.where((r) => r.title.contains('rede')).toList();
-      expect(net, isEmpty);
-    });
+        final net = recs.where((r) => r.title.contains('rede')).toList();
+        expect(net, isEmpty);
+      },
+    );
   });
 
   group('Recommender — múltiplos problemas', () {

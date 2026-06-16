@@ -245,7 +245,9 @@ void main() {
       );
 
       expect(
-          result.issues.where((issue) => issue.contains('memória')), isEmpty);
+        result.issues.where((issue) => issue.contains('memória')),
+        isEmpty,
+      );
     });
 
     test('gera issue de memória apenas por tendência alta', () {
@@ -285,9 +287,11 @@ void main() {
 
       expect(
         result.issues,
-        contains(predicate<String>(
-          (issue) => issue.contains('Possível crescimento de memória'),
-        )),
+        contains(
+          predicate<String>(
+            (issue) => issue.contains('Possível crescimento de memória'),
+          ),
+        ),
       );
     });
 
@@ -347,7 +351,9 @@ void main() {
 
       expect(result.issues.where((issue) => issue.contains('rede')), isEmpty);
       expect(
-          result.issues.where((issue) => issue.contains('Latência')), isEmpty);
+        result.issues.where((issue) => issue.contains('Latência')),
+        isEmpty,
+      );
     });
 
     test('gera issue de rede com 5 requests e P95 alto', () {
@@ -366,9 +372,11 @@ void main() {
 
       expect(
         result.issues,
-        contains(predicate<String>(
-          (issue) => issue.contains('Latência de rede elevada'),
-        )),
+        contains(
+          predicate<String>(
+            (issue) => issue.contains('Latência de rede elevada'),
+          ),
+        ),
       );
     });
 
@@ -388,9 +396,9 @@ void main() {
 
       expect(
         result.issues,
-        contains(predicate<String>(
-          (issue) => issue.contains('Falhas de rede'),
-        )),
+        contains(
+          predicate<String>((issue) => issue.contains('Falhas de rede')),
+        ),
       );
     });
 
@@ -427,9 +435,9 @@ void main() {
       expect(result.longFrames, 6);
       expect(
         result.issues,
-        contains(predicate<String>(
-          (issue) => issue.contains('Jank detectado'),
-        )),
+        contains(
+          predicate<String>((issue) => issue.contains('Jank detectado')),
+        ),
       );
     });
   });

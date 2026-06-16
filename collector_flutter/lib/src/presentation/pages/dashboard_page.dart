@@ -68,15 +68,18 @@ class _DashboardPageState extends State<DashboardPage> {
     final memoryMB = a.memoryStats.currentRssMB.toStringAsFixed(1);
     final p95Ms = a.frameStats.p95Ms.toStringAsFixed(1);
     final trendMB = a.memoryStats.trendMBperMin;
-    final chartFrames =
-        t.recentFrameTimings.isNotEmpty ? t.recentFrameTimings : t.frameTimings;
+    final chartFrames = t.recentFrameTimings.isNotEmpty
+        ? t.recentFrameTimings
+        : t.frameTimings;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // ── Session row ──────────────────────────────────────────
         _SessionInfoRow(
-            telemetry: t, onExport: () => _exportToClipboard(context, state)),
+          telemetry: t,
+          onExport: () => _exportToClipboard(context, state),
+        ),
         const SizedBox(height: 10),
 
         // ── Metric cards ─────────────────────────────────────────
@@ -116,7 +119,9 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Future<void> _exportToClipboard(
-      BuildContext context, CollectorData state) async {
+    BuildContext context,
+    CollectorData state,
+  ) async {
     final service = ExportService();
     final json = service.toJson(
       model: state.telemetry,
@@ -154,10 +159,7 @@ class _SessionInfoRow extends StatelessWidget {
       runSpacing: 6,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        _SessionInfoChip(
-          icon: Icons.access_time,
-          label: 'Sessao: $durStr',
-        ),
+        _SessionInfoChip(icon: Icons.access_time, label: 'Sessao: $durStr'),
         _SessionInfoChip(
           icon: Icons.refresh,
           label: '${telemetry.rebuildCount} rebuilds',
@@ -190,10 +192,7 @@ class _SessionInfoChip extends StatelessWidget {
       children: [
         Icon(icon, size: 14, color: Colors.grey),
         const SizedBox(width: 4),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12, color: Colors.grey),
-        ),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
       ],
     );
   }
@@ -238,13 +237,13 @@ class _MetricGrid extends StatelessWidget {
     final trendIcon = memoryTrendMBperMin > 10
         ? Icons.trending_up
         : memoryTrendMBperMin < -5
-            ? Icons.trending_down
-            : Icons.trending_flat;
+        ? Icons.trending_down
+        : Icons.trending_flat;
     final trendColor = memoryTrendMBperMin > 50
         ? Colors.red
         : memoryTrendMBperMin > 10
-            ? Colors.orange
-            : Colors.green;
+        ? Colors.orange
+        : Colors.green;
     final isCpuReady = confidence == MetricConfidence.stable && cpuPercent >= 0;
 
     return Wrap(
@@ -254,17 +253,20 @@ class _MetricGrid extends StatelessWidget {
         _metricCard(
           icon: Icons.speed,
           title: 'FPS',
-          value: (confidence != MetricConfidence.stable ||
+          value:
+              (confidence != MetricConfidence.stable ||
                   !hasEnoughWindowFrames ||
                   fpsVal <= 0)
               ? '--'
               : fps,
-          color: (confidence != MetricConfidence.stable ||
+          color:
+              (confidence != MetricConfidence.stable ||
                   !hasEnoughWindowFrames ||
                   fpsVal <= 0)
               ? Colors.grey.shade500
               : _fpsColor(fpsVal),
-          info: 'Quadros por segundo renderizados.\n'
+          info:
+              'Quadros por segundo renderizados.\n'
               'Alvo atual: ${targetFps.toStringAsFixed(0)} FPS.\n'
               'Abaixo de 30 indica lentidao grave.\n\n'
               'Evite rebuilds desnecessarios e use const em widgets estaticos.',
@@ -274,7 +276,8 @@ class _MetricGrid extends StatelessWidget {
           title: 'Memoria',
           value: '$memory MB',
           color: Colors.blueAccent.shade400,
-          info: 'Uso de memoria RSS do processo.\n'
+          info:
+              'Uso de memoria RSS do processo.\n'
               'No Android, RSS absoluto inclui bibliotecas do sistema.\n\n'
               'Alertas de memoria usam tendencia sustentada, nao valor absoluto.',
           badge: Icon(trendIcon, size: 13, color: trendColor),
@@ -284,15 +287,16 @@ class _MetricGrid extends StatelessWidget {
           title: 'Jank',
           value:
               (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
-                  ? '--'
-                  : '$jank',
+              ? '--'
+              : '$jank',
           color:
               (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
-                  ? Colors.grey.shade500
-                  : jank > 5
-                      ? Colors.orange.shade600
-                      : Colors.green.shade600,
-          info: 'Frames acima do limiar de tempo.\n'
+              ? Colors.grey.shade500
+              : jank > 5
+              ? Colors.orange.shade600
+              : Colors.green.shade600,
+          info:
+              'Frames acima do limiar de tempo.\n'
               'Orcamento atual: ${frameBudgetMs.toStringAsFixed(1)} ms.\n\n'
               'Use o Flutter DevTools timeline para inspecionar.',
         ),
@@ -301,7 +305,8 @@ class _MetricGrid extends StatelessWidget {
           title: 'Rede',
           value: '$networkCount req',
           color: Colors.purpleAccent.shade400,
-          info: 'Requisicoes HTTP interceptadas nesta sessao.\n\n'
+          info:
+              'Requisicoes HTTP interceptadas nesta sessao.\n\n'
               'Use cache, debounce e cancele requisicoes obsoletas.',
         ),
         _metricCard(
@@ -309,13 +314,14 @@ class _MetricGrid extends StatelessWidget {
           title: 'P95 Frame',
           value:
               (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
-                  ? '--'
-                  : '${p95Ms}ms',
+              ? '--'
+              : '${p95Ms}ms',
           color:
               (confidence != MetricConfidence.stable || !hasEnoughWindowFrames)
-                  ? Colors.grey.shade500
-                  : _p95Color(double.tryParse(p95Ms) ?? 0),
-          info: 'Percentil 95 do tempo de frame.\n'
+              ? Colors.grey.shade500
+              : _p95Color(double.tryParse(p95Ms) ?? 0),
+          info:
+              'Percentil 95 do tempo de frame.\n'
               'Reflete a experiencia dos usuarios mais lentos.\n\n'
               'Manter perto de ${frameBudgetMs.toStringAsFixed(1)} ms evita jank perceptivel.',
         ),
@@ -324,7 +330,8 @@ class _MetricGrid extends StatelessWidget {
           title: 'CPU',
           value: isCpuReady ? '${cpuPercent.toStringAsFixed(1)}%' : '--',
           color: isCpuReady ? _cpuColor(cpuPercent) : Colors.grey.shade500,
-          info: 'Uso de CPU do processo (Android).\n'
+          info:
+              'Uso de CPU do processo (Android).\n'
               'A leitura inicial e suavizada para evitar picos de partida.\n\n'
               'Acima de 80% sustentado indica sobrecarga.',
         ),
@@ -333,7 +340,8 @@ class _MetricGrid extends StatelessWidget {
           title: 'Bateria',
           value: batteryLevel < 0 ? 'N/D' : '$batteryLevel%',
           color: _batteryColor(batteryLevel, isCharging),
-          info: 'Nivel de bateria do dispositivo.\n'
+          info:
+              'Nivel de bateria do dispositivo.\n'
               'Abaixo de 20% sem carregamento pode indicar alto consumo.\n\n'
               'Reduza o intervalo de coleta em producao.',
         ),
@@ -421,10 +429,10 @@ class _MetricCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: color.withOpacity(0.09),
+          color: color.withValues(alpha: 0.09),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.22),
+              color: color.withValues(alpha: 0.22),
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
@@ -528,7 +536,7 @@ class _FrameChart extends StatelessWidget {
 
     return Card(
       elevation: 4,
-      shadowColor: Colors.blueAccent.withOpacity(0.25),
+      shadowColor: Colors.blueAccent.withValues(alpha: 0.25),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 12, 16, 8),
@@ -541,8 +549,10 @@ class _FrameChart extends StatelessWidget {
             ),
             LayoutBuilder(
               builder: (context, constraints) {
-                final chartWidth =
-                    math.max(constraints.maxWidth, spots.length * 7.0);
+                final chartWidth = math.max(
+                  constraints.maxWidth,
+                  spots.length * 7.0,
+                );
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
@@ -553,9 +563,10 @@ class _FrameChart extends StatelessWidget {
                       child: LineChart(
                         LineChartData(
                           minX: 0,
-                          maxX: (spots.length - 1)
-                              .toDouble()
-                              .clamp(1, double.infinity),
+                          maxX: (spots.length - 1).toDouble().clamp(
+                            1,
+                            double.infinity,
+                          ),
                           minY: 0,
                           maxY: maxY,
                           lineTouchData: const LineTouchData(enabled: false),
@@ -565,7 +576,7 @@ class _FrameChart extends StatelessWidget {
                             horizontalLines: [
                               HorizontalLine(
                                 y: frameBudgetMs,
-                                color: Colors.red.withOpacity(0.6),
+                                color: Colors.red.withValues(alpha: 0.6),
                                 strokeWidth: 2,
                                 dashArray: [5, 5],
                               ),
@@ -579,21 +590,26 @@ class _FrameChart extends StatelessWidget {
                                 interval: yInterval,
                                 getTitlesWidget: (value, meta) =>
                                     SideTitleWidget(
-                                  axisSide: meta.axisSide,
-                                  child: Text(
-                                    value.toStringAsFixed(0),
-                                    style: const TextStyle(
-                                        color: Colors.grey, fontSize: 9),
-                                  ),
-                                ),
+                                      meta: meta,
+                                      child: Text(
+                                        value.toStringAsFixed(0),
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 9,
+                                        ),
+                                      ),
+                                    ),
                               ),
                             ),
                             rightTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false)),
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
                             topTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false)),
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
                             bottomTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false)),
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
                           ),
                           lineBarsData: [
                             LineChartBarData(
@@ -607,8 +623,8 @@ class _FrameChart extends StatelessWidget {
                                 show: true,
                                 gradient: LinearGradient(
                                   colors: [
-                                    Colors.blueAccent.withOpacity(0.55),
-                                    Colors.blueAccent.withOpacity(0.04),
+                                    Colors.blueAccent.withValues(alpha: 0.55),
+                                    Colors.blueAccent.withValues(alpha: 0.04),
                                   ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
@@ -643,9 +659,9 @@ class _FrameChartHeader extends StatelessWidget {
         Text(
           'Tempo de Frame (ms)',
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: Colors.blueAccent,
-              ),
+            fontWeight: FontWeight.w600,
+            color: Colors.blueAccent,
+          ),
         ),
         if (stats.sampleCount > 0) ...[
           const SizedBox(height: 6),
@@ -667,13 +683,16 @@ class _FrameChartHeader extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
         '$label ${value.toStringAsFixed(1)}ms',
-        style:
-            TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          fontSize: 10,
+          color: color,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -706,9 +725,9 @@ class _NetworkPanel extends StatelessWidget {
                   child: Text(
                     'Requisicoes de Rede  (${events.length} total)',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.purple.shade700,
-                        ),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.purple.shade700,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -744,8 +763,10 @@ class _NetworkEventTile extends StatelessWidget {
 
       // Adiciona a primeira parte do path (se houver)
       if (uri.path.isNotEmpty && uri.path != '/') {
-        final pathParts =
-            uri.path.split('/').where((p) => p.isNotEmpty).toList();
+        final pathParts = uri.path
+            .split('/')
+            .where((p) => p.isNotEmpty)
+            .toList();
         if (pathParts.isNotEmpty) {
           host += '/${pathParts.first}';
         }
@@ -771,7 +792,7 @@ class _NetworkEventTile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.purple.withOpacity(0.12),
+              color: Colors.purple.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
@@ -851,9 +872,9 @@ class _RecommendationsPanel extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               'Recomendacoes',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -911,8 +932,11 @@ class _RecommendationTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(Icons.chevron_right,
-                    color: Colors.grey.shade400, size: 18),
+                Icon(
+                  Icons.chevron_right,
+                  color: Colors.grey.shade400,
+                  size: 18,
+                ),
               ],
             ),
           ),
@@ -947,18 +971,18 @@ class _RecommendationTile extends StatelessWidget {
   }
 
   Color _colorFor(Severity s) => switch (s) {
-        Severity.high => Colors.redAccent,
-        Severity.medium => Colors.orange.shade700,
-        Severity.low => Colors.amber.shade700,
-        Severity.info => Colors.green.shade600,
-      };
+    Severity.high => Colors.redAccent,
+    Severity.medium => Colors.orange.shade700,
+    Severity.low => Colors.amber.shade700,
+    Severity.info => Colors.green.shade600,
+  };
 
   IconData _iconFor(Severity s) => switch (s) {
-        Severity.high => Icons.warning_rounded,
-        Severity.medium => Icons.report_problem_outlined,
-        Severity.low => Icons.lightbulb_outline,
-        Severity.info => Icons.check_circle_outline,
-      };
+    Severity.high => Icons.warning_rounded,
+    Severity.medium => Icons.report_problem_outlined,
+    Severity.low => Icons.lightbulb_outline,
+    Severity.info => Icons.check_circle_outline,
+  };
 }
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────

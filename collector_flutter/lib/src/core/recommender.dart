@@ -8,7 +8,8 @@ class Recommender {
     final recommendations = <Recommendation>[];
     final modeLabel = kReleaseMode ? 'Release' : 'Debug/Profile';
     final hasStableData = result.confidence == MetricConfidence.stable;
-    final lowFps = hasStableData &&
+    final lowFps =
+        hasStableData &&
         result.hasEnoughWindowFrames &&
         result.estimatedFps > 0 &&
         result.estimatedFps < result.targetFps * 0.75;
@@ -35,7 +36,8 @@ class Recommender {
       recommendations.add(
         Recommendation(
           title: 'Melhore a performance de frames',
-          detail: 'FPS observado: ${result.estimatedFps.toStringAsFixed(1)} de '
+          detail:
+              'FPS observado: ${result.estimatedFps.toStringAsFixed(1)} de '
               '${result.targetFps.toStringAsFixed(0)} FPS.\n'
               'Frame médio: ${result.avgFrameMs.toStringAsFixed(1)} ms; '
               'P95: ${result.frameStats.p95Ms.toStringAsFixed(1)} ms.\n\n'
@@ -68,7 +70,8 @@ class Recommender {
       recommendations.add(
         Recommendation(
           title: 'Revise pressão de memória',
-          detail: 'RSS atual: ${currentMemoryMB.toStringAsFixed(1)} MB.\n'
+          detail:
+              'RSS atual: ${currentMemoryMB.toStringAsFixed(1)} MB.\n'
               'Pico observado: ${result.memoryStats.peakRssMB.toStringAsFixed(1)} MB.\n'
               'Tendência: ${result.memoryStats.trendMBperMin.toStringAsFixed(1)} MB/min.\n\n'
               'Procure imagens grandes sem resize, caches sem limite, listas '
@@ -85,13 +88,15 @@ class Recommender {
       recommendations.add(
         Recommendation(
           title: 'Ajuste o fluxo de rede',
-          detail: 'Requests: ${result.networkStats.requestCount}; '
+          detail:
+              'Requests: ${result.networkStats.requestCount}; '
               'falhas: ${result.networkStats.failedRequests}; '
               'P95: ${result.networkStats.p95DurationMs.toStringAsFixed(0)} ms.\n\n'
               'Use cache, debounce, cancelamento de requests obsoletos e '
               'agrupe chamadas que disparam juntas.',
-          severity:
-              _hasIssue(result, 'Falhas') ? Severity.medium : Severity.low,
+          severity: _hasIssue(result, 'Falhas')
+              ? Severity.medium
+              : Severity.low,
         ),
       );
     }
@@ -124,7 +129,8 @@ class Recommender {
       recommendations.add(
         Recommendation(
           title: 'Bateria baixa',
-          detail: 'Nível de bateria: ${result.batteryLevel}%.\n\n'
+          detail:
+              'Nível de bateria: ${result.batteryLevel}%.\n\n'
               'Considere reduzir o intervalo de coleta ou desativar o '
               'monitoramento para preservar energia.',
           severity: Severity.medium,
@@ -136,7 +142,8 @@ class Recommender {
       recommendations.add(
         Recommendation(
           title: 'Tudo OK',
-          detail: 'Nenhuma anomalia detectada no snapshot atual.\n\n'
+          detail:
+              'Nenhuma anomalia detectada no snapshot atual.\n\n'
               'Modo atual: $modeLabel. Continue monitorando durante fluxos '
               'reais de navegação, carregamento e interação.',
           severity: Severity.info,

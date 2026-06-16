@@ -15,7 +15,8 @@ class ExportService {
     required AnalysisResult analysis,
     required List<Recommendation> recommendations,
   }) {
-    final networkStats = analysis.networkStats.requestCount == 0 &&
+    final networkStats =
+        analysis.networkStats.requestCount == 0 &&
             model.networkEvents.isNotEmpty
         ? NetworkStats.compute(model.networkEvents)
         : analysis.networkStats;

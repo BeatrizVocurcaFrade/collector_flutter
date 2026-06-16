@@ -100,10 +100,7 @@ class MemoryDataSource {
         }
       }
 
-      final sample = MemoryInfo(
-        currentRssInBytes: rss,
-        heapUsageInBytes: heap,
-      );
+      final sample = MemoryInfo(currentRssInBytes: rss, heapUsageInBytes: heap);
       _last = sample;
       _samples.add(sample);
       if (_samples.length > maxSamples) {

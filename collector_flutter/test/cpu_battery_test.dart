@@ -19,14 +19,14 @@ void main() {
     test('retorna -1.0 quando MissingPluginException é lançada', () async {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('collector_flutter/system'),
-        (call) async {
-          if (call.method == 'getCpuUsage') {
-            throw MissingPluginException();
-          }
-          return null;
-        },
-      );
+            const MethodChannel('collector_flutter/system'),
+            (call) async {
+              if (call.method == 'getCpuUsage') {
+                throw MissingPluginException();
+              }
+              return null;
+            },
+          );
 
       final result = await cpuSource.getCpuUsage();
       expect(result, equals(-1.0));
@@ -35,12 +35,12 @@ void main() {
     test('retorna valor do platform channel quando disponível', () async {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('collector_flutter/system'),
-        (call) async {
-          if (call.method == 'getCpuUsage') return 45.5;
-          return null;
-        },
-      );
+            const MethodChannel('collector_flutter/system'),
+            (call) async {
+              if (call.method == 'getCpuUsage') return 45.5;
+              return null;
+            },
+          );
 
       final result = await cpuSource.getCpuUsage();
       expect(result, equals(45.5));
@@ -49,14 +49,14 @@ void main() {
     test('retorna -1.0 quando PlatformException é lançada', () async {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('collector_flutter/system'),
-        (call) async {
-          if (call.method == 'getCpuUsage') {
-            throw PlatformException(code: 'ERROR');
-          }
-          return null;
-        },
-      );
+            const MethodChannel('collector_flutter/system'),
+            (call) async {
+              if (call.method == 'getCpuUsage') {
+                throw PlatformException(code: 'ERROR');
+              }
+              return null;
+            },
+          );
 
       final result = await cpuSource.getCpuUsage();
       expect(result, equals(-1.0));
@@ -65,7 +65,9 @@ void main() {
     tearDown(() {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-              const MethodChannel('collector_flutter/system'), null);
+            const MethodChannel('collector_flutter/system'),
+            null,
+          );
     });
   });
 
@@ -79,14 +81,14 @@ void main() {
     test('getBatteryLevel retorna -1 quando plugin indisponível', () async {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('collector_flutter/system'),
-        (call) async {
-          if (call.method == 'getBatteryLevel') {
-            throw MissingPluginException();
-          }
-          return null;
-        },
-      );
+            const MethodChannel('collector_flutter/system'),
+            (call) async {
+              if (call.method == 'getBatteryLevel') {
+                throw MissingPluginException();
+              }
+              return null;
+            },
+          );
 
       final result = await batterySource.getBatteryLevel();
       expect(result, equals(-1));
@@ -95,12 +97,12 @@ void main() {
     test('getBatteryLevel retorna nível correto do platform channel', () async {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('collector_flutter/system'),
-        (call) async {
-          if (call.method == 'getBatteryLevel') return 78;
-          return null;
-        },
-      );
+            const MethodChannel('collector_flutter/system'),
+            (call) async {
+              if (call.method == 'getBatteryLevel') return 78;
+              return null;
+            },
+          );
 
       final result = await batterySource.getBatteryLevel();
       expect(result, equals(78));
@@ -109,12 +111,12 @@ void main() {
     test('isCharging retorna false quando plugin indisponível', () async {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('collector_flutter/system'),
-        (call) async {
-          if (call.method == 'isCharging') throw MissingPluginException();
-          return null;
-        },
-      );
+            const MethodChannel('collector_flutter/system'),
+            (call) async {
+              if (call.method == 'isCharging') throw MissingPluginException();
+              return null;
+            },
+          );
 
       final result = await batterySource.isCharging();
       expect(result, isFalse);
@@ -123,12 +125,12 @@ void main() {
     test('isCharging retorna true quando carregando', () async {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-        const MethodChannel('collector_flutter/system'),
-        (call) async {
-          if (call.method == 'isCharging') return true;
-          return null;
-        },
-      );
+            const MethodChannel('collector_flutter/system'),
+            (call) async {
+              if (call.method == 'isCharging') return true;
+              return null;
+            },
+          );
 
       final result = await batterySource.isCharging();
       expect(result, isTrue);
@@ -137,7 +139,9 @@ void main() {
     tearDown(() {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-              const MethodChannel('collector_flutter/system'), null);
+            const MethodChannel('collector_flutter/system'),
+            null,
+          );
     });
   });
 
@@ -170,8 +174,9 @@ void main() {
     });
 
     test('CPU elevada no início da sessão não gera issue', () {
-      final result =
-          analyzer.analyzeTelemetry(makeModel(cpu: 100.0, warmup: true));
+      final result = analyzer.analyzeTelemetry(
+        makeModel(cpu: 100.0, warmup: true),
+      );
       expect(result.issues.any((i) => i.contains('CPU')), isFalse);
     });
 
@@ -196,8 +201,9 @@ void main() {
     });
 
     test('bateria baixa com carregamento não gera issue', () {
-      final result =
-          analyzer.analyzeTelemetry(makeModel(battery: 15, charging: true));
+      final result = analyzer.analyzeTelemetry(
+        makeModel(battery: 15, charging: true),
+      );
       expect(result.issues.any((i) => i.contains('Bateria')), isFalse);
     });
 

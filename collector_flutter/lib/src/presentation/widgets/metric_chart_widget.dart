@@ -17,9 +17,9 @@ class MetricChartWidget extends StatelessWidget {
     final avgMs = frameTimings.isEmpty
         ? 0.0
         : frameTimings
-                .map((f) => f.totalSpan.inMilliseconds)
-                .reduce((a, b) => a + b) /
-            frameTimings.length;
+                  .map((f) => f.totalSpan.inMilliseconds)
+                  .reduce((a, b) => a + b) /
+              frameTimings.length;
     final last = frameTimings.reversed.take(30).toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,8 +33,9 @@ class MetricChartWidget extends StatelessWidget {
             children: last.map((f) {
               final val = f.totalSpan.inMilliseconds.toDouble();
               final height = (val / 50.0).clamp(2.0, 60.0);
-              final color =
-                  val > frameBudgetMs ? Colors.redAccent : Colors.green;
+              final color = val > frameBudgetMs
+                  ? Colors.redAccent
+                  : Colors.green;
               return Expanded(
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 1),

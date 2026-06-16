@@ -282,7 +282,8 @@ class _CollectorAppState extends State<CollectorApp>
   Future<void> _runScenario(Future<void> Function() scenario) async {
     if (_scenarioRunning) {
       _showStatus(
-          'Aguarde o cenario atual terminar para manter a leitura precisa.');
+        'Aguarde o cenario atual terminar para manter a leitura precisa.',
+      );
       return;
     }
 
@@ -380,7 +381,7 @@ class _IntroCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      shadowColor: Colors.blueAccent.withOpacity(0.2),
+      shadowColor: Colors.blueAccent.withValues(alpha: 0.2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         padding: const EdgeInsets.all(18),
@@ -388,8 +389,8 @@ class _IntroCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           gradient: LinearGradient(
             colors: [
-              Colors.blueAccent.withOpacity(0.15),
-              Colors.blue.shade100.withOpacity(0.1),
+              Colors.blueAccent.withValues(alpha: 0.15),
+              Colors.blue.shade100.withValues(alpha: 0.1),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -426,35 +427,40 @@ class _BottomActionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final buttons = [
       _ActionItem(
-          icon: Icons.speed,
-          label: 'Jank',
-          color: Colors.redAccent,
-          onTap: onJank),
+        icon: Icons.speed,
+        label: 'Jank',
+        color: Colors.redAccent,
+        onTap: onJank,
+      ),
       _ActionItem(
-          icon: Icons.memory,
-          label: 'Memoria',
-          color: Colors.blueAccent,
-          onTap: onMemory),
+        icon: Icons.memory,
+        label: 'Memoria',
+        color: Colors.blueAccent,
+        onTap: onMemory,
+      ),
       _ActionItem(
-          icon: Icons.cloud_upload,
-          label: 'Rede',
-          color: Colors.orangeAccent,
-          onTap: onNetwork),
+        icon: Icons.cloud_upload,
+        label: 'Rede',
+        color: Colors.orangeAccent,
+        onTap: onNetwork,
+      ),
       _ActionItem(
-          icon: Icons.replay_circle_filled,
-          label: 'Rebuilds',
-          color: Colors.purpleAccent,
-          onTap: onRebuilds),
+        icon: Icons.replay_circle_filled,
+        label: 'Rebuilds',
+        color: Colors.purpleAccent,
+        onTap: onRebuilds,
+      ),
       _ActionItem(
-          icon: Icons.all_inclusive,
-          label: 'Combinado',
-          color: Colors.teal,
-          onTap: onCombined),
+        icon: Icons.all_inclusive,
+        label: 'Combinado',
+        color: Colors.teal,
+        onTap: onCombined,
+      ),
     ];
 
     return BottomAppBar(
       elevation: 8,
-      color: Colors.white.withOpacity(0.95),
+      color: Colors.white.withValues(alpha: 0.95),
       shape: const CircularNotchedRectangle(),
       child: SizedBox(
         height: 72,
@@ -542,8 +548,9 @@ class _ActionItemState extends State<_ActionItem> {
           curve: Curves.easeInOut,
           padding: const EdgeInsets.symmetric(vertical: 6),
           decoration: BoxDecoration(
-            color:
-                _pressed ? widget.color.withOpacity(0.12) : Colors.transparent,
+            color: _pressed
+                ? widget.color.withValues(alpha: 0.12)
+                : Colors.transparent,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(

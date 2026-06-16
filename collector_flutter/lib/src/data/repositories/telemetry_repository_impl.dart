@@ -49,8 +49,8 @@ class TelemetryRepositoryImpl implements IResourceRepository {
     this.maxCustomEvents = 1000,
     this.minCpuSamples = 3,
     this.maxCpuSamples = 5,
-  })  : cpuSource = cpuSource ?? CpuDataSource(),
-        batterySource = batterySource ?? BatteryDataSource();
+  }) : cpuSource = cpuSource ?? CpuDataSource(),
+       batterySource = batterySource ?? BatteryDataSource();
 
   /// Incrementa o contador de rebuilds. Chamado via [ResourceCollector.trackRebuild].
   void incrementRebuild() => _rebuildCount++;

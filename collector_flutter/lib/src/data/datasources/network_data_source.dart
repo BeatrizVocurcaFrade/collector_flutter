@@ -14,7 +14,7 @@ class TelemetryHttpClient extends http.BaseClient {
   final void Function(NetworkEvent event) _onEvent;
 
   TelemetryHttpClient(this._onEvent, {http.Client? inner})
-      : _inner = inner ?? http.Client();
+    : _inner = inner ?? http.Client();
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
@@ -24,10 +24,7 @@ class TelemetryHttpClient extends http.BaseClient {
     var responseBytes = 0;
     var recorded = false;
 
-    void record({
-      required int statusCode,
-      String? error,
-    }) {
+    void record({required int statusCode, String? error}) {
       if (recorded) return;
       recorded = true;
       stopwatch.stop();
@@ -54,10 +51,7 @@ class TelemetryHttpClient extends http.BaseClient {
             sink.add(chunk);
           },
           handleError: (error, stackTrace, sink) {
-            record(
-              statusCode: response.statusCode,
-              error: error.toString(),
-            );
+            record(statusCode: response.statusCode, error: error.toString());
             sink.addError(error, stackTrace);
           },
           handleDone: (sink) {
@@ -121,32 +115,28 @@ class HttpClientWrapper {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      client.delete(uri, headers: headers, body: body, encoding: encoding);
+  }) => client.delete(uri, headers: headers, body: body, encoding: encoding);
 
   Future<http.Response> patch(
     Uri uri, {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      client.patch(uri, headers: headers, body: body, encoding: encoding);
+  }) => client.patch(uri, headers: headers, body: body, encoding: encoding);
 
   Future<http.Response> post(
     Uri uri, {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      client.post(uri, headers: headers, body: body, encoding: encoding);
+  }) => client.post(uri, headers: headers, body: body, encoding: encoding);
 
   Future<http.Response> put(
     Uri uri, {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      client.put(uri, headers: headers, body: body, encoding: encoding);
+  }) => client.put(uri, headers: headers, body: body, encoding: encoding);
 
   void _record(NetworkEvent event) {
     _events.add(event);
@@ -161,10 +151,7 @@ class HttpClientWrapper {
       try {
         cb(ev);
       } catch (e) {
-        CollectorUtils.safeLog(
-          'NetworkDataSource',
-          'listener error: $e',
-        );
+        CollectorUtils.safeLog('NetworkDataSource', 'listener error: $e');
       }
     }
     CollectorUtils.safeLog(

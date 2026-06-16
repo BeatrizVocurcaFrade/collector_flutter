@@ -48,10 +48,7 @@ class CollectorBloc {
   void _start() {
     _setState(CollectorRunning());
     _periodic?.cancel();
-    _periodic = Timer.periodic(
-      collectInterval,
-      (_) => unawaited(collectNow()),
-    );
+    _periodic = Timer.periodic(collectInterval, (_) => unawaited(collectNow()));
     unawaited(collectNow());
   }
 

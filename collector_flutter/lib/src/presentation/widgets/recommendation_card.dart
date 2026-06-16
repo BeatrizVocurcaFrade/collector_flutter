@@ -21,7 +21,7 @@ class RecommendationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: _colorFor(recommendation.severity).withOpacity(0.12),
+      color: _colorFor(recommendation.severity).withValues(alpha: 0.12),
       child: ListTile(
         leading: Icon(Icons.report_problem),
         title: Text(recommendation.title),

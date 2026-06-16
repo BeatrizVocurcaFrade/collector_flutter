@@ -7,9 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [0.1.3] - 2026-06-16
+
+### Changed
+- Updated dependency constraints to support the latest stable releases of `fl_chart`, `google_fonts`, `http`, and `vm_service`.
+- Raised the minimum SDKs to Dart `3.9.0` and Flutter `3.35.0` to match the latest dependency constraints and color opacity API.
+
+### Fixed
+- Replaced deprecated `.withOpacity()` calls with `.withValues(alpha: ...)` to keep static analysis clean on current Flutter SDKs.
+
+---
+
+## [0.1.2] - 2026-06-15
+
 ### Changed
 - Replaced `syncfusion_flutter_charts` (proprietary) with `fl_chart ^0.69.0` (MIT) for the frame timing chart — removes the Syncfusion Community License requirement from downstream projects
-- All `.withOpacity()` calls replaced with `.withOpacity()` for compatibility with Flutter SDK ≥ 3.24 and < 3.27
 
 ### Fixed
 - Removed unused `_FrameSample` class after chart library migration
@@ -45,3 +59,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ResourceCollector.dispose()`: now calls `stop()` before `bloc.dispose()`, preventing in-flight collection after disposal
 
 [0.1.0]: https://github.com/BeatrizVocurcaFrade/collector_flutter/releases/tag/v0.1.0
+[0.1.2]: https://github.com/BeatrizVocurcaFrade/collector_flutter/releases/tag/v0.1.2
