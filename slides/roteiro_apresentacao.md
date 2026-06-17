@@ -18,24 +18,24 @@ Use este roteiro como fala de treino. A ideia é soar natural: se uma frase fica
 | --- | --- | ---: | ---: |
 | 1 | Capa | 0min35s | 0min35s |
 | 2 | Problema e motivação | 1min15s | 1min50s |
-| 3 | Objetivos | 0min55s | 2min45s |
-| 4 | Base científica e lacuna | 1min10s | 3min55s |
-| 5 | Proposta | 1min00s | 4min55s |
-| 6 | Metodologia | 1min05s | 6min00s |
-| 7 | Arquitetura em camadas | 1min10s | 7min10s |
-| 8 | Métricas e módulos | 1min05s | 8min15s |
-| 9 | Dashboard integrado | 0min55s | 9min10s |
-| 10 | Publicação no pub.dev | 0min45s | 9min55s |
-| 11 | Cenários controlados | 1min00s | 10min55s |
-| 12 | Resultados observados | 1min25s | 12min20s |
-| 13 | Evidências da validação funcional | 1min00s | 13min20s |
-| 14 | Testes automatizados | 0min55s | 14min15s |
+| 3 | Dimensão de humanidades | 1min05s | 2min55s |
+| 4 | Objetivos | 0min55s | 3min50s |
+| 5 | Base científica e lacuna | 1min10s | 5min00s |
+| 6 | Proposta | 1min00s | 6min00s |
+| 7 | Metodologia | 1min05s | 7min05s |
+| 8 | Arquitetura em camadas | 1min10s | 8min15s |
+| 9 | Cenários controlados | 1min00s | 9min15s |
+| 10 | Resultados observados | 1min25s | 10min40s |
+| 11 | Evidências da validação funcional | 1min00s | 11min40s |
+| 12 | Testes automatizados | 0min55s | 12min35s |
+| 13 | Dashboard integrado | 0min55s | 13min30s |
+| 14 | Publicação no pub.dev | 0min45s | 14min15s |
 | 15 | Conclusão | 0min40s | 14min55s |
 | 16 | Perguntas | 0min05s | 15min00s |
 
 Regra de ritmo:
 
-> Se estiver atrasada no slide 12, cite só um número principal por cenário e avance. Não corte a conclusão.
+> Se estiver atrasada no slide 10, cite só um número principal por cenário e avance. Não corte dashboard, publicação e conclusão.
 
 ## Tese em uma frase
 
@@ -81,9 +81,27 @@ Fala literal:
 
 Transição:
 
-> A partir dessa pergunta, eu defini os objetivos do trabalho.
+> Antes de entrar nos objetivos, eu queria explicitar a dimensão humana que orienta a proposta.
 
-### Slide 3 - Objetivos - 0min55s
+### Slide 3 - Dimensão de humanidades - 1min05s
+
+Fala literal:
+
+> Esse slide conecta a implementação com uma leitura de humanidades.
+>
+> Para o desenvolvedor, o problema não é só ter métricas. É conseguir interpretar essas métricas sem aumentar demais o atrito do trabalho. Por isso o pacote tenta transformar sinais técnicos em uma primeira leitura mais compreensível.
+>
+> Para o usuário, desempenho também é experiência: fluidez, tempo de espera, consumo de bateria, aquecimento e confiança no aplicativo.
+>
+> E existe ainda uma responsabilidade no uso de recursos. Um aplicativo que desperdiça CPU, memória, rede ou bateria impacta o dispositivo, a autonomia e o contexto de quem usa.
+>
+> Então a contribuição não é apenas medir desempenho. É aproximar evidência técnica de uma decisão mais responsável, compreensível e centrada na pessoa.
+
+Transição:
+
+> A partir dessa leitura, eu defini os objetivos do trabalho.
+
+### Slide 4 - Objetivos - 0min55s
 
 Fala literal:
 
@@ -99,7 +117,7 @@ Transição:
 
 > Para sustentar essas escolhas, a revisão bibliográfica foi importante.
 
-### Slide 4 - Base científica e lacuna - 1min10s
+### Slide 5 - Base científica e lacuna - 1min10s
 
 Fala literal:
 
@@ -117,7 +135,7 @@ Transição:
 
 > A proposta foi criar uma biblioteca integrada ao aplicativo para fazer essa primeira leitura.
 
-### Slide 5 - Proposta: biblioteca desenvolvida - 1min00s
+### Slide 6 - Proposta: biblioteca desenvolvida - 1min00s
 
 Fala literal:
 
@@ -133,7 +151,7 @@ Transição:
 
 > Para construir e avaliar essa proposta, o trabalho seguiu uma metodologia aplicada e funcional.
 
-### Slide 6 - Metodologia - 1min05s
+### Slide 7 - Metodologia - 1min05s
 
 Fala literal:
 
@@ -149,7 +167,7 @@ Transição:
 
 > A implementação foi organizada em camadas para separar coleta, análise e interface.
 
-### Slide 7 - Arquitetura em camadas - 1min10s
+### Slide 8 - Arquitetura em camadas - 1min10s
 
 Fala literal:
 
@@ -165,59 +183,9 @@ Fala literal:
 
 Transição:
 
-> Dentro dessa arquitetura, alguns módulos concentram a parte técnica principal.
-
-### Slide 8 - Métricas e módulos implementados - 1min05s
-
-Fala literal:
-
-> O pacote coleta sinais de renderização, memória, rede, CPU, bateria, eventos e rebuilds.
->
-> O `FrameDataSource` usa mecanismos do Flutter, como `SchedulerBinding` e `FrameTiming`, para receber tempos de frame. O `MemoryDataSource` usa `vm_service` e informações do processo para acompanhar memória.
->
-> Na parte de rede, o `TelemetryHttpClient` registra chamadas feitas pelo cliente instrumentado, incluindo método, URL, status, tamanho e duração.
->
-> CPU e bateria usam platform channel. No Android, a CPU é estimada a partir de informações do processo, e a bateria é lida com apoio do `BatteryManager`.
->
-> Depois, o `Analyzer`, o `Recommender`, o `ExportService` e o `CollectorBloc` conectam esses dados ao dashboard e à exportação.
-
-Transição:
-
-> A parte mais visível para quem usa a biblioteca é o dashboard integrado.
-
-### Slide 9 - Dashboard integrado - 0min55s
-
-Fala literal:
-
-> Aqui aparecem duas telas reais do painel.
->
-> À esquerda, a aplicação está em uma condição mais estável. À direita, aparecem gargalos e recomendações com maior severidade.
->
-> O objetivo do dashboard é agregar os sinais em uma leitura visual. Em vez de o desenvolvedor depender só de logs soltos, ele vê métricas, gráficos e recomendações no próprio aplicativo.
->
-> Isso ajuda a decidir qual sintoma investigar primeiro: renderização, rede, memória, CPU ou outro comportamento observado.
-
-Transição:
-
-> Além da implementação local, o pacote também foi disponibilizado para a comunidade.
-
-### Slide 10 - Publicação no pub.dev - 0min45s
-
-Fala literal:
-
-> Um ponto importante do trabalho é que o pacote foi publicado no pub.dev, que é o repositório oficial do ecossistema Dart e Flutter.
->
-> A versão local registrada no projeto é a 0.1.2, e a instalação pode ser feita por `flutter pub add collector_flutter`.
->
-> Isso é relevante porque amplia o acesso à ferramenta, facilita reprodutibilidade e permite que outros desenvolvedores ou pesquisadores testem, avaliem e evoluam a biblioteca.
->
-> Então a contribuição não ficou apenas como código local da monografia; ela foi disponibilizada em um canal usado pela comunidade Flutter.
-
-Transição:
-
 > Para avaliar o comportamento do pacote, eu executei quatro cenários controlados.
 
-### Slide 11 - Cenários controlados - 1min00s
+### Slide 9 - Cenários controlados - 1min00s
 
 Fala literal:
 
@@ -235,7 +203,7 @@ Transição:
 
 > A partir dessas execuções, alguns resultados foram registrados na monografia.
 
-### Slide 12 - Resultados observados - 1min25s
+### Slide 10 - Resultados observados - 1min25s
 
 Fala literal:
 
@@ -255,7 +223,7 @@ Transição:
 
 > Para que esses resultados não ficassem só em descrição textual, a monografia preservou evidências da execução.
 
-### Slide 13 - Evidências da validação funcional - 1min00s
+### Slide 11 - Evidências da validação funcional - 1min00s
 
 Fala literal:
 
@@ -271,7 +239,7 @@ Transição:
 
 > A outra parte importante da validação foi a suíte automatizada.
 
-### Slide 14 - Testes automatizados - 0min55s
+### Slide 12 - Testes automatizados - 0min55s
 
 Fala literal:
 
@@ -287,7 +255,39 @@ Fala literal:
 
 Transição:
 
-> Para concluir, eu volto à contribuição central do trabalho.
+> Depois dos resultados e dos testes, eu volto para a interface, que é a forma como esses sinais chegam ao desenvolvedor.
+
+### Slide 13 - Dashboard integrado - 0min55s
+
+Fala literal:
+
+> Aqui aparecem duas telas reais do painel.
+>
+> À esquerda, a aplicação está em uma condição mais estável. À direita, aparecem gargalos e recomendações com maior severidade.
+>
+> O objetivo do dashboard é agregar os sinais em uma leitura visual. Em vez de o desenvolvedor depender só de logs soltos, ele vê métricas, gráficos e recomendações no próprio aplicativo.
+>
+> Isso ajuda a decidir qual sintoma investigar primeiro: renderização, rede, memória, CPU ou outro comportamento observado.
+
+Transição:
+
+> Depois de mostrar a interface, eu fecho a entrega mostrando que o pacote também foi disponibilizado para a comunidade.
+
+### Slide 14 - Publicação no pub.dev - 0min45s
+
+Fala literal:
+
+> Um ponto importante do trabalho é que o pacote foi publicado no pub.dev, que é o repositório oficial do ecossistema Dart e Flutter.
+>
+> A versão publicada é a 0.1.3, e o pub.dev registrava 32 pessoas usando o pacote.
+>
+> Isso é relevante porque amplia o acesso à ferramenta, facilita reprodutibilidade e permite que outros desenvolvedores ou pesquisadores testem, avaliem e evoluam a biblioteca.
+>
+> Então a contribuição não ficou apenas como código local da monografia; ela foi disponibilizada em um canal usado pela comunidade Flutter.
+
+Transição:
+
+> Com a ferramenta implementada, avaliada e publicada, eu volto à contribuição central do trabalho.
 
 ### Slide 15 - Conclusão - 0min40s
 
@@ -333,7 +333,8 @@ Se houver silêncio:
 | P95 no cenário de rede | 139,5 ms | Frames mais longos sob carga de rede. |
 | Memória no ADB | RSS 236.480 KB e PSS 222.232 KB | Aumento real do processo durante alocação. |
 | Carga combinada | 17 requisições, 54 rebuilds, CPU 75,3% | Vários sinais apareceram juntos. |
-| Versão publicada | 0.1.2 | Versão local registrada no `pubspec.yaml`. |
+| Versão publicada | 0.1.3 | Versão disponível no pub.dev. |
+| Pessoas usando no pub.dev | 32 | Indica alcance inicial fora do repositório local. |
 
 ## Respostas prontas sobre validação cruzada
 
@@ -343,7 +344,7 @@ Se houver silêncio:
 
 ### Se perguntarem: "Então por que aparece ADB?"
 
-> O ADB foi usado como fonte complementar, principalmente para observar memória do processo com `dumpsys meminfo` e para confirmar a superfície Flutter com `dumpsys gfxinfo`. Ele ajudou na rastreabilidade, mas não gerou comparação estatística de precisão.
+> O ADB aparece porque eu quis ter uma fonte externa do Android para conferir se os sinais observados no pacote faziam sentido fora do próprio painel. No cenário de memória, usei `adb shell dumpsys meminfo` para observar RSS e PSS do processo e confirmar que havia crescimento real durante a alocação. No caso de renderização, usei `adb shell dumpsys gfxinfo` para confirmar a superfície Flutter ativa; porém, nessa execução, os contadores retornados não formaram uma série comparável de frames para calcular erro de FPS. Então o ADB entra como evidência complementar de rastreabilidade e coerência, não como benchmark nem como base para afirmar precisão estatística.
 
 ### Se perguntarem: "Profiler e Perfetto foram usados na validação?"
 
@@ -430,6 +431,8 @@ Se houver silêncio:
 ### 18. Por que publicar no pub.dev é importante?
 
 > Porque o pacote fica instalável pelo ecossistema oficial Dart/Flutter, aumenta a reprodutibilidade e permite que outros desenvolvedores testem e evoluam a ferramenta.
+>
+> No momento documentado nos slides, ele aparece como versão 0.1.3 e com 32 pessoas usando no pub.dev.
 
 ### 19. O pacote pode ser usado em produção?
 
@@ -441,19 +444,20 @@ Se houver silêncio:
 
 ## Plano se estiver atrasada
 
-Se chegar no slide 12 com mais de 12 minutos:
+Se chegar no slide 10 com mais de 10min40s:
 
-- No slide 12, cite um número por cenário e avance.
-- No slide 13, diga apenas que as evidências são capturas, logs, ADB, exportação e testes.
-- No slide 14, cite "60 testes" e a distribuição geral.
-- Não corte a conclusão.
+- No slide 10, cite um número por cenário e avance.
+- No slide 11, diga apenas que as evidências são capturas, logs, ADB, exportação e testes.
+- No slide 12, cite "60 testes" e a distribuição geral.
+- Preserve dashboard, publicação e conclusão, mesmo que mais curtos.
 
 ## Plano se sobrar tempo
 
-Se chegar no slide 14 com menos de 13 minutos:
+Se chegar no slide 13 com menos de 12min30s:
 
 - Explique melhor a diferença entre validação funcional e benchmark.
 - Explique P95 com calma.
+- Relacione o dashboard com a dimensão humana apresentada no início.
 - Reforce que a publicação no pub.dev amplia reprodutibilidade.
 - Dê um exemplo de recomendação gerada pelo pacote.
 

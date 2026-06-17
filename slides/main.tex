@@ -119,6 +119,38 @@
 \end{columns}
 \end{frame}
 
+\begin{frame}{Dimensão de humanidades}
+\begin{columns}[T,onlytextwidth]
+  \column{0.32\textwidth}
+  \begin{accentbox}{Desenvolvedor}
+    Métricas precisam virar sinais compreensíveis para reduzir atrito na investigação inicial.
+  \end{accentbox}
+  \column{0.32\textwidth}
+  \begin{infobox}{Usuário}
+    Desempenho afeta fluidez, espera, bateria, aquecimento e confiança no aplicativo.
+  \end{infobox}
+  \column{0.32\textwidth}
+  \begin{accentbox}{Responsabilidade}
+    Usar menos recursos também significa respeitar dispositivo, autonomia e contexto de uso.
+  \end{accentbox}
+\end{columns}
+\vspace{2mm}
+\begin{columns}[T,onlytextwidth]
+  \column{0.55\textwidth}
+  \begin{infobox}{Leitura social da ferramenta}
+    \begin{itemize}
+      \item O painel aproxima a evidência técnica da tomada de decisão.
+      \item As recomendações traduzem sintomas para ações possíveis.
+      \item A publicação aberta permite uso, crítica e evolução pela comunidade.
+    \end{itemize}
+  \end{infobox}
+  \column{0.4\textwidth}
+  \begin{tcolorbox}[width=\textwidth,colback=white,colframe=collectorCoral,boxrule=0.8pt]
+    \centering{\large\bfseries\textcolor{collectorCoral}{foco humano}}
+  \end{tcolorbox}
+\end{columns}
+\end{frame}
+
 \begin{frame}{Objetivos}
 \begin{accentbox}{Objetivo geral}
 Desenvolver e avaliar funcionalmente o pacote \collectorFlutter{}, uma biblioteca Dart/Flutter embarcada para coletar métricas, analisar sintomas e apresentar recomendações em tempo real.
@@ -245,74 +277,6 @@ Separar as camadas facilitou evoluir CPU, bateria, exportação e testes sem mis
 \end{accentbox}
 \end{frame}
 
-\begin{frame}{Métricas e módulos implementados}
-\begin{columns}[T,onlytextwidth]
-  \column{0.48\textwidth}
-  \begin{accentbox}{Sinais coletados}
-    \begin{tabularx}{\textwidth}{YY}
-      FPS e \jank{} & Memória e heap \\
-      Rede HTTP & CPU do processo \\
-      Bateria & Eventos \\
-      \rebuilds{} & Tempos de frame \\
-    \end{tabularx}
-  \end{accentbox}
-  \column{0.48\textwidth}
-  \begin{infobox}{Módulos centrais}
-    \begin{itemize}
-      \item \texttt{FrameDataSource}, \texttt{MemoryDataSource} e \texttt{TelemetryHttpClient}.
-      \item \texttt{Analyzer} e \texttt{Recommender}.
-      \item \texttt{ExportService}, \texttt{CollectorBloc} e \texttt{ResourceCollector}.
-    \end{itemize}
-  \end{infobox}
-\end{columns}
-\vspace{2mm}
-\begin{center}
-\metric{0.62\textwidth}{collectorTeal}{telemetria integrada no app}
-\end{center}
-\end{frame}
-
-\begin{frame}{Dashboard integrado}
-\begin{columns}[T,onlytextwidth]
-  \column{0.49\textwidth}
-  \centering
-  \IfFileExists{../images/figures/prototipoquandoestaok.jpeg}{%
-    \includegraphics[height=0.68\textheight]{prototipoquandoestaok.jpeg}
-  }{\metric{\textwidth}{collectorTeal}{Estado estável}}
-
-  \small Estado estável
-  \column{0.49\textwidth}
-  \centering
-  \IfFileExists{../images/figures/prototipoquandonaoestaok.jpeg}{%
-    \includegraphics[height=0.68\textheight]{prototipoquandonaoestaok.jpeg}
-  }{\metric{\textwidth}{collectorCoral}{Gargalos detectados}}
-
-  \small Gargalos detectados
-\end{columns}
-\vspace{1mm}
-\smallref{O painel agrega métricas e recomendações para orientar a primeira investigação técnica.}
-\end{frame}
-
-\begin{frame}{Publicação no pub.dev}
-\begin{columns}[T,onlytextwidth]
-  \column{0.5\textwidth}
-  \begin{accentbox}{Disponível para a comunidade}
-    O pacote foi publicado no repositório oficial do ecossistema Dart/Flutter, permitindo instalação direta por outros desenvolvedores e pesquisadores.
-  \end{accentbox}
-  \begin{infobox}{Endereço}
-    \texttt{pub.dev/packages/collector\_flutter}
-  \end{infobox}
-  \column{0.46\textwidth}
-  \metric{\textwidth}{collectorTeal}{versão 0.1.2}
-  \begin{infobox}{Impacto prático}
-    A publicação reforça reprodutibilidade, acesso aberto e possibilidade de evolução pela comunidade.
-  \end{infobox}
-\end{columns}
-\vspace{2mm}
-\begin{center}
-\texttt{flutter pub add collector\_flutter}
-\end{center}
-\end{frame}
-
 \begin{frame}{Cenários controlados}
 \begin{columns}[T,onlytextwidth]
   \column{0.25\textwidth}
@@ -421,6 +385,55 @@ Combinado & 17 requisições, 54 \textit{rebuilds}, FPS 44{,}6, P95 37{,}7 ms e 
 \end{columns}
 \vspace{2mm}
 \smallref{Os testes complementam os cenários manuais: eles não substituem experimento quantitativo, mas dão confiança nos contratos internos.}
+\end{frame}
+
+\begin{frame}{Dashboard integrado}
+\begin{columns}[T,onlytextwidth]
+  \column{0.49\textwidth}
+  \centering
+  \IfFileExists{../images/figures/prototipoquandoestaok.jpeg}{%
+    \includegraphics[height=0.68\textheight]{prototipoquandoestaok.jpeg}
+  }{\metric{\textwidth}{collectorTeal}{Estado estável}}
+
+  \small Estado estável
+  \column{0.49\textwidth}
+  \centering
+  \IfFileExists{../images/figures/prototipoquandonaoestaok.jpeg}{%
+    \includegraphics[height=0.68\textheight]{prototipoquandonaoestaok.jpeg}
+  }{\metric{\textwidth}{collectorCoral}{Gargalos detectados}}
+
+  \small Gargalos detectados
+\end{columns}
+\vspace{1mm}
+\smallref{O painel agrega métricas e recomendações para orientar a primeira investigação técnica.}
+\end{frame}
+
+\begin{frame}{Publicação no pub.dev}
+\begin{columns}[T,onlytextwidth]
+  \column{0.44\textwidth}
+  \begin{accentbox}{Disponível para a comunidade}
+    O pacote foi publicado no repositório oficial do ecossistema Dart/Flutter, permitindo instalação direta por outros desenvolvedores e pesquisadores.
+  \end{accentbox}
+  \begin{infobox}{Endereço}
+    \texttt{pub.dev/packages/}\\
+    \texttt{collector\_flutter}
+  \end{infobox}
+  \begin{tcolorbox}[width=\textwidth,colback=white,colframe=collectorTeal,boxrule=0.8pt]
+    {\Large\bfseries\textcolor{collectorTeal}{versão 0.1.3}}\par
+    {\large\bfseries\textcolor{collectorBlue}{32 pessoas usando}}
+  \end{tcolorbox}
+  \column{0.52\textwidth}
+  \centering
+  \IfFileExists{pub_dev.png}{%
+    \includegraphics[width=\textwidth]{pub_dev.png}
+  }{%
+    \metric{\textwidth}{collectorTeal}{pub.dev}
+  }
+  \vspace{1mm}
+  \begin{infobox}{Impacto prático}
+    A publicação reforça reprodutibilidade, acesso aberto e possibilidade de evolução pela comunidade.
+  \end{infobox}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Conclusão}
