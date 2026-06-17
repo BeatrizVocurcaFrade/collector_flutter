@@ -18,24 +18,23 @@ Use este roteiro como fala de treino. A ideia é soar natural: se uma frase fica
 | --- | --- | ---: | ---: |
 | 1 | Capa | 0min35s | 0min35s |
 | 2 | Problema e motivação | 1min15s | 1min50s |
-| 3 | Dimensão de humanidades | 1min05s | 2min55s |
+| 3 | Dimensão humana | 1min05s | 2min55s |
 | 4 | Objetivos | 0min55s | 3min50s |
 | 5 | Base científica e lacuna | 1min10s | 5min00s |
 | 6 | Proposta | 1min00s | 6min00s |
 | 7 | Metodologia | 1min05s | 7min05s |
 | 8 | Arquitetura em camadas | 1min10s | 8min15s |
-| 9 | Cenários controlados | 1min00s | 9min15s |
-| 10 | Resultados observados | 1min25s | 10min40s |
-| 11 | Evidências da validação funcional | 1min00s | 11min40s |
-| 12 | Testes automatizados | 0min55s | 12min35s |
-| 13 | Dashboard integrado | 0min55s | 13min30s |
-| 14 | Publicação no pub.dev | 0min45s | 14min15s |
-| 15 | Conclusão | 0min40s | 14min55s |
-| 16 | Perguntas | 0min05s | 15min00s |
+| 9 | Resultados observados | 1min25s | 9min40s |
+| 10 | Evidências da validação funcional | 1min00s | 10min40s |
+| 11 | Testes automatizados | 0min55s | 11min35s |
+| 12 | Publicação no pub.dev | 0min45s | 12min20s |
+| 13 | Próximos trabalhos | 0min55s | 13min15s |
+| 14 | Conclusão | 0min45s | 14min00s |
+| 15 | Perguntas | 0min05s | 14min05s |
 
 Regra de ritmo:
 
-> Se estiver atrasada no slide 10, cite só um número principal por cenário e avance. Não corte dashboard, publicação e conclusão.
+> Se estiver atrasada no slide 10, cite só um número principal por cenário e avance. Não corte publicação e conclusão.
 
 ## Tese em uma frase
 
@@ -83,19 +82,23 @@ Transição:
 
 > Antes de entrar nos objetivos, eu queria explicitar a dimensão humana que orienta a proposta.
 
-### Slide 3 - Dimensão de humanidades - 1min05s
+### Slide 3 - Dimensão humana - 1min05s
 
 Fala literal:
 
-> Esse slide conecta a implementação com uma leitura de humanidades.
+> Esse slide conecta a implementação com a dimensão humana do desempenho.
 >
-> Para o desenvolvedor, o problema não é só ter métricas. É conseguir interpretar essas métricas sem aumentar demais o atrito do trabalho. Por isso o pacote tenta transformar sinais técnicos em uma primeira leitura mais compreensível.
+> Visualmente, eu resumo essa dimensão como um fluxo: sintomas técnicos viram evidências compreensíveis, e essas evidências apoiam uma decisão mais responsável.
+>
+> Para o desenvolvedor, o problema não é só coletar métricas. É transformar sintomas técnicos em uma primeira leitura que ajude a decidir o que investigar e a sustentar escolhas.
 >
 > Para o usuário, desempenho também é experiência: fluidez, tempo de espera, consumo de bateria, aquecimento e confiança no aplicativo.
 >
-> E existe ainda uma responsabilidade no uso de recursos. Um aplicativo que desperdiça CPU, memória, rede ou bateria impacta o dispositivo, a autonomia e o contexto de quem usa.
+> Existe ainda uma responsabilidade no uso de recursos. Um aplicativo que desperdiça CPU, memória, rede ou bateria impacta o dispositivo, a autonomia e o contexto de quem usa.
 >
-> Então a contribuição não é apenas medir desempenho. É aproximar evidência técnica de uma decisão mais responsável, compreensível e centrada na pessoa.
+> Por isso, a contribuição não é apenas medir desempenho. É aproximar evidência técnica de uma decisão mais responsável, compreensível e centrada na pessoa.
+>
+> Essa leitura ajuda a sustentar as escolhas do pacote antes de entrar nos objetivos.
 
 Transição:
 
@@ -111,7 +114,7 @@ Fala literal:
 >
 > Também fez parte do escopo exportar sessões em JSON e timings de frames em CSV, para permitir inspeção externa.
 >
-> Por fim, a avaliação foi feita por cenários controlados, verificando se os sinais registrados acompanhavam as cargas induzidas no aplicativo de exemplo.
+> Por fim, a avaliação foi funcional e qualitativa, verificando se os sinais registrados acompanhavam as cargas induzidas no aplicativo de exemplo.
 
 Transição:
 
@@ -121,15 +124,17 @@ Transição:
 
 Fala literal:
 
-> A revisão ajudou em três pontos principais.
+> A revisão bibliográfica sustentou a proposta em dois blocos: estudos acadêmicos sobre desempenho móvel e ferramentas de profiling já existentes.
 >
-> O primeiro é energia. Trabalhos sobre consumo em dispositivos móveis mostram que CPU, rede, tempo de execução e memória estão relacionados ao uso de recursos.
+> No bloco acadêmico, trabalhos como os de Pathak, Hoque e Li mostram que energia e desempenho em dispositivos móveis dependem de fatores como CPU, rede, APIs, tempo de execução e memória.
 >
-> O segundo ponto é desempenho móvel. A literatura reforça que uma métrica isolada raramente explica o problema inteiro. FPS, frames longos, rede, memória e CPU precisam ser analisados em conjunto.
+> Outros estudos, como Rua e Saraiva e Nawrocki, reforçam que desempenho móvel é multidimensional. Uma métrica isolada raramente explica o problema inteiro; FPS, frames longos, rede, memória, CPU e bateria precisam ser analisados em conjunto.
 >
-> O terceiro ponto é diagnóstico. Não basta coletar números: o desenvolvedor precisa transformar sintomas observáveis em hipóteses de otimização.
+> O AppInsight também foi importante como referência porque mostra o valor de monitorar aplicações em execução e aproximar a análise de desempenho do comportamento real observado.
 >
-> Com isso, a lacuna identificada ficou entre medir e agir. As ferramentas externas são fortes, mas a triagem inicial ainda exige troca de contexto e interpretação manual. O trabalho entra justamente nesse espaço.
+> No bloco das ferramentas, Flutter DevTools, Android Profiler, Perfetto e Instruments oferecem dados profundos, mas normalmente exigem ferramenta externa, configuração e interpretação manual.
+>
+> Com isso, a lacuna identificada ficou entre medir e agir: faltava uma forma de reunir coleta, interpretação e recomendação no próprio fluxo de desenvolvimento Flutter. O trabalho entra justamente nesse espaço.
 
 Transição:
 
@@ -155,7 +160,7 @@ Transição:
 
 Fala literal:
 
-> A metodologia começa pela revisão bibliográfica, passa pela definição dos requisitos e da arquitetura, depois pela implementação do pacote e, por fim, pela execução de cenários controlados.
+> A metodologia começa pela revisão bibliográfica, passa pela definição dos requisitos e da arquitetura, depois pela implementação do pacote e, por fim, pela avaliação funcional e qualitativa.
 >
 > A avaliação teve caráter funcional e qualitativo. Isso significa que o objetivo foi verificar se o pacote funcionava no aplicativo de exemplo e se os sinais coletados eram coerentes com os sintomas induzidos.
 >
@@ -183,27 +188,9 @@ Fala literal:
 
 Transição:
 
-> Para avaliar o comportamento do pacote, eu executei quatro cenários controlados.
+> Com essa estrutura definida, eu passo para os resultados observados na validação funcional.
 
-### Slide 9 - Cenários controlados - 1min00s
-
-Fala literal:
-
-> Foram definidos quatro cenários no aplicativo de exemplo.
->
-> O primeiro cenário força rebuilds, ou reconstruções intensivas da interface. Ele ajuda a observar impacto em renderização, FPS, P95 e frames longos.
->
-> O segundo cenário dispara requisições HTTP simultâneas. O foco é verificar eventos de rede, latência e possível impacto na fluidez.
->
-> O terceiro cenário provoca alocação intensiva de memória. Nesse caso, o objetivo foi observar crescimento do processo e confrontar com leitura complementar por ADB.
->
-> O quarto cenário combina interface, rede, memória e CPU, porque aplicações reais frequentemente apresentam mais de um sinal ao mesmo tempo.
-
-Transição:
-
-> A partir dessas execuções, alguns resultados foram registrados na monografia.
-
-### Slide 10 - Resultados observados - 1min25s
+### Slide 9 - Resultados observados - 1min25s
 
 Fala literal:
 
@@ -223,11 +210,11 @@ Transição:
 
 > Para que esses resultados não ficassem só em descrição textual, a monografia preservou evidências da execução.
 
-### Slide 11 - Evidências da validação funcional - 1min00s
+### Slide 10 - Evidências da validação funcional - 1min00s
 
 Fala literal:
 
-> Essas imagens foram geradas no projeto e documentam os quatro cenários: rebuilds, rede, memória e carga combinada.
+> Essas imagens foram geradas no projeto e documentam as execuções funcionais: rebuilds, rede, memória, jank e carga combinada.
 >
 > Além das capturas, a evidência inclui logs do aplicativo, exportação de dados, leituras por ADB e a suíte de testes automatizados.
 >
@@ -239,7 +226,7 @@ Transição:
 
 > A outra parte importante da validação foi a suíte automatizada.
 
-### Slide 12 - Testes automatizados - 0min55s
+### Slide 11 - Testes automatizados - 0min55s
 
 Fala literal:
 
@@ -249,31 +236,15 @@ Fala literal:
 >
 > Esses testes verificam cálculos internos, serialização, recomendações, exportação em JSON e CSV e comportamento de fallback dos canais nativos.
 >
-> Os testes não provam desempenho real sozinhos, mas complementam os cenários manuais porque verificam contratos internos da implementação.
+> Os testes não provam desempenho real sozinhos, mas complementam as execuções manuais porque verificam contratos internos da implementação.
 >
 > Então a avaliação junta duas frentes: o pacote funcionando no app de exemplo e a lógica interna sendo exercitada por testes.
 
 Transição:
 
-> Depois dos resultados e dos testes, eu volto para a interface, que é a forma como esses sinais chegam ao desenvolvedor.
+> Depois dos resultados e dos testes, eu fecho a entrega mostrando que o pacote também foi disponibilizado para a comunidade.
 
-### Slide 13 - Dashboard integrado - 0min55s
-
-Fala literal:
-
-> Aqui aparecem duas telas reais do painel.
->
-> À esquerda, a aplicação está em uma condição mais estável. À direita, aparecem gargalos e recomendações com maior severidade.
->
-> O objetivo do dashboard é agregar os sinais em uma leitura visual. Em vez de o desenvolvedor depender só de logs soltos, ele vê métricas, gráficos e recomendações no próprio aplicativo.
->
-> Isso ajuda a decidir qual sintoma investigar primeiro: renderização, rede, memória, CPU ou outro comportamento observado.
-
-Transição:
-
-> Depois de mostrar a interface, eu fecho a entrega mostrando que o pacote também foi disponibilizado para a comunidade.
-
-### Slide 14 - Publicação no pub.dev - 0min45s
+### Slide 12 - Publicação no pub.dev - 0min45s
 
 Fala literal:
 
@@ -287,9 +258,27 @@ Fala literal:
 
 Transição:
 
-> Com a ferramenta implementada, avaliada e publicada, eu volto à contribuição central do trabalho.
+> Com a ferramenta implementada, avaliada e publicada, eu destaco os próximos passos técnicos.
 
-### Slide 15 - Conclusão - 0min40s
+### Slide 13 - Próximos trabalhos - 0min55s
+
+Fala literal:
+
+> Como próximos trabalhos, o primeiro caminho é aprofundar o diagnóstico de desempenho para torná-lo mais acessível, contínuo e acionável.
+>
+> Isso envolve refinar a ferramenta integrada para que a primeira leitura dos sintomas técnicos seja ainda mais clara dentro do próprio aplicativo.
+>
+> Também é importante averiguar os achados com ferramenta externa, como Flutter DevTools, Perfetto e Android Profiler, especialmente quando a investigação precisar sair da primeira leitura e entrar em análise detalhada.
+>
+> Outro ponto é ampliar a avaliação funcional e qualitativa em dispositivos físicos, aplicações reais e perfis diferentes de uso.
+>
+> Por fim, a suíte automatizada pode ser expandida junto com a explicitação do limite metodológico de cada versão.
+
+Transição:
+
+> Com esses próximos passos, eu volto à contribuição central do trabalho.
+
+### Slide 14 - Conclusão - 0min45s
 
 Fala literal:
 
@@ -297,7 +286,7 @@ Fala literal:
 >
 > A biblioteca desenvolvida reúne coleta, análise, dashboard, recomendações, exportação, CPU, bateria e testes em uma arquitetura organizada.
 >
-> A avaliação foi funcional e qualitativa, com cenários controlados, painel, logs, capturas, ADB e 60 testes automatizados.
+> A avaliação foi funcional e qualitativa, com painel, logs, capturas, ADB e 60 testes automatizados.
 >
 > Além disso, a publicação no pub.dev torna o pacote acessível para a comunidade, permitindo uso, reprodução e evolução futura.
 >
@@ -307,7 +296,7 @@ Transição:
 
 > Obrigada pela atenção. Fico à disposição para perguntas.
 
-### Slide 16 - Perguntas - 0min05s
+### Slide 15 - Perguntas - 0min05s
 
 Fala literal:
 
@@ -315,13 +304,13 @@ Fala literal:
 
 Se houver silêncio:
 
-> Posso detalhar a arquitetura, os cenários de validação funcional, a publicação no pub.dev ou a diferença entre a ferramenta proposta e Profiler/Perfetto.
+> Posso detalhar a arquitetura, as evidências de validação funcional, a publicação no pub.dev ou a diferença entre a ferramenta proposta e Profiler/Perfetto.
 
 ## Números que você precisa saber de cabeça
 
 | Item | Número | Como falar |
 | --- | ---: | --- |
-| Cenários controlados | 4 | Rebuilds, rede, memória e carga combinada. |
+| Execuções funcionais | 5 | Rebuilds, rede, memória, jank e carga combinada. |
 | Testes automatizados | 60 | Verificam análise, CPU/bateria, recomendações e exportação. |
 | Testes de análise | 24 | Estatísticas, sintomas e contratos do `Analyzer`. |
 | Testes de CPU/bateria | 17 | Platform channel, fallback e integração de métricas. |
@@ -352,7 +341,7 @@ Se houver silêncio:
 
 ### Se perguntarem: "Isso é benchmark?"
 
-> Não. É uma avaliação funcional em cenários controlados. Um benchmark exigiria múltiplas rodadas, amostra maior, diferentes dispositivos, cálculo de média, desvio padrão e erro em relação a ferramentas de referência.
+> Não. É uma avaliação funcional e qualitativa. Um benchmark exigiria múltiplas rodadas, amostra maior, diferentes dispositivos, cálculo de média, desvio padrão e erro em relação a ferramentas de referência.
 
 ### Se perguntarem: "O que faltaria para uma validação cruzada formal?"
 
@@ -471,7 +460,7 @@ Use quando a banca tentar puxar para algo que não foi feito:
 
 > Profiler e Perfetto são ferramentas de aprofundamento. O pacote atua antes, na triagem integrada ao app.
 
-> O resultado mostra operacionalidade e coerência dos sinais nos cenários controlados, dentro do escopo definido na monografia.
+> O resultado mostra operacionalidade e coerência dos sinais nas execuções funcionais, dentro do escopo definido na monografia.
 
 ## Fechamento para ensaio
 

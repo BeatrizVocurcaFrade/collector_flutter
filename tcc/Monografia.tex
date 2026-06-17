@@ -16,7 +16,7 @@
 \usepackage{abntex2abrev}
 
 % Caminho padrão das imagens compartilhadas pela monografia e pelos slides
-\graphicspath{{../images/figures/}{../images/mermaid/outputs/}}
+\graphicspath{{../images/figures/}{../images/mermaid/outputs/}{../slides/}}
 
 %----------------- FORMATAÇÃO DE PÁGINA -----------------
 \usepackage[a4paper,
@@ -90,7 +90,6 @@
 
 % 4. Metodologia
 \include{Metodologia/inicio}
-\include{Metodologia/cronograma}
 \include{Metodologia/desenvolvimento}
 \include{Metodologia/teste}
 
@@ -100,12 +99,11 @@
 % 6. Conclusão
 \include{Conclusao/Conclusao}
 
-% Referências
-\include{Bibliografia/Bibliografia}
-
 \appendix
-\include{Apendices/cronogramas}
 \include{Apendices/evidencias}
 \include{Apendices/testes}
+
+% Referências
+\include{Bibliografia/Bibliografia}
 
 \end{document}

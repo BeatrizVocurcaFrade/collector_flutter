@@ -26,33 +26,41 @@ Carga combinada & 17 requisições; 54 \textit{rebuilds}; FPS 44{,}6; P95 37{,}7
 \end{tabular}
 \end{table}
 
+\clearpage
 \noindent
 Os contadores zerados de \texttt{gfxinfo} foram mantidos como evidência da limitação observada: nesta execução, o aplicativo Flutter renderizou por uma \textit{SurfaceView}, e os agregados HWUI tradicionais não forneceram uma série de FPS comparável à métrica interna do pacote.
 
-\begin{figure}[p]
+\begin{figure}[H]
   \centering
-  \includegraphics[height=0.82\textheight]{evidencia_cenario_rebuilds.png}
+  \includegraphics[height=0.68\textheight]{rebuild.jpeg}
   \caption{Evidência visual do cenário de reconstruções intensivas de interface.}
   \label{fig:ap-evidencia-rebuilds}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[!htbp]
   \centering
-  \includegraphics[height=0.82\textheight]{evidencia_cenario_rede.png}
+  \includegraphics[height=0.68\textheight]{rede.jpeg}
   \caption{Evidência visual do cenário de chamadas de rede simultâneas.}
   \label{fig:ap-evidencia-rede}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[!htbp]
   \centering
-  \includegraphics[height=0.82\textheight]{evidencia_cenario_memoria.png}
+  \includegraphics[height=0.68\textheight]{memoria.jpeg}
   \caption{Evidência visual do cenário de alocação intensiva de memória.}
   \label{fig:ap-evidencia-memoria}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[!htbp]
   \centering
-  \includegraphics[height=0.82\textheight]{evidencia_cenario_combinado.png}
+  \includegraphics[height=0.68\textheight]{jank.jpeg}
+  \caption{Evidência visual do alerta de \textit{jank} no painel.}
+  \label{fig:ap-evidencia-jank}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[height=0.68\textheight]{combinado.jpeg}
   \caption{Evidência visual do cenário de carga combinada.}
   \label{fig:ap-evidencia-combinado}
 \end{figure}

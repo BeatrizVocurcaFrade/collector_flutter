@@ -24,8 +24,8 @@ Este documento descreve passo a passo como publicar o `collector_flutter` no [pu
 
 | Ferramenta | Versão mínima | Verificação |
 |---|---|---|
-| Dart SDK | 3.5.0 | `dart --version` |
-| Flutter SDK | 3.24.0 | `flutter --version` |
+| Dart SDK | 3.9.0 | `dart --version` |
+| Flutter SDK | 3.35.0 | `flutter --version` |
 | pana (opcional, recomendado) | qualquer | `dart pub global activate pana` |
 
 ### Conta no pub.dev
@@ -64,9 +64,16 @@ topics:                               # ✅ máx. 5; minúsculas, alfanumérico 
   - telemetry
 
 environment:
-  sdk: ">=3.5.0 <4.0.0"             # ✅ range conservador
-  flutter: ">=3.24.0"                # ✅ versão mínima testada
+  sdk: ">=3.9.0 <4.0.0"             # ✅ range validado no pub.dev
+  flutter: ">=3.35.0"                # ✅ versão mínima testada
 ```
+
+> **Atenção ao SDK local:** a versão `0.1.3` foi preparada com Flutter `3.41.9`
+> (Dart `3.11.5`). Se o comando `flutter --version` apontar para Flutter
+> `3.24.3` ou outro SDK antigo, a resolução de dependências falhará antes do
+> app rodar. Use a instalação FVM mais recente, por exemplo
+> `/home/usuario/fvm/versions/3.41.9/bin/flutter`, ou ajuste o PATH/FVM do
+> terminal para uma versão `>=3.35.0`.
 
 > **Atenção:** O campo `publish_to: none` foi **removido** do `pubspec.yaml`. Quando esse campo está presente, `dart pub publish` recusa a publicação. Se quiser travar temporariamente a publicação acidental, adicione `publish_to: none` e remova apenas quando estiver pronto.
 
@@ -219,7 +226,7 @@ https://pub.dev/packages/collector_flutter/score
 | **Suporte a plataformas** | até 20 | Múltiplas plataformas detectadas via análise de imports |
 | **Passar análise estática** | até 30 | Zero erros/warnings em `dart analyze` / `flutter analyze` |
 | **Dependências atualizadas** | até 20 | Compatibilidade com o Flutter/Dart SDK mais recentes e dependências atuais |
-| **Null safety** | até 20 | Adoção de null safety (já atendido — Dart ≥ 3.5) |
+| **Null safety** | até 20 | Adoção de null safety (já atendido — Dart ≥ 3.9) |
 
 ### 7.3 Adicionar badges ao README
 

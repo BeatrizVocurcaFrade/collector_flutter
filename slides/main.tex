@@ -119,36 +119,52 @@
 \end{columns}
 \end{frame}
 
-\begin{frame}{Dimensão de humanidades}
+\begin{frame}{Dimensão humana}
+\begin{accentbox}[top=0.8mm,bottom=0.8mm]{Ideia central}
+  Desempenho não é só número: ele afeta a experiência, o dispositivo e a confiança de quem usa o aplicativo.
+\end{accentbox}
+\vspace{0.4mm}
+\centering
+\begin{tikzpicture}[
+  node distance=4mm,
+  flow/.style={
+    fill=white,
+    rounded corners=1.5mm,
+    line width=0.55pt,
+    align=center,
+    text width=0.27\textwidth,
+    minimum height=1.25cm
+  },
+  arrow/.style={-{Stealth[length=2.2mm]},line width=0.7pt,draw=collectorCoral}
+]
+  \node[flow,draw=collectorTeal] (sintomas)
+    {{\bfseries Sintomas técnicos}\\[-0.2mm]{\scriptsize \jank{}, espera, rede\\memória e bateria}};
+  \node[flow,draw=collectorBlue,right=of sintomas] (evidencia)
+    {{\bfseries Evidência compreensível}\\[-0.2mm]{\scriptsize métricas e alertas\\recomendações no app}};
+  \node[flow,draw=collectorCoral,right=of evidencia] (decisao)
+    {{\bfseries Decisão responsável}\\[-0.2mm]{\scriptsize priorizar correções\\sustentar escolhas}};
+  \draw[arrow] (sintomas) -- (evidencia);
+  \draw[arrow] (evidencia) -- (decisao);
+\end{tikzpicture}
+\vspace{0.4mm}
 \begin{columns}[T,onlytextwidth]
   \column{0.32\textwidth}
-  \begin{accentbox}{Desenvolvedor}
-    Métricas precisam virar sinais compreensíveis para reduzir atrito na investigação inicial.
-  \end{accentbox}
-  \column{0.32\textwidth}
-  \begin{infobox}{Usuário}
-    Desempenho afeta fluidez, espera, bateria, aquecimento e confiança no aplicativo.
+  \begin{infobox}[top=0.8mm,bottom=0.8mm]{Pessoa usuária}
+    Fluidez, espera, bateria, aquecimento e confiança.
   \end{infobox}
   \column{0.32\textwidth}
-  \begin{accentbox}{Responsabilidade}
-    Usar menos recursos também significa respeitar dispositivo, autonomia e contexto de uso.
+  \begin{accentbox}[top=0.8mm,bottom=0.8mm]{Desenvolvimento}
+    Ler sinais no app e decidir o foco.
   \end{accentbox}
-\end{columns}
-\vspace{2mm}
-\begin{columns}[T,onlytextwidth]
-  \column{0.55\textwidth}
-  \begin{infobox}{Leitura social da ferramenta}
-    \begin{itemize}
-      \item O painel aproxima a evidência técnica da tomada de decisão.
-      \item As recomendações traduzem sintomas para ações possíveis.
-      \item A publicação aberta permite uso, crítica e evolução pela comunidade.
-    \end{itemize}
+  \column{0.32\textwidth}
+  \begin{infobox}[top=0.8mm,bottom=0.8mm]{Recursos}
+    Uso responsável de CPU, memória, rede e bateria.
   \end{infobox}
-  \column{0.4\textwidth}
-  \begin{tcolorbox}[width=\textwidth,colback=white,colframe=collectorCoral,boxrule=0.8pt]
-    \centering{\large\bfseries\textcolor{collectorCoral}{foco humano}}
-  \end{tcolorbox}
 \end{columns}
+\vspace{0.2mm}
+\begin{tcolorbox}[width=\textwidth,colback=white,colframe=collectorCoral,boxrule=0.8pt,top=0.8mm,bottom=0.8mm]
+  \centering\bfseries\textcolor{collectorCoral}{Aproximar evidência técnica de uma decisão compreensível e centrada na pessoa.}
+\end{tcolorbox}
 \end{frame}
 
 \begin{frame}{Objetivos}
@@ -167,34 +183,36 @@ Desenvolver e avaliar funcionalmente o pacote \collectorFlutter{}, uma bibliotec
   \begin{itemize}
     \item Gerar recomendações heurísticas por severidade.
     \item Exportar sessões em JSON e \textit{frame timings} em CSV.
-    \item Validar o comportamento em cenários controlados.
+    \item Validar o comportamento em execuções funcionais.
   \end{itemize}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Base científica e lacuna}
 \begin{columns}[T,onlytextwidth]
-  \column{0.32\textwidth}
-  \begin{accentbox}{Energia}
-    Consumo móvel se relaciona a CPU, rede, execução, memória e uso contínuo do dispositivo.
+  \column{0.56\textwidth}
+  \begin{accentbox}[fontupper=\scriptsize,top=0.8mm,bottom=0.8mm]{Trabalhos acadêmicos}
+    \textbf{Energia e recursos} -- Pathak, Hoque e Li relacionam consumo a CPU, rede, APIs, execução e memória.\par
+    \vspace{0.5mm}
+    \textbf{Monitoramento em execução} -- AppInsight mostra que dados próximos ao uso real ajudam a localizar gargalos.\par
+    \vspace{0.5mm}
+    \textbf{Visão multidimensional} -- Rua e Saraiva; Nawrocki reforçam energia, tempo, memória e responsividade em conjunto.
   \end{accentbox}
-  \column{0.32\textwidth}
-  \begin{infobox}{Performance móvel}
-    A análise precisa observar múltiplos sinais, não apenas uma métrica isolada.
+  \column{0.4\textwidth}
+  \begin{infobox}[fontupper=\scriptsize,top=0.8mm,bottom=0.8mm]{Ferramentas existentes}
+    \textbf{DevTools, Android Profiler, Perfetto e Instruments}: dados profundos de execução.\par
+    \vspace{0.5mm}
+    \textbf{Limite prático}: ferramenta externa, configuração e interpretação manual.\par
+    \vspace{0.5mm}
+    \textbf{Firebase}: útil em produção, mas com menor detalhe de renderização e CPU.
   \end{infobox}
-  \column{0.32\textwidth}
-  \begin{accentbox}{Diagnóstico}
-    Sintomas técnicos precisam virar hipóteses de otimização compreensíveis.
-  \end{accentbox}
 \end{columns}
-\vspace{3mm}
-\begin{center}
-\begin{tcolorbox}[width=0.86\textwidth,colback=white,colframe=collectorTeal,boxrule=0.8pt]
-\centering
-\bfseries
-A lacuna está entre medir e agir: ferramentas externas são fortes, mas a triagem inicial ainda tem atrito no fluxo diário de desenvolvimento.
+\vspace{1mm}
+\begin{tcolorbox}[width=\textwidth,colback=white,colframe=collectorTeal,boxrule=0.8pt,top=0.9mm,bottom=0.9mm]
+  \textbf{O que a base sustenta:} observar FPS, \jank{}, memória, rede, CPU, bateria e \rebuilds{} em conjunto.\par
+  \vspace{0.4mm}
+  \textbf{Lacuna:} coleta, interpretação e recomendação ainda ficam separadas; a proposta entra entre medir e agir com diagnóstico embarcado no app.
 \end{tcolorbox}
-\end{center}
 \end{frame}
 
 \begin{frame}{Proposta: biblioteca desenvolvida}
@@ -239,7 +257,7 @@ A lacuna está entre medir e agir: ferramentas externas são fortes, mas a triag
 \begin{columns}[T,onlytextwidth]
   \column{0.5\textwidth}
   \begin{accentbox}{Tipo de avaliação}
-    Validação funcional em app de exemplo, com observação de sinais induzidos por cenários controlados.
+    Validação funcional em app de exemplo, com observação de sinais técnicos induzidos.
   \end{accentbox}
   \column{0.5\textwidth}
   \begin{infobox}{Critério de leitura}
@@ -247,7 +265,6 @@ A lacuna está entre medir e agir: ferramentas externas são fortes, mas a triag
   \end{infobox}
 \end{columns}
 \vspace{2mm}
-\smallref{A monografia não apresenta benchmark estatístico nem cálculo formal de erro em relação a ferramentas externas.}
 \end{frame}
 
 \begin{frame}{Arquitetura em camadas}
@@ -277,37 +294,11 @@ Separar as camadas facilitou evoluir CPU, bateria, exportação e testes sem mis
 \end{accentbox}
 \end{frame}
 
-\begin{frame}{Cenários controlados}
-\begin{columns}[T,onlytextwidth]
-  \column{0.25\textwidth}
-  \begin{accentbox}{1. Rebuilds}
-    Reconstruções intensivas de interface.
-  \end{accentbox}
-  \column{0.25\textwidth}
-  \begin{infobox}{2. Rede}
-    Requisições HTTP simultâneas.
-  \end{infobox}
-  \column{0.25\textwidth}
-  \begin{accentbox}{3. Memória}
-    Alocação intensiva de objetos.
-  \end{accentbox}
-  \column{0.25\textwidth}
-  \begin{infobox}{4. Combinado}
-    Interface, rede, memória e CPU.
-  \end{infobox}
-\end{columns}
-\vspace{4mm}
-\begin{center}
-\bfseries
-Cada cenário foi usado para verificar se os sinais técnicos acompanhavam a carga induzida.
-\end{center}
-\end{frame}
-
 \begin{frame}{Resultados observados}
 \footnotesize
 \begin{tabularx}{\textwidth}{L{2.6cm}Y Y}
 \toprule
-\textbf{Cenário} & \textbf{Sinais registrados} & \textbf{Leitura para a defesa} \\
+\textbf{Cenário} & \textbf{Sinais registrados} & \textbf{Leitura} \\
 \midrule
 Rebuilds & 30 \textit{rebuilds}, FPS 55{,}4, P95 20{,}4 ms e 2 frames longos. & A carga de interface foi registrada pelo painel. \\
 Rede & 9 requisições, FPS 42{,}9, P95 139{,}5 ms e 4 frames longos. & O cliente instrumentado registrou eventos e latências. \\
@@ -321,26 +312,32 @@ Combinado & 17 requisições, 54 \textit{rebuilds}, FPS 44{,}6, P95 37{,}7 ms e 
 
 \begin{frame}{Evidências da validação funcional}
 \begin{columns}[T,onlytextwidth]
-  \column{0.25\textwidth}
+  \column{0.20\textwidth}
   \centering
-  \includegraphics[height=0.47\textheight]{evidencia_cenario_rebuilds.png}
+  \includegraphics[height=0.47\textheight]{rebuild.jpeg}
 
   \scriptsize Rebuilds
-  \column{0.25\textwidth}
+  \column{0.20\textwidth}
   \centering
-  \includegraphics[height=0.47\textheight]{evidencia_cenario_rede.png}
+  \includegraphics[height=0.47\textheight]{rede.jpeg}
 
   \scriptsize Rede
-  \column{0.25\textwidth}
+  \column{0.20\textwidth}
   \centering
-  \includegraphics[height=0.47\textheight]{evidencia_cenario_memoria.png}
+  \includegraphics[height=0.47\textheight]{memoria.jpeg}
 
   \scriptsize Memória
-  \column{0.25\textwidth}
+  \column{0.20\textwidth}
   \centering
-  \includegraphics[height=0.47\textheight]{evidencia_cenario_combinado.png}
+  \includegraphics[height=0.47\textheight]{jank.jpeg}
+
+  \scriptsize Jank
+  \column{0.20\textwidth}
+  \centering
+  \includegraphics[height=0.47\textheight]{combinado.jpeg}
 
   \scriptsize Carga combinada
+
 \end{columns}
 \vspace{2mm}
 \begin{columns}[T,onlytextwidth]
@@ -384,28 +381,7 @@ Combinado & 17 requisições, 54 \textit{rebuilds}, FPS 44{,}6, P95 37{,}7 ms e 
   \end{tikzpicture}
 \end{columns}
 \vspace{2mm}
-\smallref{Os testes complementam os cenários manuais: eles não substituem experimento quantitativo, mas dão confiança nos contratos internos.}
-\end{frame}
-
-\begin{frame}{Dashboard integrado}
-\begin{columns}[T,onlytextwidth]
-  \column{0.49\textwidth}
-  \centering
-  \IfFileExists{../images/figures/prototipoquandoestaok.jpeg}{%
-    \includegraphics[height=0.68\textheight]{prototipoquandoestaok.jpeg}
-  }{\metric{\textwidth}{collectorTeal}{Estado estável}}
-
-  \small Estado estável
-  \column{0.49\textwidth}
-  \centering
-  \IfFileExists{../images/figures/prototipoquandonaoestaok.jpeg}{%
-    \includegraphics[height=0.68\textheight]{prototipoquandonaoestaok.jpeg}
-  }{\metric{\textwidth}{collectorCoral}{Gargalos detectados}}
-
-  \small Gargalos detectados
-\end{columns}
-\vspace{1mm}
-\smallref{O painel agrega métricas e recomendações para orientar a primeira investigação técnica.}
+\smallref{Os testes complementam execuções manuais e fortalecem contratos internos da implementação.}
 \end{frame}
 
 \begin{frame}{Publicação no pub.dev}
@@ -436,11 +412,39 @@ Combinado & 17 requisições, 54 \textit{rebuilds}, FPS 44{,}6, P95 37{,}7 ms e 
 \end{columns}
 \end{frame}
 
+\begin{frame}{Próximos trabalhos}
+\begin{columns}[T,onlytextwidth]
+  \column{0.33\textwidth}
+  \begin{accentbox}{Desempenho}
+    Diagnóstico acessível,\\ contínuo e acionável.
+  \end{accentbox}
+  \column{0.33\textwidth}
+  \begin{infobox}{Ferramenta integrada}
+    Sintomas técnicos no app.
+  \end{infobox}
+  \column{0.33\textwidth}
+  \begin{accentbox}{Ferramenta externa}
+    \RaggedRight Averiguar achados com \devtools{}, Perfetto e Android Profiler.
+  \end{accentbox}
+\end{columns}
+\vspace{2mm}
+\begin{columns}[T,onlytextwidth]
+  \column{0.5\textwidth}
+  \begin{infobox}{Validação}
+    Ampliar avaliação funcional e qualitativa em perfis reais.
+  \end{infobox}
+  \column{0.5\textwidth}
+  \begin{infobox}{Testes}
+    Expandir a suíte automatizada e explicitar o limite metodológico.
+  \end{infobox}
+\end{columns}
+\end{frame}
+
 \begin{frame}{Conclusão}
 \begin{itemize}
   \item A biblioteca desenvolvida aproxima o primeiro diagnóstico de desempenho do fluxo real de desenvolvimento Flutter.
   \item A arquitetura em camadas sustentou coleta, análise, dashboard, exportação, CPU, bateria e testes.
-  \item A avaliação foi funcional e qualitativa: cenários controlados, painel, logs, capturas, ADB e 60 testes.
+  \item A avaliação foi funcional e qualitativa: painel, logs, capturas, ADB e 60 testes.
   \item A publicação no pub.dev amplia o acesso ao pacote e permite que a comunidade teste, avalie e evolua a ferramenta.
 \end{itemize}
 \vspace{3mm}
