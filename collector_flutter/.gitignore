@@ -29,3 +29,17 @@ migrate_working_dir/
 .flutter-plugins
 .flutter-plugins-dependencies
 build/
+
+# Machine-specific / generated when the plugin is opened as an app
+android/local.properties
+android/app/
+ios/Flutter/
+ios/Runner/
+example/android/local.properties
+
+# Local tooling
+.firebase/
+.agents/
+.claude/
+.codex
+skills-lock.json
