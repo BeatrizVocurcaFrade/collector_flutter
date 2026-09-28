@@ -2,8 +2,8 @@
 
 [![pub package](https://img.shields.io/pub/v/collector_flutter.svg)](https://pub.dev/packages/collector_flutter)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Flutter](https://img.shields.io/badge/Flutter-%E2%89%A53.24-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
-[![Dart](https://img.shields.io/badge/Dart-%E2%89%A53.5-0175C2?logo=dart&logoColor=white)](https://dart.dev)
+[![Flutter](https://img.shields.io/badge/Flutter-%E2%89%A53.35-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-%E2%89%A53.9-0175C2?logo=dart&logoColor=white)](https://dart.dev)
 
 Real-time performance monitoring for Flutter apps — FPS, jank, memory, HTTP traffic, and custom events, with an **embedded visual dashboard** and **actionable recommendations**, all in pure Dart with no external tools required.
 
@@ -28,7 +28,7 @@ Add `collector_flutter` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  collector_flutter: ^0.1.0
+  collector_flutter: ^0.1.3
 ```
 
 Run:
